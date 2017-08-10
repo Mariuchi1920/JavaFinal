@@ -1,0 +1,111 @@
+@CHARSET "ISO-8859-1";
+*{
+	margin:0px;
+	/*borde de afuera*/
+	padding:0px;
+
+}
+body{
+	/*esto es color de fondo*/
+	background: #D7DBDD;
+	/*eesto es color de letras */
+	color: orange;
+	font-family: arial;
+	font-size: 16 px;
+
+
+}
+#usuario{
+background: #F1FBF5;
+}
+#contenedor{
+	border: 10px;
+	padding: 10px;
+	text-align: center;
+	margin: 0px auto;
+	
+	background-color: #ddd;
+	
+}
+#Logo{
+	background: #2E4053;
+	display: block;
+	text-align: right;
+	
+	
+
+
+}
+
+#menu{
+
+	/*background: #58D68D ;*/
+	height: 100px;/*achicar cuando se pongan en linea*/
+	font-family: arial black;
+	font-size: 16 px;
+	margin: auto;
+	width: 600px;
+	
+}
+
+ ul, ol {
+	/*margin: 10px;
+	padding-top: 5px; */
+	list-style: none;
+	/*word-spacing: 45px;*/
+}
+/*
+para acceder a la class nav con el .
+*/
+.nav li a {
+	background-color: #566573;/*color enegro*/
+	color: #fff;
+	text-decoration: none;
+	padding: 10px 15px;/*ancho y largo*/
+	display: block;/*los elementos se pueden agrupar*/
+}
+
+.nav > li{
+	float: left;
+
+}
+/*para cuando se pase el  mouse por arriba el hover*/
+.nav li a:hover{
+	background-color: #A9DFBF ;
+
+	
+}
+.nav li ul{
+	display: none;/*Todos los sub menus desaparecen*/
+	position: absolute;
+	min-width: 140px;
+
+}
+.nav li:hover > ul{
+	display: block;
+}
+
+#Pie{
+	padding:10px;
+	margin: 0px;
+	background: #2E4053;
+	color: white;
+	
+}
+#Logopie {
+	margin: 10px;
+
+}
+#contenido{
+	
+	background: white;
+	height: auto;
+}
+#contenidoIz{
+	background: white;
+	height: auto;
+}
+#contenidoDer{
+	background:white;
+	height: auto;
+}

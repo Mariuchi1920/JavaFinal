@@ -1,0 +1,48 @@
+@CHARSET "ISO-8859-1";
+*{
+	margin:0px;
+	padding:0px;
+
+}
+
+body{
+	background: #E5E8E8;
+	color: #fff;
+
+}
+#contenedor{
+	width: 950px;
+	margin: auto;
+
+}
+header{
+	text-align: center;
+	background-color: #45B39D;
+
+}
+nav ul li{
+	display: inline-block;
+	padding: 10px;
+
+}
+nav ul li{
+	text text-decoration: none;
+	font-family: fantasy;
+	font-size: 20px;
+	font-weight: bold;
+
+}
+
+
+nav ul li a:hover{
+	color: white;
+
+}
+#logo h1{
+	margin:0;
+	
+}
+#logo a{
+	display: block;
+	background: url("WebContent/imagen/logo_header.png") no-repeat;
+}
