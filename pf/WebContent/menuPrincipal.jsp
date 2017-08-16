@@ -21,9 +21,9 @@
 		<div id="menu">
 		
 			<ul class="nav">
-				<li><a href="#">Registros</a>
+				<li><a href="#">Torneo</a>
 					<ul>
-						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
+						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
 						<li><a href="NuevaCategoria.jsp">Nueva categoria</a></li>
 						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>	
 						<li><a href="#">Jugadores</a></li>	

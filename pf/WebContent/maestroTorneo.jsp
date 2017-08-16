@@ -1,3 +1,7 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="modelo.Torneo"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -45,7 +49,30 @@
 			
 		</div>
 		<div id="contenido">
-			
+			<h1 align="center">Administracion de torneos</h1>
+<table border="1" width="600" align="center">
+<tr >
+<th> id Torneo</th>
+<th> Nombre</th> 
+<th> Fecha</th>
+<th> Estado</th>
+<th> Campeon</th>
+<th> Accion</th>
+</tr> 
+<!-- ahora trabajo en java para mostrar los datos d ela base de datos 
+en las demas filas  -->
+
+<%
+Torneo torneo= new Torneo();
+LinkedList <Torneo> listaTorneo= torneo.getTorneos();
+Iterator recorrer=listaTorneo.iterator();
+
+while(recorrer.hasNext()){
+	
+}
+
+%>
+</table>
 
 		</div>
 		<div id="Pie">

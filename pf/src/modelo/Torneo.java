@@ -1,70 +1,103 @@
 package modelo;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
-import org.apache.catalina.connector.Request;
+
 
 public class Torneo {
-	Integer idTorneo;
-	String nombreTorneo;
-	String fechaComienzo;
-	String estado;
-	Integer idcategoria;
+	int idtorneo;
+	String nombre;
+	String fecha;
+	int estado;
+	String campeon;
 	
 	
 	
+	//constructor
 	
-
-	
-
-	public Torneo(Integer idTorneo, String nombreTorneo, String fechaComienzo, String estado, Integer idcategoria) {
-		// TODO Auto-generated constructor stub
+	public Torneo(int idtorneo, String nombre, String fecha, int estado, String campeon) {
 		
-		this.idTorneo = idTorneo;
-		this.nombreTorneo = nombreTorneo;
-		this.fechaComienzo = fechaComienzo;
+		this.idtorneo = idtorneo;
+		this.nombre = nombre;
+		this.fecha = fecha;
 		this.estado = estado;
-		this.idcategoria = idcategoria;
-	
+		this.campeon = campeon;
 	}
-	
 	public Torneo() {
 		// TODO Auto-generated constructor stub
 	}
+	// get and set
+	public int getIdtorneo() {
+		return idtorneo;
+	}
 
-	public Integer getIdTorneo() {
-		return idTorneo;
+
+
+
+	public void setIdtorneo(int idtorneo) {
+		this.idtorneo = idtorneo;
 	}
-	public void setIdTorneo(Integer idTorneo) {
-		this.idTorneo = idTorneo;
+
+
+
+
+	public String getNombre() {
+		return nombre;
 	}
-	public String getNombreTorneo() {
-		return nombreTorneo;
+
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public void setNombreTorneo(String nombreTorneo) {
-		this.nombreTorneo = nombreTorneo;
+
+
+
+
+	public String getFecha() {
+		return fecha;
 	}
-	public String getFechaComienzo() {
-		return fechaComienzo;
+
+
+
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
-	public void setFechaComienzo(String fechaComienzo) {
-		this.fechaComienzo = fechaComienzo;
-	}
-	public String getEstado() {
+
+
+
+
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+
+
+
+
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	public Integer getIdcategoria() {
-		return idcategoria;
+
+
+
+
+	public String getCampeon() {
+		return campeon;
 	}
-	public void setIdcategoria(Integer idcategoria) {
-		this.idcategoria = idcategoria;
+
+
+
+
+	public void setCampeon(String campeon) {
+		this.campeon = campeon;
 	}
+
+
 	
 	
 	
@@ -122,9 +155,41 @@ public class Torneo {
 		
 		return rs;
 	}
-	}
 
+
+public static LinkedList<Torneo> getTorneos() throws SQLException{
+	LinkedList<Torneo>listaTorneos= new LinkedList<Torneo>();
+	Conexion con= new Conexion();
+	Statement st = null;
+	ResultSet rs=null;
+	try{
+		 st= con.getConexion().createStatement();
+		 rs= st.executeQuery("select * from torneo");
+		while(rs.next()){
+			Torneo torneo= new Torneo();
+			torneo.setIdtorneo(rs.getInt(1));
+			torneo.setNombre(rs.getString(2));
+			torneo.setFecha(rs.getString(3));
+			torneo.setEstado(rs.getInt(4));
+			torneo.setCampeon(rs.getString(5));
+			listaTorneos.add(torneo);
+			
+			
+		}
+		
+	}catch(Exception e){
+		
+	}finally {
+		st.close();
+		rs.close();
+		con.getConexion().close();
+		
+		
+	}
+	return listaTorneos;
 	
+}
+}
 	
 
 
