@@ -10,18 +10,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Registrar Nuevo torneo</title>
+	<title>Menu Principal</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
-	<script type="text/javascript" src="js/confirmarRegistroTorneo.js"></script>
-	
 </head>
-
-<body onload="carga()">
-
+<body>
 	<div id="contenedor">
 		<div id="cabecera">
 					<div id="Logo"><img src="imagen/logo_header.png"></div>
-					<div id="usuario">					
+					<div id="usuario">
+					
 					Bienvenido <%= session.getAttribute("usuario") %>
 					<a href="cerrarSesion.jsp">cerrar Sesion</a>
 					</div>
@@ -29,27 +26,22 @@
 		<div id="menu">
 		
 			<ul class="nav">
-				<li><a href="#">Registros</a>
+				<li><a href="#">Torneo</a>
 					<ul>
-						<li><a href="nuevoTorneo.jsp">Torneo</a></li>
-						<li><a href="NuevaCategoria.jsp">Categoria</a></li>
-						<li><a href="nuevaInstitucion.jsp">Institucion</a></li>	
-						<li><a href="nuevoJugador.jsp">Jugador</a></li>
-						<li><a href="nuevoArbitro.jsp">Arbitro</a></li>
-						<li><a href="nuevoEquipo.jsp">Equipos</a></li>
-						
-							
+						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
+						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
+						<li><a href="#">Listar</a></li>	
 
 					</ul>
 					</li>
 				<li><a href="#">Categoria</a>
-					<ul>
+				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
 						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
-					</li>
+				</li>
 				<li><a href="#">Jugadores</a></li>
 				<li><a href="#">Institucion</a></li>
 				<li><a href="#">Partido</a></li>
@@ -69,23 +61,13 @@
 					<td>Nombre Torneo:</td><td><input type="text" name="nombreTorneo" id="nombreTorneo"/></td>
 					</tr>
 					<tr>
-					<td>Categoria:</td><td>
-						<%Categoria cat= new Categoria(); %>
-						<%ResultSet rs=cat.listarCategoria();  %>
-						<select name="idcategoria">
-						<option value="">Seleccione categoria</option>
-						<%while(rs.next()){ 
-						String idcategoria=rs.getString(1);
-						%>
-						<option value="<%=idcategoria%>"><%=idcategoria%> </option>
-						<%} %>
-						</select></td>
-					</tr>
-					<tr>
-					<td>Fecha Inicio:</td><td><input type="text" name="fechaIni" id="fechaIni"/></td>
-					</tr>			
+					<td>Fecha Inicio:</td><td><input type="text" name="fecha" id="fecha"/></td>
+						
 					<tr>
 					<td>Estado:</td><td><input type="text" name="estado" id="estado"/></td>
+					</tr>			
+					<tr>
+					<td>Equipo Campeon: </td><td><input type="text" name="campeon" id="campeon"/></td>
 					</tr>			
 					<tr>
 					<td colspan="2"><input type="submit" value="Registrar" onclick="validarDatos()" ></td>
@@ -95,27 +77,9 @@
 			</form>
 	</div>
 
-			<div id="contenidoDer" class="division">
-				<table border="4">
-				<tr><td colspan="7">Gestion de torneos</td></tr>
-				<tr><td>Seleccionar</td><td>Id Torneo</td><td>Nombre Torneo</td><td>Categoria</td><td>Fecha de inicio</td><td>Estado 1->activo</td><td>Accion</td>
-				</tr>
-				<%
-				Torneo tor=new Torneo();
-				ResultSet rst=null;
-				rst=tor.listarTorneo();
-				 while (rst.next()) {%>
-				<tr>
-				<td>Seleccionar</td><td><%=rst.getString(1) %></td><td><%=rst.getString(2) %></td><td><%=rst.getString(5) %></td><td><%=rst.getString(3) %></td><td><%=rst.getString(4) %></td>
-				<td>
-	 				<img src="imagen/iconoEditar.png" width="30" height="30">||</a>
-	 				
-	 				<img src="imagen/iconoEliminar.png" width="30" height="30"></a></td>
-				</tr>
-				<%}%>
-			
+		
 
-</table>
+
 
 </div>
 </div>

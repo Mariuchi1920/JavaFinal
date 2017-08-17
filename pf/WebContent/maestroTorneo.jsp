@@ -65,15 +65,23 @@ en las demas filas  -->
 <%
 Torneo torneo= new Torneo();
 LinkedList <Torneo> listaTorneo= torneo.getTorneos();
-Iterator recorrer=listaTorneo.iterator();
-
-while(recorrer.hasNext()){
+for(int i=0; i<listaTorneo.size();i++){
+	%>
+	<tr><th><%=listaTorneo.get(i).getIdtorneo() %></th>
+	<th><%=listaTorneo.get(i).getNombre() %></th>
+	<th><%=listaTorneo.get(i).getFecha() %></th>
+	<th><%=listaTorneo.get(i).getEstado() %></th>
+	<th><%=listaTorneo.get(i).getCampeon() %></th>
+	<th> <img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></th>
+	</tr>
 	
+	<%		
 }
-
 %>
 </table>
-
+<form action="nuevoTorneo.jsp" method="post">
+<input type="submit" value="Nuevo Torneo">
+</form>
 		</div>
 		<div id="Pie">
 			<div id="LogoPie"><img src="imagen/logo_footer.jpg"></div>
