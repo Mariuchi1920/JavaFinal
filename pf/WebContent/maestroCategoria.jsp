@@ -41,7 +41,7 @@
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
@@ -57,7 +57,7 @@
 
 <table align="center" width="700" border="void" cellpadding="5">
 	 <tr>
-		<td colspan="4" align="center">Categorias Habilitadas</td>
+		<td colspan="4" align="center">Administrador de categorias</td>
 	</tr>
 	<tr>
 		<td align="center">Id Categoria</td>

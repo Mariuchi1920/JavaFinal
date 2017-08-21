@@ -36,7 +36,7 @@
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>

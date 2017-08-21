@@ -20,24 +20,29 @@
 	</script>
 </head>
 <body>
-	<div id="contenedor">
-			<div id="menu">
+	<div id="cabecera">
+					<div id="Logo"><img src="imagen/logo_header.png"></div>
+					<div id="usuario">
+					
+					Bienvenido <%= session.getAttribute("usuario") %>
+					<a href="cerrarSesion.jsp">cerrar Sesion</a>
+					</div>
+		</div>
+		<div id="menu">
 		
 			<ul class="nav">
-				<li><a href="#">Registros</a>
+				<li><a href="#">Torneo</a>
 					<ul>
-							<li><a href="nuevoTorneo.jsp">Torneo</a></li>
-						<li><a href="NuevaCategoria.jsp">Categoria</a></li>
-						<li><a href="nuevaInstitucion.jsp">Institucion</a></li>	
-						<li><a href="nuevoJugador.jsp">Jugador</a></li>
-						<li><a href="nuevoArbitro.jsp">Arbitro</a></li>
-						<li><a href="nuevoEquipo.jsp">Equipos</a></li>
+						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
+						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
+						<li><a href="#">Listar</a></li>	
+
 					</ul>
 					</li>
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
@@ -50,29 +55,15 @@
 			
 		</div>
 		<div id="contenido">
+			
+			
 			<form action="regCategoria" method="post" name="categoriaNueva">
 			<table border="4" align="center">
 				<tr><td colspan="2">Nueva Categoria</td></tr>
 				<tr><td>Id Categoria:</td> <td><input type="text" name="idCategoria" id="idCategoria"/></td> </tr>
 				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/></td></tr>
 				<tr><td>Estado:</td><td><input type="text" name="estado"id="estado"/></td></tr>
-				<tr><td>Institucion:</td>
-					<td>
-					<%Institucion i= new Institucion(); %>
-						<%ResultSet rs=i.listarNombreInstituciones();  %>
-						<select name="institucion">
-						<option value="23">Seleccione Institucion</option>
-						<%while(rs.next()){ 
-						String Nombre=rs.getString(1);
-						%>
-						<option value="<%=Nombre%>"><%=Nombre%> </option>
-						<%} %>
-						</select></td>
-					</tr>
-					<tr>
-					
-					</td></tr>
-				<tr><td colspan="2"><input type= "submit" value="Registrar Categoria" onclick="pregunta()"></td></tr>
+				<tr><td><input type= "submit" value="Registrar Categoria" onclick="pregunta()"></td></tr>
 				
 			</table>
 			</form>

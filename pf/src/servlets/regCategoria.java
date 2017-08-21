@@ -47,44 +47,20 @@ public class regCategoria extends HttpServlet {
 		String descripcion= request.getParameter("descripcion");
 		int estado= Integer.parseInt(request.getParameter("estado"));
 		Categoria cat= new Categoria();
-		boolean rta=cat.registrarNuevaCategoria(idcat,descripcion,estado);
-  		if(rta){
-  			
-			request.getRequestDispatcher("NuevaCategoria.jsp").forward(request, response);
-		}
+		boolean rta;
+		try {
+			rta = cat.registrarNuevaCategoria(idcat,descripcion,estado);
+			if(rta){
+	  			
+				request.getRequestDispatcher("maestroCategoria.jsp").forward(request, response);
+					}
+			} catch (SQLException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+										}
+		// poner quqe pasa si la respuesta es false
+  		
 		
 		
 		
-		
-		/*String institucion= request.getParameter("institucion");
-		
-		//necesito el idInstitucion para registrar la categoria que tiene la institucion 
-		Institucion i= new Institucion();
-		ResultSet rs=i.buscaIdInstitucion(institucion);
-		if(rs != null){
-             			try {
-							while(rs.next()){
-												int  n = Integer.parseInt(rs.getString("idInstitucion"));
-													if(n == 0){
-																response.sendRedirect("index.jsp");
-														}else {
-															Categoria cat= new Categoria();
-      		boolean rta=cat.registrarNuevaCategoria(idcat,descripcion,estado,n);
-      		if(rta){
-   			
-   			request.getRequestDispatcher("NuevaCategoria.jsp").forward(request, response);
-    		}
-    		
-}
-          }
-						} catch (NumberFormatException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-	}
-*/
 }}

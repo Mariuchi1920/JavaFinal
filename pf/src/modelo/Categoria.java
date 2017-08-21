@@ -49,7 +49,7 @@ public class Categoria {
 	
 	
 	
-	public boolean registrarNuevaCategoria(int idcat, String descripcion, int estado){
+	public boolean registrarNuevaCategoria(int idcat, String descripcion, int estado) throws SQLException{
 		Conexion con= new Conexion();
 		PreparedStatement pst= null;
 		try {
@@ -69,15 +69,8 @@ public class Categoria {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}finally {
-			if(con.getConexion()!= null)
-				try {
-					con.getConexion().close();
-					if (pst!=null) pst.close();
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			con.getConexion().close();
+			pst.close();
 		}
 		return false;
 		
@@ -114,39 +107,8 @@ public class Categoria {
 		
 	}
 	
-	public ResultSet mostrarCategoriaExistentes(){
-		Conexion con= new Conexion();
-		Statement st=null;
-		ResultSet rs=null;
-		try {
-			String lista= "select * from categoria";
-			//PreparedStatement ps=con.getConexion().prepareStatement(lista);
-			st=con.getConexion().createStatement();
-			rs = st.executeQuery(lista);
-			return rs;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return rs;
-	}
+
 	
-	public ResultSet editarCategoriaExistentes(String idC){
-		Conexion con= new Conexion();
-		Statement st=null;
-		ResultSet rs=null;
-		try {
-			String lista= "select * from categoria where idcategoria='idC'";
-			//PreparedStatement ps=con.getConexion().prepareStatement(lista);
-			st=  con.getConexion().createStatement();
-			rs = st.executeQuery(lista);
-			return rs;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	public void eliminarCategoria(int idCat){
 		Conexion con= new Conexion();
