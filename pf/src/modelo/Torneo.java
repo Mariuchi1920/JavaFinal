@@ -138,23 +138,8 @@ public class Torneo {
 		return false;
 		
 	}
-	public ResultSet listarTorneo(){
-		Conexion con= new Conexion();
-		Statement st=null;
-		ResultSet rs=null;
-		try {
-			String lista= "select * from torneo";
-			//PreparedStatement ps=con.getConexion().prepareStatement(lista);
-			st=con.getConexion().createStatement();
-			rs = st.executeQuery(lista);
-			return rs;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return rs;
-	}
+	
+	
 
 
 public static LinkedList<Torneo> getTorneos() throws SQLException{
@@ -189,7 +174,30 @@ public static LinkedList<Torneo> getTorneos() throws SQLException{
 	return listaTorneos;
 	
 }
+
+public boolean eliminarTorneo(int id) throws SQLException{
+	boolean rta=false;
+	Conexion con= new Conexion();
+	Statement st = null;
+	try{
+		 st= con.getConexion().createStatement();
+		 st.execute("delete from torneo where idtorneo="+id+"");
+		 return true;
+	}catch(Exception e){
+		
+	}finally {
+		st.close();
+		con.getConexion().close();
+	}
+	return rta;
+	
+	
+	
 }
+}
+
+
+
 	
 
 

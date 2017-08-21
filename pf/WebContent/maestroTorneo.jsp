@@ -72,7 +72,11 @@ for(int i=0; i<listaTorneo.size();i++){
 	<th><%=listaTorneo.get(i).getFecha() %></th>
 	<th><%=listaTorneo.get(i).getEstado() %></th>
 	<th><%=listaTorneo.get(i).getCampeon() %></th>
-	<th> <img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></th>
+	<th>
+	
+	 <img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarTorneo.jsp?idtorneo=<%=listaTorneo.get(i).getIdtorneo() %>">
+	 <img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
+	
 	</tr>
 	
 	<%		

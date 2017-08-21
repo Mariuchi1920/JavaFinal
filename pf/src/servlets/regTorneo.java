@@ -42,19 +42,12 @@ public class regTorneo extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		String nt=request.getParameter("nombreTorneo");
-		int cat= Integer.parseInt(request.getParameter("idcategoria"));
-		String fi= request.getParameter("fechaIni");
-		String e=request.getParameter("estado");
-		boolean rta;
-		Torneo torneo= new Torneo();
+		String fi= request.getParameter("fecha");
+		int e=Integer.parseInt(request.getParameter("estado"));
+		String campeon=request.getParameter("campeon");
 		
-		rta=torneo.registrarNuevoTorneo(nt,fi,e,cat);
-		if(rta){
-			System.out.println("se ha registrado el torneo");
-			request.getRequestDispatcher("nuevoTorneo.jsp").forward(request, response);
-		}else{
-			System.out.println("error no se registro");
-		}
+		
+		
 		
 		
 		
