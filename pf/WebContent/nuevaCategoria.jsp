@@ -48,7 +48,13 @@
 					</ul>
 				</li>
 				<li><a href="#">Jugadores</a></li>
-				<li><a href="#">Institucion</a></li>
+				<li><a href="#">Institucion</a>
+				<ul>
+						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
+						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>
+						<li><a href="#">Listar</a></li>	
+
+					</ul>
 				<li><a href="#">Partido</a></li>
 				
 			</ul>

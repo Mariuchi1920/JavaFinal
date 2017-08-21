@@ -4,11 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Institucion {
+	
 	int idInstitucion;
-
 	String Nombre;
 	String nombreLocalia;
 	String direccionLocalia;
@@ -28,91 +29,41 @@ public class Institucion {
 		return idInstitucion;
 	}
 
-
-
-
-
-
 	public void setIdInstitucion(int idInstitucion) {
 		this.idInstitucion = idInstitucion;
 	}
-
-
-
-
-
 
 	public String getNombre() {
 		return Nombre;
 	}
 
-
-
-
-
-
 	public void setNombre(String nombre) {
 		Nombre = nombre;
 	}
-
-
-
-
-
 
 	public String getNombreLocalia() {
 		return nombreLocalia;
 	}
 
-
-
-
-
-
 	public void setNombreLocalia(String nombreLocalia) {
 		this.nombreLocalia = nombreLocalia;
 	}
-
-
-
-
-
 
 	public String getDireccionLocalia() {
 		return direccionLocalia;
 	}
 
-
-
-
-
-
 	public void setDireccionLocalia(String direccionLocalia) {
 		this.direccionLocalia = direccionLocalia;
 	}
-
-
-
-
-
 
 	public String getNombreDelegado() {
 		return nombreDelegado;
 	}
 
-
-
-
-
-
 	public void setNombreDelegado(String nombreDelegado) {
 		this.nombreDelegado = nombreDelegado;
 	}
-
-
-
-
-
 
 	public String getApellidoDelegado() {
 		return apellidoDelegado;
@@ -127,28 +78,14 @@ public class Institucion {
 		this.apellidoDelegado = apellidoDelegado;
 	}
 
-
-
-
-
-
 	public String getTelefonoDelegado() {
 		return telefonoDelegado;
 	}
 
 
-
-
-
-
 	public void setTelefonoDelegado(String telefonoDelegado) {
 		this.telefonoDelegado = telefonoDelegado;
 	}
-
-
-
-
-
 
 	public Institucion() {
 		// TODO Auto-generated constructor stub
@@ -163,14 +100,6 @@ public class Institucion {
 		// TODO Auto-generated method stub
 		Conexion con= new Conexion();
 		Statement stm= null;
-		
-		System.out.println(ni);
-		System.out.println(nl);
-		System.out.println(dl);
-		System.out.println(nd);
-		System.out.println(ad);
-		System.out.println(td);
-	
 		
 		try {
 			System.out.println("aca no pasa");
@@ -200,35 +129,40 @@ public class Institucion {
 	}
 	
 
-	public List<Institucion> mostrarInstitucionesHabilitadas() throws SQLException {
-        List<Institucion> instituciones = new ArrayList<Institucion>();
-        Conexion con= new Conexion();
-        Statement statement = con.getConexion().createStatement();
-        ResultSet rs = statement.executeQuery("select * from institucion");
-        try {
-            
-            while (rs.next()) {
-                Institucion i = new Institucion();
-                i.setIdInstitucion(rs.getInt(1));
-                i.setNombre(rs.getString(2));
-                i.setNombreLocalia(rs.getString(3));
-                i.setDireccionLocalia(rs.getString(4));
-                i.setNombreDelegado(rs.getString(5));
-                i.setApellidoDelegado(rs.getString(6));
-                i.setTelefonoDelegado(rs.getString(7));
-                instituciones.add(i);
-               
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally{
-        	 con.getConexion().close();
-        	   statement.close();
-        	   rs.close();
-        }
-
-        return instituciones;
-    }
+	public static LinkedList<Institucion> getInstitucion() throws SQLException{
+		LinkedList<Institucion>listaInstituciones= new LinkedList<Institucion>();
+		Conexion con= new Conexion();
+		Statement st = null;
+		ResultSet rs=null;
+		try{
+			 st= con.getConexion().createStatement();
+			 rs= st.executeQuery("select * from institucion");
+			while(rs.next()){
+				Institucion i= new Institucion();
+				i.setIdInstitucion(rs.getInt(1));
+				i.setNombre(rs.getString(2));
+				i.setNombreLocalia(rs.getString(3));
+				i.setDireccionLocalia(rs.getString(4));
+				i.setNombreDelegado(rs.getString(5));
+				i.setApellidoDelegado(rs.getString(6));
+				i.setTelefonoDelegado(rs.getString(7));
+				listaInstituciones.add(i);
+						
+			}
+			
+		}catch(Exception e){
+			// ver que va aca adentro averiguar.... 
+		}finally {
+			st.close();
+			rs.close();
+			con.getConexion().close();
+			
+			
+		}
+		return listaInstituciones;
+		
+	}
+	
 
 
 

@@ -9,27 +9,29 @@
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 </head>
 <body>
-	<div id="contenedor">
-		<div id="cabecera">
+	<div id="cabecera">
 					<div id="Logo"><img src="imagen/logo_header.png"></div>
-					<div id="usuario">muestra el usuario en java</div>
+					<div id="usuario">
+					
+					Bienvenido <%= session.getAttribute("usuario") %>
 					<a href="cerrarSesion.jsp">cerrar Sesion</a>
+					</div>
 		</div>
 		<div id="menu">
 		
 			<ul class="nav">
 				<li><a href="#">Torneo</a>
 					<ul>
-						<li><a href="#">Torneos</a></li>
-						<li><a href="#">Nuevo Torneo</a></li>
+						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
+						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
 					</li>
 				<li><a href="#">Categoria</a>
 				<ul>
-						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
+						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>

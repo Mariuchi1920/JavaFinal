@@ -24,22 +24,27 @@
 				<li><a href="#">Torneo</a>
 					<ul>
 						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva categoria</a></li>
-						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>	
-						<li><a href="#">Jugadores</a></li>	
+						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
+						<li><a href="#">Listar</a></li>	
 
 					</ul>
 					</li>
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
 				</li>
 				<li><a href="#">Jugadores</a></li>
-				<li><a href="#">Institucion</a></li>
+				<li><a href="#">Institucion</a>
+				<ul>
+						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
+						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>
+						<li><a href="#">Listar</a></li>	
+
+					</ul>
 				<li><a href="#">Partido</a></li>
 				
 			</ul>
