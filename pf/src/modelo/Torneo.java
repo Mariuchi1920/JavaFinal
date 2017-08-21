@@ -101,25 +101,21 @@ public class Torneo {
 	
 	
 	
-	public boolean registrarNuevoTorneo(String nt, String fi, String es, int cat) {
+	public boolean registrarNuevoTorneo(String nt, String fi, int es, String campeon) {
 		// TODO Auto-generated method stub
 		
 	
 		Conexion con= new Conexion();
 		Statement st= null;
-		System.out.print(nt);
-		System.out.print(fi);
-		System.out.print(es);
-		System.out.print(cat);
+		
 		try {
 			
-			String consulta= "INSERT INTO torneo (nombreTorneo, fechaComienzo, estado, idcategoria) VALUES('"+nt+"','"+fi+"','"+es+"','"+cat+"')";
+			String consulta= "INSERT INTO torneo (nombre, fecha, estado, campeon) VALUES('"+nt+"','"+fi+"','"+es+"','"+campeon+"')";
 			
 			st=con.getConexion().createStatement();
 			
 			st.executeUpdate(consulta);
-			System.out.println("por que 1");
-				return true;
+			return true;
 			
 			
 		} catch (Exception e) {

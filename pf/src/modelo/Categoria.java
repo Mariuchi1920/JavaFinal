@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 import org.apache.catalina.connector.Request;
 import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
@@ -83,22 +84,35 @@ public class Categoria {
 	}
 
 	
-	public ResultSet listarCategoria(){
+	public static LinkedList<Categoria> getCategorias() throws SQLException{
+		LinkedList<Categoria>listaCategorias= new LinkedList<Categoria>();
 		Conexion con= new Conexion();
+		Statement st = null;
 		ResultSet rs=null;
-		try {
-			String lista= "select idcategoria from categoria";
-			PreparedStatement ps=con.getConexion().prepareStatement(lista);
+		try{
+			 st= con.getConexion().createStatement();
+			 rs= st.executeQuery("select * from categoria");
+			while(rs.next()){
+				Categoria cat= new Categoria();
+				cat.setIdcateogria(rs.getInt(1));
+				cat.setDescripcion(rs.getString(2));
+				cat.setEstado(rs.getInt(3));
+				listaCategorias.add(cat);
+						
+			}
 			
-			 rs = ps.executeQuery();
-			return rs;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}catch(Exception e){
+			// ver que va aca adentro averiguar.... 
+		}finally {
+			st.close();
+			rs.close();
+			con.getConexion().close();
+			
+			
 		}
-		return rs;
+		return listaCategorias;
+		
 	}
-	
 	
 	public ResultSet mostrarCategoriaExistentes(){
 		Conexion con= new Conexion();

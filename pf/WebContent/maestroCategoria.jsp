@@ -1,6 +1,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="modelo.Categoria"%>
 <%@page import="modelo.Consulta"%>
+<%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -56,40 +57,34 @@
 
 <table align="center" width="700" border="void" cellpadding="5">
 	 <tr>
-		<td colspan="8" align="center">Categorias Habilitadas</td>
+		<td colspan="4" align="center">Categorias Habilitadas</td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center">Id Categoria</td>
-		<td colspan="2" align="center">Descripcion</td>
-		<td colspan="2" align="center">Estado</td>
-		<td colspan="2" align="center">Accion</td>
+		<td align="center">Id Categoria</td>
+		<td  align="center">Descripcion</td>
+		<td  align="center">Estado</td>
+		<td align="center">Accion</td>
 </tr>
-	<%
-	Categoria cate= new Categoria();
-	ResultSet rs=null;
-	rs=cate.mostrarCategoriaExistentes();
+<% 
+Categoria cate= new Categoria();
+LinkedList <Categoria> listaCategoria= cate.getCategorias();
+for(int i=0; i<listaCategoria.size();i++){
+	%>
+	<tr><th><%=listaCategoria.get(i).getIdcateogria() %></th>
+		<th><%=listaCategoria.get(i).getDescripcion() %></th>
+		<th><%=listaCategoria.get(i).getEstado() %></th>
+		<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarCategoria.jsp?idcategoria=<%=listaCategoria.get(i).getIdcateogria()%>">
+	 <img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
 	
-	 while (rs.next()) { %>
-	 <tr>
-	 	<th colspan="2" align="center"><%=rs.getInt(1) %> </th>
-	 	
-	 	<th colspan="2" align="center"><%=rs.getString(2) %> </th>
-	 	<th colspan="2" align="center"><%=rs.getString(3) %> </th>
-	 	<th> 
-	 	<a href="editarCategoria.jsp?idcategoria=" <%=Integer.toString(rs.getInt(1)) %>>
-	 	<img src="imagen/iconoEditar.png" width="30" height="30">||</a>
-	 	<a href="eliminarCategoria.jsp?idcategoria="<%=Integer.toString(rs.getInt(1)) %>>
-	 	<img src="imagen/iconoEliminar.png" width="30" height="30"></a>
-	 	</th>
-	</tr> 
+	</tr>
 	
-	 <%}%>
-	 	
-      	<tr >
-     	<th colspan="8" > <input type="submit" value="Nueva Categoria" onclick="nuevaCategoria('NuevaCategoria.jsp')"> </th>
-       	</tr>
-
+	<%		
+}
+%>
   </table>
+  <form action="nuevaCategoria.jsp" method="post">
+<input type="submit" value="Nueva Categoria">
+</form>
   </div>
  
 			
