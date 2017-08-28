@@ -42,9 +42,9 @@ public class regInstitucion extends HttpServlet {
 		String ni=request.getParameter("nombre");
 		String nl=request.getParameter("nombrelocalia");
 		String dl=request.getParameter("direccionLocalia");
-		String nd=request.getParameter("NombreDelegado");
-		String ad=request.getParameter("ApellidoDelegado");
-		String td=request.getParameter("TelefonoDelegado");
+		String nd=request.getParameter("nombreDelegado");
+		String ad=request.getParameter("apellidoDelegado");
+		String td=request.getParameter("telefonoDelegado");
 		
 		boolean rta;
 		
@@ -53,7 +53,7 @@ public class regInstitucion extends HttpServlet {
 		rta=inst.registrarInstitucion(ni,nl,dl,nd,ad,td);
 		if(rta){
 			System.out.println("se registro con exito");
-			request.getRequestDispatcher("nuevaInstitucion.jsp").forward(request, response);
+			request.getRequestDispatcher("maestroInstituciones.jsp").forward(request, response);
 		}else{
 
 			

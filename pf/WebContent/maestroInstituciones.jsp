@@ -1,4 +1,4 @@
-<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="modelo.Institucion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -7,19 +7,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Nueva Categoria</title>
+	<title>Administrador de instituciones</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
-	<script type="text/javascript">
-	function pregunta() {
-		if(confirm("Estas seguro de registrar una nueva categoria?")){
-			Document.categoriaNueva.submit();
-			
-		};
-		}
-	
-	</script>
 </head>
 <body>
+<div id="contenedor">
 	<div id="cabecera">
 					<div id="Logo"><img src="imagen/logo_header.png"></div>
 					<div id="usuario">
@@ -59,21 +51,50 @@
 				
 			</ul>
 			
-		</div>
+				</div>
 		<div id="contenido">
-			
-			
-			<form action="regCategoria" method="post" name="categoriaNueva">
-			<table border="4" align="center">
-				<tr><td colspan="2">Nueva Categoria</td></tr>
-				<tr><td>Id Categoria:</td> <td><input type="text" name="idCategoria" id="idCategoria"/></td> </tr>
-				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/></td></tr>
-				<tr><td>Estado:</td><td><input type="text" name="estado"id="estado"/></td></tr>
-				<tr><td><input type= "submit" value="Registrar Categoria" onclick="pregunta()"></td></tr>
 				
-			</table>
-			</form>
+				<table align="center" width="800" border="void" cellpadding="5">
+			 			<tr>
+						<td colspan="8" align="center">Administrador de Instituciones</td>
+						</tr>
+						<tr>
+							<td>Id Institucion</td>
+							<td>Nombre</td>
+							<td>Nombre Localia</td>
+							<td>Direccion Localia</td>
+							<td>Nombre Delegado</td>
+							<td>Apellido Delegado</td>
+							<td>Telefono Delegado</td>
+							<td>Accion</td>
+		
+						</tr>
+						<% 
+						Institucion ins= new Institucion();
+						LinkedList <Institucion> listaInstituciones= ins.getInstitucion();
+						for(int i=0; i<listaInstituciones.size();i++){
+						%>
+						<tr><th><%=listaInstituciones.get(i).getIdInstitucion() %></th>
+							<th><%=listaInstituciones.get(i).getNombre() %></th>
+							<th><%=listaInstituciones.get(i).getNombreLocalia() %></th>
+							<th><%=listaInstituciones.get(i).getDireccionLocalia() %></th>
+							<th><%=listaInstituciones.get(i).getNombreDelegado() %></th>
+							<th><%=listaInstituciones.get(i).getApellidoDelegado() %></th>
+							<th><%=listaInstituciones.get(i).getTelefonoDelegado() %></th>
+							<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarInstitucion.jsp?idinstitucion=<%=listaInstituciones.get(i).getIdInstitucion()%>">
+	 						<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
+	
+							</tr>
+	
+						<%		
+							}
+						%>
+  			</table>
+ 				 <form action="nuevaInstitucion.jsp" method="post">
+					<input type="submit" value="Nueva Institucion" align="center">
+				</form>
 
+		</div>
 		</div>
 		<div id="Pie">
 			<div id="LogoPie"><img src="imagen/logo_footer.jpg"></div>

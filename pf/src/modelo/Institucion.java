@@ -116,7 +116,7 @@ public class Institucion {
 			if(con.getConexion()!= null)
 				try {
 					con.getConexion().close();
-				
+				stm.close();
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -163,7 +163,27 @@ public class Institucion {
 		
 	}
 	
-
+	public void eliminarInstitucion(int id){
+		Conexion con= new Conexion();
+		Statement st=null;
+		System.out.println("la variable es "+id);
+		
+		String lista= "delete from institucion where idinstitucion= "+id+";";
+		
+		try {
+			
+			st=  con.getConexion().createStatement();
+			int i=st.executeUpdate(lista);
+			
+			st.close();
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 
 
 
