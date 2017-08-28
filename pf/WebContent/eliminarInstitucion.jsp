@@ -9,8 +9,8 @@
 </head>
 <body>
 <%
-	out.println(request.getAttribute("idInstitucion"));
-		int id= Integer.parseInt(request.getParameter("idInstitucion"));
+		out.println(request.getAttribute("idinstitucion"));
+		int id= Integer.parseInt(request.getParameter("idinstitucion"));
 		Institucion i= new Institucion ();
 		i.eliminarInstitucion(id);
 		out.println("registro eliminado");

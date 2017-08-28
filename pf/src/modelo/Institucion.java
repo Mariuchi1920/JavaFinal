@@ -163,7 +163,7 @@ public class Institucion {
 		
 	}
 	
-	public void eliminarInstitucion(int id){
+	public void eliminarInstitucion(int id) throws SQLException{
 		Conexion con= new Conexion();
 		Statement st=null;
 		System.out.println("la variable es "+id);
@@ -173,14 +173,13 @@ public class Institucion {
 		try {
 			
 			st=  con.getConexion().createStatement();
-			int i=st.executeUpdate(lista);
-			
-			st.close();
-			
-			
-			
-		} catch (Exception e) {
+			st.executeUpdate(lista);
+			} catch (Exception e) {
 			// TODO: handle exception
+			}finally {
+						con.getConexion().close();
+						st.close();
+			
 		}
 		
 	}
