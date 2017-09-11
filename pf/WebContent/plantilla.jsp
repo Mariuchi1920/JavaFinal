@@ -20,15 +20,16 @@
 		<div id="menu">
 		
 			<ul class="nav">
-				<li><a href="#">Torneo</a>
+				<li><a href="#">Registrar</a>
 					<ul>
-						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
-						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
-						<li><a href="#">Listar</a></li>	
+						<li><a href="nuevoTorneo.jsp">Torneos</a></li>
+						<li><a href="nuevaCategoria.jsp">Categorias</a></li>
+						<li><a href="nuevaInstitucion.jsp">Instituciones</a></li>
+						<li><a href="nuevoJugador.jsp">Jugadores</a></li>	
 
 					</ul>
 					</li>
-				<li><a href="#">Categoria</a>
+				<li><a href="#">Procesos</a>
 				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
 						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
