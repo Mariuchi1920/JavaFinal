@@ -64,6 +64,13 @@
 					<td>Fecha Inicio:</td><td><input type="text" name="fecha" id="fecha"/></td>
 						
 					<tr>
+					<td>Fecha fin:</td><td><input type="text" name="fecha" id="fecha"/></td>
+						
+					<tr>
+					<!--	quiero que muestre los tipos de estado que figuran en la base de datos 
+					con una lista.  -->
+					
+					
 					<td>Estado:</td><td><input type="text" name="estado" id="estado"/></td>
 					</tr>			
 					<tr>

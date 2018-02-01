@@ -11,20 +11,20 @@ import java.sql.SQLException;
 public class Consulta extends Conexion {
 	
 	
-public boolean autenticacion(String usuario, String contrasena){
+public boolean autenticacion(String usuario, String contraseña){
 		
 		PreparedStatement pst= null;
 		ResultSet rst= null;
 		//creamos un try catch para conectarnos a la base de datos. 
 		
 		try{
-			String consulta= "select * from usuario where usuario=? and contrasena= ?";
+			String consulta= "select * from persona where usuario=? and contraseña= ?";
 			pst=getConexion().prepareStatement(consulta);
 			
 			
 			//indica a parametro 1 el usuario, parametro 2 la contrasena
 			pst.setString(1,usuario);
-			pst.setString (2,contrasena);
+			pst.setString (2,contraseña);
 			//se guarda el resultado de la consulta en el resulset
 			rst=pst.executeQuery();
 			

@@ -10,7 +10,7 @@ public class Conexion {
 	public String passDb= "";
 	public String host= "localhost";
 	public String port= "3306";
-	public String dataBases= "baseligaefeeee";
+	public String dataBases= "baseligaefe";
 	
 	
 	
@@ -19,8 +19,7 @@ public class Conexion {
 	public Conexion(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			/*con=DriverManager.getConnection("jdbc:mysql://host:port/dataBase",userName,password);*/
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/torneo",userDb, passDb);
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/baseligaefe",userDb, passDb);
 			System.out.println("Se ha conectado a la base:"+ dataBases);
 			
 		} catch (ClassNotFoundException e) {
