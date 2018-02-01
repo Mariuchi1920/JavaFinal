@@ -136,13 +136,14 @@ DROP TABLE IF EXISTS `instituciones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `instituciones` (
-  `idIntituciones` int(11) NOT NULL,
+  `idIntituciones` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `nombreLocalia` varchar(45) NOT NULL,
   `direccionLocalia` varchar(45) NOT NULL,
   `nombreDelegado` varchar(45) NOT NULL,
   `apellidoDelegado` varchar(45) NOT NULL,
   `telefonoDelegado` varchar(45) NOT NULL,
+  `mailDelegado` varchar(45) NOT NULL,
   PRIMARY KEY (`idIntituciones`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -270,7 +271,7 @@ DROP TABLE IF EXISTS `persona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `persona` (
-  `idPersona` int(11) NOT NULL,
+  `idPersona` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `apelido` varchar(45) NOT NULL,
   `telefono` varchar(45) NOT NULL,
@@ -284,7 +285,7 @@ CREATE TABLE `persona` (
   PRIMARY KEY (`idPersona`),
   KEY `fk_Persona_TipoPersona1_idx` (`idTipoPersona`),
   CONSTRAINT `fk_Persona_TipoPersona1` FOREIGN KEY (`idTipoPersona`) REFERENCES `tipopersona` (`idTipoPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +294,7 @@ CREATE TABLE `persona` (
 
 LOCK TABLES `persona` WRITE;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` VALUES (1,'Maria','Orlando','3416981065','1988-01-19','dni','33513243','mariaorlando0922',1,'maria','1234');
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,6 +318,7 @@ CREATE TABLE `tipoestado` (
 
 LOCK TABLES `tipoestado` WRITE;
 /*!40000 ALTER TABLE `tipoestado` DISABLE KEYS */;
+INSERT INTO `tipoestado` VALUES (1,'Habilitada'),(2,'Deshabilitada'),(3,'Jugado'),(4,'Pendiente'),(5,'Suspendido');
 /*!40000 ALTER TABLE `tipoestado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -327,10 +330,10 @@ DROP TABLE IF EXISTS `tipopersona`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipopersona` (
-  `idTipoPersona` int(11) NOT NULL,
+  `idTipoPersona` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) NOT NULL,
   PRIMARY KEY (`idTipoPersona`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,6 +342,7 @@ CREATE TABLE `tipopersona` (
 
 LOCK TABLES `tipopersona` WRITE;
 /*!40000 ALTER TABLE `tipopersona` DISABLE KEYS */;
+INSERT INTO `tipopersona` VALUES (1,'Administrador'),(2,'Entrenador'),(3,'Arbitro'),(4,'Jugador');
 /*!40000 ALTER TABLE `tipopersona` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,4 +396,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-31 23:56:20
+-- Dump completed on 2018-02-01  1:18:27

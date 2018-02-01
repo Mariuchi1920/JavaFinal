@@ -9,36 +9,41 @@ import java.util.List;
 
 public class Institucion {
 	
-	int idInstitucion;
-	String Nombre;
+	int idInstituciones;
+	String nombre;
 	String nombreLocalia;
 	String direccionLocalia;
 	String nombreDelegado;
 	String apellidoDelegado;
-	/*String tipoDocumentoDelegado;
-	String nroDocumentoDelegado;*/
 	String telefonoDelegado;
-	/*String MailDelegado;*/
-	
-	
+	String mailDelegado;
 	
 	
 
-	
-	public int getIdInstitucion() {
-		return idInstitucion;
+	public int getIdInstituciones() {
+		return idInstituciones;
 	}
 
-	public void setIdInstitucion(int idInstitucion) {
-		this.idInstitucion = idInstitucion;
+	public void setIdInstituciones(int idInstituciones) {
+		this.idInstituciones = idInstituciones;
 	}
+
+	public String getMailDelegado() {
+		return mailDelegado;
+	}
+
+	public void setMailDelegado(String mailDelegado) {
+		this.mailDelegado = mailDelegado;
+	}
+
+	
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		nombre = nombre;
 	}
 
 	public String getNombreLocalia() {
@@ -96,6 +101,7 @@ public class Institucion {
 	
 	
 	
+	
 	public boolean registrarInstitucion(String ni, String nl, String dl, String nd, String ad, String td) {
 		// TODO Auto-generated method stub
 		Conexion con= new Conexion();
@@ -139,7 +145,7 @@ public class Institucion {
 			 rs= st.executeQuery("select * from institucion");
 			while(rs.next()){
 				Institucion i= new Institucion();
-				i.setIdInstitucion(rs.getInt(1));
+				i.setIdInstituciones(rs.getInt(1));
 				i.setNombre(rs.getString(2));
 				i.setNombreLocalia(rs.getString(3));
 				i.setDireccionLocalia(rs.getString(4));
