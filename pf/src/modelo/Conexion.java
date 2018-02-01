@@ -10,7 +10,7 @@ public class Conexion {
 	public String passDb= "";
 	public String host= "localhost";
 	public String port= "3306";
-	public String dataBases= "torneo";
+	public String dataBases= "baseligaefeeee";
 	
 	
 	

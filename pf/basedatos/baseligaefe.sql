@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
 -- Host: 127.0.0.1    Database: baseligaefe
 -- ------------------------------------------------------
--- Server version	5.6.21
+-- Server version	5.1.59-community
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,35 +40,6 @@ LOCK TABLES `categorias` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `eequipostorneos`
---
-
-DROP TABLE IF EXISTS `eequipostorneos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `eequipostorneos` (
-  `idCategorias` int(11) NOT NULL,
-  `idIntituciones` int(11) NOT NULL,
-  `nombreEquipo` varchar(45) NOT NULL,
-  `idTorneos` int(11) NOT NULL,
-  PRIMARY KEY (`idCategorias`,`idIntituciones`,`nombreEquipo`,`idTorneos`),
-  KEY `fk_equipos_has_torneos_torneos1_idx` (`idTorneos`),
-  KEY `fk_equipos_has_torneos_equipos1_idx` (`idCategorias`,`idIntituciones`,`nombreEquipo`),
-  CONSTRAINT `fk_equipos_has_torneos_equipos1` FOREIGN KEY (`idCategorias`, `idIntituciones`, `nombreEquipo`) REFERENCES `equipos` (`idCategorias`, `idIntituciones`, `nombreEquipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipos_has_torneos_torneos1` FOREIGN KEY (`idTorneos`) REFERENCES `torneos` (`idTorneos`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `eequipostorneos`
---
-
-LOCK TABLES `eequipostorneos` WRITE;
-/*!40000 ALTER TABLE `eequipostorneos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `eequipostorneos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `equipos`
 --
 
@@ -84,9 +55,9 @@ CREATE TABLE `equipos` (
   KEY `fk_categorias_has_intituciones_intituciones1_idx` (`idIntituciones`),
   KEY `fk_categorias_has_intituciones_categorias_idx` (`idCategorias`),
   KEY `fk_Equipos_Persona1_idx` (`idEntrenador`),
-  CONSTRAINT `fk_Equipos_Persona1` FOREIGN KEY (`idEntrenador`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_categorias_has_intituciones_categorias` FOREIGN KEY (`idCategorias`) REFERENCES `categorias` (`idCategorias`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_categorias_has_intituciones_intituciones1` FOREIGN KEY (`idIntituciones`) REFERENCES `intituciones` (`idIntituciones`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_categorias_has_intituciones_intituciones1` FOREIGN KEY (`idIntituciones`) REFERENCES `instituciones` (`idIntituciones`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Equipos_Persona1` FOREIGN KEY (`idEntrenador`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -129,13 +100,42 @@ LOCK TABLES `equiposjugadores` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `intituciones`
+-- Table structure for table `equipostorneos`
 --
 
-DROP TABLE IF EXISTS `intituciones`;
+DROP TABLE IF EXISTS `equipostorneos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `intituciones` (
+CREATE TABLE `equipostorneos` (
+  `idCategorias` int(11) NOT NULL,
+  `idIntituciones` int(11) NOT NULL,
+  `nombreEquipo` varchar(45) NOT NULL,
+  `idTorneos` int(11) NOT NULL,
+  PRIMARY KEY (`idCategorias`,`idIntituciones`,`nombreEquipo`,`idTorneos`),
+  KEY `fk_equipos_has_torneos_torneos1_idx` (`idTorneos`),
+  KEY `fk_equipos_has_torneos_equipos1_idx` (`idCategorias`,`idIntituciones`,`nombreEquipo`),
+  CONSTRAINT `fk_equipos_has_torneos_equipos1` FOREIGN KEY (`idCategorias`, `idIntituciones`, `nombreEquipo`) REFERENCES `equipos` (`idCategorias`, `idIntituciones`, `nombreEquipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_equipos_has_torneos_torneos1` FOREIGN KEY (`idTorneos`) REFERENCES `torneos` (`idTorneos`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equipostorneos`
+--
+
+LOCK TABLES `equipostorneos` WRITE;
+/*!40000 ALTER TABLE `equipostorneos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `equipostorneos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `instituciones`
+--
+
+DROP TABLE IF EXISTS `instituciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `instituciones` (
   `idIntituciones` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `nombreLocalia` varchar(45) NOT NULL,
@@ -148,12 +148,12 @@ CREATE TABLE `intituciones` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `intituciones`
+-- Dumping data for table `instituciones`
 --
 
-LOCK TABLES `intituciones` WRITE;
-/*!40000 ALTER TABLE `intituciones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `intituciones` ENABLE KEYS */;
+LOCK TABLES `instituciones` WRITE;
+/*!40000 ALTER TABLE `instituciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `instituciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -245,11 +245,11 @@ CREATE TABLE `partidos` (
   KEY `fk_Partidos_Equipos1_idx` (`idCategoriasLocal`,`idIntitucionesLocal`,`nombreEquipoLocal`),
   KEY `fk_Partidos_Equipos2_idx` (`idCategoriasVisitante`,`idIntitucionesVisitante`,`nombreEquipoVisitante`),
   KEY `fk_Partidos_TipoEstadoPartido1_idx` (`idTipoEstado`),
+  CONSTRAINT `fk_partidas_jornadas1` FOREIGN KEY (`idJornadas`) REFERENCES `jornadas` (`idJornadas`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Partidos_Equipos1` FOREIGN KEY (`idCategoriasLocal`, `idIntitucionesLocal`, `nombreEquipoLocal`) REFERENCES `equipos` (`idCategorias`, `idIntituciones`, `nombreEquipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Partidos_Equipos2` FOREIGN KEY (`idCategoriasVisitante`, `idIntitucionesVisitante`, `nombreEquipoVisitante`) REFERENCES `equipos` (`idCategorias`, `idIntituciones`, `nombreEquipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Partidos_Persona1` FOREIGN KEY (`idArbrito`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Partidos_TipoEstadoPartido1` FOREIGN KEY (`idTipoEstado`) REFERENCES `tipoestado` (`idTipoEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_partidas_jornadas1` FOREIGN KEY (`idJornadas`) REFERENCES `jornadas` (`idJornadas`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Partidos_TipoEstadoPartido1` FOREIGN KEY (`idTipoEstado`) REFERENCES `tipoestado` (`idTipoEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -374,6 +374,14 @@ LOCK TABLES `torneos` WRITE;
 /*!40000 ALTER TABLE `torneos` DISABLE KEYS */;
 /*!40000 ALTER TABLE `torneos` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'baseligaefe'
+--
+
+--
+-- Dumping routines for database 'baseligaefe'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -384,4 +392,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-31 17:23:17
+-- Dump completed on 2018-01-31 23:56:20
