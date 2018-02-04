@@ -1,4 +1,4 @@
-package modelo;
+package entidad;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import modelo.Conexion;
 
 public class Institucion {
 	
@@ -17,7 +19,7 @@ public class Institucion {
 	String apellidoDelegado;
 	String telefonoDelegado;
 	String mailDelegado;
-	
+
 	
 
 	public int getIdInstituciones() {

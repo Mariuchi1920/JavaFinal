@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import modelo.Categoria;
+import entidad.Categoria;
+import entidad.Institucion;
 import modelo.Conexion;
-import modelo.Institucion;
 
 /**
  * Servlet implementation class regCategoria

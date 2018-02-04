@@ -1,10 +1,12 @@
-package modelo;
+package entidad;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+
+import modelo.Conexion;
 
 import org.apache.catalina.connector.Request;
 import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
@@ -53,7 +55,7 @@ public class Categoria {
 		Conexion con= new Conexion();
 		PreparedStatement pst= null;
 		try {
-			String consulta= "insert into categoria ( idcategoria, descripcion, estado)values (?,?,?)";
+			String consulta= "insert into categoria ( idCategorias, descripcion, estado)values (?,?,?)";
 			pst=con.getConexion().prepareStatement(consulta);
 			pst.setInt(1,idcat);
 			pst.setString(2, descripcion);
@@ -115,7 +117,7 @@ public class Categoria {
 		Statement st=null;
 		System.out.println("la variable es "+idCat);
 		
-		String lista= "delete from categoria where idcategoria= "+idCat+";";
+		String lista= "delete from categoria where idCategorias= "+idCat+";";
 		
 		try {
 			
