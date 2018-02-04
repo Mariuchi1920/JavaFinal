@@ -1,5 +1,5 @@
 <%@page import="java.sql.ResultSet"%>
-<%@page import="modelo.Categoria"%>
+<%@page import="entidad.Categoria"%>
 <%@page import="modelo.Consulta"%>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
