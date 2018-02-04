@@ -51,6 +51,7 @@ public class login extends HttpServlet {
 		
 		Consulta co= new Consulta();
 		//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
+		
 		if(co.autenticacion(usuario, contrasena)){
 			sesion.setAttribute("usuario", usuario);
 			response.sendRedirect("menuPrincipal.jsp");

@@ -1,6 +1,6 @@
-<%@page import="modelo.Categoria"%>
+<%@page import="entidad.Categoria"%>
 <%@page import="modelo.Conexion"%>
-<%@page import="modelo.Torneo"%>
+<%@page import="entidad.Torneo"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
