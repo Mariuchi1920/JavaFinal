@@ -51,17 +51,22 @@
 		<div id="contenido">
 			<h1 align="center">Administracion de torneos</h1>
 <table border="1" width="600" align="center">
+
 <tr >
 <th> id Torneo</th>
 <th> Nombre</th> 
-<th> Fecha</th>
+<th> Fecha Inicio</th>
+<th> Fecha Fin</th>
 <th> Estado</th>
-<th> Campeon</th>
+<th> categoria campeon</th>
+<th> Institución campeon</th>
+<th> equipo campeon</th>
+
 <th> Accion</th>
 </tr> 
 <!-- ahora trabajo en java para mostrar los datos d ela base de datos 
 en las demas filas  -->
-
+<%-- 
 <%
 Torneo torneo= new Torneo();
 LinkedList <Torneo> listaTorneo= torneo.getTorneos();
@@ -81,7 +86,7 @@ for(int i=0; i<listaTorneo.size();i++){
 	
 	<%		
 }
-%>
+%> --%>
 </table>
 <form action="nuevoTorneo.jsp" method="post">
 <input type="submit" value="Nuevo Torneo">

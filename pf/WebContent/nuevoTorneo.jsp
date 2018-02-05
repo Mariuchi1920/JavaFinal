@@ -1,7 +1,9 @@
+<%@page import="entidad.TipoEstado"%>
 <%@page import="entidad.Categoria"%>
 <%@page import="modelo.Conexion"%>
 <%@page import="entidad.Torneo"%>
 <%@page import="java.sql.ResultSet"%>
+    <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
@@ -61,21 +63,37 @@
 					<td>Nombre Torneo:</td><td><input type="text" name="nombreTorneo" id="nombreTorneo"/></td>
 					</tr>
 					<tr>
-					<td>Fecha Inicio:</td><td><input type="text" name="fecha" id="fecha"/></td>
+					<td>Fecha Inicio:</td><td><input type="text" name="fecha" id="fechaI"/></td>
 						
 					<tr>
-					<td>Fecha fin:</td><td><input type="text" name="fecha" id="fecha"/></td>
+					<td>Fecha fin:</td><td><input type="text" name="fecha" id="fechaF"/></td>
 						
 					<tr>
 					<!--	quiero que muestre los tipos de estado que figuran en la base de datos 
 					con una lista.  -->
 					
 					
-					<td>Estado:</td><td><input type="text" name="estado" id="estado"/></td>
+					<td>Estado:</td><td><select name="origen" id="tipoEstado">
+                                <% TipoEstado tpEstado= new TipoEstado();
+                                LinkedList <TipoEstado> listatpEstado= tpEstado.getTipoEstados();
+                                listatpEstado=tpEstado.getIdTipoPersona();
+                                for(TipoEstado t:){
+                                /* for(int i=0;i<listatpEstado.size();i++){ */ %>
+                                <option value="<%=listatpEstado.get(i).get %>"><%=listatpEstado.get(i).getDescripcion() %></option>
+                                <% } %>
+                                   
+                                  
+                            </select></td>
 					</tr>			
 					<tr>
+					<td>Categoria Campeon: </td><td><input type="text" name="campeonCat" id="campeonCat"/></td>
+					</tr>
+					<tr>
+					<td>Institucion Campeon: </td><td><input type="text" name="campeonInst" id="campeonInst"/></td>
+					</tr>
+					<tr>
 					<td>Equipo Campeon: </td><td><input type="text" name="campeon" id="campeon"/></td>
-					</tr>			
+					</tr>					
 					<tr>
 					<td colspan="2"><input type="submit" value="Registrar" onclick="validarDatos()" ></td>
 					</tr>			

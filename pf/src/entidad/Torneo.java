@@ -19,20 +19,90 @@ public class Torneo {
 	private TipoEstado estado;
 	private Equipo equipoCampion;
 	
-	
-	
-	
-	
-	public boolean registrarNuevoTorneo(String nt, String fi, int es, String campeon) {
-		// TODO Auto-generated method stub
 		
 	
-		Conexion con= new Conexion();
+
+
+
+
+
+public int getIdTorneos() {
+	return idTorneos;
+}
+
+
+
+
+public void setIdTorneos(int idTorneos) {
+	this.idTorneos = idTorneos;
+}
+
+
+
+
+public String getNombre() {
+	return nombre;
+}
+
+
+
+
+public void setNombre(String nombre) {
+	this.nombre = nombre;
+}
+
+
+
+
+public String getFechaInicio() {
+	return fechaInicio.toString();
+}
+
+
+
+
+public void setFechaInicio(java.sql.Date date) {
+	this.fechaInicio = date;
+}
+
+
+
+
+public TipoEstado getEstado() {
+	return estado;
+}
+
+
+
+
+public void setEstado(TipoEstado estado) {
+	this.estado = estado;
+}
+
+
+
+
+public Equipo getEquipoCampion() {
+	return equipoCampion;
+}
+
+
+
+
+public void setEquipoCampion(Equipo equipoCampion) {
+	this.equipoCampion = equipoCampion;
+}
+
+
+
+
+public boolean registrarNuevoTorneo(String nt, String fi, String ff, String testado, String campeonCat,
+		String campeonInst, String campeon) {Conexion con= new Conexion();
 		Statement st= null;
 		
 		try {
 			
-			String consulta= "INSERT INTO torneo (nombre, fecha, estado, campeon) VALUES('"+nt+"','"+fi+"','"+es+"','"+campeon+"')";
+			String consulta= "INSERT INTO torneo (nombre, fechaInicio, fechaFin,idTipoEstado,idCategoriaCampeo, idInstitucionCampeon, nombreEquipoCampeon) VALUES('"+nt+"','"+fi+"','"+ff+"','"+testado+"','"+campeonCat+"', '"+campeonInst+"','"+campeon+"')";
 			
 			st=con.getConexion().createStatement();
 			
@@ -56,9 +126,6 @@ public class Torneo {
 		return false;
 		
 	}
-	
-	
-
 
 public static LinkedList<Torneo> getTorneos() throws SQLException{
 	LinkedList<Torneo>listaTorneos= new LinkedList<Torneo>();
@@ -131,76 +198,6 @@ public boolean eliminarTorneo(int id) throws SQLException{
 	
 	
 	
-}
-
-
-
-
-public int getIdTorneos() {
-	return idTorneos;
-}
-
-
-
-
-public void setIdTorneos(int idTorneos) {
-	this.idTorneos = idTorneos;
-}
-
-
-
-
-public String getNombre() {
-	return nombre;
-}
-
-
-
-
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
-
-
-
-
-public String getFechaInicio() {
-	return fechaInicio.toString();
-}
-
-
-
-
-public void setFechaInicio(java.sql.Date date) {
-	this.fechaInicio = date;
-}
-
-
-
-
-public TipoEstado getEstado() {
-	return estado;
-}
-
-
-
-
-public void setEstado(TipoEstado estado) {
-	this.estado = estado;
-}
-
-
-
-
-public Equipo getEquipoCampion() {
-	return equipoCampion;
-}
-
-
-
-
-public void setEquipoCampion(Equipo equipoCampion) {
-	this.equipoCampion = equipoCampion;
 }
 }
 

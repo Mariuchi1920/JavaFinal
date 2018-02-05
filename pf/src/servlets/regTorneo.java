@@ -44,14 +44,18 @@ public class regTorneo extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		String nt=request.getParameter("nombreTorneo");
-		String fi= request.getParameter("fecha");
-		int e=Integer.parseInt(request.getParameter("estado"));
+		String fi= request.getParameter("fechaI");
+		String ff= request.getParameter("fechaF");
+		String testado= request.getParameter("tipoEstado");
+		String campeonCat=request.getParameter("campeonCat");
+		String campeonInst=request.getParameter("campeonInst");
 		String campeon=request.getParameter("campeon");
+		
 		
 		//ver validacion antes de mandar datos
 		
 		Torneo tor= new Torneo();
-		boolean rta= tor.registrarNuevoTorneo(nt, fi, e, campeon);
+		boolean rta= tor.registrarNuevoTorneo(nt, fi, ff,testado,campeonCat, campeonInst, campeon);
   		if(rta){
   			
 			request.getRequestDispatcher("maestroTorneo.jsp").forward(request, response);
