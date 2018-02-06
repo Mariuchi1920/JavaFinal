@@ -2,6 +2,10 @@
 <%@page import="entidad.Institucion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="java.util.Iterator"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="entidad.Torneo"%>
+<%@page import="entidad.TipoEstado"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
@@ -68,7 +72,20 @@
 				<tr><td colspan="2">Nueva Categoria</td></tr>
 				<tr><td>Id Categoria:</td> <td><input type="text" name="idCategoria" id="idCategoria"/></td> </tr>
 				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/></td></tr>
-				<tr><td>Estado:</td><td><input type="text" name="estado"id="estado"/></td></tr>
+				<tr><td>Estado:</td><td> <% TipoEstado tpEstado= new TipoEstado();
+                               			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
+                               			 %>
+                               			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
+                               			 <select name="listaTipoEStado" id="tipoEstado">
+                               			<% for(TipoEstado te :listaEstado){  %>
+                               			<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+                               			
+                               			<%} %>
+
+                               			 </select>
+                               		</td>		 
+                               					
+              </tr>
 				<tr><td><input type= "submit" value="Registrar Categoria" onclick="pregunta()"></td></tr>
 				
 			</table>

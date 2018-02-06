@@ -73,17 +73,16 @@
 					con una lista.  -->
 					
 					
-					<td>Estado:</td><td><select name="origen" id="tipoEstado">
-                                <% TipoEstado tpEstado= new TipoEstado();
-                                LinkedList <TipoEstado> listatpEstado= tpEstado.getTipoEstados();
-                                listatpEstado=tpEstado.getIdTipoPersona();
-                                for(TipoEstado t:){
-                                /* for(int i=0;i<listatpEstado.size();i++){ */ %>
-                                <option value="<%=listatpEstado.get(i).get %>"><%=listatpEstado.get(i).getDescripcion() %></option>
-                                <% } %>
-                                   
-                                  
-                            </select></td>
+					<td>Estado:</td><td> <% TipoEstado tpEstado= new TipoEstado();
+                               			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
+                               			 %>
+                               			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
+                               			 <select name="listaTipoEStado" id="tipoEstado">
+                               			<% for(TipoEstado te :listaEstado){  %>
+                               			<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+                               			
+                               			<%} %></select>
+</td>
 					</tr>			
 					<tr>
 					<td>Categoria Campeon: </td><td><input type="text" name="campeonCat" id="campeonCat"/></td>

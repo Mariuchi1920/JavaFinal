@@ -46,7 +46,7 @@ public class regTorneo extends HttpServlet {
 		String nt=request.getParameter("nombreTorneo");
 		String fi= request.getParameter("fechaI");
 		String ff= request.getParameter("fechaF");
-		String testado= request.getParameter("tipoEstado");
+		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
 		String campeonCat=request.getParameter("campeonCat");
 		String campeonInst=request.getParameter("campeonInst");
 		String campeon=request.getParameter("campeon");
@@ -55,7 +55,7 @@ public class regTorneo extends HttpServlet {
 		//ver validacion antes de mandar datos
 		
 		Torneo tor= new Torneo();
-		boolean rta= tor.registrarNuevoTorneo(nt, fi, ff,testado,campeonCat, campeonInst, campeon);
+		boolean rta= tor.registrarNuevoTorneo(nt, fi, ff,estado,campeonCat, campeonInst, campeon);
   		if(rta){
   			
 			request.getRequestDispatcher("maestroTorneo.jsp").forward(request, response);

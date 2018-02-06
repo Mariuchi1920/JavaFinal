@@ -10,16 +10,20 @@ import modelo.Conexion;
 public class TipoEstado {
 	
 	
-	private int idTipoPersona;
+	private int idTipoEstado;
+	
+
 	private String descripcion;
 	
 	
-	public int getIdTipoPersona() {
-		return idTipoPersona;
+	public int getIdTipoEstado() {
+		return idTipoEstado;
 	}
-	public void setIdTipoPersona(int idTipoPersona) {
-		this.idTipoPersona = idTipoPersona;
+	public void setIdTipoEstado(int idTipoEstado) {
+		this.idTipoEstado = idTipoEstado;
 	}
+	
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -37,7 +41,7 @@ public class TipoEstado {
 			 rs= st.executeQuery("select * from tipoestado");
 			while(rs.next()){
 				TipoEstado te= new TipoEstado();
-				te.setIdTipoPersona(rs.getInt(1));
+				te.setIdTipoEstado(rs.getInt(1));
 				te.setDescripcion(rs.getString(2));
 				lista.add(te);
 						

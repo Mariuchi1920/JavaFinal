@@ -66,15 +66,15 @@
 </tr> 
 <!-- ahora trabajo en java para mostrar los datos d ela base de datos 
 en las demas filas  -->
-<%-- 
-<%
-Torneo torneo= new Torneo();
-LinkedList <Torneo> listaTorneo= torneo.getTorneos();
-for(int i=0; i<listaTorneo.size();i++){
+
+<%  Torneo torneo= new Torneo();
+	LinkedList <Torneo> listaTorneo= torneo.getTorneos();
 	%>
-	<tr><th><%=listaTorneo.get(i).getIdtorneo() %></th>
-	<th><%=listaTorneo.get(i).getNombre() %></th>
-	<th><%=listaTorneo.get(i).getFecha() %></th>
+
+<% for(Torneo t :listaTorneo){  %>
+	<tr><th><%= t.getIdTorneos() %></th>
+	<th><%=t.getNombre() %></th>
+	<th><%=t.getFechaInicio()%></th>
 	<th><%=listaTorneo.get(i).getEstado() %></th>
 	<th><%=listaTorneo.get(i).getCampeon() %></th>
 	<th>
@@ -86,7 +86,7 @@ for(int i=0; i<listaTorneo.size();i++){
 	
 	<%		
 }
-%> --%>
+%> 
 </table>
 <form action="nuevoTorneo.jsp" method="post">
 <input type="submit" value="Nuevo Torneo">

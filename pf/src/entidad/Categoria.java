@@ -55,7 +55,7 @@ public class Categoria {
 		Conexion con= new Conexion();
 		PreparedStatement pst= null;
 		try {
-			String consulta= "insert into categoria ( idCategorias, descripcion, estado)values (?,?,?)";
+			String consulta= "insert into categorias ( idCategorias, descripcion, estado)values (?,?,?)";
 			pst=con.getConexion().prepareStatement(consulta);
 			pst.setInt(1,idcat);
 			pst.setString(2, descripcion);
@@ -86,9 +86,10 @@ public class Categoria {
 		ResultSet rs=null;
 		try{
 			 st= con.getConexion().createStatement();
-			 rs= st.executeQuery("select * from categoria");
+			 rs= st.executeQuery("select * from categorias");
 			while(rs.next()){
 				Categoria cat= new Categoria();
+				
 				cat.setIdcateogria(rs.getInt(1));
 				cat.setDescripcion(rs.getString(2));
 				cat.setEstado(rs.getInt(3));

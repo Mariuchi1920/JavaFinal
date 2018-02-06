@@ -96,13 +96,13 @@ public void setEquipoCampion(Equipo equipoCampion) {
 
 
 
-public boolean registrarNuevoTorneo(String nt, String fi, String ff, String testado, String campeonCat,
+public boolean registrarNuevoTorneo(String nt, String fi, String ff, int estado, String campeonCat,
 		String campeonInst, String campeon) {Conexion con= new Conexion();
 		Statement st= null;
 		
 		try {
 			
-			String consulta= "INSERT INTO torneo (nombre, fechaInicio, fechaFin,idTipoEstado,idCategoriaCampeo, idInstitucionCampeon, nombreEquipoCampeon) VALUES('"+nt+"','"+fi+"','"+ff+"','"+testado+"','"+campeonCat+"', '"+campeonInst+"','"+campeon+"')";
+			String consulta= "INSERT INTO torneo (nombre, fechaInicio, fechaFin,idTipoEstado,idCategoriaCampeo, idInstitucionCampeon, nombreEquipoCampeon) VALUES('"+nt+"','"+fi+"','"+ff+"','"+estado+"','"+campeonCat+"', '"+campeonInst+"','"+campeon+"')";
 			
 			st=con.getConexion().createStatement();
 			
@@ -134,18 +134,19 @@ public static LinkedList<Torneo> getTorneos() throws SQLException{
 	ResultSet rs=null;
 	try{
 		 st= con.getConexion().createStatement();
-		 rs= st.executeQuery("select * from torneo");
+		 rs= st.executeQuery("select * from torneos");
 		while(rs.next()){
 			Torneo torneo= new Torneo();
 			torneo.setIdTorneos(rs.getInt(1));
 			torneo.setNombre(rs.getString(2));
 			torneo.setFechaInicio(rs.getDate(3));
+			torneo.set
 			
 			
 			//Aca enviar el codigo para recuperar el Estado completo. con el id
 			//////////////////// aca hayy que setearle un estado primero torneo.setEstado(rs.getInt(4));
 			TipoEstado estado = new TipoEstado();
-			estado.setIdTipoPersona(rs.getInt(4));
+			estado.setIdTipoEstado(rs.getInt(4));
 			torneo.setEstado(estado);
 			
 			if(rs.getString(5)!= null){

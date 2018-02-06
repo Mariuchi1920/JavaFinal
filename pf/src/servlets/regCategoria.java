@@ -45,7 +45,7 @@ public class regCategoria extends HttpServlet {
 		doGet(request, response);
 		int idcat= Integer.parseInt(request.getParameter("idCategoria"));
 		String descripcion= request.getParameter("descripcion");
-		int estado= Integer.parseInt(request.getParameter("estado"));
+		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
 		Categoria cat= new Categoria();
 		boolean rta;
 		try {
