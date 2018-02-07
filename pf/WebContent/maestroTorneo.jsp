@@ -75,18 +75,16 @@ en las demas filas  -->
 	<tr><th><%= t.getIdTorneos() %></th>
 	<th><%=t.getNombre() %></th>
 	<th><%=t.getFechaInicio()%></th>
-	<th><%=listaTorneo.get(i).getEstado() %></th>
-	<th><%=listaTorneo.get(i).getCampeon() %></th>
+	<th><%=t.getFechaFin() %></th>
+	<th><%=t.getIdTipoEstado()%></th>
+	<th><%=t.getIdCategoriaCampeon()%></th>
+	<th><%=t.getIdInstitucionCampeon()%></th>
+	<th><%=t.getNombreEquipoCampeon()%></th>
 	<th>
-	
-	 <img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarTorneo.jsp?idtorneo=<%=listaTorneo.get(i).getIdtorneo() %>">
-	 <img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
-	
+	<img alt="" src="imagen/iconoEditar.png" width="30" height="30"><%-- ||<a href="eliminarTorneo.jsp?idtorneo=<%= //listaTorneo.get(t).getIdtorneo() %>"> --%>
+	 <img alt="" src="imagen/iconoEliminar.png" width="30" height="30"><!-- </a> --></th>
 	</tr>
-	
-	<%		
-}
-%> 
+		<%}%>
 </table>
 <form action="nuevoTorneo.jsp" method="post">
 <input type="submit" value="Nuevo Torneo">

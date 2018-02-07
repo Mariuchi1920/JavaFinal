@@ -4,105 +4,92 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
-
-import com.mysql.jdbc.EscapeTokenizer;
-
-import sun.util.calendar.LocalGregorianCalendar.Date;
+import java.sql.Date;
 import modelo.Conexion;
-
-
 
 public class Torneo {
 	private int idTorneos;
 	private String nombre;
-	private java.sql.Date fechaInicio;
-	private TipoEstado estado;
-	private Equipo equipoCampion;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private int idTipoEstado;
+	private int idCategoriaCampeon;
+	private int idInstitucionCampeon;
+	private String nombreEquipoCampeon;
 	
-		
 	
-
-
-
-
-
 public int getIdTorneos() {
-	return idTorneos;
-}
+		return idTorneos;
+	}
 
+	public void setIdTorneos(int idTorneos) {
+		this.idTorneos = idTorneos;
+	}
 
+	public String getNombre() {
+		return nombre;
+	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-public void setIdTorneos(int idTorneos) {
-	this.idTorneos = idTorneos;
-}
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
 
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
 
+	public Date getFechaFin() {
+		return fechaFin;
+	}
 
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
 
-public String getNombre() {
-	return nombre;
-}
+	public int getIdTipoEstado() {
+		return idTipoEstado;
+	}
 
+	public void setIdTipoEstado(int idTipoEstado) {
+		this.idTipoEstado = idTipoEstado;
+	}
 
+	public int getIdCategoriaCampeon() {
+		return idCategoriaCampeon;
+	}
 
+	public void setIdCategoriaCampeon(int idCategoriaCampeon) {
+		this.idCategoriaCampeon = idCategoriaCampeon;
+	}
 
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
+	public int getIdInstitucionCampeon() {
+		return idInstitucionCampeon;
+	}
 
+	public void setIdInstitucionCampeon(int idInstitucionCampeon) {
+		this.idInstitucionCampeon = idInstitucionCampeon;
+	}
 
+	public String getNombreEquipoCampeon() {
+		return nombreEquipoCampeon;
+	}
 
+	public void setNombreEquipoCampeon(String nombreEquipoCampeon) {
+		this.nombreEquipoCampeon = nombreEquipoCampeon;
+	}
 
-public String getFechaInicio() {
-	return fechaInicio.toString();
-}
-
-
-
-
-public void setFechaInicio(java.sql.Date date) {
-	this.fechaInicio = date;
-}
-
-
-
-
-public TipoEstado getEstado() {
-	return estado;
-}
-
-
-
-
-public void setEstado(TipoEstado estado) {
-	this.estado = estado;
-}
-
-
-
-
-public Equipo getEquipoCampion() {
-	return equipoCampion;
-}
-
-
-
-
-public void setEquipoCampion(Equipo equipoCampion) {
-	this.equipoCampion = equipoCampion;
-}
-
-
-
-
-public boolean registrarNuevoTorneo(String nt, String fi, String ff, int estado, String campeonCat,
-		String campeonInst, String campeon) {Conexion con= new Conexion();
+	
+	
+public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, String campeonCat,	String campeonInst, String campeon) {Conexion con= new Conexion();
 		Statement st= null;
 		
 		try {
 			
-			String consulta= "INSERT INTO torneo (nombre, fechaInicio, fechaFin,idTipoEstado,idCategoriaCampeo, idInstitucionCampeon, nombreEquipoCampeon) VALUES('"+nt+"','"+fi+"','"+ff+"','"+estado+"','"+campeonCat+"', '"+campeonInst+"','"+campeon+"')";
+			String consulta= "INSERT INTO torneo (nombre, fechaInicio, fechaFin,idTipoEstado,idCategoriaCampeon, idInstitucionCampeon, nombreEquipoCampeon) VALUES('"+nt+"','"+fi+"','"+ff+"','"+estado+"','"+campeonCat+"', '"+campeonInst+"','"+campeon+"')";
 			
 			st=con.getConexion().createStatement();
 			
@@ -140,35 +127,17 @@ public static LinkedList<Torneo> getTorneos() throws SQLException{
 			torneo.setIdTorneos(rs.getInt(1));
 			torneo.setNombre(rs.getString(2));
 			torneo.setFechaInicio(rs.getDate(3));
-			torneo.set
-			
-			
-			//Aca enviar el codigo para recuperar el Estado completo. con el id
-			//////////////////// aca hayy que setearle un estado primero torneo.setEstado(rs.getInt(4));
-			TipoEstado estado = new TipoEstado();
-			estado.setIdTipoEstado(rs.getInt(4));
-			torneo.setEstado(estado);
-			
-			if(rs.getString(5)!= null){
-				//// aca hay que hhacer el select en realidad para obtener todo el eqquio completo
-				
-			   Equipo equipoCampeon = new Equipo();
-			   Categoria categoria = new Categoria();
-			   categoria.setIdcateogria(rs.getInt(5));
-			   Institucion institucion = new Institucion();
-			   equipoCampeon.setIdCategorias(categoria);
-			   institucion.setIdInstituciones(rs.getInt(6));
-			   equipoCampeon.setIdInstitucion(institucion);
-			   equipoCampeon.setNombreEquipo(rs.getString(7));
-			   torneo.setEquipoCampion(equipoCampeon);
-			   
-			}
+			torneo.setFechaFin(rs.getDate(4));
+			torneo.setIdTipoEstado(rs.getInt(5));
+			torneo.setIdCategoriaCampeon(rs.getInt(6));
+			torneo.setIdInstitucionCampeon(rs.getInt(7));
+			torneo.setNombreEquipoCampeon(rs.getString(8));
 			listaTorneos.add(torneo);
+			}
 			
 			
-		}
-		
-	}catch(Exception e){
+			
+		}catch(Exception e){
 		
 	}finally {
 		st.close();

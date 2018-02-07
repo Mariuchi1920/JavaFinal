@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,8 +45,8 @@ public class regTorneo extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		String nt=request.getParameter("nombreTorneo");
-		String fi= request.getParameter("fechaI");
-		String ff= request.getParameter("fechaF");
+		Date fi= Date.valueOf(request.getParameter("fechaFi"));
+		Date ff= Date.valueOf(request.getParameter("fechaFin"));
 		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
 		String campeonCat=request.getParameter("campeonCat");
 		String campeonInst=request.getParameter("campeonInst");
@@ -55,7 +56,8 @@ public class regTorneo extends HttpServlet {
 		//ver validacion antes de mandar datos
 		
 		Torneo tor= new Torneo();
-		boolean rta= tor.registrarNuevoTorneo(nt, fi, ff,estado,campeonCat, campeonInst, campeon);
+		boolean rta= tor.registrarNuevoTorneo(nt, fi, ff, estado, campeonCat, campeonInst, campeon);
+				
   		if(rta){
   			
 			request.getRequestDispatcher("maestroTorneo.jsp").forward(request, response);
