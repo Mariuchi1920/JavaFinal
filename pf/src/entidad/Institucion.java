@@ -104,14 +104,14 @@ public class Institucion {
 	
 	
 	
-	public boolean registrarInstitucion(String ni, String nl, String dl, String nd, String ad, String td) {
+	public boolean registrarInstitucion(String ni, String nl, String dl, String nd, String ad, String td, String mail) {
 		// TODO Auto-generated method stub
 		Conexion con= new Conexion();
 		Statement stm= null;
 		
 		try {
 			System.out.println("aca no pasa");
-			String consulta= "INSERT INTO institucion (Nombre, nombreLocalia, direccionLocalia, nombreDelegado, apellidoDelegado, telefonoDelegado) VALUES('"+ni+"','"+nl+"','"+dl+"','"+nd+"','"+ad+"', '"+td+"')";
+			String consulta= "INSERT INTO instituciones (nombre, nombreLocalia, direccionLocalia, nombreDelegado, apellidoDelegado, telefonoDelegado, mailDelegado) VALUES('"+ni+"','"+nl+"','"+dl+"','"+nd+"','"+ad+"', '"+td+"','"+mail+"')";
 			stm=con.getConexion().createStatement();
 			
 			stm.executeUpdate(consulta);
@@ -144,7 +144,7 @@ public class Institucion {
 		ResultSet rs=null;
 		try{
 			 st= con.getConexion().createStatement();
-			 rs= st.executeQuery("select * from institucion");
+			 rs= st.executeQuery("select * from instituciones");
 			while(rs.next()){
 				Institucion i= new Institucion();
 				i.setIdInstituciones(rs.getInt(1));
@@ -154,6 +154,7 @@ public class Institucion {
 				i.setNombreDelegado(rs.getString(5));
 				i.setApellidoDelegado(rs.getString(6));
 				i.setTelefonoDelegado(rs.getString(7));
+				i.setMailDelegado(rs.getString(8));
 				listaInstituciones.add(i);
 						
 			}

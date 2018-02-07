@@ -72,6 +72,7 @@
 				<tr><td>Nombre delegado:</td><td><input type="text" name="nombredelegado"id="nombreDelegado"/></td></tr>
 				<tr><td>Apellido delegado:</td><td><input type="text" name="apellidoDelegado"id="apellidoDelegado"/></td></tr>
 				<tr><td>Telefono Delegado:</td><td><input type="text" name="telefonoDelegado"id="telefonoDelegado"/></td></tr>
+				<tr><td>Mail delegado:</td><td><input type="text" name="mail"id="mail"/></td></tr>
 				<tr><td><input type= "submit" value="Registrar Institucion" onclick="pregunta()"></td></tr>
 				
 			</table>

@@ -46,12 +46,12 @@ public class regInstitucion extends HttpServlet {
 		String nd=request.getParameter("nombreDelegado");
 		String ad=request.getParameter("apellidoDelegado");
 		String td=request.getParameter("telefonoDelegado");
-		
+		String mail=request.getParameter("mail");
 		boolean rta;
 		
 		
 		Institucion inst= new Institucion();
-		rta=inst.registrarInstitucion(ni,nl,dl,nd,ad,td);
+		rta=inst.registrarInstitucion(ni,nl,dl,nd,ad,td,mail);
 		if(rta){
 			System.out.println("se registro con exito");
 			request.getRequestDispatcher("maestroInstituciones.jsp").forward(request, response);

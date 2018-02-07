@@ -81,6 +81,7 @@
 							<th><%=listaInstituciones.get(i).getNombreDelegado() %></th>
 							<th><%=listaInstituciones.get(i).getApellidoDelegado() %></th>
 							<th><%=listaInstituciones.get(i).getTelefonoDelegado() %></th>
+							<th><%=listaInstituciones.get(i).getMailDelegado() %></th>
 							<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarInstitucion.jsp?idinstitucion=<%=listaInstituciones.get(i).getIdInstituciones()%>">
 	 						<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
 	
