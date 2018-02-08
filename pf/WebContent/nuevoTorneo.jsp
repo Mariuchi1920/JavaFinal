@@ -63,10 +63,10 @@
 					<td>Nombre Torneo:</td><td><input type="text" name="nombreTorneo" id="nombreTorneo"/></td>
 					</tr>
 					<tr>
-					<td>Fecha Inicio:</td><td><input type="date" name="fecha" id="fechaI"/></td>
+					<td>Fecha Inicio:</td><td><input type="date" name="fechaI" id="fechaI"/></td>
 						
 					<tr>
-					<td>Fecha fin:</td><td><input type="date" name="fecha" id="fechaF"/></td>
+					<td>Fecha fin:</td><td><input type="date" name="fechaF" id="fechaF"/></td>
 						
 					<tr>
 					<!--	quiero que muestre los tipos de estado que figuran en la base de datos 

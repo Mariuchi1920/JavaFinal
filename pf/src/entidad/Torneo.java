@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+
+import java.sql.PreparedStatement;
+
 import java.sql.Date;
 import modelo.Conexion;
 
@@ -85,19 +88,32 @@ public int getIdTorneos() {
 	
 	
 public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, String campeonCat,	String campeonInst, String campeon) {Conexion con= new Conexion();
-		Statement st= null;
+		PreparedStatement st= null;
 		
 		try {
 			
-			String consulta= "INSERT INTO torneo (nombre, fechaInicio, fechaFin,idTipoEstado,idCategoriaCampeon, idInstitucionCampeon, nombreEquipoCampeon) VALUES('"+nt+"','"+fi+"','"+ff+"','"+estado+"','"+campeonCat+"', '"+campeonInst+"','"+campeon+"')";
+			String consulta= "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
 			
-			st=con.getConexion().createStatement();
+			st=con.getConexion().prepareStatement(consulta);
 			
-			st.executeUpdate(consulta);
+			st.setString(1, nt);
+			st.setDate(2, fi);
+			st.setDate(3, ff);
+			st.setInt(4, estado);
+			st.setInt(5, 2005);// idCategoriaCampeon);
+			st.setInt(6, 1); //idInstitucionCampeon);
+			if(campeon.isEmpty()) {
+				campeon=null;
+			}
+			st.setString(7, campeon );
+			
+			st.executeUpdate();
 			return true;
 			
 			
 		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 			// TODO: handle exception
 		}finally {
 			if(con.getConexion()!= null)
@@ -108,9 +124,9 @@ public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, Str
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return false;
 				}
 		}
-		return false;
 		
 	}
 
