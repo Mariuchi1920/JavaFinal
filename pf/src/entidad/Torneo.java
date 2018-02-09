@@ -87,7 +87,8 @@ public int getIdTorneos() {
 
 	
 	
-public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, String campeonCat,	String campeonInst, String campeon) {Conexion con= new Conexion();
+public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, String campeonCat,	String campeonInst, String campeon) {
+		Conexion con= new Conexion();
 		PreparedStatement st= null;
 		
 		try {

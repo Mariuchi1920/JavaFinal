@@ -69,7 +69,7 @@
 				<tr><td>Nombre Institucion:</td> <td><input type="text" name="nombre" id="nombre"/></td> </tr>
 				<tr><td>Nombre Localia:</td><td><input type="text" name="nombrelocalia"id="descripcion"/></td></tr>
 				<tr><td>Direccion:</td><td><input type="text" name="direccionLocalia"id="direccionlocalia"/></td></tr>
-				<tr><td>Nombre delegado:</td><td><input type="text" name="nombredelegado"id="nombreDelegado"/></td></tr>
+				<tr><td>Nombre delegado:</td><td><input type="text" name="nombreDelegado"id="nombreDelegado"/></td></tr>
 				<tr><td>Apellido delegado:</td><td><input type="text" name="apellidoDelegado"id="apellidoDelegado"/></td></tr>
 				<tr><td>Telefono Delegado:</td><td><input type="text" name="telefonoDelegado"id="telefonoDelegado"/></td></tr>
 				<tr><td>Mail delegado:</td><td><input type="text" name="mail"id="mail"/></td></tr>

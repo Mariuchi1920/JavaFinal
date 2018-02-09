@@ -3,9 +3,11 @@ package entidad;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
+import java.sql.PreparedStatement;
+
 
 import modelo.Conexion;
 
@@ -107,34 +109,45 @@ public class Institucion {
 	public boolean registrarInstitucion(String ni, String nl, String dl, String nd, String ad, String td, String mail) {
 		// TODO Auto-generated method stub
 		Conexion con= new Conexion();
-		Statement stm= null;
+		PreparedStatement stm= null;
 		
 		try {
 			System.out.println("aca no pasa");
-			String consulta= "INSERT INTO instituciones (nombre, nombreLocalia, direccionLocalia, nombreDelegado, apellidoDelegado, telefonoDelegado, mailDelegado) VALUES('"+ni+"','"+nl+"','"+dl+"','"+nd+"','"+ad+"', '"+td+"','"+mail+"')";
-			stm=con.getConexion().createStatement();
+			String consulta= "INSERT INTO instituciones (nombre, nombreLocalia, direccionLocalia, nombreDelegado, apellidoDelegado, telefonoDelegado, mailDelegado) VALUES(?,?,?,?,?,?,?);";
+			stm= con.getConexion().prepareStatement(consulta);
+			stm.setString(1,ni);
+			stm.setString(2, nl);
+			stm.setString(3, dl);
+			stm.setString(4, nd);
+			stm.setString(5, ad);
+			stm.setString(6, td);
+			stm.setString(7, mail);
+			stm.executeUpdate();
+				return true;
+				
 			
-			stm.executeUpdate(consulta);
-			System.out.println(consulta);
-			return true;
 			
 			} catch (Exception e) {
 			// TODO: handle exception
+				return false;
 		}finally {
 			if(con.getConexion()!= null)
 				try {
 					con.getConexion().close();
 				stm.close();
 					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				}catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return false;
+					}
+					
 				}
 		}
-		return false;
+		
 		
 	
-	}
+	
 	
 
 	public static LinkedList<Institucion> getInstitucion() throws SQLException{
