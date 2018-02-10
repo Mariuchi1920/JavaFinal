@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: baseligaefe
 -- ------------------------------------------------------
--- Server version	5.1.59-community
+-- Server version	5.5.59-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,7 +26,9 @@ CREATE TABLE `categorias` (
   `idCategorias` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL,
   `estado` int(11) NOT NULL,
-  PRIMARY KEY (`idCategorias`)
+  PRIMARY KEY (`idCategorias`),
+  KEY `estado_idx` (`estado`),
+  CONSTRAINT `estado` FOREIGN KEY (`estado`) REFERENCES `tipoestado` (`idTipoEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,6 +38,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
+INSERT INTO `categorias` VALUES (2005,'solo jugadores que nacieron en el año 2005',1),(2006,'jjj',2),(2007,'dsdsds',1),(2008,'ewewew',4),(2009,'solo los que nacie3ron nnn',1),(2019,'seba no te vayas',2),(2222,'prueba prueba',2);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +148,7 @@ CREATE TABLE `instituciones` (
   `telefonoDelegado` varchar(45) NOT NULL,
   `mailDelegado` varchar(45) NOT NULL,
   PRIMARY KEY (`idIntituciones`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,6 +157,7 @@ CREATE TABLE `instituciones` (
 
 LOCK TABLES `instituciones` WRITE;
 /*!40000 ALTER TABLE `instituciones` DISABLE KEYS */;
+INSERT INTO `instituciones` VALUES (1,'Rosario Central','Arroyo Seco','Salta 2132','Pablo','Lastorti','3416787878','pablo.l@rosariocentral.com.ar'),(2,'Boca Junior','Boca Sur','San Martin5660','null','Panchieri','3413454545','horacio.pp@gmail.com'),(3,'qq','aa','ss','dd','ff','gg','hhh');
 /*!40000 ALTER TABLE `instituciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,20 +358,20 @@ DROP TABLE IF EXISTS `torneos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `torneos` (
-  `idTorneos` int(11) NOT NULL,
+  `idTorneos` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `fechaInicio` date NOT NULL,
   `fechaFin` date NOT NULL,
   `idTipoEstado` int(11) NOT NULL,
-  `idCategoriasCampeo` int(11) DEFAULT NULL,
-  `idIntitucionesCampeo` int(11) DEFAULT NULL,
-  `nombreEquipoCampeo` varchar(45) DEFAULT NULL,
+  `idCategoriaCampeon` int(11) DEFAULT NULL,
+  `idIntitucionCampeon` int(11) DEFAULT NULL,
+  `nombreEquipoCampeon` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTorneos`),
   KEY `fk_Torneos_TipoEstado1_idx` (`idTipoEstado`),
-  KEY `fk_Torneos_Equipos1_idx` (`idCategoriasCampeo`,`idIntitucionesCampeo`,`nombreEquipoCampeo`),
-  CONSTRAINT `fk_Torneos_Equipos1` FOREIGN KEY (`idCategoriasCampeo`, `idIntitucionesCampeo`, `nombreEquipoCampeo`) REFERENCES `equipos` (`idCategorias`, `idIntituciones`, `nombreEquipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `fk_Torneos_Equipos1_idx` (`idCategoriaCampeon`,`idIntitucionCampeon`,`nombreEquipoCampeon`),
+  CONSTRAINT `fk_Torneos_Equipos1` FOREIGN KEY (`idCategoriaCampeon`, `idIntitucionCampeon`, `nombreEquipoCampeon`) REFERENCES `equipos` (`idCategorias`, `idIntituciones`, `nombreEquipo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Torneos_TipoEstado1` FOREIGN KEY (`idTipoEstado`) REFERENCES `tipoestado` (`idTipoEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,16 +380,9 @@ CREATE TABLE `torneos` (
 
 LOCK TABLES `torneos` WRITE;
 /*!40000 ALTER TABLE `torneos` DISABLE KEYS */;
+INSERT INTO `torneos` VALUES (1,'papa','2018-02-22','2018-05-23',1,NULL,NULL,NULL),(3,'maria','2018-02-10','2018-02-12',1,2005,1,NULL),(4,'TOrneo Gatorade','2018-02-12','2018-03-12',2,2005,1,NULL);
 /*!40000 ALTER TABLE `torneos` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'baseligaefe'
---
-
---
--- Dumping routines for database 'baseligaefe'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -396,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-01  1:18:27
+-- Dump completed on 2018-02-10  9:08:44
