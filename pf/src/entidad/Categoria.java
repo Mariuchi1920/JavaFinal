@@ -116,9 +116,8 @@ public class Categoria {
 	public void eliminarCategoria(int idCat){
 		Conexion con= new Conexion();
 		Statement st=null;
-		System.out.println("la variable es "+idCat);
-		
-		String lista= "delete from categoria where idCategorias= "+idCat+";";
+				
+		String lista= "delete from categorias where idCategorias= "+idCat+";";
 		
 		try {
 			

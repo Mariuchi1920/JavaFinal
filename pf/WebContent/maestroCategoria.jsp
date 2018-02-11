@@ -79,7 +79,7 @@ for(int i=0; i<listaCategoria.size();i++){
 	<tr><th><%=listaCategoria.get(i).getIdcateogria() %></th>
 		<th><%=listaCategoria.get(i).getDescripcion() %></th>
 		<th><%=listaCategoria.get(i).getEstado() %></th>
-		<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarCategoria.jsp?idcategoria=<%=listaCategoria.get(i).getIdcateogria()%>">
+		<th><a href="editarCategoria.jsp?idcategoria=<%=listaCategoria.get(i).getIdcateogria()%>"><img alt="" src="imagen/iconoEditar.png" width="30" height="30"></a>||<a href="eliminarCategoria.jsp?idcategoria=<%=listaCategoria.get(i).getIdcateogria()%>">
 	 <img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
 	
 	</tr>

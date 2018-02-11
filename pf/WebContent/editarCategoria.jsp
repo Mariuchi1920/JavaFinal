@@ -1,18 +1,22 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="entidad.Institucion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="java.util.Iterator"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="entidad.Torneo"%>
+<%@page import="entidad.TipoEstado"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@page import="java.sql.ResultSet"%>
 
-<%@page import="modelo.Consulta"%>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Menu Principal</title>
+	<title>Editar Categoria Seleccionada</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 	<script type="text/javascript">
 	function pregunta() {
-		if(confirm("Estas seguro que desea realizar los cabios?")){
-			Document.categoriaNueca.submit();
+		if(confirm("Estas seguro de registrar una nueva categoria?")){
+			Document.categoriaNueva.submit();
 			
 		};
 		}
@@ -20,8 +24,7 @@
 	</script>
 </head>
 <body>
-	<div id="contenedor">
-		<div id="cabecera">
+	<div id="cabecera">
 					<div id="Logo"><img src="imagen/logo_header.png"></div>
 					<div id="usuario">
 					
@@ -43,13 +46,19 @@
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="NuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
 				</li>
 				<li><a href="#">Jugadores</a></li>
-				<li><a href="#">Institucion</a></li>
+				<li><a href="#">Institucion</a>
+				<ul>
+						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
+						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>
+						<li><a href="#">Listar</a></li>	
+
+					</ul>
 				<li><a href="#">Partido</a></li>
 				
 			</ul>
@@ -57,36 +66,41 @@
 		</div>
 		<div id="contenido">
 			
-		
 			
-			<form action="">
-				<table border="2 px" align="center">
-			
-				<tr>
-				<td colspan="2">Editar Categoria</td>
-				<tr>
+			<form action="regCategoria" method="post" name="categoriaNueva">
+			<table border="4" align="center">
+				<tr><td colspan="2">Editar categoria seleccionada</td></tr>
+				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
+				<%
+					//recibo los datos de la pagina maestroCtaegorias
+					int idcat= Integer.parseInt(request.getParameter("idCategoria"));
 				
-				<td>idCategoria:</td>
-				<td><input type="text" name="idCategoria" id="idCategoria" value=""/></td>
-				</tr>
-				<tr>
-				<td>descripcion:</td>
-				<td><input type="text" name="descripcion"id="descripcion"value=""/></td>
-				</tr>
-				<tr>
-				<td>estado:</td>
-				<td><input type="text" name="estado"id="estado"value=""/></td>
+				%>
 				
-				<tr>
-				<tr>
+				<tr><td>Id Categoria:</td> <td><input type="text" readonly="readonly" name="idCategoria" id="idCategoria" value="idcat"/></td> </tr>
+				int id= Integer.parseInt(request.getParameter("idcategoria"));
+				Categoria cate= new Categoria();
 				
-				<td colspan="2"><input type= "submit" value="Guardar Cambios" onclick="pregunta()"></td>
-				<tr>
+				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/></td></tr>
+				<tr><td>Estado:</td><td> <% TipoEstado tpEstado= new TipoEstado();
+                               			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
+                               			 %>
+                               			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
+                               			 <select name="listaTipoEStado" id="tipoEstado">
+                               			<% for(TipoEstado te :listaEstado){  %>
+                               			<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+                               			
+                               			<%} %>
+
+                               			 </select>
+                               		</td>		 
+                               					
+              </tr>
+				<tr><td><input type= "submit" value="Registrar Categoria" onclick="pregunta()"></td></tr>
 				
 			</table>
-				
 			</form>
-		
+
 		</div>
 		<div id="Pie">
 			<div id="LogoPie"><img src="imagen/logo_footer.jpg"></div>
