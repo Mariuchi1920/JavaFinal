@@ -1,5 +1,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="entidad.Categoria"%>
+<%@page import="datos.CategoriasDAO"%>
 <%@page import="modelo.Consulta"%>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -71,7 +72,22 @@
 		<td  align="center">Estado</td>
 		<td align="center">Accion</td>
 </tr>
-<% 
+
+		<%
+		CategoriasDAO catDao= new CategoriasDAO();
+		LinkedList<Categoria> categorias=catDao.listarTodasLasCategorias(); 
+		for(Categoria c:categorias){%>
+		<tr>  <th> <%= c.getIdcateogria() %></th>
+			  <th> <%= c.getDescripcion() %></th>
+			  <th> <%= c.getEstado() %></th>
+			<th><a href="CategoriaServlets?accion=editar"><img alt="" src="imagen/iconoEditar.png" width="30" height="30"></a>||<a href="CategoriaServlets?accion=eliminar&idCategoria=<%=c.getIdcateogria()%>">
+	 			<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>	
+		</tr>
+			<%		
+			}
+			%>
+
+<%-- <% 
 Categoria cate= new Categoria();
 LinkedList <Categoria> listaCategoria= cate.getCategorias();
 for(int i=0; i<listaCategoria.size();i++){
@@ -86,7 +102,7 @@ for(int i=0; i<listaCategoria.size();i++){
 	
 	<%		
 }
-%>
+%> --%>
   </table>
   <form action="nuevaCategoria.jsp" method="post">
 <input type="submit" value="Nueva Categoria">

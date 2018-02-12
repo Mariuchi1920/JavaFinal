@@ -67,7 +67,7 @@
 		<div id="contenido">
 			
 			
-			<form action="regCategoria" method="post" name="categoriaNueva">
+			<form action="CategoriaServlets?accion=registrar" method="post" name="categoriaNueva">
 			<table border="4" align="center">
 				<tr><td colspan="2">Nueva Categoria</td></tr>
 				<tr><td>Id Categoria:</td> <td><input type="text" name="idCategoria" id="idCategoria"/></td> </tr>
