@@ -93,7 +93,7 @@ if(request.getAttribute("editador")!=null){
 				
 			</table>
 			
-			   <button align="center" onclick="javascript: submitForm('regCategoria/editar')" value="<%=idCategoria %>name="editar">Editar</button>
+			   <button  onclick="javascript: submitForm('regCategoria/editar')" value="<%= idCategoria %>" name="editar">Editar</button>
 			</form>
 
 		</div>
