@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,18 +51,21 @@ public class CategoriaServlets extends HttpServlet {
 			if(accion.equalsIgnoreCase("/editar")) {
 				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("editar")));
 				request.setAttribute("editador", categoria);
-				RequestDispatcher rd= request.getRequestDispatcher("/editarCategoria.jsp");
+				ServletContext context = getServletContext();
+				RequestDispatcher rd= context.getRequestDispatcher("/editarCategoria.jsp");
 				rd.forward(request, response);	
 			}else if(accion.equalsIgnoreCase("/eliminar")) {
 				Categoria categoria= new Categoria();
 				categoria.setIdCategorias(Integer.parseInt(request.getParameter("eliminar")));
 				catdao.eliminarCategoria(categoria);
-				RequestDispatcher rd= request.getRequestDispatcher("/maestroCategoria.jsp");
+				ServletContext context = getServletContext();
+				RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
 				rd.forward(request, response);
 							
 		}} catch (ServletException| IOException| NumberFormatException ex) {
 			// TODO: handle exception
-			RequestDispatcher rd= request.getRequestDispatcher("maestroCategoria.jsp");
+			ServletContext context = getServletContext();
+			RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
 			rd.forward(request, response);
 		} 
 

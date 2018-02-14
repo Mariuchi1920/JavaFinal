@@ -62,7 +62,7 @@
 					<th><button
 						onclick="javascript: submitForm('CategoriaServlets/editar')"
 						value="<%= c.getIdCategorias()%>"  name="editar">Editar</button>	
-						<button type="image" 
+						<button 
 						onclick="javascript: submitForm('CategoriaServlets/eliminar')"
 						value="<%= c.getIdCategorias()%>" name="eliminar">Eliminar</button>
 						</th>
