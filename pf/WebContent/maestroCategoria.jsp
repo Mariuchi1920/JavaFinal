@@ -16,16 +16,11 @@
 	function nuevaCategoria(url) {
 		window.open(url, "", "algun parametro que desees");
 	}
-	function editar(met) {
-		document.myForm.action = met;
-	}
-	function eliminar(met) {
-		if (confirm("Estas seguro de eliminar categoria?")) {
-			document.myForm.action = met;
+	function submitForm(met) {
+		document.myForm.action=met;
+		//document.getElementById("myFrom").submit();
+    }
 
-		}
-
-	}
 </script>
 </head>
 <body>
@@ -61,17 +56,16 @@
 					for (Categoria c : categorias) {
 				%>
 				<tr>
-					<th><%=c.getIdcateogria()%></th>
+					<th><%=c.getIdCategorias()%></th>
 					<th><%=c.getDescripcion()%></th>
 					<th><%=c.getEstado().getDescripcion()%></th>
-					<th><input type="image" src="imagen/iconoEditar.png"
-						width="30" height="30"
-						onclick="javascript: editar('CategoriaServlets/editar')"
-						value="<%=c.getIdcateogria()%>" id="editar" name="idCategoria">
-						<input type="image" src="imagen/iconoEliminar.png" width="30"
-						height="30"
-						onclick="javascript: eliminar('CategoriaServlets/eliminar')"
-						value="<%=c.getIdcateogria()%>" id="eliminar" name="idCategoria">
+					<th><button
+						onclick="javascript: submitForm('CategoriaServlets/editar')"
+						value="<%= c.getIdCategorias()%>"  name="editar">Editar</button>	
+						<button type="image" 
+						onclick="javascript: submitForm('CategoriaServlets/eliminar')"
+						value="<%= c.getIdCategorias()%>" name="eliminar">Eliminar</button>
+						</th>
 
 
 					
@@ -88,9 +82,8 @@
 		</form>
 	</div>
 
-
-
 	</div>
+
 
 
 	<div id="Pie">

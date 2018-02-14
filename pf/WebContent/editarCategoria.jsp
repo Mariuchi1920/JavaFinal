@@ -1,3 +1,4 @@
+<%@page import="datos.TipoEstadoDAO"%>
 <%@page import="datos.CategoriasDAO"%>
 <%@page import="com.mysql.jdbc.EscapeTokenizer"%>
 <%@page import="entidad.Categoria"%>
@@ -48,7 +49,7 @@ CategoriasDAO catdao = new CategoriasDAO();
 if(request.getAttribute("editador")!=null){
 	   encontrado = (Categoria)request.getAttribute("editador");
 	  
-	   idCategoria=String.valueOf(encontrado.getIdcateogria());
+	   idCategoria=String.valueOf(encontrado.getIdCategorias());
 	   descripcion=encontrado.getDescripcion();
 	   estado=encontrado.getEstado();
 }
@@ -62,13 +63,15 @@ if(request.getAttribute("editador")!=null){
 				<tr><td colspan="2">Editar categoria seleccionada</td></tr>
 				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
 				
-				<tr><td>Id Categoria:</td> <td><input type="text" readonly="readonly" name="idCategoria" id="idCategoria"/><%= idCategoria %></td> </tr>
+				<tr><td>Id Categoria:</td> <td><input type="text" readonly="readonly" name="idCategoria" id="idCategoria" value="<%= idCategoria %>"/></td> </tr>
 				
 				
-				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/><%= descripcion %></td></tr>
+				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion" value="<%= descripcion %>"/></td></tr>
 				<tr><td>Estado:</td><td> <% 
+										TipoEstadoDAO catalogo = new TipoEstadoDAO();
 				                         TipoEstado tpEstado= new TipoEstado();
-                               			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
+			
+                               			 LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados();
                                			 %>
                                			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
                                			 <select name="listaTipoEStado" id="tipoEstado">

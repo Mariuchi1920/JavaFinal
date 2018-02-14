@@ -24,6 +24,8 @@ public class Institucion {
 
 	
 
+
+
 	public int getIdInstituciones() {
 		return idInstituciones;
 	}
@@ -32,22 +34,12 @@ public class Institucion {
 		this.idInstituciones = idInstituciones;
 	}
 
-	public String getMailDelegado() {
-		return mailDelegado;
-	}
-
-	public void setMailDelegado(String mailDelegado) {
-		this.mailDelegado = mailDelegado;
-	}
-
-	
-
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		nombre = nombre;
+		this.nombre = nombre;
 	}
 
 	public String getNombreLocalia() {
@@ -66,26 +58,25 @@ public class Institucion {
 		this.direccionLocalia = direccionLocalia;
 	}
 
+
 	public String getNombreDelegado() {
 		return nombreDelegado;
 	}
+
 
 	public void setNombreDelegado(String nombreDelegado) {
 		this.nombreDelegado = nombreDelegado;
 	}
 
+
 	public String getApellidoDelegado() {
 		return apellidoDelegado;
 	}
 
-
-
-
-
-
 	public void setApellidoDelegado(String apellidoDelegado) {
 		this.apellidoDelegado = apellidoDelegado;
 	}
+
 
 	public String getTelefonoDelegado() {
 		return telefonoDelegado;
@@ -95,6 +86,15 @@ public class Institucion {
 	public void setTelefonoDelegado(String telefonoDelegado) {
 		this.telefonoDelegado = telefonoDelegado;
 	}
+
+	public String getMailDelegado() {
+		return mailDelegado;
+	}
+
+	public void setMailDelegado(String mailDelegado) {
+		this.mailDelegado = mailDelegado;
+	}
+
 
 	public Institucion() {
 		// TODO Auto-generated constructor stub

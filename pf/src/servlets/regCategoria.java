@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.CategoriasDAO;
+import datos.TipoEstadoDAO;
 import entidad.Categoria;
 import entidad.Institucion;
 import entidad.TipoEstado;
@@ -52,32 +53,36 @@ public class regCategoria extends HttpServlet {
 		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));		
 		CategoriasDAO catdao=new CategoriasDAO();
 		Categoria cat= new Categoria();
-		boolean rta=false;
+		cat.setIdCategorias(idcat);
+		cat.setDescripcion(descripcion);
+		TipoEstado tipoEstado;
+		try {
+			TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
+			 tipoEstado = estadoDAO.getTipoEstados(estado);
+			cat.setEstado(tipoEstado);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	
 		try {
 			String accion= request.getPathInfo();
 		    
 			if (accion.equalsIgnoreCase("/editar")) {
-				cat.setIdcateogria(idcat);
-				cat.setDescripcion(descripcion);
-				TipoEstado tipoEstado = TipoEstado.getTipoEstados(estado);
-				cat.setEstado(tipoEstado);
+				
 				catdao.editarCategoria(cat);
 				
 			}else if (accion.equalsIgnoreCase("/agregar")) {
 				
-				rta = cat.registrarNuevaCategoria(idcat,descripcion,estado);
-				if(rta){
+				 catdao.nuevaCategoria(cat);
+				
 		  		   request.getRequestDispatcher("maestroCategoria.jsp").forward(request, response);
-				} 
+				 
 			}
 		}catch (ServletException| IOException| NumberFormatException ex) {
 				// TODO: handle exception
 				System.err.println("Error"+ex.getMessage());
-			} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			}
 	}
 	
 

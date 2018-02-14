@@ -46,37 +46,24 @@ public class CategoriaServlets extends HttpServlet {
 		CategoriasDAO catdao=new CategoriasDAO();
 		try {
 			String accion= request.getPathInfo();
-		    if(accion!=null)
-			if (accion.equalsIgnoreCase("registrar")) {
-				Categoria categoria= new Categoria();
-				categoria.setIdcateogria(Integer.parseInt(request.getParameter("idCategoria")));
-				categoria.setDescripcion(request.getParameter("descripcion"));
-				TipoEstado estado = TipoEstado.getTipoEstados(Integer.parseInt(request.getParameter("listaTipoEStado")));
-				categoria.setEstado(estado);
-				catdao.nuevaCategoria(categoria);
-				RequestDispatcher rd= request.getRequestDispatcher("maestroCategoria.jsp");
-				rd.forward(request, response);
-			}else 
+		    
 			if(accion.equalsIgnoreCase("/editar")) {
-				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("idCategoria")));
+				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("editar")));
 				request.setAttribute("editador", categoria);
 				RequestDispatcher rd= request.getRequestDispatcher("/editarCategoria.jsp");
 				rd.forward(request, response);	
 			}else if(accion.equalsIgnoreCase("/eliminar")) {
 				Categoria categoria= new Categoria();
-				categoria.setIdcateogria(Integer.parseInt(request.getParameter("idCategoria")));
+				categoria.setIdCategorias(Integer.parseInt(request.getParameter("eliminar")));
 				catdao.eliminarCategoria(categoria);
 				RequestDispatcher rd= request.getRequestDispatcher("/maestroCategoria.jsp");
 				rd.forward(request, response);
 							
 		}} catch (ServletException| IOException| NumberFormatException ex) {
 			// TODO: handle exception
-			RequestDispatcher rd= request.getRequestDispatcher("/maestroCategoria.jsp");
+			RequestDispatcher rd= request.getRequestDispatcher("maestroCategoria.jsp");
 			rd.forward(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 
 		
 	

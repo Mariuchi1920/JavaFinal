@@ -1,20 +1,13 @@
 package entidad;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.LinkedList;
 
-import modelo.Conexion;
-
-import org.apache.catalina.connector.Request;
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
-
-import com.sun.corba.se.spi.orbutil.fsm.State;
 
 public class Categoria {
-	int idcateogria;
+
+
+
+
+	int idCategorias;
 	String descripcion;
 	TipoEstado estado;
 	
@@ -25,13 +18,14 @@ public class Categoria {
 	}*/
 
 	
-	public int getIdcateogria() {
-		return idcateogria;
+	public int getIdCategorias() {
+		return idCategorias;
 	}
 
-	public void setIdcateogria(int idcateogria) {
-		this.idcateogria = idcateogria;
+	public void setIdCategorias(int idCategorias) {
+		this.idCategorias = idCategorias;
 	}
+
 
 	public String getDescripcion() {
 		return descripcion;
@@ -49,7 +43,7 @@ public class Categoria {
 		this.estado = estado;
 	}
 	
-	
+/*	
 	
 	public boolean registrarNuevaCategoria(int idcat, String descripcion, int estado) throws SQLException{
 		Conexion con= new Conexion();
@@ -133,5 +127,5 @@ public class Categoria {
 			// TODO: handle exception
 		}
 		
-	}
+	}*/
 	}
