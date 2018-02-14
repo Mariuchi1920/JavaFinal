@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +39,7 @@ public class regCategoria extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -45,8 +47,6 @@ public class regCategoria extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-		
 		
 		int idcat= Integer.parseInt(request.getParameter("idCategoria"));
 		String descripcion= request.getParameter("descripcion");
@@ -71,17 +71,24 @@ public class regCategoria extends HttpServlet {
 			if (accion.equalsIgnoreCase("/editar")) {
 				
 				catdao.editarCategoria(cat);
+				ServletContext context = getServletContext();
+				RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
+				rd.forward(request, response);
 				
 			}else if (accion.equalsIgnoreCase("/agregar")) {
 				
 				 catdao.nuevaCategoria(cat);
 				
-		  		   request.getRequestDispatcher("maestroCategoria.jsp").forward(request, response);
+				 ServletContext context = getServletContext();
+					RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
+					rd.forward(request, response);;
 				 
 			}
 		}catch (ServletException| IOException| NumberFormatException ex) {
 				// TODO: handle exception
-				System.err.println("Error"+ex.getMessage());
+			ServletContext context = getServletContext();
+			RequestDispatcher rd= context.getRequestDispatcher("/editarCategoria.jsp");
+			rd.forward(request, response);
 			}
 	}
 	

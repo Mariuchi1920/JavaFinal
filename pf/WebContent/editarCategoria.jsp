@@ -23,11 +23,12 @@
 			Document.categoriaNueva.submit();
 			
 		};
-		}
-	function pregunta() {
+	}
+	function submitForm(met) {
+		document.myForm.action=met;
 		
-		Document.categoriaNueva.submit();
-		}
+    }
+
 	
 	</script>
 </head>
@@ -58,7 +59,7 @@ if(request.getAttribute("editador")!=null){
 		<div id="contenido">
 			
 			
-			<form action="" method="post" name="categoriaNueva">
+			<form class="form-signin" id="myForm" name="myForm" action="" method="post">
 			<table border="4" align="center">
 				<tr><td colspan="2">Editar categoria seleccionada</td></tr>
 				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
@@ -88,10 +89,11 @@ if(request.getAttribute("editador")!=null){
                                					
               </tr>
               
-				<tr><td><input type= "submit" value="Registrar Categoria" onclick="preguntar(/regCategoria/agregar)"></td></tr>
-				<td><input type= "submit" value="Editar" onclick="editar(/regCategoria/editar)"></td></tr>
+			
 				
 			</table>
+			
+			   <button align="center" onclick="javascript: submitForm('regCategoria/editar')" value="<%=idCategoria %>name="editar">Editar</button>
 			</form>
 
 		</div>
