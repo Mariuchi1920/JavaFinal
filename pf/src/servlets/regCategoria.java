@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datos.CategoriasDAO;
 import entidad.Categoria;
 import entidad.Institucion;
+import entidad.TipoEstado;
 import modelo.Conexion;
 
 /**
  * Servlet implementation class regCategoria
  */
-@WebServlet("/regCategoria")
+@WebServlet("/regCategoria/*")
 public class regCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,24 +45,40 @@ public class regCategoria extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		
 		int idcat= Integer.parseInt(request.getParameter("idCategoria"));
 		String descripcion= request.getParameter("descripcion");
-		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
+		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));		
+		CategoriasDAO catdao=new CategoriasDAO();
 		Categoria cat= new Categoria();
-		boolean rta;
+		boolean rta=false;
+	
 		try {
-			rta = cat.registrarNuevaCategoria(idcat,descripcion,estado);
-			if(rta){
-	  			
-				request.getRequestDispatcher("maestroCategoria.jsp").forward(request, response);
-					}
+			String accion= request.getPathInfo();
+		    
+			if (accion.equalsIgnoreCase("/editar")) {
+				cat.setIdcateogria(idcat);
+				cat.setDescripcion(descripcion);
+				TipoEstado tipoEstado = TipoEstado.getTipoEstados(estado);
+				cat.setEstado(tipoEstado);
+				catdao.editarCategoria(cat);
+				
+			}else if (accion.equalsIgnoreCase("/agregar")) {
+				
+				rta = cat.registrarNuevaCategoria(idcat,descripcion,estado);
+				if(rta){
+		  		   request.getRequestDispatcher("maestroCategoria.jsp").forward(request, response);
+				} 
+			}
+		}catch (ServletException| IOException| NumberFormatException ex) {
+				// TODO: handle exception
+				System.err.println("Error"+ex.getMessage());
 			} catch (SQLException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-										}
-		// poner quqe pasa si la respuesta es false
-  		
-		
-		
-		
-}}
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+}

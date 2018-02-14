@@ -1,3 +1,6 @@
+<%@page import="datos.CategoriasDAO"%>
+<%@page import="com.mysql.jdbc.EscapeTokenizer"%>
+<%@page import="entidad.Categoria"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="entidad.Institucion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -20,69 +23,51 @@
 			
 		};
 		}
+	function pregunta() {
+		
+		Document.categoriaNueva.submit();
+		}
 	
 	</script>
 </head>
 <body>
-	<div id="cabecera">
-					<div id="Logo"><img src="imagen/logo_header.png"></div>
-					<div id="usuario">
-					
-					Bienvenido <%= session.getAttribute("usuario") %>
-					<a href="cerrarSesion.jsp">cerrar Sesion</a>
-					</div>
-		</div>
-		<div id="menu">
-		
-			<ul class="nav">
-				<li><a href="#">Torneo</a>
-					<ul>
-						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
-						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
-						<li><a href="#">Listar</a></li>	
+	<div id="contenedor">
 
-					</ul>
-					</li>
-				<li><a href="#">Categoria</a>
-				<ul>
-						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
-						<li><a href="#">Listar</a></li>	
+		<jsp:include page="cabezera.jsp" />
 
-					</ul>
-				</li>
-				<li><a href="#">Jugadores</a></li>
-				<li><a href="#">Institucion</a>
-				<ul>
-						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
-						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>
-						<li><a href="#">Listar</a></li>	
+	</div>
 
-					</ul>
-				<li><a href="#">Partido</a></li>
-				
-			</ul>
-			
-		</div>
+
+<%
+Categoria encontrado = null;
+String idCategoria ="";
+String descripcion="";
+TipoEstado estado = new TipoEstado();
+CategoriasDAO catdao = new CategoriasDAO();
+
+if(request.getAttribute("editador")!=null){
+	   encontrado = (Categoria)request.getAttribute("editador");
+	  
+	   idCategoria=String.valueOf(encontrado.getIdcateogria());
+	   descripcion=encontrado.getDescripcion();
+	   estado=encontrado.getEstado();
+}
+%>
+
 		<div id="contenido">
 			
 			
-			<form action="regCategoria" method="post" name="categoriaNueva">
+			<form action="" method="post" name="categoriaNueva">
 			<table border="4" align="center">
 				<tr><td colspan="2">Editar categoria seleccionada</td></tr>
 				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
-				<%
-					//recibo los datos de la pagina maestroCtaegorias
-					int idcat= Integer.parseInt(request.getParameter("idCategoria"));
 				
-				%>
+				<tr><td>Id Categoria:</td> <td><input type="text" readonly="readonly" name="idCategoria" id="idCategoria"/><%= idCategoria %></td> </tr>
 				
-				<tr><td>Id Categoria:</td> <td><input type="text" readonly="readonly" name="idCategoria" id="idCategoria" value="idcat"/></td> </tr>
-				int id= Integer.parseInt(request.getParameter("idcategoria"));
-				Categoria cate= new Categoria();
 				
-				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/></td></tr>
-				<tr><td>Estado:</td><td> <% TipoEstado tpEstado= new TipoEstado();
+				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/><%= descripcion %></td></tr>
+				<tr><td>Estado:</td><td> <% 
+				                         TipoEstado tpEstado= new TipoEstado();
                                			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
                                			 %>
                                			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
@@ -90,32 +75,27 @@
                                			<% for(TipoEstado te :listaEstado){  %>
                                			<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
                                			
-                               			<%} %>
+                               			<%} if(encontrado!=null){  %>
+                               				<option value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
+                               				
+                               			<%}%>
 
                                			 </select>
                                		</td>		 
                                					
               </tr>
-				<tr><td><input type= "submit" value="Registrar Categoria" onclick="pregunta()"></td></tr>
+              
+				<tr><td><input type= "submit" value="Registrar Categoria" onclick="preguntar(/regCategoria/agregar)"></td></tr>
+				<td><input type= "submit" value="Editar" onclick="editar(/regCategoria/editar)"></td></tr>
 				
 			</table>
 			</form>
 
 		</div>
-		<div id="Pie">
-			<div id="LogoPie"><img src="imagen/logo_footer.jpg"></div>
-			<p>La EFA es una Agrupación de Escuelas de Fútbol creada por las instituciones fundadoras y cuyo objetivo final es:
+	
+	<div id="Pie">
+		<jsp:include page="pie.jsp" />
 
-"QUE TODOS LOS NIÑOS Y JOVENES SE DIVIERTAN JUGANDO AL FÚTBOL SANAMENTE Y CON ALEGRÍA,
-SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES".
-
-Los adultos que integran la EFA. (Delegados, Técnicos, padres y público en general),
-solamente serán colaboradores para lograr el fin mencionado en el párrafo anterior.
-</p>
-			<div id="LogoFondoPag"><img src="imagen/firma_efa.jpg"></div>
-			<h2>esto es el pie de pagina</h2>
-
-		</div>
 	</div>
 </body>
 </html>

@@ -24,46 +24,13 @@
 	</script>
 </head>
 <body>
-	<div id="cabecera">
-					<div id="Logo"><img src="imagen/logo_header.png"></div>
-					<div id="usuario">
-					
-					Bienvenido <%= session.getAttribute("usuario") %>
-					<a href="cerrarSesion.jsp">cerrar Sesion</a>
-					</div>
-		</div>
-		<div id="menu">
-		
-			<ul class="nav">
-				<li><a href="#">Torneo</a>
-					<ul>
-						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
-						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
-						<li><a href="#">Listar</a></li>	
 
-					</ul>
-					</li>
-				<li><a href="#">Categoria</a>
-				<ul>
-						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
-						<li><a href="#">Listar</a></li>	
+<div id="contenedor">
 
-					</ul>
-				</li>
-				<li><a href="#">Jugadores</a></li>
-				<li><a href="#">Institucion</a>
-				<ul>
-						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
-						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>
-						<li><a href="#">Listar</a></li>	
+		<jsp:include page="cabezera.jsp" />
 
-					</ul>
-				<li><a href="#">Partido</a></li>
-				
-			</ul>
-			
-		</div>
+	</div>
+
 		<div id="contenido">
 			
 			
@@ -92,20 +59,15 @@
 			</form>
 
 		</div>
-		<div id="Pie">
-			<div id="LogoPie"><img src="imagen/logo_footer.jpg"></div>
-			<p>La EFA es una Agrupación de Escuelas de Fútbol creada por las instituciones fundadoras y cuyo objetivo final es:
+		<div id="contenedor">
 
-"QUE TODOS LOS NIÑOS Y JOVENES SE DIVIERTAN JUGANDO AL FÚTBOL SANAMENTE Y CON ALEGRÍA,
-SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES".
+		<jsp:include page="cabezera.jsp" />
 
-Los adultos que integran la EFA. (Delegados, Técnicos, padres y público en general),
-solamente serán colaboradores para lograr el fin mencionado en el párrafo anterior.
-</p>
-			<div id="LogoFondoPag"><img src="imagen/firma_efa.jpg"></div>
-			<h2>esto es el pie de pagina</h2>
+	</div>
 
-		</div>
+	<div id="Pie">
+		<jsp:include page="pie.jsp" />
+
 	</div>
 </body>
 </html>

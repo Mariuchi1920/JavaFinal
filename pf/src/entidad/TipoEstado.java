@@ -60,6 +60,34 @@ public class TipoEstado {
 		
 	}
 	
+	public static TipoEstado getTipoEstados(int idTipoEstado) throws SQLException{
+		TipoEstado te=null;
+		Conexion con= new Conexion();
+		Statement st = null;
+		ResultSet rs=null;
+		try{
+			 st= con.getConexion().createStatement();
+			 rs= st.executeQuery("select * from tipoestado where idTipoEstado = '" +idTipoEstado+"'" );
+			if (rs.next()) {
+				te = new TipoEstado();
+				te.setIdTipoEstado(rs.getInt(1));
+				te.setDescripcion(rs.getString(2));
+
+			}
+			
+		}catch(Exception e){
+			// ver que va aca adentro averiguar.... 
+		}finally {
+			st.close();
+			rs.close();
+			con.getConexion().close();
+			
+			
+		}
+		return te;
+		
+	}
+	
 	
 
 }

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import entidad.Categoria;
+import entidad.TipoEstado;
 import modelo.Conexion;
 
 public class CategoriasDAO {
@@ -29,7 +30,7 @@ public class CategoriasDAO {
 			PreparedStatement ps= con.prepareStatement(INSERT);
 			ps.setInt(1, cat.getIdcateogria());
 			ps.setString(2,cat.getDescripcion());
-			ps.setInt(3, cat.getEstado());
+			ps.setInt(3, cat.getEstado().getIdTipoEstado());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -45,7 +46,7 @@ public class CategoriasDAO {
 			PreparedStatement ps= con.prepareStatement(EDITAR);
 			//ps.setInt(1, cat.getIdcateogria());
 			ps.setString(2,cat.getDescripcion());
-			ps.setInt(3, cat.getEstado());
+			ps.setInt(3, cat.getEstado().getIdTipoEstado());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -79,7 +80,8 @@ public class CategoriasDAO {
 				Categoria cat= new Categoria();
 				cat.setIdcateogria(rs.getInt(1));
 				cat.setDescripcion(rs.getString(2));
-				cat.setEstado(rs.getInt(3));
+				TipoEstado estadoCategoria = TipoEstado.getTipoEstados(rs.getInt(3));
+				cat.setEstado(estadoCategoria);
 				listaCategorias.add(cat);
 			}
 			}catch (SQLException ex) {
@@ -99,7 +101,8 @@ public class CategoriasDAO {
 			while (rs.next()) {
 				categorias.setIdcateogria(rs.getInt(1));
 				categorias.setDescripcion(rs.getString(2));
-				categorias.setEstado(rs.getInt(3));
+				TipoEstado estadoCategoria = TipoEstado.getTipoEstados(rs.getInt(3));
+				categorias.setEstado(estadoCategoria);
 				
 			}
 			rs.close();

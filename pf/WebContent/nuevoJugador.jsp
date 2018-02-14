@@ -4,6 +4,11 @@
 	
 </head>
 <body>
+<div id="contenedor">
+
+		<jsp:include page="cabezera.jsp" />
+
+	</div>
 
 			<form method="Post" action="regJugador">
 			<fieldset>
@@ -38,6 +43,11 @@
 			</fieldset>
 			<input class="btn" type="submit" value="Registrar" />
 			</form>
+
+	<div id="Pie">
+		<jsp:include page="pie.jsp" />
+
+	</div>
 
 		
 </body>

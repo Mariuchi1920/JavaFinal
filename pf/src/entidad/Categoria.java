@@ -16,7 +16,7 @@ import com.sun.corba.se.spi.orbutil.fsm.State;
 public class Categoria {
 	int idcateogria;
 	String descripcion;
-	int estado;
+	TipoEstado estado;
 	
 	/*public Categoria(int idcateogria, String descripcion, int estado) {
 		this.idcateogria = idcateogria;
@@ -41,11 +41,11 @@ public class Categoria {
 		this.descripcion = descripcion;
 	}
 
-	public int getEstado() {
+	public TipoEstado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(int estado) {
+	public void setEstado(TipoEstado estado) {
 		this.estado = estado;
 	}
 	
@@ -92,7 +92,8 @@ public class Categoria {
 				
 				cat.setIdcateogria(rs.getInt(1));
 				cat.setDescripcion(rs.getString(2));
-				cat.setEstado(rs.getInt(3));
+				TipoEstado tipoEstado = TipoEstado.getTipoEstados(rs.getInt(3));
+				cat.setEstado(tipoEstado);
 				listaCategorias.add(cat);
 						
 			}
