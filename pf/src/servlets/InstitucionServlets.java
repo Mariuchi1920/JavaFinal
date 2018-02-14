@@ -16,7 +16,7 @@ import entidad.Institucion;
 /**
  * Servlet implementation class InstitucionServlets
  */
-@WebServlet("/InstitucionServlets")
+@WebServlet("/InstitucionServlets/*")
 public class InstitucionServlets extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

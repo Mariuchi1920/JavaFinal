@@ -51,9 +51,14 @@
 							<td><%=in.getApellidoDelegado() %></td>
 							<td><%=in.getTelefonoDelegado() %></td>
 							<td><%=in.getMailDelegado() %></td>
-							<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30"></th>
-							<th><img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></th>
 							
+							<td><button
+						onclick="javascript: submitForm('InstitucionServlets/editar')"
+						value="<%= in.getIdInstituciones()%>"  name="editar">Editar</button></td>	
+						<td><button  
+						onclick="javascript: submitForm('InstitucionServlets/eliminar')"
+						value="<%= in.getIdInstituciones()%>" name="eliminar">Eliminar</button>
+						</td>
 						</tr>
 						
 						<% } %>
