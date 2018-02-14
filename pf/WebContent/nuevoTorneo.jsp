@@ -1,3 +1,4 @@
+<%@page import="datos.TipoEstadoDAO"%>
 <%@page import="entidad.TipoEstado"%>
 <%@page import="entidad.Categoria"%>
 <%@page import="modelo.Conexion"%>
@@ -47,8 +48,10 @@
 					con una lista.  -->
 					
 					
-					<td>Estado:</td><td> <% TipoEstado tpEstado= new TipoEstado();
-                               			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
+					<td>Estado:</td><td> <% TipoEstadoDAO catalogo = new TipoEstadoDAO();
+					                        TipoEstado tpEstado= new TipoEstado();
+
+							               LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados();
                                			 %>
                                			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
                                			 <select name="listaTipoEStado" id="tipoEstado">

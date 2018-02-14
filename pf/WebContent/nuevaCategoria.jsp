@@ -1,3 +1,4 @@
+<%@page import="datos.TipoEstadoDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="entidad.Institucion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -39,8 +40,12 @@
 				<tr><td colspan="2">Nueva Categoria</td></tr>
 				<tr><td>Id Categoria:</td> <td><input type="text" name="idCategoria" id="idCategoria"/></td> </tr>
 				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion"/></td></tr>
-				<tr><td>Estado:</td><td> <% TipoEstado tpEstado= new TipoEstado();
-                               			 LinkedList <TipoEstado> listaEstado= tpEstado.getTipoEstados();
+				<tr><td>Estado:</td><td> <% 
+										TipoEstadoDAO catalogo = new TipoEstadoDAO();
+                						TipoEstado tpEstado= new TipoEstado();
+
+      			 							LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados();
+				
                                			 %>
                                			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
                                			 <select name="listaTipoEStado" id="tipoEstado">

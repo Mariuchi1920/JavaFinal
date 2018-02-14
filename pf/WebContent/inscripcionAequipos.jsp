@@ -21,8 +21,8 @@
 <label>Categoria:</label>
  <select id="idtorneo" name="torneos">
  <% 
-        Categoria c= new Categoria();
- 		LinkedList <Categoria> listaCategoria= c.getCategorias();
+ 
+       
         %>
         </select>
 </span>
