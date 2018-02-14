@@ -63,11 +63,11 @@
 		<div id="contenido">
 			
 			
-			<form action="regInstitucion" method="post" name="institucionNueva">
+			<form action="InstitucionServlets?accion=registrar" method="post" name="institucionNueva">
 			<table border="4" align="center">
 				<tr><td colspan="2">Nueva Intitucion</td></tr>
-				<tr><td>Nombre Institucion:</td> <td><input type="text" name="nombre" id="nombre"/></td> </tr>
-				<tr><td>Nombre Localia:</td><td><input type="text" name="nombrelocalia"id="descripcion"/></td></tr>
+				<tr><td>Institucion:</td> <td><input type="text" name="institucion" id="nombre"/></td> </tr>
+				<tr><td>Nombre Localia:</td><td><input type="text" name="nombreLocalia"id="descripcion"/></td></tr>
 				<tr><td>Direccion:</td><td><input type="text" name="direccionLocalia"id="direccionlocalia"/></td></tr>
 				<tr><td>Nombre delegado:</td><td><input type="text" name="nombreDelegado"id="nombreDelegado"/></td></tr>
 				<tr><td>Apellido delegado:</td><td><input type="text" name="apellidoDelegado"id="apellidoDelegado"/></td></tr>

@@ -77,10 +77,10 @@
 		CategoriasDAO catDao= new CategoriasDAO();
 		LinkedList<Categoria> categorias=catDao.listarTodasLasCategorias(); 
 		for(Categoria c:categorias){%>
-		<tr>  <th> <%= c.getIdcateogria() %></th>
+		<tr>  <th> <%= c.getIdCategorias() %></th>
 			  <th> <%= c.getDescripcion() %></th>
 			  <th> <%= c.getEstado() %></th>
-			<th><a href="CategoriaServlets?accion=editar"><img alt="" src="imagen/iconoEditar.png" width="30" height="30"></a>||<a href="CategoriaServlets?accion=eliminar&idCategoria=<%=c.getIdcateogria()%>">
+			<th><a href="CategoriaServlets?accion=editar"><img alt="" src="imagen/iconoEditar.png" width="30" height="30"></a>||<a href="CategoriaServlets?accion=eliminar&idCategoria=<%=c.getIdCategorias() %>">
 	 			<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>	
 		</tr>
 			<%		

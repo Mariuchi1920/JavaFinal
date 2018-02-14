@@ -1,3 +1,5 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="datos.InstitucionesDAO"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="entidad.Institucion"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -56,7 +58,7 @@
 				
 				<table align="center" width="800" border="void" cellpadding="5">
 			 			<tr>
-						<td colspan="8" align="center">Administrador de Instituciones</td>
+						<td colspan="10" align="center">Administrador de Instituciones</td>
 						</tr>
 						<tr>
 							<td>Id Institucion</td>
@@ -66,31 +68,30 @@
 							<td>Nombre Delegado</td>
 							<td>Apellido Delegado</td>
 							<td>Telefono Delegado</td>
-							<td>Accion</td>
+							<td>Mail Delegado</td>
+							<td colspan="2">Accion</td>
 		
 						</tr>
-						<% 
-						Institucion ins= new Institucion();
-						LinkedList <Institucion> listaInstituciones= ins.getInstitucion();
-						for(int i=0; i<listaInstituciones.size();i++){
-						%>
-						<tr><th><%=listaInstituciones.get(i).getIdInstituciones() %></th>
-							<th><%=listaInstituciones.get(i).getNombre() %></th>
-							<th><%=listaInstituciones.get(i).getNombreLocalia() %></th>
-							<th><%=listaInstituciones.get(i).getDireccionLocalia() %></th>
-							<th><%=listaInstituciones.get(i).getNombreDelegado() %></th>
-							<th><%=listaInstituciones.get(i).getApellidoDelegado() %></th>
-							<th><%=listaInstituciones.get(i).getTelefonoDelegado() %></th>
-							<th><%=listaInstituciones.get(i).getMailDelegado() %></th>
-							<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30">||<a href="eliminarInstitucion.jsp?idinstitucion=<%=listaInstituciones.get(i).getIdInstituciones()%>">
-	 						<img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></a></th>
-	
-							</tr>
-	
-						<%		
-							}
-						%>
-  			</table>
+						<% InstitucionesDAO institucionDAO= new InstitucionesDAO();
+						   LinkedList <Institucion> listadoI = institucionDAO.listarTodasLasInstituciones();
+						
+						 for(Institucion in: listadoI){ %>
+						<tr>
+							<td><%=in.getIdInstituciones() %></td>
+							<td><%=in.getNombre() %></td>
+							<td><%=in.getNombreLocalia() %></td>
+							<td><%=in.getDireccionLocalia() %></td>
+							<td><%=in.getNombreDelegado() %></td>
+							<td><%=in.getApellidoDelegado() %></td>
+							<td><%=in.getTelefonoDelegado() %></td>
+							<td><%=in.getMailDelegado() %></td>
+							<th><img alt="" src="imagen/iconoEditar.png" width="30" height="30"></th>
+							<th><img alt="" src="imagen/iconoEliminar.png" width="30" height="30"></th>
+							
+						</tr>
+						
+						<% } %>
+								</table>
  				 <form action="nuevaInstitucion.jsp" method="post">
 					<input type="submit" value="Nueva Institucion" align="center">
 				</form>

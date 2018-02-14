@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datos.CategoriasDAO;
+import datos.InstitucionesDAO;
 import entidad.Categoria;
+import entidad.Institucion;
 
 /**
- * Servlet implementation class CategoriaServlets
+ * Servlet implementation class InstitucionServlets
  */
-@WebServlet("/CategoriaServlets")
-public class CategoriaServlets extends HttpServlet {
+@WebServlet("/InstitucionServlets")
+public class InstitucionServlets extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CategoriaServlets() {
+    public InstitucionServlets() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,30 +41,40 @@ public class CategoriaServlets extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		CategoriasDAO catdao=new CategoriasDAO();
+		InstitucionesDAO instidao= new InstitucionesDAO();
 		try {
 			String accion=request.getParameter("accion");
 			if (accion.equalsIgnoreCase("registrar")) {
-				Categoria categoria= new Categoria();
-				categoria.setIdCategorias(Integer.parseInt(request.getParameter("idCategoria")));
-				categoria.setDescripcion(request.getParameter("descripcion"));
-				categoria.setEstado(Integer.parseInt(request.getParameter("listaTipoEStado")));
-				catdao.nuevaCategoria(categoria);
-				RequestDispatcher rd= request.getRequestDispatcher("maestroCategoria.jsp");
+				Institucion i= new Institucion();
+				i.setNombre(request.getParameter("institucion"));
+				i.setNombreLocalia(request.getParameter("nombreLocalia"));
+				i.setDireccionLocalia(request.getParameter("direccionLocalia"));
+				i.setNombreDelegado(request.getParameter("nombreDelegado"));
+				i.setApellidoDelegado(request.getParameter("apellidoDelegado"));
+				i.setTelefonoDelegado(request.getParameter("telefonoDelegado"));
+				i.setMailDelegado(request.getParameter("mail"));
+				instidao.nuevaInstitucion(i);
+				RequestDispatcher rd= request.getRequestDispatcher("maestroInstituciones.jsp");
 				rd.forward(request, response);
-			}else if(accion.equalsIgnoreCase("editar")) {
-				Categoria categoria= new Categoria();
-				categoria.setIdCategorias(Integer.parseInt(request.getParameter("idCategoria")));
-				categoria.setDescripcion(request.getParameter("descripcion"));
-				categoria.setEstado(Integer.parseInt(request.getParameter("listaTipoEStado")));
-				catdao.editarCategoria(categoria);
+				
+			} else if(accion.equalsIgnoreCase("editar")) {
+				Institucion i=new Institucion();
+				i.setIdInstituciones(Integer.parseInt(request.getParameter("idInstituciones")));
+				i.setNombre(request.getParameter("nombre"));
+				i.setNombre(request.getParameter("nombrelocalia"));
+				i.setNombre(request.getParameter("direccionLocalia"));
+				i.setNombre(request.getParameter("nombreDelegado"));
+				i.setNombre(request.getParameter("apellidoDelegado"));
+				i.setNombre(request.getParameter("telefonoDelegado"));
+				i.setNombre(request.getParameter("mail"));
+				instidao.modificarIstitucion(i);
+				
 				RequestDispatcher rd= request.getRequestDispatcher("maestroCategoria.jsp");
 				rd.forward(request, response);
 				
 			}else if(accion.equalsIgnoreCase("eliminar")) {
-				Categoria categoria= new Categoria();
-				categoria.setIdCategorias(Integer.parseInt(request.getParameter("idCategoria")));
-				catdao.eliminarCategoria(categoria);
+				
+				
 				RequestDispatcher rd= request.getRequestDispatcher("maestroCategoria.jsp");
 				rd.forward(request, response);
 							
@@ -71,8 +82,10 @@ public class CategoriaServlets extends HttpServlet {
 			// TODO: handle exception
 			System.err.println("Error"+ex.getMessage());
 		}
-		
+				
+			}
+			
 	
 	}
 
-}
+

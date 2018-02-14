@@ -12,7 +12,7 @@ import modelo.Conexion;
 
 public class CategoriasDAO {
 	private String INSERT= "insert into categorias ( idCategorias, descripcion, estado)values (?,?,?)";
-	private String DELETE="delete from categorias where idCategorias=?";
+	private String DELETE="delete from categorias where idCategorias=?;";
 	private String EDITAR="update categorias set descripcion=?, estado=? where idCategorias=?";
 	private String LISTARTODACATEGORIA="select * from categorias";
 	private String LISTARPORCODIGOCAT="select * from categorias where idCategorias=?";
@@ -27,7 +27,7 @@ public class CategoriasDAO {
 	public void nuevaCategoria(Categoria cat) {
 		try {
 			PreparedStatement ps= con.prepareStatement(INSERT);
-			ps.setInt(1, cat.getIdcateogria());
+			ps.setInt(1, cat.getIdCategorias());
 			ps.setString(2,cat.getDescripcion());
 			ps.setInt(3, cat.getEstado());
 			ps.executeUpdate();
@@ -57,10 +57,11 @@ public class CategoriasDAO {
 	public void eliminarCategoria(Categoria cat) {
 		try {
 			
+			
 			PreparedStatement ps= con.prepareStatement(DELETE);
-			ps.setInt(1,cat.getIdcateogria());
+			ps.setInt(1,cat.getIdCategorias());
 			ps.executeUpdate();
-			ps.close();
+			//ps.close();
 			
 						
 		} catch (SQLException e) {
@@ -69,17 +70,13 @@ public class CategoriasDAO {
 	}
 	public LinkedList<Categoria> listarTodasLasCategorias(){
 		LinkedList<Categoria>listaCategorias= new LinkedList<Categoria>();
-		
-		
 		try{
 			
 			Statement st = con.createStatement();
 			ResultSet rs=st.executeQuery(LISTARTODACATEGORIA);
 			while(rs.next()) {
 				Categoria cat= new Categoria();
-				cat.setIdcateogria(rs.getInt(1));
-				cat.setDescripcion(rs.getString(2));
-				cat.setEstado(rs.getInt(3));
+				popularCategoria(cat, rs);
 				listaCategorias.add(cat);
 			}
 			}catch (SQLException ex) {
@@ -90,6 +87,21 @@ public class CategoriasDAO {
 		return listaCategorias;
 		
 	}
+	private void popularCategoria(Categoria cat, ResultSet rs) {
+		
+		// TODO Auto-generated method stub
+		try {
+			
+			cat.setIdCategorias(rs.getInt(1));
+			cat.setDescripcion(rs.getString(2));
+			cat.setEstado(rs.getInt(3));
+			
+		}  catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
 	public Categoria buscarporIdCategoria(int idCat) {
 		Categoria categorias =new Categoria();
 		try {
@@ -97,7 +109,7 @@ public class CategoriasDAO {
 			ps.setInt(1,idCat);
 			ResultSet rs= ps.executeQuery();
 			while (rs.next()) {
-				categorias.setIdcateogria(rs.getInt(1));
+				categorias.setIdCategorias(rs.getInt(1));
 				categorias.setDescripcion(rs.getString(2));
 				categorias.setEstado(rs.getInt(3));
 				

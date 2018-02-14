@@ -48,7 +48,7 @@ public class regCategoria extends HttpServlet {
 		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
 		Categoria cat= new Categoria();
 		boolean rta;
-		try {
+		/*try {
 			rta = cat.registrarNuevaCategoria(idcat,descripcion,estado);
 			if(rta){
 	  			
@@ -59,7 +59,7 @@ public class regCategoria extends HttpServlet {
 										e.printStackTrace();
 										}
 		// poner quqe pasa si la respuesta es false
-  		
+  		*/
 		
 		
 		
