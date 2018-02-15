@@ -18,13 +18,13 @@ import entidad.Torneo;
  * Servlet implementation class regTorneo
  */
 @WebServlet("/regTorneo")
-public class regTorneo extends HttpServlet {
+public class EditTorneo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public regTorneo() {
+    public EditTorneo() {
         super();
         // TODO Auto-generated constructor stub
     }

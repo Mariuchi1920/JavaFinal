@@ -15,13 +15,13 @@ import sun.font.Script;
  * Servlet implementation class regInstitucion
  */
 @WebServlet("/regInstitucion")
-public class regInstitucion extends HttpServlet {
+public class EditInstitucion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public regInstitucion() {
+    public EditInstitucion() {
         super();
         // TODO Auto-generated constructor stub
     }

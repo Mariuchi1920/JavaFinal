@@ -50,23 +50,21 @@ public class CategoriaServlets extends HttpServlet {
 		    
 			if(accion.equalsIgnoreCase("/editar")) {
 				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("editar")));
-				request.setAttribute("editador", categoria);
-				ServletContext context = getServletContext();
+				///request.setAttribute("editador", categoria);
+				request.getSession().setAttribute("editador", categoria);
+				response.sendRedirect(request.getContextPath() + "/editarCategoria.jsp");
+				/*ServletContext context = getServletContext();
 				RequestDispatcher rd= context.getRequestDispatcher("/editarCategoria.jsp");
-				rd.forward(request, response);	
+				rd.forward(request, response);	*/
 			}else if(accion.equalsIgnoreCase("/eliminar")) {
 				Categoria categoria= new Categoria();
 				categoria.setIdCategorias(Integer.parseInt(request.getParameter("eliminar")));
 				catdao.eliminarCategoria(categoria);
-				ServletContext context = getServletContext();
-				RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/maestroCategoria.jsp");
 							
-		}} catch (ServletException| IOException| NumberFormatException ex) {
+		}} catch (IOException| NumberFormatException ex) {
 			// TODO: handle exception
-			ServletContext context = getServletContext();
-			RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/maestroCategoria.jsp");
 		} 
 
 		

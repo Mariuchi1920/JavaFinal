@@ -1,6 +1,10 @@
 package entidad;
 
-import sun.util.calendar.LocalGregorianCalendar.Date;
+
+
+
+
+import java.sql.Date;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 

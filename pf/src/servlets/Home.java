@@ -11,19 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import modelo.Consulta;
+import datos.PersonasDAO;
+import entidad.Persona;
+
 
 /**
  * Servlet implementation class login
  */
 @WebServlet("/login")
-public class login extends HttpServlet {
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public login() {
+    public Home() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +43,6 @@ public class login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
 		PrintWriter out = response.getWriter(); 
 		
 		HttpSession sesion = request.getSession();//obtiene la sesion de ese usuario en ese mometo.sesion es una variable global, la podemos usar en cualquier parte del proyecto.
@@ -49,15 +50,22 @@ public class login extends HttpServlet {
 		String contrasena= request.getParameter("con");
 	
 		
-		Consulta co= new Consulta();
+		PersonasDAO co= new PersonasDAO();
 		//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
+		Persona personaLogin = co.auntenticarPersona(usuario, contrasena);
 		
-		if(co.autenticacion(usuario, contrasena)){
-			sesion.setAttribute("usuario", usuario);
-			response.sendRedirect("menuPrincipal.jsp");
+		if(personaLogin!=null){
+			sesion.setAttribute("usuario", personaLogin);
+			
+			if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
+				response.sendRedirect(request.getContextPath() + "/menuPrincipal.jsp");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/menuUsuario.jsp");
+				////response.sendRedirect(request.getContextPath() + "/admin");
+				
+			}
 		}else {
-			//String e= "Usuario o contrasena incorrectos";
-			//response.sendRedirect("index.jsp"+e+"");
+			
 			out.print("<p style=\"color:red\">El nombre de usuario o contrasena son incorrectos</p>");  
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");  
             rd.include(request,response);  

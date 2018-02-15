@@ -1,7 +1,6 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="entidad.Categoria"%>
 <%@page import="datos.CategoriasDAO"%>
-<%@page import="modelo.Consulta"%>
 <%@page import="java.util.LinkedList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -16,10 +15,16 @@
 	function nuevaCategoria(url) {
 		window.open(url, "", "algun parametro que desees");
 	}
-	function submitForm(met) {
-		document.myForm.action=met;
-		//document.getElementById("myFrom").submit();
-    }
+	function editar(met) {
+		document.myForm.action = met;
+	}
+	function eliminar(met) {
+		if (confirm("Estas seguro de eliminar categoria?")) {
+			document.myForm.action = met;
+
+		}
+
+	}
 
 </script>
 </head>
@@ -60,10 +65,10 @@
 					<th><%=c.getDescripcion()%></th>
 					<th><%=c.getEstado().getDescripcion()%></th>
 					<th><button
-						onclick="javascript: submitForm('CategoriaServlets/editar')"
+						onclick="javascript: editar('CategoriaServlets/editar')"
 						value="<%= c.getIdCategorias()%>"  name="editar">Editar</button>	
 						<button 
-						onclick="javascript: submitForm('CategoriaServlets/eliminar')"
+						onclick="javascript: eliminar('CategoriaServlets/eliminar')"
 						value="<%= c.getIdCategorias()%>" name="eliminar">Eliminar</button>
 						</th>
 

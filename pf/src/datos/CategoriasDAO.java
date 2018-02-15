@@ -44,9 +44,10 @@ public class CategoriasDAO {
 	public void editarCategoria(Categoria cat) {
 		try {
 			PreparedStatement ps= con.prepareStatement(EDITAR);
-			//ps.setInt(1, cat.getIdcateogria());
-			ps.setString(2,cat.getDescripcion());
-			ps.setInt(3, cat.getEstado().getIdTipoEstado());
+		
+			ps.setString(1,cat.getDescripcion());
+			ps.setInt(2, cat.getEstado().getIdTipoEstado());
+			ps.setInt(3, cat.getIdCategorias());
 			ps.executeUpdate();
 			ps.close();
 			

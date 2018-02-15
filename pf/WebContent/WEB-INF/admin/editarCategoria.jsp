@@ -47,8 +47,8 @@ String descripcion="";
 TipoEstado estado = new TipoEstado();
 CategoriasDAO catdao = new CategoriasDAO();
 
-if(request.getAttribute("editador")!=null){
-	   encontrado = (Categoria)request.getAttribute("editador");
+if(request.getSession().getAttribute("editador")!=null){
+	   encontrado = (Categoria)request.getSession().getAttribute("editador");
 	  
 	   idCategoria=String.valueOf(encontrado.getIdCategorias());
 	   descripcion=encontrado.getDescripcion();
@@ -64,7 +64,7 @@ if(request.getAttribute("editador")!=null){
 				<tr><td colspan="2">Editar categoria seleccionada</td></tr>
 				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
 				
-				<tr><td>Id Categoria:</td> <td><input type="text" readonly="readonly" name="idCategoria" id="idCategoria" value="<%= idCategoria %>"/></td> </tr>
+				<tr><td>Id Categoria:</td> <td><%= idCategoria %></td> </tr>
 				
 				
 				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion" value="<%= descripcion %>"/></td></tr>
@@ -76,13 +76,14 @@ if(request.getAttribute("editador")!=null){
                                			 %>
                                			 <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
                                			 <select name="listaTipoEStado" id="tipoEstado">
-                               			<% for(TipoEstado te :listaEstado){  %>
-                               			<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
-                               			
-                               			<%} if(encontrado!=null){  %>
-                               				<option value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
+                               			<% for(TipoEstado te :listaEstado){  
+                               			if(encontrado!=null){  %>
+                               				<option selected="selected" value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
                                				
-                               			<%}%>
+                               			<%}else {%>
+                               			      <option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+                               			
+                               			<% }} %>
 
                                			 </select>
                                		</td>		 

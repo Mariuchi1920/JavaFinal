@@ -23,13 +23,13 @@ import modelo.Conexion;
  * Servlet implementation class regCategoria
  */
 @WebServlet("/regCategoria/*")
-public class regCategoria extends HttpServlet {
+public class EditCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public regCategoria() {
+    public EditCategoria() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -71,20 +71,16 @@ public class regCategoria extends HttpServlet {
 			if (accion.equalsIgnoreCase("/editar")) {
 				
 				catdao.editarCategoria(cat);
-				ServletContext context = getServletContext();
-				RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/maestroCategoria.jsp");
 				
 			}else if (accion.equalsIgnoreCase("/agregar")) {
 				
 				 catdao.nuevaCategoria(cat);
 				
-				 ServletContext context = getServletContext();
-					RequestDispatcher rd= context.getRequestDispatcher("/maestroCategoria.jsp");
-					rd.forward(request, response);;
+				 response.sendRedirect(request.getContextPath() + "/maestroCategoria.jsp");
 				 
 			}
-		}catch (ServletException| IOException| NumberFormatException ex) {
+		}catch ( IOException| NumberFormatException ex) {
 				// TODO: handle exception
 			ServletContext context = getServletContext();
 			RequestDispatcher rd= context.getRequestDispatcher("/editarCategoria.jsp");
