@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import entidad.Persona;
 
 
-@WebFilter(filterName="AdminFilter")
-public class AdminFilter implements Filter {
+@WebFilter(filterName="UserFilter")
+public class UserFilter implements Filter {
 
-    public AdminFilter() { }
+    public UserFilter() { }
 
 	public void destroy() {	}
 
@@ -26,7 +26,7 @@ public class AdminFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req; 
 		HttpServletResponse response = (HttpServletResponse) res;
 		boolean isAdmin = false;
-		if(((Persona)request.getSession(false).getAttribute("usuario")).getTipoPersona().getIdTipoPersona()==1)
+		if(((Persona)request.getSession(false).getAttribute("usuario")).getTipoPersona().getIdTipoPersona()!=1)
 		{
 			isAdmin=true;
 		}
@@ -39,7 +39,7 @@ public class AdminFilter implements Filter {
 		}
 		else {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			response.sendRedirect(request.getContextPath() + "WEB-INF/menuUsuario.jsp");
+			response.sendRedirect(request.getContextPath() + "/menuUsuario.jsp");
 		}
 		
 	}

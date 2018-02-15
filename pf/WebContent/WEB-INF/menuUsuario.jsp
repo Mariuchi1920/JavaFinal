@@ -11,12 +11,12 @@
 <body>
 	<div id="contenedor">
 
-		<jsp:include page="cabezera.jsp" />
+		<jsp:include page="/WEB-INF/cabezera.jsp" />
 
 	</div>
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 	</div>
