@@ -65,10 +65,10 @@
 					<th><%=c.getDescripcion()%></th>
 					<th><%=c.getEstado().getDescripcion()%></th>
 					<th><button
-						onclick="javascript: editar('CategoriaServlets/editar')"
+						onclick="javascript: editar('admin/CategoriaServlets/editar')"
 						value="<%= c.getIdCategorias()%>"  name="editar">Editar</button>	
 						<button 
-						onclick="javascript: eliminar('CategoriaServlets/eliminar')"
+						onclick="javascript: eliminar('admin/CategoriaServlets/eliminar')"
 						value="<%= c.getIdCategorias()%>" name="eliminar">Eliminar</button>
 						</th>
 

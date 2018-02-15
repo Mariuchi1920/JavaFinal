@@ -18,7 +18,7 @@ import entidad.TipoEstado;
 /**
  * Servlet implementation class CategoriaServlets
  */
-@WebServlet("/CategoriaServlets/*")
+@WebServlet("/admin/CategoriaServlets/*")
 public class CategoriaServlets extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

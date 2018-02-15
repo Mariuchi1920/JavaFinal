@@ -1,3 +1,4 @@
+<%@page import="entidad.Persona"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,13 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
-
+<%
+Persona persona = (Persona) session.getAttribute("usuario"); 
+%>
 <div id="contenedor">
 		<div id="cabecera">
 					<div id="Logo"><img src="imagen/logo_header.png"></div>
 					<div id="usuario">
 					
-					Bienvenido <%= session.getAttribute("usuario") %>
+					Bienvenido <%=persona.getNombre()%>
 					<a href="cerrarSesion.jsp">cerrar Sesion</a>
 					</div>
 		</div>
@@ -29,8 +32,10 @@
 					</li>
 				<li><a href="#">Categoria</a>
 				<ul>
-						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-						<li><a href="nuevaCategoria.jsp">Nueva Categoria</a></li>
+						<li>
+						<a href="${pageContext.request.contextPath}/WEB-INF/maestroCategoria">Maestro Categorias</a>
+						</li>
+						<li><a href="${pageContext.request.contextPath}/nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	
 
 					</ul>
