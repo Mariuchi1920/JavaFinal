@@ -35,7 +35,7 @@ public class AdminFilter implements Filter {
 				
 		if(isAdmin) {
 			chain.doFilter(req, res);
-			response.sendRedirect(request.getContextPath() + "/menuUsuario.jsp");
+			
 		}
 		else {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
