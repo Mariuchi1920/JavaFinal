@@ -99,25 +99,25 @@ public class PersonasDAO {
 	
       public Persona auntenticarPersona(String usuario, String contraseña){
 		
-    	  Persona categorias =new Persona();
+    	  Persona persona =new Persona();
   		try {
   			PreparedStatement ps= con.prepareStatement(RECUPERARUSUARIO);
   			ps.setString(1, usuario);
   			ps.setString(2,contraseña);
   			ResultSet rs= ps.executeQuery();
   			while (rs.next()) {
-  				categorias.setIdPersona(rs.getInt(1));
-  				categorias.setNombre(rs.getString(2));
-  				categorias.setApellido(rs.getString(3));
-  				categorias.setTelefono(rs.getString(4));
-  				categorias.setFechaNacimiento(rs.getDate(5));
-  				categorias.setTipoDocumento(rs.getString(6));
-  				categorias.setNumeroDocumento(rs.getString(7));
-  				categorias.setMail(rs.getString(8));
+  				persona.setIdPersona(rs.getInt(1));
+  				persona.setNombre(rs.getString(2));
+  				persona.setApellido(rs.getString(3));
+  				persona.setTelefono(rs.getString(4));
+  				persona.setFechaNacimiento(rs.getDate(5));
+  				persona.setTipoDocumento(rs.getString(6));
+  				persona.setNumeroDocumento(rs.getString(7));
+  				persona.setMail(rs.getString(8));
   				TipoPersonaDAO buscar = new TipoPersonaDAO();
-  				categorias.setTipoPersona(buscar.getTipoEstados(rs.getInt(9)));
-  				categorias.setUsuario(rs.getString(10));
-  				categorias.setContraseña(rs.getString(11));
+  				persona.setTipoPersona(buscar.getTipoEstados(rs.getInt(9)));
+  				persona.setUsuario(rs.getString(10));
+  				persona.setContraseña(rs.getString(11));
   				
   			}
   			rs.close();
@@ -126,7 +126,7 @@ public class PersonasDAO {
   			// TODO: handle exception
   			ex.printStackTrace();
   		}
-  		return categorias;
+  		return persona;
 		
 	}
 	

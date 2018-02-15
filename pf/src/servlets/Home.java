@@ -58,6 +58,7 @@ public class Home extends HttpServlet {
 			sesion.setAttribute("usuario", personaLogin);
 			
 			if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
+				//admin
 				response.sendRedirect(request.getContextPath() + "/menuPrincipal.jsp");
 			}else {
 				response.sendRedirect(request.getContextPath() + "/menuUsuario.jsp");
