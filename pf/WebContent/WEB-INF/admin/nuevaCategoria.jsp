@@ -10,6 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
 	<meta charset="UTF-8">
 	<title>Nueva Categoria</title>
@@ -28,14 +29,14 @@
 
 <div id="contenedor">
 
-		<jsp:include page="cabezera.jsp" />
+		<jsp:include page="/WEB-INF/admin/cabezera.jsp" />
 
 	</div>
 
 		<div id="contenido">
 			
 			
-			<form action="CategoriaServlets?accion=registrar" method="post" name="categoriaNueva">
+			<form action="${pageContext.request.contextPath}/admin/listarCategoria?accion=registrar" method="post" name="categoriaNueva">
 			<table border="4" align="center">
 				<tr><td colspan="2">Nueva Categoria</td></tr>
 				<tr><td>Id Categoria:</td> <td><input type="text" name="idCategoria" id="idCategoria"/></td> </tr>
@@ -66,7 +67,7 @@
 		</div>
 		<div id="contenedor">
 
-		<jsp:include page="cabezera.jsp" />
+		<jsp:include page="/WEB-INF/admin/pie.jsp" />
 
 	</div>
 

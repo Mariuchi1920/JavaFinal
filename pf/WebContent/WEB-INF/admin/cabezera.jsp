@@ -3,6 +3,8 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
@@ -33,7 +35,7 @@ Persona persona = (Persona) session.getAttribute("usuario");
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li>
-						<a href="${pageContext.request.contextPath}/WEB-INF/maestroCategoria">Maestro Categorias</a>
+						<a href="${pageContext.request.contextPath}/admin/listarCategoria">Maestro Categorias</a>
 						</li>
 						<li><a href="${pageContext.request.contextPath}/nuevaCategoria.jsp">Nueva Categoria</a></li>
 						<li><a href="#">Listar</a></li>	

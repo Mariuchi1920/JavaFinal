@@ -13,20 +13,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
 	<meta charset="UTF-8">
 	<title>Editar Categoria Seleccionada</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 	<script type="text/javascript">
-	function pregunta() {
-		if(confirm("Estas seguro de registrar una nueva categoria?")){
-			Document.categoriaNueva.submit();
-			
-		};
-	}
+	
 	function submitForm(met) {
+		if(confirm("Estas seguro de registrar una nueva categoria?")){
 		document.myForm.action=met;
-		
+		};
     }
 
 	
@@ -63,9 +60,11 @@ if(request.getSession().getAttribute("editador")!=null){
 			<table border="4" align="center">
 				<tr><td colspan="2">Editar categoria seleccionada</td></tr>
 				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
-				
+				<%if(encontrado!=null){%>
 				<tr><td>Id Categoria:</td> <td><%= idCategoria %></td> </tr>
+				<%}%>
 				
+			
 				
 				<tr><td>Descripcion:</td><td><input type="text" name="descripcion"id="descripcion" value="<%= descripcion %>"/></td></tr>
 				<tr><td>Estado:</td><td> <% 
@@ -93,8 +92,13 @@ if(request.getSession().getAttribute("editador")!=null){
 			
 				
 			</table>
-			
-			   <button align="center" onclick="javascript: submitForm('regCategoria/editar')" value="<%=idCategoria %>name="editar">Editar</button>
+			<%if(encontrado!=null){ %>
+				<button align="center" onclick="javascript: submitForm('${pageContext.request.contextPath}/admin/modificarCategoria/editar')" value="<%=idCategoria %>name="editar">Editar</button>
+				
+				<% }else{%>
+				 
+				   <button align="center" onclick="javascript: submitForm('${pageContext.request.contextPath}/admin/modificarCategoria/agregar')" value="<%=idCategoria %>name="editar">Agregar</button>
+			   <% } %>
 			</form>
 
 		</div>
