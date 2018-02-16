@@ -8,6 +8,7 @@ public class Categoria {
 
 
 	int idCategorias;
+	String añoCategoria;
 	String descripcion;
 	TipoEstado estado;
 	
@@ -41,6 +42,14 @@ public class Categoria {
 
 	public void setEstado(TipoEstado estado) {
 		this.estado = estado;
+	}
+
+	public String getAñoCategoria() {
+		return añoCategoria;
+	}
+
+	public void setAñoCategoria(String añoCategoria) {
+		this.añoCategoria = añoCategoria;
 	}
 	
 /*	

@@ -6,12 +6,16 @@
   </welcome-file-list>
   <filter-mapping>
     <filter-name>AdminFilter</filter-name>
-    <url-pattern>/admin</url-pattern>
+     <url-pattern>/admin</url-pattern>
      <url-pattern>/admin/*</url-pattern>
+<<<<<<< HEAD
   </filter-mapping>
   <filter-mapping>
     <filter-name>UserFilter</filter-name>
     <url-pattern>/user</url-pattern>
      <url-pattern>/user/*</url-pattern>
   </filter-mapping>
+=======
+   </filter-mapping>
+>>>>>>> branch 'master' of https://github.com/Mariuchi1920/JavaFinal.git
 </web-app>

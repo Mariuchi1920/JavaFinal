@@ -23,7 +23,8 @@ DROP TABLE IF EXISTS `categorias`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categorias` (
-  `idCategorias` int(11) NOT NULL,
+  `idCategorias` int(11) NOT NULL AUTO_INCREMENT,
+  `anioCategorias` varchar(45) NOT NULL,
   `descripcion` varchar(45) NOT NULL,
   `estado` int(11) NOT NULL,
   PRIMARY KEY (`idCategorias`),
@@ -38,7 +39,7 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (2005,'solo jugadores que nacieron en el año 2005',1),(2006,'jjj',2),(2007,'dsdsds',1),(2008,'ewewew',4),(2009,'solo los que nacie3ron nnn',1),(2019,'seba no te vayas',2),(2222,'prueba prueba',2);
+INSERT INTO `categorias` VALUES (1,2005,'solo jugadores que nacieron en el año 2005',1),(2,2006,'jjj',2),(3,2007,'dsdsds',1),(4,2008,'ewewew',4),(5,2009,'solo los que nacie3ron nnn',1),(6,2019,'seba no te vayas',2),(7,2222,'prueba prueba',2);
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +51,7 @@ DROP TABLE IF EXISTS `equipos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `equipos` (
-  `idCategorias` int(11) NOT NULL,
+  `idCategorias` int(11) NOT NULL ,
   `idIntituciones` int(11) NOT NULL,
   `nombreEquipo` varchar(45) NOT NULL,
   `idEntrenador` int(11) NOT NULL,
@@ -81,7 +82,7 @@ DROP TABLE IF EXISTS `equiposjugadores`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `equiposjugadores` (
-  `idPersona` int(11) NOT NULL,
+  `idPersona` int(11) NOT NULL ,
   `idCategorias` int(11) NOT NULL,
   `idIntituciones` int(11) NOT NULL,
   `nombreEquipo` varchar(45) NOT NULL,
@@ -110,7 +111,7 @@ DROP TABLE IF EXISTS `equipostorneos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `equipostorneos` (
-  `idCategorias` int(11) NOT NULL,
+  `idCategorias` int(11) NOT NULL ,
   `idIntituciones` int(11) NOT NULL,
   `nombreEquipo` varchar(45) NOT NULL,
   `idTorneos` int(11) NOT NULL,
@@ -169,7 +170,7 @@ DROP TABLE IF EXISTS `jornadas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jornadas` (
-  `idJornadas` int(11) NOT NULL,
+  `idJornadas` int(11) NOT NULL AUTO_INCREMENT,
   `idTorneos` int(11) NOT NULL,
   `fechaDescripcion` date DEFAULT NULL,
   `idTipoEstado` int(11) NOT NULL,
@@ -198,7 +199,7 @@ DROP TABLE IF EXISTS `jugadorespartidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jugadorespartidos` (
-  `idPartidos` int(11) NOT NULL,
+  `idPartidos` int(11) NOT NULL AUTO_INCREMENT,
   `idJugadores` int(11) NOT NULL,
   `cantidadTarjetasAmarillas` int(11) DEFAULT NULL,
   `cantidadTarjetasRojas` int(11) DEFAULT NULL,
@@ -228,7 +229,7 @@ DROP TABLE IF EXISTS `partidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `partidos` (
-  `idPartidos` int(11) NOT NULL,
+  `idPartidos` int(11) NOT NULL AUTO_INCREMENT,
   `idJornadas` int(11) NOT NULL,
   `idArbrito` int(11) NOT NULL,
   `idCategoriasLocal` int(11) NOT NULL,
@@ -310,7 +311,7 @@ DROP TABLE IF EXISTS `tipoestado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tipoestado` (
-  `idTipoEstado` int(11) NOT NULL,
+  `idTipoEstado` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTipoEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
