@@ -14,7 +14,7 @@
 					<div id="Logo"><img src="imagen/logo_header.png"></div>
 					<div id="usuario">La sesion a sido cerrada. 
 					<% request.getSession().invalidate();%>
-			<a href="index.jsp">Volver al inicio</a>						
+			<a href="WebContent/WEB-INF/index.jsp">Volver al inicio</a>						
 					
 					
 					</div>
