@@ -20,13 +20,13 @@
 <script type="text/javascript">
 	
 function editar(met) {
-	document.myform.editar.value="true"     
+	document.myform.eliminar.value=""     
 	document.myForm.action = met;
 }
 function eliminar(met) {
 	if (confirm("Estas seguro de eliminar categoria?")) {
 		
-		document.myform.editar.value="true"  
+		document.myform.editar.value=""  
 		document.myForm.action = met;
 	
 
@@ -43,8 +43,7 @@ function eliminar(met) {
 
 	<div id="contenido">
 
-		<form id="myForm" name="myForm" action=""
-			method="post">
+		<form id="myForm" name="myForm" action="" method="post">
 
 
 			<table align="center" width="700" border="void" cellpadding="5">
@@ -53,7 +52,7 @@ function eliminar(met) {
 					<td colspan="4" align="center">Administrador de categorias</td>
 				</tr>
 				<tr>
-					<td align="center">Id Categoria</td>
+					<td align="center">Año Categoria</td>
 					<td align="center">Descripcion</td>
 					<td align="center">Estado</td>
 					<td align="center">Accion</td>
@@ -66,17 +65,16 @@ function eliminar(met) {
 					for (Categoria c : categorias) {
 				%>
 				<tr>
-					<th><%=c.getIdCategorias()%></th>
+					<th><%=c.getAñoCategoria()%></th>
 					<th><%=c.getDescripcion()%></th>
 					<th><%=c.getEstado().getDescripcion()%></th>
 					<th>
-					<a href="editar?code=<%=c.getIdCategorias()%>">Edit</a>
-					<%-- <button
-							onclick="javascript: editar('${pageContext.request.contextPath}/admin/listarCategoria/editar/')"
-							value="<%= c.getIdCategorias()%>" name="editar">Editar</button> --%>
+					<button
+							onclick="javascript: editar('/admin/listarCategoriaeditar/')"
+							value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
 						<button
-							onclick="javascript: eliminar('${pageContext.request.contextPath}/admin/listarCategoria/eliminar/')"
-							value="<%= c.getIdCategorias()%>" name="eliminar">Eliminar</button>
+							onclick="javascript: eliminar('/admin/listarCategoriaeliminar/')"
+							value="<%= c.getIdCategorias()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
 
 
@@ -89,9 +87,9 @@ function eliminar(met) {
 			</table>
 
 		</form>
-		<form action="nuevaCategoria.jsp" method="post">
-			<input type="submit" value="Nueva Categoria">
-		</form>
+		
+		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
+		
 	</div>
 
 	</div>

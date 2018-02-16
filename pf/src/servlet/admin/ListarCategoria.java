@@ -20,7 +20,7 @@ import entidad.TipoEstado;
 /**
  * Servlet implementation class CategoriaServlets
  */
-@WebServlet({"/admin/listarCategoria","/admin/listarCategoria/editar/", "/admin/listarCategoria/eliminar/"})
+@WebServlet({"/admin/listarCategoria","/admin/listarCategoriaeditar/", "/admin/listarCategoriaeliminar/"})
 public class ListarCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,23 +49,13 @@ public class ListarCategoria extends HttpServlet {
 		// TODO Auto-generated method stub
 		CategoriasDAO catdao=new CategoriasDAO();
 		try {
-			
-		///	String path = request.getPathInfo();
-		////	String accion = path.substring(path.lastIndexOf("/") + 1);
-			request.getSession().getAttribute("valores");
-			String accion="";
-			String[] accion1= request.getServletPath().split("/");
-			accion = accion1[3];
 		    
-			if(accion.equalsIgnoreCase("/editar")) {
+			if(request.getParameter("editar")!=null) {
 				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("editar")));
-				///request.setAttribute("editador", categoria);
 				request.getSession().setAttribute("editador", categoria);
-				request.getRequestDispatcher("/WEB-INF/admin/editarCategoria.jsp").forward(request, response);
-				/*ServletContext context = getServletContext();
-				RequestDispatcher rd= context.getRequestDispatcher("/editarCategoria.jsp");
-				rd.forward(request, response);	*/
-			}else if(accion.equalsIgnoreCase("/eliminar")) {
+		
+				response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
+			}else if(request.getParameter("eliminar")!=null) {
 				Categoria categoria= new Categoria();
 				categoria.setIdCategorias(Integer.parseInt(request.getParameter("eliminar")));
 				catdao.eliminarCategoria(categoria);

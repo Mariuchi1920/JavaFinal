@@ -12,9 +12,9 @@ import entidad.TipoEstado;
 import modelo.Conexion;
 
 public class CategoriasDAO {
-	private String INSERT= "insert into categorias ( idCategorias, descripcion, estado)values (?,?,?)";
+	private String INSERT= "insert into categorias ( anioCategorias,descripcion, estado)values (?,?)";
 	private String DELETE="delete from categorias where idCategorias=?;";
-	private String EDITAR="update categorias set descripcion=?, estado=? where idCategorias=?";
+	private String EDITAR="update categorias set anioCategorias= ?,descripcion=?, estado=? where idCategorias=?";
 	private String LISTARTODACATEGORIA="select * from categorias";
 	private String LISTARPORCODIGOCAT="select * from categorias where idCategorias=?";
 	private Connection con;
@@ -28,7 +28,7 @@ public class CategoriasDAO {
 	public void nuevaCategoria(Categoria cat) {
 		try {
 			PreparedStatement ps= con.prepareStatement(INSERT);
-			ps.setInt(1, cat.getIdCategorias());
+			ps.setString(1,cat.getAñoCategoria());
 			ps.setString(2,cat.getDescripcion());
 			ps.setInt(3, cat.getEstado().getIdTipoEstado());
 			ps.executeUpdate();
@@ -44,10 +44,10 @@ public class CategoriasDAO {
 	public void editarCategoria(Categoria cat) {
 		try {
 			PreparedStatement ps= con.prepareStatement(EDITAR);
-		
-			ps.setString(1,cat.getDescripcion());
-			ps.setInt(2, cat.getEstado().getIdTipoEstado());
-			ps.setInt(3, cat.getIdCategorias());
+			ps.setString(1,cat.getAñoCategoria());
+			ps.setString(2,cat.getDescripcion());
+			ps.setInt(3, cat.getEstado().getIdTipoEstado());
+			ps.setInt(4, cat.getIdCategorias());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -97,9 +97,10 @@ public class CategoriasDAO {
 		try {
 			
 			cat.setIdCategorias(rs.getInt(1));
-			cat.setDescripcion(rs.getString(2));
+			cat.setAñoCategoria(rs.getString(2));
+			cat.setDescripcion(rs.getString(3));
 			TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
-			TipoEstado estadoCategoria = estadoDAO.getTipoEstados(rs.getInt(3));
+			TipoEstado estadoCategoria = estadoDAO.getTipoEstados(rs.getInt(4));
 			cat.setEstado(estadoCategoria);
 			
 		}  catch (SQLException e) {
@@ -115,11 +116,9 @@ public class CategoriasDAO {
 			ps.setInt(1,idCat);
 			ResultSet rs= ps.executeQuery();
 			while (rs.next()) {
-				categorias.setIdCategorias(rs.getInt(1));
-				categorias.setDescripcion(rs.getString(2));
-				TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
-				TipoEstado estadoCategoria = estadoDAO.getTipoEstados(rs.getInt(3));
-				categorias.setEstado(estadoCategoria);
+				
+				popularCategoria(categorias,rs);
+				
 				
 			}
 			rs.close();

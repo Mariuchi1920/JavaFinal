@@ -10,7 +10,7 @@
 
 <div id="contenedor">
 		<div id="cabecera">
-					<div id="Logo"><img src="imagen/logo_header.png"></div>
+					<div id="Logo"><img src="${pageContext.request.contextPath}/imagen/logo_header.png"></div>
 					<div id="usuario">
 					
 					Bienvenido <%= session.getAttribute("usuario") %>

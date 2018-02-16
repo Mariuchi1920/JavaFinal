@@ -42,6 +42,7 @@ public class ModificarCategoria extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/admin/editarCategoria.jsp").forward(request, response);
 	}
 
 	/**
@@ -50,46 +51,43 @@ public class ModificarCategoria extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		int idcat= Integer.parseInt(request.getParameter("idCategoria"));
-		String descripcion= request.getParameter("descripcion");
-		int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));		
-		CategoriasDAO catdao=new CategoriasDAO();
-		Categoria cat= new Categoria();
-		cat.setIdCategorias(idcat);
-		cat.setDescripcion(descripcion);
-		TipoEstado tipoEstado;
-		
 		try {
+			
+			String descripcion= request.getParameter("descripcion");
+			String añocategoria= request.getParameter("añoCategoria");
+			int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));		
+			CategoriasDAO catdao=new CategoriasDAO();
+			Categoria cat= new Categoria();
+			cat.setAñoCategoria(añocategoria);
+			cat.setDescripcion(descripcion);
+			TipoEstado tipoEstado;
 			TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
-			 tipoEstado = estadoDAO.getTipoEstados(estado);
+			tipoEstado = estadoDAO.getTipoEstados(estado);
 			cat.setEstado(tipoEstado);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	
-		try {
-			String accion= request.getPathInfo();
 		    
-			if (accion.equalsIgnoreCase("/editar")) {
-				
+			if (request.getParameter("editar")!=null) {
+				int idcat= ((Categoria)request.getSession().getAttribute("editador")).getIdCategorias();
+				cat.setIdCategorias(idcat);
 				catdao.editarCategoria(cat);
-				request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
 				
 				
-			}else if (accion.equalsIgnoreCase("/agregar")) {
+			}else if (request.getParameter("registar")!=null) {
 				
 				 catdao.nuevaCategoria(cat);
-				 request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
+				 response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
 				
 				 
 			}
 		}catch ( IOException| NumberFormatException ex) {
 				// TODO: handle exception
 			ServletContext context = getServletContext();
-			RequestDispatcher rd= context.getRequestDispatcher("/editarCategoria.jsp");
-			rd.forward(request, response);
-			}
+			request.getRequestDispatcher("/WEB-INF/admin/editarCategoria.jsp").forward(request, response);
+			
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
