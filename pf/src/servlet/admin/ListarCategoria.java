@@ -59,11 +59,12 @@ public class ListarCategoria extends HttpServlet {
 				Categoria categoria= new Categoria();
 				categoria.setIdCategorias(Integer.parseInt(request.getParameter("eliminar")));
 				catdao.eliminarCategoria(categoria);
-				request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
+				
 							
 		}} catch (IOException| NumberFormatException ex) {
 			// TODO: handle exception
-			request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
 		} 
 
 		

@@ -24,12 +24,12 @@ function editar(met) {
 	document.myForm.action = met;
 }
 function eliminar(met) {
-	if (confirm("Estas seguro de eliminar categoria?")) {
+	if (confirm("Estas seguro de eliminar Categoría?")) {
 		
 		document.myform.editar.value=""  
 		document.myForm.action = met;
 	
-
+	};
 	}
 	
 	</script>

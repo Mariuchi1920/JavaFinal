@@ -39,16 +39,16 @@ Persona persona = (Persona) session.getAttribute("usuario");
 						<a href="${pageContext.request.contextPath}/admin/listarCategoria">Maestro Categorias</a>
 						</li>
 						<li><a href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a></li>
-						<li><a href="#">Listar</a></li>	
+							
 
 					</ul>
 				</li>
 				<li><a href="#">Jugadores</a></li>
 				<li><a href="#">Institucion</a>
 				<ul>
-						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
-						<li><a href="nuevaInstitucion.jsp">Nueva Institucion</a></li>
-						<li><a href="#">Listar</a></li>	
+						<li><a href="${pageContext.request.contextPath}/admin/listarInstituciones">Maestro Instituciones</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/modificarInstituciones">Nueva Institucion</a></li>
+					
 
 					</ul>
 				<li><a href="#">Partido</a></li>
