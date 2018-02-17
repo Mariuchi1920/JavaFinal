@@ -18,39 +18,32 @@ Persona persona = (Persona) session.getAttribute("usuario");
 					
 						Bienvenido <%=persona.getNombre()%>
 				
-					<a href="WebContent/WEB-INF/cerrarSesion.jsp">cerrar Sesion</a>
+					<a href="/WEB-INF/cerrarSesion.jsp">cerrar Sesion</a>
 					</div>
 		</div>
 		<div id="menu">
 		
 			<ul class="nav">
-				<li><a href="#">Torneo</a>
+				<li><a href="#">LIGA EFA</a>
 					<ul>
-						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
+						<li><a href="#">Historia</a></li>
+						<li><a href="#">Reglamento</a></li>	
 						
-						<li><a href="#">Listar</a></li>	
 
 					</ul>
 					</li>
-				<li><a href="#">Categoria</a>
-				<ul>
-						<li><a href="maestroCategoria.jsp">Maestro Categorias</a></li>
-					
-						<li><a href="#">Listar</a></li>	
-
-					</ul>
-				</li>
-				<li><a href="#">Jugadores</a></li>
-				<li><a href="#">Institucion</a>
-				<ul>
-						<li><a href="maestroInstituciones.jsp">Maestro Instituciones</a></li>
-						
-						<li><a href="#">Listar</a></li>	
-
-					</ul>
-				<li><a href="#">Partido</a></li>
+				<li><a href="#">FIXTURE</a>
 				
-			</ul>
+				</li>
+				<li><a href="#">TABLAS</a></li>
+				<li><a href="#">INFORMACIÓN GRAL</a>
+				<ul>
+						<li><a href="maestroInstituciones.jsp">Clubes habilitados</a></li>
+						
+						<li><a href="#">Datos Entrenadores</a></li>	
+
+					</ul>
+							</ul>
 			
 		</div>
 
