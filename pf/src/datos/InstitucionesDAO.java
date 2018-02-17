@@ -32,7 +32,7 @@ import modelo.Conexion;
 public class InstitucionesDAO {
 	private String INSERT= "insert into instituciones (nombre, nombreLocalia, direccionLocalia, nombreDelegado, apellidoDelegado, telefonoDelegado, mailDelegado) VALUES (?,?,?,?,?,?,?)";
 	private String DELETE="delete from instituciones where idIntituciones=?;";
-	private String EDITAR="";
+	private String EDITAR="update instituciones set nombre= ?,nombreLocalia=?, direccionLocalia=? , nombreDelegado=? ,apellidoDelegado=?, telefonoDelegado=?,mailDelegado=? where idIntituciones=?";
 	private String LISTATODAINSTITUCIONES= "select * from instituciones";
 	private String LISTARPORCODIGOINST="select * from instituciones where idIntituciones=?;";
 	private Connection con;
@@ -65,14 +65,14 @@ public class InstitucionesDAO {
 	public void modificarIstitucion(Institucion i) {
 		try {
 			PreparedStatement ps= con.prepareStatement(EDITAR);
-			ps.setInt(1,i.getIdInstituciones());
-			ps.setString(2,i.getNombre());
-			ps.setString(3,i.getNombreLocalia());
-			ps.setString(4,i.getDireccionLocalia());
-			ps.setString(5,i.getNombreDelegado());
-			ps.setString(6,i.getApellidoDelegado());
-			ps.setString(7,i.getTelefonoDelegado());
-			ps.setString(8,i.getMailDelegado());
+			ps.setString(1,i.getNombre());
+			ps.setString(2,i.getNombreLocalia());
+			ps.setString(3,i.getDireccionLocalia());
+			ps.setString(4,i.getNombreDelegado());
+			ps.setString(5,i.getApellidoDelegado());
+			ps.setString(6,i.getTelefonoDelegado());
+			ps.setString(7,i.getMailDelegado());
+			ps.setInt(8,i.getIdInstituciones());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
