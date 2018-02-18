@@ -46,6 +46,9 @@ Persona persona = (Persona) session.getAttribute("usuario");
 							</ul>
 			
 		</div>
+		<div id="imagenHistoria">
+		<img alt="" src="WebContent/imagen/historiaLigaEfa.gif">
+		</div>
 
 </body>
 </html>
