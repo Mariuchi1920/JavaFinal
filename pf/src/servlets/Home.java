@@ -48,7 +48,11 @@ public class Home extends HttpServlet {
 		HttpSession sesion = request.getSession();//obtiene la sesion de ese usuario en ese mometo.sesion es una variable global, la podemos usar en cualquier parte del proyecto.
 		String usuario=request.getParameter("usu");
 		String contrasena= request.getParameter("con");
-
+		
+		if (!usuario.equals("")) {
+			
+		}
+		
 		PersonasDAO co= new PersonasDAO();
 		//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
 		Persona personaLogin = co.auntenticarPersona(usuario, contrasena);
