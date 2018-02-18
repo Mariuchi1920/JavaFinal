@@ -26,7 +26,7 @@ Persona persona = (Persona) session.getAttribute("usuario");
 			<ul class="nav">
 				<li><a href="#">LIGA EFA</a>
 					<ul>
-						<li><a href="#">Historia</a></li>
+						<li><a href="${pageContext.request.contextPath}/historiaEfa.jsp">Historia</a></li>
 						<li><a href="#">Reglamento</a></li>	
 						
 

@@ -7,6 +7,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 
+import javafx.scene.shape.Ellipse;
+
 /**
  * Servlet implementation class ServletError
  */
@@ -27,6 +29,13 @@ public class ServletError extends GenericServlet {
 	 */
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String error= request.getParameter("codigoError");
+	if(error.equals("404")) {
+		response.setContentType("text/html");
+		response.getWriter().println("Se deben ingresar todos los campos");
+	}else {
+		request.getRequestDispatcher("/login").forward(request, response);
+	}
 	}
 
 }

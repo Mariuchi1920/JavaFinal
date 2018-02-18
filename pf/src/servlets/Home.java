@@ -50,31 +50,32 @@ public class Home extends HttpServlet {
 		String contrasena= request.getParameter("con");
 		
 		if (!usuario.equals("")) {
+			PersonasDAO co= new PersonasDAO();
+			//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
+			Persona personaLogin = co.auntenticarPersona(usuario, contrasena);
 			
+			if(personaLogin!=null){
+				sesion.setAttribute("usuario", personaLogin);
+				
+				if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
+
+					response.sendRedirect(request.getContextPath() + "/admin");
+
+				}else {
+					response.sendRedirect(request.getContextPath() + "/user");
+					////response.sendRedirect(request.getContextPath() + "/admin");
+					
+				}
 		}
 		
-		PersonasDAO co= new PersonasDAO();
-		//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
-		Persona personaLogin = co.auntenticarPersona(usuario, contrasena);
 		
-		if(personaLogin!=null){
-			sesion.setAttribute("usuario", personaLogin);
-			
-			if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
-
-				response.sendRedirect(request.getContextPath() + "/admin");
-
-			}else {
-				response.sendRedirect(request.getContextPath() + "/user");
-				////response.sendRedirect(request.getContextPath() + "/admin");
-				
-			}
 		}else {
+			response.sendRedirect("ServletError?codigoError=404");
 			
-			out.print("<p style=\"color:red\">El nombre de usuario o contrasena son incorrectos</p>");  
+			/*out.print("<p style=\"color:red\">El nombre de usuario o contrasena son incorrectos</p>");  
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");  
             rd.include(request,response);  
-			System.out.println("usuario y o contrasena incorrectos");
+			System.out.println("usuario y o contrasena incorrectos");*/
 			
 			
 		}

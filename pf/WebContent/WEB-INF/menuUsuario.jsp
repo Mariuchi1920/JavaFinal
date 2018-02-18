@@ -12,7 +12,7 @@
 <body>
 	<div id="contenedor">
 
-		<jsp:include page="/WEB-INF/cabezera.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
 

@@ -4,14 +4,14 @@
 <<html class="no-js" lang="es">
     <head>
         <title>Error 404 - Not Found</title>
-        <jsp:include page="/WEB-INF/pie.jsp" />
+        <jsp:include page="/WEB-INF/cabecera.jsp" />
     </head>
     <body>
     	
     	<div class="container">
-    		<h2>La p&aacute;gina solicitada no se pudo encontrar.</h2>
+    		<h2>LA PÁGINA SOLICITADA NO SE PUDO ENCONTRAR.</h2>
    			<a href="${pageContext.request.contextPath}/home" class="btn btn-info btn-lg">
-   				<span class="glyphicon glyphicon-home"></span> Ir al inicio 
+   				<span class="glyphicon glyphicon-home"></span> volver al inicio 
    			</a>
     		<hr>
 	    <jsp:include page="/WEB-INF/pie.jsp" />
