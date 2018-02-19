@@ -35,7 +35,7 @@ public class PanelUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/menuUsuario.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/menuPcpalUsuario.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,9 +58,10 @@ public class PanelUser extends HttpServlet {
 			sesion.setAttribute("usuario", personaLogin);
 			
 			if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
-				response.sendRedirect(request.getContextPath() + "/menuPrincipal.jsp");
+				response.sendRedirect(request.getContextPath() + "/user");
 			}else {
-				response.sendRedirect(request.getContextPath() + "/menuUsuario.jsp");
+				response.sendRedirect(request.getContextPath() + "/user");
+				
 				////response.sendRedirect(request.getContextPath() + "/admin");
 				
 			}

@@ -39,6 +39,7 @@ public class ListarCategoria extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		/////response.sendRedirect("/admin/maestroCategoria.jsp");
+		///En el get es donde llamo al JSP...
 	   request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
 	}
 
@@ -53,7 +54,7 @@ public class ListarCategoria extends HttpServlet {
 			if(request.getParameter("editar")!=null) {
 				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("editar")));
 				request.getSession().setAttribute("editador", categoria);
-		
+				//////
 				response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
 			}else if(request.getParameter("eliminar")!=null) {
 				Categoria categoria= new Categoria();

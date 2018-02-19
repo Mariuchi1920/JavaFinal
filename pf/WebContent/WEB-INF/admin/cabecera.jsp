@@ -36,6 +36,8 @@ Persona persona = (Persona) session.getAttribute("usuario");
 				<li><a href="#">Categoria</a>
 				<ul>
 						<li>
+						
+						<!-- Aca voy al Servlet -->
 						<a href="${pageContext.request.contextPath}/admin/listarCategoria">Maestro Categorias</a>
 						</li>
 						<li><a href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a></li>
