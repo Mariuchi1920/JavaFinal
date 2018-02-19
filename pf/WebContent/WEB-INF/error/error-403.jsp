@@ -10,7 +10,7 @@
 			
 		<div class="container">
 			<h2>La solicitud no está permitida.</h2>
-   			<a href="${pageContext.request.contextPath}/home" class="btn btn-info btn-lg">
+   			<a href="${pageContext.request.contextPath}/login" class="btn btn-info btn-lg">
    				<span class="glyphicon glyphicon-home"></span> Ir al inicio 
    			</a>
     		<hr>

@@ -39,7 +39,7 @@ public class AdminFilter implements Filter {
 		}
 		else {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			response.sendRedirect(request.getContextPath() + "WEB-INF/menuUsuario.jsp");
+			response.sendRedirect(request.getContextPath() + "WEB-INF/menuPcpalUsuario.jsp");
 		}
 		
 	}

@@ -10,7 +10,7 @@
     	
     	<div class="container">
     		<h2>LA PÁGINA SOLICITADA NO SE PUDO ENCONTRAR.</h2>
-   			<a href="${pageContext.request.contextPath}/home" class="btn btn-info btn-lg">
+   			<a href="${pageContext.request.contextPath}/login" class="btn btn-info btn-lg">
    				<span class="glyphicon glyphicon-home"></span> volver al inicio 
    			</a>
     		<hr>
