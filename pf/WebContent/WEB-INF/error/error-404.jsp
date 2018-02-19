@@ -4,7 +4,7 @@
 <<html class="no-js" lang="es">
     <head>
         <title>Error 404 - Not Found</title>
-        <jsp:include page="/WEB-INF/cabecera.jsp" />
+        <jsp:include page="/WEB-INF/EncabezadoUsu.jsp" />
     </head>
     <body>
     	

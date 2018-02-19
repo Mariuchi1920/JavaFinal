@@ -21,34 +21,7 @@ Persona persona = (Persona) session.getAttribute("usuario");
 					<a href="/WEB-INF/cerrarSesion.jsp">cerrar Sesion</a>
 					</div>
 		</div>
-		<div id="menu">
 		
-			<ul class="nav">
-				<li><a href="#">LIGA EFA</a>
-					<ul>
-						<li><a href="WEB-INF/historiaEfa.jsp">Historia</a></li>
-						<li><a href="#">Reglamento</a></li>	
-						
-
-					</ul>
-					</li>
-				<li><a href="#">FIXTURE</a>
-				
-				</li>
-				<li><a href="#">TABLAS</a></li>
-				<li><a href="#">INFORMACIÓN GRAL</a>
-				<ul>
-						<li><a href="maestroInstituciones.jsp">Clubes habilitados</a></li>
-						
-						<li><a href="#">Datos Entrenadores</a></li>	
-
-					</ul>
-							</ul>
-			
-		</div>
-		<div id="imagenHistoria">
-		<img alt="" src="WebContent/imagen/historiaLigaEfa.gif"/>
-		</div>
 
 </body>
 </html>
