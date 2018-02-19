@@ -26,7 +26,7 @@ public class EquiposDAO {
 		
 	}
 	
-	public void nuevoEquipo(Equipo e) {
+	public void nuevoEquipo(Equipo e) {/*
 		try {
 			PreparedStatement ps= con.prepareStatement(INSERT);
 			ps.setInt(1, e.getIdCategorias());
@@ -41,7 +41,7 @@ public class EquiposDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	public void editarCategoria(Categoria cat) {
 		try {
@@ -133,4 +133,4 @@ public class EquiposDAO {
 	}
 }
 
-}
+
