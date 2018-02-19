@@ -1,4 +1,4 @@
-package servlets;
+package servlet.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;

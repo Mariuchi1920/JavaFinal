@@ -15,12 +15,12 @@
 			<p>La EFA es una Agrupación de Escuelas de Fútbol creada por las instituciones fundadoras y cuyo objetivo final es:
 
 "QUE TODOS LOS NIÑOS Y JOVENES SE DIVIERTAN JUGANDO AL FÚTBOL SANAMENTE Y CON ALEGRÍA,
-SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES".
+SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES".S
 
 Los adultos que integran la EFA. (Delegados, Técnicos, padres y público en general),
 solamente serán colaboradores para lograr el fin mencionado en el párrafo anterior.
 </p>
-			<div id="LogoFondoPag"><img src="imagen/firma_efa.jpg"></div>
+			<div id="LogoFondoPag"><img src="${pageContext.request.contextPath}/imagen/firma_efa.jpg"></div>
 			
 
 		</div>

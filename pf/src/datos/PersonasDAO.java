@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import entidad.Persona;
 import entidad.TipoEstado;
@@ -97,28 +98,67 @@ public class PersonasDAO {
 	}
 	
 	
+	
+	public LinkedList<Persona> listarPersonas(){
+		
+		LinkedList<Persona> personas =new LinkedList<Persona>();
+		try {
+			PreparedStatement ps= con.prepareStatement(LISTATODAPERSONAS);
+			ResultSet rs= ps.executeQuery();
+			
+			while (rs.next()) {
+				
+				personas.add(personasRecuperada(rs));
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+		return personas;
+		
+	}
+	
+	
+	public Persona buscarPersonaId(int id){
+		
+  	  Persona persona =new Persona();
+		try {
+			PreparedStatement ps= con.prepareStatement(LISTARPORIDPERSONA);
+			ps.setInt(1, id);
+			
+			ResultSet rs= ps.executeQuery();
+			
+			if (rs.next()) {
+				
+				persona= personasRecuperada(rs);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+		return persona;
+		
+	}
+	
+	
+	
+	
       public Persona auntenticarPersona(String usuario, String contraseña){
 		
-    	  Persona categorias =new Persona();
+    	  Persona persona =new Persona();
   		try {
   			PreparedStatement ps= con.prepareStatement(RECUPERARUSUARIO);
   			ps.setString(1, usuario);
   			ps.setString(2,contraseña);
   			ResultSet rs= ps.executeQuery();
-  			while (rs.next()) {
-  				categorias.setIdPersona(rs.getInt(1));
-  				categorias.setNombre(rs.getString(2));
-  				categorias.setApellido(rs.getString(3));
-  				categorias.setTelefono(rs.getString(4));
-  				categorias.setFechaNacimiento(rs.getDate(5));
-  				categorias.setTipoDocumento(rs.getString(6));
-  				categorias.setNumeroDocumento(rs.getString(7));
-  				categorias.setMail(rs.getString(8));
-  				TipoPersonaDAO buscar = new TipoPersonaDAO();
-  				categorias.setTipoPersona(buscar.getTipoEstados(rs.getInt(9)));
-  				categorias.setUsuario(rs.getString(10));
-  				categorias.setContraseña(rs.getString(11));
+  			
+  			if (rs.next()) {
   				
+  				persona= personasRecuperada(rs);
   			}
   			rs.close();
   			ps.close();
@@ -126,9 +166,37 @@ public class PersonasDAO {
   			// TODO: handle exception
   			ex.printStackTrace();
   		}
-  		return categorias;
+  		return persona;
 		
 	}
+      
+      
+      public Persona personasRecuperada(ResultSet rs){
+    	  Persona persona =new Persona();
+    	  
+    	  try {
+			persona.setIdPersona(rs.getInt(1));
+			persona.setNombre(rs.getString(2));
+			persona.setApellido(rs.getString(3));
+			persona.setTelefono(rs.getString(4));
+			persona.setFechaNacimiento(rs.getDate(5));
+			persona.setTipoDocumento(rs.getString(6));
+			persona.setNumeroDocumento(rs.getString(7));
+			persona.setMail(rs.getString(8));
+			TipoPersonaDAO buscar = new TipoPersonaDAO();
+			persona.setTipoPersona(buscar.getTipoEstados(rs.getInt(9)));
+			persona.setUsuario(rs.getString(10));
+			persona.setContraseña(rs.getString(11));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+			
+			return persona;
+    	  
+    	  
+      }
 	
 
 }

@@ -19,7 +19,7 @@ SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES"
 Los adultos que integran la EFA. (Delegados, Técnicos, padres y público en general),
 solamente serán colaboradores para lograr el fin mencionado en el párrafo anterior.
 </p>
-			<div id="LogoFondoPag"><img src="imagen/firma_efa.jpg"></div>
+			<div id="LogoFondoPag"><img src="${pageContext.request.contextPath}/imagen/firma_efa.jpg"></div>
 			
 
 		</div>

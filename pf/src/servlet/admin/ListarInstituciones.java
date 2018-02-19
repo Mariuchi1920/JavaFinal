@@ -56,7 +56,7 @@ public class ListarInstituciones extends HttpServlet {
 				int id=Integer.parseInt(request.getParameter("editar"));
 				inst= instDAO.buscarPorId(id);
 				request.getSession().setAttribute("editador", inst);
-				response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
+				response.sendRedirect(request.getContextPath() + "/admin/modificarInstitucion");
 
 			} else if (request.getParameter("eliminar") != null) {
 
