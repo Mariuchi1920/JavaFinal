@@ -26,11 +26,13 @@ public class EquiposDAO {
 		
 	}
 	
-	public void nuevoEquipo(Equipo e) {/*
-		try {
+	public void nuevoEquipo(Equipo e) {
+		/*try {
 			PreparedStatement ps= con.prepareStatement(INSERT);
-			ps.setInt(1, e.getIdCategorias());
-			ps.setInt(2,e.getIdInstitucion());
+			
+			ps.setInt(1,e.getCategorias().getIdCategorias());
+			ps.setInt(2, e.getInstitucion().getIdInstituciones());
+			ps.setString(3,e.getNombreEquipo());
 			ps.setString(3, e.getNombreEquipo());
 			ps.setInt(4, e.getIdEntrenador());
 			ps.executeUpdate();
@@ -41,7 +43,7 @@ public class EquiposDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}*/
+		*/
 	}
 	public void editarCategoria(Categoria cat) {
 		try {

@@ -35,7 +35,7 @@ public class Home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);;
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Home extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter(); 
-		
+		try {
 		HttpSession sesion = request.getSession();//obtiene la sesion de ese usuario en ese mometo.sesion es una variable global, la podemos usar en cualquier parte del proyecto.
 		String usuario=request.getParameter("usu");
 		String contrasena= request.getParameter("con");
@@ -70,17 +70,16 @@ public class Home extends HttpServlet {
 		
 		
 		}else {
-			response.sendRedirect("ServletError?codigoError=404");
 			
-			/*out.print("<p style=\"color:red\">El nombre de usuario o contrasena son incorrectos</p>");  
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");  
-            rd.include(request,response);  
-			System.out.println("usuario y o contrasena incorrectos");*/
-			
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 			
 		}
 		
-	}
+	} catch (IOException| NumberFormatException ex) {
+		// TODO: handle exception
+		/////response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
+	} }
+
 	
 
 }

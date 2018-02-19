@@ -4,21 +4,21 @@ package entidad;
 
 public class Equipo {
 	//private int idEquipo;
-	private Categoria idCategorias;
-	private Institucion idInstitucion;
+	private Categoria categorias;
+	private Institucion institucion;
 	private String nombreEquipo;
-	private Persona idEntrenador;
-	public Categoria getIdCategorias() {
-		return idCategorias;
+	private Persona entrenador;
+	public Categoria getCategorias() {
+		return categorias;
 	}
-	public void setIdCategorias(Categoria idCategorias) {
-		this.idCategorias = idCategorias;
+	public void setCategorias(Categoria categorias) {
+		this.categorias = categorias;
 	}
-	public Institucion getIdInstitucion() {
-		return idInstitucion;
+	public Institucion getInstitucion() {
+		return institucion;
 	}
-	public void setIdInstitucion(Institucion idInstitucion) {
-		this.idInstitucion = idInstitucion;
+	public void setInstitucion(Institucion institucion) {
+		this.institucion = institucion;
 	}
 	public String getNombreEquipo() {
 		return nombreEquipo;
@@ -26,12 +26,15 @@ public class Equipo {
 	public void setNombreEquipo(String nombreEquipo) {
 		this.nombreEquipo = nombreEquipo;
 	}
-	public Persona getIdEntrenador() {
-		return idEntrenador;
+	public Persona getEntrenador() {
+		return entrenador;
 	}
-	public void setIdEntrenador(Persona idEntrenador) {
-		this.idEntrenador = idEntrenador;
+	public void setEntrenador(Persona entrenador) {
+		this.entrenador = entrenador;
 	}
+	
+	
+	
 	
 	
 	}
