@@ -29,7 +29,7 @@ public class EquiposDAO {
 	public void nuevoEquipo(Equipo e) {
 		try {
 			PreparedStatement ps= con.prepareStatement(INSERT);
-			ps.setInt(1, e.get.getIdCategorias());
+			ps.setInt(1, e.getIdCategorias());
 			ps.setInt(2,e.getIdInstitucion());
 			ps.setString(3, e.getNombreEquipo());
 			ps.setInt(4, e.getIdEntrenador());

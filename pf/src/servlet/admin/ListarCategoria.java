@@ -20,7 +20,7 @@ import entidad.TipoEstado;
 /**
  * Servlet implementation class CategoriaServlets
  */
-@WebServlet({"/Historia"})
+@WebServlet({"/admin/listarCategoria","/admin/listarCategoriaeditar/", "/admin/listarCategoriaeliminar/"})
 public class ListarCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
