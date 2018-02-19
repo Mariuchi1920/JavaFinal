@@ -6,7 +6,7 @@
 <body>
 <div id="contenedor">
 
-		<jsp:include page="cabezera.jsp" />
+		<jsp:include page="cabecera.jsp" />
 
 	</div>
 

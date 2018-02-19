@@ -53,7 +53,7 @@
 
 
 <table border="2px" align="center" >
-	<form action="login" method= "POST" onsubmit="return validarDatos();">
+	<form action="login" method= "POST" >  <!-- onsubmit="return validarDatos(); "-->
 	<caption>Acceso a Liga Efa</caption>
 		<tr align="center"> 
 		<td><label for="usuario"> Usuario:</label>		
@@ -66,6 +66,7 @@
 		<tr align="center" >
 		<td><input type="submit" value="Ingresar" > </td>			
 		</tr>
+		<tr><td><a href="nuevoUsuario.jsp"> Nuevo Usuario</td></a></tr>
 		</form>
 </table>
 

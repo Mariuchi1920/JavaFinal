@@ -1,5 +1,7 @@
 package datos;
 
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -155,8 +157,8 @@ public class PersonasDAO {
   			ps.setString(1, usuario);
   			ps.setString(2,contraseña);
   			ResultSet rs= ps.executeQuery();
-  			
-  			if (rs.next()) {
+		if (rs.next()) {
+
   				
   				persona= personasRecuperada(rs);
   			}

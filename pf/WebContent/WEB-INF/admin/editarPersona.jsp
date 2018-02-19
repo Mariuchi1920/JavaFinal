@@ -41,7 +41,7 @@
 <body>
 	<div id="contenedor">
 
-		<jsp:include page="cabezera.jsp" />
+		<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
 
 	</div>
 
