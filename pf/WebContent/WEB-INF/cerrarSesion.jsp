@@ -7,15 +7,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Liga Efa!</title>
-	<link rel="stylesheet" type="text/css" href="CSS/style.css">
+	
 </head>
 <body>
 	<div id="contenedor">
 		<div id="cabecera">
-					<div id="Logo"><img src="imagen/logo_header.png"></div>
-					<div id="usuario">La sesion a sido cerrada. 
-					<% request.getSession().invalidate();%>
-			<a href="WebContent/WEB-INF/index.jsp">Volver al inicio</a>						
+					<div id="Logo"><img src="${pageContext.request.contextPath}/imagen/logo_header.png"></div>
+					<div id="usuario">La sesion a sido cerrada 
+			<a href="${pageContext.request.contextPath}/login">Volver al inicio</a>						
 					
 					
 					</div>
@@ -23,7 +22,7 @@
 
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

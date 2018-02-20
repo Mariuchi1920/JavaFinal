@@ -19,15 +19,23 @@ Persona persona = (Persona) session.getAttribute("usuario");
 					<div id="usuario">
 					
 					Bienvenido <%=persona.getNombre()%>
-					<a href="cerrarSesion.jsp">cerrar Sesion</a>
+						<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a>
 					</div>
 		</div>
 		<div id="menu">
 		
 			<ul class="nav">
+			<li><a href="#">Personas</a>
+					<ul>
+						<li><a href="${pageContext.request.contextPath}/admin/listarPersonas">Listar Persona</a></li>
+						<li><a href="${pageContext.request.contextPath}/reguistarPersonas">Agregar Persona</a></li>
+						
+
+					</ul>
+					</li>
 				<li><a href="#">Torneo</a>
 					<ul>
-						<li><a href="maestroTorneo.jsp">Maestro de torneo</a></li>
+						<li><a href="maestroTorneo.jsp">Listar Torneos</a></li>
 						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
 						<li><a href="#">Listar</a></li>	
 
@@ -38,17 +46,17 @@ Persona persona = (Persona) session.getAttribute("usuario");
 						<li>
 						
 						<!-- Aca voy al Servlet -->
-						<a href="${pageContext.request.contextPath}/admin/listarCategoria">Maestro Categorias</a>
+						<a href="${pageContext.request.contextPath}/admin/listarCategoria">Listar Categorias</a>
 						</li>
 						<li><a href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a></li>
 							
 
 					</ul>
 				</li>
-				<li><a href="#">Jugadores</a></li>
+				
 				<li><a href="#">Institucion</a>
 				<ul>
-						<li><a href="${pageContext.request.contextPath}/admin/listarInstituciones">Maestro Instituciones</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/listarInstituciones">Listar Instituciones</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/modificarInstituciones">Nueva Institucion</a></li>
 					
 

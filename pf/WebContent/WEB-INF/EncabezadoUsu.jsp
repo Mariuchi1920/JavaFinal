@@ -18,7 +18,9 @@ Persona persona = (Persona) session.getAttribute("usuario");
 					
 						Bienvenido <%=persona.getNombre()%>
 				
-					<a href="/WEB-INF/cerrarSesion.jsp">cerrar Sesion</a>
+					<a href="${pageContext.request.contextPath}/reguistarPersonas">Perfil</a>
+					
+					<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a>
 					</div>
 		</div>
 		

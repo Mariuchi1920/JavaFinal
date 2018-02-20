@@ -1,3 +1,5 @@
+<%@page import="entidad.Persona"%>
+<%@page import="datos.PersonasDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="entidad.Categoria"%>
 <%@page import="datos.CategoriasDAO"%>
@@ -24,7 +26,7 @@ function editar(met) {
 	document.myForm.action = met;
 }
 function eliminar(met) {
-	if (confirm("Estas seguro de eliminar Categoría?")) {
+	if (confirm("Estas seguro de eliminar esta Persona?")) {
 		
 		document.myform.editar.value=""  
 		document.myForm.action = met;
@@ -49,32 +51,40 @@ function eliminar(met) {
 			<table align="center" width="700" border="void" cellpadding="5">
 
 				<tr>
-					<td colspan="4" align="center">Administrador de categorias</td>
+					<td colspan="8" align="center">Administrador de Persona</td>
 				</tr>
 				<tr>
-					<td align="center">Año Categoria</td>
-					<td align="center">Descripcion</td>
-					<td align="center">Estado</td>
-					<td align="center">Accion</td>
+					<td align="center">Nombre</td>
+					<td align="center">Apellido</td>
+					<td align="center">Telefono</td>
+					<td align="center">Fecha Nacimiento</td>
+					<td align="center">Numero Documento</td>
+					<td align="center">Mail</td>
+					<td align="center">Tipo Persona</td>
+					<td align="center">Acción</td>
+					
 				</tr>
 
 				<%
-					CategoriasDAO catDao = new CategoriasDAO();
-					LinkedList<Categoria> categorias = catDao
-							.listarTodasLasCategorias();
-					for (Categoria c : categorias) {
+					PersonasDAO catPersona = new PersonasDAO();
+					LinkedList<Persona> personas = catPersona.listarPersonas();
+					for (Persona c : personas) {
 				%>
 				<tr>
-					<th><%=c.getAñoCategoria()%></th>
-					<th><%=c.getDescripcion()%></th>
-					<th><%=c.getEstado().getDescripcion()%></th>
+					<th><%=c.getNombre()%></th>
+					<th><%=c.getApellido()%></th>
+					<th><%=c.getTelefono()%></th>
+					<th><%=c.getFechaNacimiento().toString()%></th>
+					<th><%=c.getNumeroDocumento()%></th>
+					<th><%=c.getMail()%></th>
+					<th><%=c.getTipoPersona().getDescripcion()%></th>
 					<th>
 					<button
-							onclick="javascript: editar('/admin/listarCategoriaeditar/')"
-							value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
+							onclick="javascript: editar('/admin/listarPersonas/')"
+							value="<%= c.getIdPersona()%>" id="editar" name="editar">Editar</button> 
 						<button
-							onclick="javascript: eliminar('/admin/listarCategoriaeliminar/')"
-							value="<%= c.getIdCategorias()%>" id="eliminar" name="eliminar">Eliminar</button>
+							onclick="javascript: eliminar('/admin/listarPersonas/')"
+							value="<%= c.getIdPersona()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
 
 
@@ -88,7 +98,7 @@ function eliminar(met) {
 
 		</form>
 		
-		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
+		<a type="button"  href="${pageContext.request.contextPath}/reguistarPersonas">Nueva Persona</a>
 		
 	</div>
 

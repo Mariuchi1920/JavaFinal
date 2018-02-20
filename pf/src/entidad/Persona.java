@@ -89,6 +89,15 @@ public class Persona {
 		this.tipoPersona = tipoPersona;
 	}
 	
+	public boolean isAdmin(){
+		boolean respuesta = false;
+		if(tipoPersona.getIdTipoPersona()==1){
+			respuesta= true;
+		}
+		return respuesta;
+		
+		
+	}
 	
 	
 }

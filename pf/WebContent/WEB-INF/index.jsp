@@ -66,7 +66,7 @@
 		<tr align="center" >
 		<td><input type="submit" value="Ingresar" > </td>			
 		</tr>
-		<tr><td><a href="nuevoUsuario.jsp"> Nuevo Usuario</td></a></tr>
+		<tr><td><a href="${pageContext.request.contextPath}/reguistarPersonas"> Nuevo Usuario</td></a></tr>
 		</form>
 </table>
 

@@ -22,6 +22,7 @@ public class PersonasDAO {
 			+ " where idPersona=?";
 	private String LISTATODAPERSONAS= "select * from persona";
 	private String LISTARPORIDPERSONA="select * from persona where idPersona=?;";
+	private String LISTARPORDNI="select * from persona where numeroDocumento like ?;";
 	private String RECUPERARUSUARIO = "select * from persona where usuario=? and contraseña= ?";
 	private Connection con;
 	
@@ -144,6 +145,29 @@ public class PersonasDAO {
 		
 	}
 	
+	
+	public Persona buscarPersonaDNI(String dni){
+		
+	  	  Persona persona =new Persona();
+			try {
+				PreparedStatement ps= con.prepareStatement(LISTARPORDNI);
+				ps.setString(1, dni);
+				
+				ResultSet rs= ps.executeQuery();
+				
+				if (rs.next()) {
+					
+					persona= personasRecuperada(rs);
+				}
+				rs.close();
+				ps.close();
+			} catch (SQLException ex) {
+				// TODO: handle exception
+				ex.printStackTrace();
+			}
+			return persona;
+			
+		}
 	
 	
 	
