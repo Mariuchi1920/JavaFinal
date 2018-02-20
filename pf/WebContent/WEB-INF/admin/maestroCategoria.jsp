@@ -9,7 +9,8 @@
 
 <html class="no-js" lang="en">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/style.css">
+	href="${pageContext.request.contextPath}/CSS/style.css"
+	href="${pageContext.request.contextPath}/CSS/StyleBotonEditar.css">
 <head>
 <meta charset="UTF-8">
 <title>Maestro categoria</title>
@@ -69,10 +70,11 @@ function eliminar(met) {
 					<th><%=c.getDescripcion()%></th>
 					<th><%=c.getEstado().getDescripcion()%></th>
 					<th>
-					<button
+					<button class="botonEditar"
 							onclick="javascript: editar('/admin/listarCategoriaeditar/')"
 							value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
 						<button
+							class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarCategoriaeliminar/')"
 							value="<%= c.getIdCategorias()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>

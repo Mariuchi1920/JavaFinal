@@ -102,4 +102,23 @@ para acceder a la class nav con el .
 	background: white;
 	height: auto;
 }
-
+.botonEditar{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;/* color de la letra  */
+    background-color: #00FF00; /* color de fondo del boton */
+    border-radius: 6px;
+    border: 1px solid #0016b0;
+  }
+  .botonEliminar{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;/* color de la letra  */
+    background-color:#FF0000; /* color de fondo del boton */
+    border-radius: 6px;
+    border: 1px solid #0016b0;
+  }
