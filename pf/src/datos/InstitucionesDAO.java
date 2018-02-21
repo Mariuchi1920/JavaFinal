@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import entidad.Categoria;
+import entidad.Equipo;
 import entidad.Institucion;
 import modelo.Conexion;
 
@@ -83,10 +84,17 @@ public class InstitucionesDAO {
 				
 	}
 
-	public void eliminarInstitucion(Institucion i) {
+	public void eliminarInstitucion(Institucion institucion) {
 		try {
+			EquiposDAO catEquipo= new EquiposDAO();
+			LinkedList<Equipo> equipos = catEquipo.buscarporIdInstitucion(institucion.getIdInstituciones());
+			if(equipos != null && equipos.size()>0) 
+				for (int i = 0; i < equipos.size(); i++) {
+				catEquipo.eliminarEquipo(equipos.get(i));
+			}
+			
 			PreparedStatement ps= con.prepareStatement(DELETE);
-			ps.setInt(1,i.getIdInstituciones());
+			ps.setInt(1,institucion.getIdInstituciones());
 			ps.executeUpdate();
 			ps.close();
 			

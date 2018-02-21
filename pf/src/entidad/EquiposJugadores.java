@@ -1,16 +1,17 @@
 package entidad;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class EquiposJugadores {
 	
-	private ArrayList<Persona> jugadores;
+	private LinkedList<Persona> jugadores;
 	private Equipo equipo;
 	
-	public ArrayList<Persona> getJugadores() {
+	public LinkedList<Persona> getJugadores() {
 		return jugadores;
 	}
-	public void setJugadores(ArrayList<Persona> jugadores) {
+	public void setJugadores(LinkedList<Persona> jugadores) {
 		this.jugadores = jugadores;
 	}
 	public Equipo getEquipo() {

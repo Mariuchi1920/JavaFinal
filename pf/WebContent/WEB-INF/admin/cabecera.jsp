@@ -62,6 +62,14 @@ Persona persona = (Persona) session.getAttribute("usuario");
 
 					</ul>
 				<li><a href="#">Partido</a></li>
+				<li><a href="#">Equipos</a>
+				<ul>
+				       <li><a href="${pageContext.request.contextPath}/admin/listarEquipo">Listar Equipos</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/modificarEquipo">Nueva Equipos</a></li>
+				</ul>
+				</li>
+				
+				
 				
 			</ul>
 			

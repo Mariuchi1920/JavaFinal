@@ -11,6 +11,8 @@ public class Util {
 	public static Date convertirStringDate(String fechaIngresada){
 		Date fecha = null;
 		
+		
+		
 		Calendar calendario = Calendar.getInstance();
 		
 		String[] aux= fechaIngresada.split("-");
