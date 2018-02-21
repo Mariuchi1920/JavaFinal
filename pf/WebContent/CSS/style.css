@@ -110,7 +110,7 @@ para acceder a la class nav con el .
     color: #FFFFFF;/* color de la letra  */
     background-color: #00FF00; /* color de fondo del boton */
     border-radius: 6px;
-    border: 1px solid #0016b0;
+    border: none;
   }
   .botonEliminar{
     text-decoration: none;
@@ -120,5 +120,5 @@ para acceder a la class nav con el .
     color: #FFFFFF;/* color de la letra  */
     background-color:#FF0000; /* color de fondo del boton */
     border-radius: 6px;
-    border: 1px solid #0016b0;
+    border: none;
   }

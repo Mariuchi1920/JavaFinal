@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-
+import entidad.TipoEstado;
 import entidad.Torneo;
 import modelo.Conexion;
 
@@ -33,10 +33,10 @@ public class TorneosDAO {
 				ps.setString(1, torneo.getNombre());
 				ps.setDate(2,torneo.getFechaInicio());
 				ps.setDate(3,torneo.getFechaFin());
-				ps.setInt(4, torneo.getIdTipoEstado());
-				ps.setInt(5,torneo.getIdCategoriaCampeon());
-				ps.setInt(6,torneo.getIdInstitucionCampeon());
-				ps.setString(7,torneo.getNombreEquipoCampeon());
+				ps.setInt(4, torneo.getEstado().getIdTipoEstado());
+				ps.setInt(5,torneo.getCategorias().getIdCategorias());
+				ps.setInt(6,torneo.getInstitucion().getIdInstituciones());
+				ps.setString(7,torneo.getNombreEquipo());
 				ps.executeUpdate();
 				ps.close(); 
 							} catch (SQLException e) {
@@ -50,10 +50,10 @@ public class TorneosDAO {
 				ps.setString(1,torneo.getNombre());
 				ps.setDate(2,torneo.getFechaInicio());
 				ps.setDate(3,torneo.getFechaFin());
-				ps.setInt(4, torneo.getIdTipoEstado());
-				ps.setInt(5,torneo.getIdCategoriaCampeon());
-				ps.setInt(6,torneo.getIdInstitucionCampeon());
-				ps.setString(7,torneo.getNombreEquipoCampeon());
+				ps.setInt(4, torneo.getEstado().getIdTipoEstado());
+				ps.setInt(5,torneo.getCategorias().getIdCategorias());
+				ps.setInt(6,torneo.getInstitucion().getIdInstituciones());
+				ps.setString(7,torneo.getNombreEquipo());
 				ps.setInt(8,torneo.getIdTorneos());
 				ps.executeUpdate();
 				ps.close();
@@ -129,11 +129,15 @@ public class TorneosDAO {
 				i.setNombre(rs.getString(2));
 				i.setFechaInicio(rs.getDate(3));
 				i.setFechaFin(rs.getDate(4));
-				i.setIdTipoEstado(rs.getInt(5));
-				i.setIdCategoriaCampeon(rs.getInt(6));
-				i.setIdInstitucionCampeon(rs.getInt(7));
-				i.setNombreEquipoCampeon(rs.getString(8));
-				;
+				TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
+				TipoEstado estadoTorneo = estadoDAO.getTipoEstados(rs.getInt(5));
+				i.setEstado(estadoTorneo);
+				
+//
+//				i.setIdCategoriaCampeon(rs.getInt(6));
+//				i.setIdInstitucionCampeon(rs.getInt(7));
+//				i.setNombreEquipoCampeon(rs.getString(8));
+//				
 				
 			} catch (SQLException e) {
 				// TODO: handle exception

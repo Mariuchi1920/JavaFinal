@@ -15,10 +15,10 @@ public class Torneo {
 	private String nombre;
 	private Date fechaInicio;
 	private Date fechaFin;
-	private int idTipoEstado;
-	private int idCategoriaCampeon;
-	private int idInstitucionCampeon;
-	private String nombreEquipoCampeon;
+	private TipoEstado estado;
+	private Categoria categorias;
+	private Institucion institucion;
+	private String nombreEquipo;
 	
 	
 public int getIdTorneos() {
@@ -53,37 +53,40 @@ public int getIdTorneos() {
 		this.fechaFin = fechaFin;
 	}
 
-	public int getIdTipoEstado() {
-		return idTipoEstado;
+	public TipoEstado getEstado() {
+		return estado;
 	}
 
-	public void setIdTipoEstado(int idTipoEstado) {
-		this.idTipoEstado = idTipoEstado;
+	public Categoria getCategorias() {
+		return categorias;
 	}
 
-	public int getIdCategoriaCampeon() {
-		return idCategoriaCampeon;
+	public void setCategorias(Categoria categorias) {
+		this.categorias = categorias;
 	}
 
-	public void setIdCategoriaCampeon(int idCategoriaCampeon) {
-		this.idCategoriaCampeon = idCategoriaCampeon;
+	public Institucion getInstitucion() {
+		return institucion;
 	}
 
-	public int getIdInstitucionCampeon() {
-		return idInstitucionCampeon;
+	public void setInstitucion(Institucion institucion) {
+		this.institucion = institucion;
 	}
 
-	public void setIdInstitucionCampeon(int idInstitucionCampeon) {
-		this.idInstitucionCampeon = idInstitucionCampeon;
+	public String getNombreEquipo() {
+		return nombreEquipo;
 	}
 
-	public String getNombreEquipoCampeon() {
-		return nombreEquipoCampeon;
+	public void setNombreEquipo(String nombreEquipo) {
+		this.nombreEquipo = nombreEquipo;
 	}
 
-	public void setNombreEquipoCampeon(String nombreEquipoCampeon) {
-		this.nombreEquipoCampeon = nombreEquipoCampeon;
+	public void setEstado(TipoEstado estado) {
+		this.estado = estado;
 	}
+	
+
+	
 
 	
 	
@@ -131,41 +134,41 @@ public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, Str
 		
 	}
 
-public static LinkedList<Torneo> getTorneos() throws SQLException{
-	LinkedList<Torneo>listaTorneos= new LinkedList<Torneo>();
-	Conexion con= new Conexion();
-	Statement st = null;
-	ResultSet rs=null;
-	try{
-		 st= con.getConexion().createStatement();
-		 rs= st.executeQuery("select * from torneos");
-		while(rs.next()){
-			Torneo torneo= new Torneo();
-			torneo.setIdTorneos(rs.getInt(1));
-			torneo.setNombre(rs.getString(2));
-			torneo.setFechaInicio(rs.getDate(3));
-			torneo.setFechaFin(rs.getDate(4));
-			torneo.setIdTipoEstado(rs.getInt(5));
-			torneo.setIdCategoriaCampeon(rs.getInt(6));
-			torneo.setIdInstitucionCampeon(rs.getInt(7));
-			torneo.setNombreEquipoCampeon(rs.getString(8));
-			listaTorneos.add(torneo);
-			}
-			
-			
-			
-		}catch(Exception e){
-		
-	}finally {
-		st.close();
-		rs.close();
-		con.getConexion().close();
-		
-		
-	}
-	return listaTorneos;
-	
-}
+//public static LinkedList<Torneo> getTorneos() throws SQLException{
+//	LinkedList<Torneo>listaTorneos= new LinkedList<Torneo>();
+//	Conexion con= new Conexion();
+//	Statement st = null;
+//	ResultSet rs=null;
+//	try{
+//		 st= con.getConexion().createStatement();
+//		 rs= st.executeQuery("select * from torneos");
+//		while(rs.next()){
+//			Torneo torneo= new Torneo();
+//			torneo.setIdTorneos(rs.getInt(1));
+//			torneo.setNombre(rs.getString(2));
+//			torneo.setFechaInicio(rs.getDate(3));
+//			torneo.setFechaFin(rs.getDate(4));
+//			torneo.setIdTipoEstado(rs.getInt(5));
+//			torneo.setIdCategoriaCampeon(rs.getInt(6));
+//			torneo.setIdInstitucionCampeon(rs.getInt(7));
+//			torneo.setNombreEquipoCampeon(rs.getString(8));
+//			listaTorneos.add(torneo);
+//			}
+//			
+//			
+//			
+//		}catch(Exception e){
+//		
+//	}finally {
+//		st.close();
+//		rs.close();
+//		con.getConexion().close();
+//		
+//		
+//	}
+//	return listaTorneos;
+//	
+//}
 
 public boolean eliminarTorneo(int id) throws SQLException{
 	boolean rta=false;
