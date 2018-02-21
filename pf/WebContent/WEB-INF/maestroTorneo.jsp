@@ -1,3 +1,4 @@
+<%@page import="datos.TorneosDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="entidad.Torneo"%>
@@ -40,8 +41,9 @@
 <!-- ahora trabajo en java para mostrar los datos d ela base de datos 
 en las demas filas  -->
 
-<%  Torneo torneo= new Torneo();
-	LinkedList <Torneo> listaTorneo= torneo.getTorneos();
+<%  TorneosDAO torneo= new TorneosDAO();
+	LinkedList <Torneo> listaTorneo= torneo.listarTodasLosTorneos();
+			
 	%>
 
 <% for(Torneo t :listaTorneo){  %>
@@ -49,14 +51,21 @@ en las demas filas  -->
 	<th><%=t.getNombre() %></th>
 	<th><%=t.getFechaInicio()%></th>
 	<th><%=t.getFechaFin() %></th>
-	<th><%=t.getIdTipoEstado()%></th>
-	<th><%=t.getIdCategoriaCampeon()%></th>
+	<th><%=t.getEstado().getDescripcion()%></th>
+					
+<%-- 	<th><%=t.getIdCategoriaCampeon()%></th>
 	<th><%=t.getIdInstitucionCampeon()%></th>
-	<th><%=t.getNombreEquipoCampeon()%></th>
+	<th><%=t.getNombreEquipoCampeon()%></th> --%>
 	<th>
-	<img alt="" src="imagen/iconoEditar.png" width="30" height="30"><%-- ||<a href="eliminarTorneo.jsp?idtorneo=<%= //listaTorneo.get(t).getIdtorneo() %>"> --%>
-	 <img alt="" src="imagen/iconoEliminar.png" width="30" height="30"><!-- </a> --></th>
-	</tr>
+	<button class="botonEditar"
+							onclick="javascript: editar('/admin/listarCategoriaeditar/')"
+							value="<%= t.getIdTorneos()%>" id="editar" name="editar">Editar</button> 
+						<button
+							class="botonEliminar"
+							onclick="javascript: eliminar('/admin/listarCategoriaeliminar/')"
+							value="<%= t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
+					</th>
+
 		<%}%>
 </table>
 <form action="nuevoTorneo.jsp" method="post">
