@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import entidad.Categoria;
+import entidad.Equipo;
 import entidad.TipoEstado;
 import modelo.Conexion;
 
@@ -58,8 +59,12 @@ public class CategoriasDAO {
 	}
 	public void eliminarCategoria(Categoria cat) {
 		try {
-			
-			
+			EquiposDAO catEquipo= new EquiposDAO();
+			LinkedList<Equipo> equipos = catEquipo.buscarporIdCategoria(cat.getIdCategorias());
+			if(equipos != null && equipos.size()>0) 
+				for (int i = 0; i < equipos.size(); i++) {
+				catEquipo.eliminarEquipo(equipos.get(i));
+			}
 			PreparedStatement ps= con.prepareStatement(DELETE);
 			ps.setInt(1,cat.getIdCategorias());
 			ps.executeUpdate();

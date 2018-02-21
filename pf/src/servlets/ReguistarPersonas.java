@@ -60,6 +60,7 @@ public class ReguistarPersonas extends HttpServlet {
 		persona.setTelefono(request.getParameter("telefono"));
 		persona.setUsuario(request.getParameter("usuario"));
 		persona.setContraseña(request.getParameter("contraseña"));
+		
 		persona.setFechaNacimiento(Util.convertirStringDate(request.getParameter("fechaNacimiento")));
 		int estado= Integer.parseInt(request.getParameter("listaTipoPersona"));	
 		TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();

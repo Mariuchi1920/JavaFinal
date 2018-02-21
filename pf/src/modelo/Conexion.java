@@ -7,7 +7,7 @@ import com.mysql.jdbc.Driver;
 public class Conexion {
 
 	public String userDb="root";
-	public String passDb= "1234";
+	public String passDb= "";
 	public String host= "localhost";
 	public String port= "3306";
 	public String dataBases= "baseligaefe";

@@ -21,9 +21,12 @@ public class PersonasDAO {
 			+ "mail=? ,idTipoPersona=? ,usuario=? ,contraseña=? "
 			+ " where idPersona=?";
 	private String LISTATODAPERSONAS= "select * from persona";
-	private String LISTARPORIDPERSONA="select * from persona where idPersona=?;";
+	private String LISTARPORIDPERSONA="select * from persona where idPersona=?";
+	private String LISTARPORTIPOPERSONA="select * from persona where idTipoPersona=?";
 	private String LISTARPORDNI="select * from persona where numeroDocumento like ?;";
-	private String RECUPERARUSUARIO = "select * from persona where usuario=? and contraseña= ?";
+	private String RECUPERARUSUARIO = "select * from persona where usuario like ? and contraseña like ?";
+	
+	
 	private Connection con;
 	
 	
@@ -145,6 +148,31 @@ public class PersonasDAO {
 		
 	}
 	
+	
+	public LinkedList<Persona> buscarPersonaTipoPersona(int id){
+		
+		LinkedList<Persona> personas =new LinkedList<Persona>();
+			try {
+				PreparedStatement ps= con.prepareStatement(LISTARPORTIPOPERSONA);
+				ps.setInt(1, id);
+				
+				ResultSet rs= ps.executeQuery();
+				
+				if (rs.next()) {
+					
+					Persona persona= personasRecuperada(rs);
+					personas.add(persona);
+				}
+				rs.close();
+				ps.close();
+			} catch (SQLException ex) {
+				// TODO: handle exception
+				ex.printStackTrace();
+			}
+			return personas;
+			
+		}
+		
 	
 	public Persona buscarPersonaDNI(String dni){
 		

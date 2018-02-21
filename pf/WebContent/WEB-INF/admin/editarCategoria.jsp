@@ -72,7 +72,7 @@ if(request.getSession().getAttribute("editador")!=null){
 					<td colspan="2">Editar categoria seleccionada</td>
 				</tr>
 				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
-				<
+				
 				<tr>
 					<td>Año Categoria</td>
 					<td><input type="text" name="añoCategoria" id="añoCategoria"
