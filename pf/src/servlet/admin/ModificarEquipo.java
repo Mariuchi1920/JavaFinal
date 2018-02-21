@@ -69,7 +69,7 @@ public class ModificarEquipo extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
 			
 			
-		} if (request.getParameter("agregarJugador")!=null) {
+		}else if (request.getParameter("agregarJugador")!=null) {
 
 			EquiposJugadoresDAO buscadore= new EquiposJugadoresDAO();
 			EquiposJugadores equipo = new EquiposJugadores();
@@ -79,7 +79,7 @@ public class ModificarEquipo extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/admin/agregarPersonasEquipo");
 			
 			
-		}if (request.getParameter("agregarEquipo")!=null) {
+		}else if (request.getParameter("agregarEquipo")!=null) {
 
 			Equipo equipo = new Equipo();
 			EquiposDAO catEquipo = new EquiposDAO();
@@ -94,6 +94,9 @@ public class ModificarEquipo extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/admin/listarEquipo");
 			
 			
+		}else{
+			
+			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
 		}
 		
 	     

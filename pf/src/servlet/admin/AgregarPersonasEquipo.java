@@ -45,7 +45,7 @@ public class AgregarPersonasEquipo extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+	 try{
 		if(request.getSession().getAttribute("editarEntrenador")!=null){
 			int idPersona= Integer.parseInt(request.getParameter("listaEntrenadores"));
 			PersonasDAO catPersona= new PersonasDAO();
@@ -53,7 +53,7 @@ public class AgregarPersonasEquipo extends HttpServlet {
 			equipo.setEntrenador(catPersona.buscarPersonaId(idPersona));
 			EquiposDAO catEquipo= new EquiposDAO();
 			catEquipo.editarEquipo(equipo);
-			////request.getSession(false).removeAttribute("editarEntrenador");
+			request.getSession(false).removeAttribute("editarEntrenador");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");		
 			
 		}else if(request.getSession().getAttribute("agregarJugador")!=null){
@@ -64,9 +64,13 @@ public class AgregarPersonasEquipo extends HttpServlet {
 			EquiposJugadores equipo = ((EquiposJugadores)request.getSession().getAttribute("agregarJugador"));
 			
 			catEJ.nuevoJugadorEquipo(equipo, catPersona.buscarPersonaId(idPersona));
-			
+			request.getSession(false).removeAttribute("agregarJugador");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");	
 		}
+	 } catch (IOException| NumberFormatException ex) {
+			// TODO: handle exception
+			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
+		} 
 	}
 
 }

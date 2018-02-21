@@ -9,8 +9,7 @@
 
 <html class="no-js" lang="en">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/style.css"
-	href="${pageContext.request.contextPath}/CSS/StyleBotonEditar.css">
+	href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
 <meta charset="UTF-8">
 <title>Maestro categoria</title>
