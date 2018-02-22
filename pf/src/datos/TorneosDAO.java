@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import com.mysql.jdbc.EscapeTokenizer;
+
+import entidad.Equipo;
 import entidad.TipoEstado;
 import entidad.Torneo;
 import modelo.Conexion;
@@ -34,9 +37,9 @@ public class TorneosDAO {
 				ps.setDate(2,torneo.getFechaInicio());
 				ps.setDate(3,torneo.getFechaFin());
 				ps.setInt(4, torneo.getEstado().getIdTipoEstado());
-				ps.setInt(5,torneo.getCategorias().getIdCategorias());
-				ps.setInt(6,torneo.getInstitucion().getIdInstituciones());
-				ps.setString(7,torneo.getNombreEquipo());
+				ps.setInt(5,torneo.getEquipoGanador().getCategorias().getIdCategorias());
+				ps.setInt(6,torneo.getEquipoGanador().getInstitucion().getIdInstituciones());
+				ps.setString(7,torneo.getEquipoGanador().getNombreEquipo());
 				ps.executeUpdate();
 				ps.close(); 
 							} catch (SQLException e) {
@@ -51,9 +54,9 @@ public class TorneosDAO {
 				ps.setDate(2,torneo.getFechaInicio());
 				ps.setDate(3,torneo.getFechaFin());
 				ps.setInt(4, torneo.getEstado().getIdTipoEstado());
-				ps.setInt(5,torneo.getCategorias().getIdCategorias());
-				ps.setInt(6,torneo.getInstitucion().getIdInstituciones());
-				ps.setString(7,torneo.getNombreEquipo());
+				ps.setInt(5,torneo.getEquipoGanador().getCategorias().getIdCategorias());
+				ps.setInt(6,torneo.getEquipoGanador().getInstitucion().getIdInstituciones());
+				ps.setString(7,torneo.getEquipoGanador().getNombreEquipo());
 				ps.setInt(8,torneo.getIdTorneos());
 				ps.executeUpdate();
 				ps.close();
@@ -77,7 +80,8 @@ public class TorneosDAO {
 		}
 		
 		}
-		public LinkedList<Torneo> listarTodasLosTorneos(){
+		
+		public LinkedList<Torneo> listarTodosLosTorneos(){
 			LinkedList<Torneo> listarTorneos= new LinkedList<Torneo>();
 			try{
 				
@@ -129,15 +133,29 @@ public class TorneosDAO {
 				i.setNombre(rs.getString(2));
 				i.setFechaInicio(rs.getDate(3));
 				i.setFechaFin(rs.getDate(4));
-				TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
-				TipoEstado estadoTorneo = estadoDAO.getTipoEstados(rs.getInt(5));
-				i.setEstado(estadoTorneo);
+				TipoEstadoDAO tedao=new TipoEstadoDAO();
+				TipoEstado te= tedao.getTipoEstados(rs.getInt(5));
+				i.setEstado(te);
+				EquiposDAO edao=new EquiposDAO();
+				Equipo equipoCam= edao.buscarporIdsEquipo(rs.getInt(6), rs.getInt(7), rs.getString(8) );
+				i.setEquipoGanador(equipoCam);
 				
-//
-//				i.setIdCategoriaCampeon(rs.getInt(6));
-//				i.setIdInstitucionCampeon(rs.getInt(7));
-//				i.setNombreEquipoCampeon(rs.getString(8));
-//				
+//				i.setNombre(rs.getString(4));
+//				i.setIdTorneos(rs.getInt(5));
+//				i.setNombre(rs.getString(6));
+//				i.setIdTorneos(rs.getInt(7));
+//				i.setNombre(rs.getString(8));
+//				i.setFechaInicio(rs.getDate(3));
+//				i.setFechaFin(rs.getDate(4));
+//				TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
+//				TipoEstado estadoTorneo = estadoDAO.getTipoEstados(rs.getInt(5));
+//				i.setEstado(estadoTorneo);
+////				EquiposDAO edao= new EquiposDAO();
+////				Equipo equipoCampeon=edao.
+////				i.setEquipoGanador(edao.buscarporIdsEquipo(rs.getInt(6), rs.getInt(7), rs.getString(8)));
+
+				
+			
 				
 			} catch (SQLException e) {
 				// TODO: handle exception

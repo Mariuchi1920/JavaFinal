@@ -7,15 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datos.CategoriasDAO;
 import datos.TorneosDAO;
-import entidad.Categoria;
+
 import entidad.Torneo;
 
 /**
  * Servlet implementation class ListarTorneo
  */
-@WebServlet({"/admin/listarTorneo","/admin/listarTorneoeditar/", "/admin/listarTorneoeliminar/"})
+@WebServlet("/admin/listarTorneo")
 public class ListarTorneo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,7 +31,8 @@ public class ListarTorneo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/admin/maestroTorneo.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/admin/maestroTorneos.jsp").forward(request, response);
+		
 	}
 
 	/**
@@ -41,29 +41,25 @@ public class ListarTorneo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		TorneosDAO torneodao=new TorneosDAO();
-		try {
-		    
-			if(request.getParameter("editar")!=null) {
-				Torneo torneo = torneodao.buscarPorId(Integer.parseInt(request.getParameter("editar")));
-												
-				request.getSession().setAttribute("editador", torneo);
-				//////
+		try {			
+			
+			if (request.getParameter("editar") != null) {
+				Torneo tor= torneodao.buscarPorId(Integer.parseInt(request.getParameter("editar")));
+				request.getSession().setAttribute("editador", tor);
 				response.sendRedirect(request.getContextPath() + "/admin/modificarTorneo");
-			}else if(request.getParameter("eliminar")!=null) {
-				Torneo torneo=new Torneo();
-				torneo.setIdTorneos(Integer.parseInt(request.getParameter("eliminar")));
-				torneodao.eliminarTorneo(torneo);
-				response.sendRedirect(request.getContextPath() + "/admin/listarTorneoa");
+			} else if (request.getParameter("eliminar") != null) {
+				Torneo tor= new Torneo();
+				tor.setIdTorneos(Integer.parseInt(request.getParameter("eliminar")));
+				torneodao.eliminarTorneo(tor);
+				response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
 				
-							
-		}} catch (IOException| NumberFormatException ex) {
+			}} catch (IOException | NumberFormatException ex) {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
-		} 
+		}
 
-		
-	
-	}
 	}
 
-
+			
+	}
+			

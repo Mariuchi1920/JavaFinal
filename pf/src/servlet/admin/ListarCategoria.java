@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.CategoriasDAO;
 import entidad.Categoria;
-import entidad.TipoEstado;
+
 
 /**
  * Servlet implementation class CategoriaServlets

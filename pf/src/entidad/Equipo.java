@@ -4,10 +4,13 @@ package entidad;
 
 public class Equipo {
 	//private int idEquipo;
+
 	private Categoria categorias;
 	private Institucion institucion;
 	private String nombreEquipo;
 	private Persona entrenador;
+	
+	
 	public Categoria getCategorias() {
 		return categorias;
 	}

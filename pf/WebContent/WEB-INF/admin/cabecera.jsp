@@ -13,6 +13,7 @@
 Persona persona = (Persona) session.getAttribute("usuario"); 
 %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+
 <div id="contenedor">
 		<div id="cabecera">
 					<div id="Logo"><img src="${pageContext.request.contextPath}/imagen/logo_header.png"></div>
@@ -35,9 +36,9 @@ Persona persona = (Persona) session.getAttribute("usuario");
 					</li>
 				<li><a href="#">Torneo</a>
 					<ul>
-						<li><a href="maestroTorneo.jsp">Listar Torneos</a></li>
-						<li><a href="nuevoTorneo.jsp">Nuevo Torneo</a></li>
-						<li><a href="#">Listar</a></li>	
+						<li><a href="${pageContext.request.contextPath}/admin/listarTorneo">Listar Torneos</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></li>
+						
 
 					</ul>
 					</li>

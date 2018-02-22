@@ -200,7 +200,7 @@ public class EquiposDAO {
 	
 	
 	
-	public Equipo buscarporIdsEquipo(int idInstitucion, int idCategoria, String nombre) {
+	public Equipo buscarporIdsEquipo( int idCategoria,int idInstitucion, String nombre) {
 		Equipo equipo =new Equipo();
 		try {
 			PreparedStatement ps= con.prepareStatement(LISTARPORIDS);

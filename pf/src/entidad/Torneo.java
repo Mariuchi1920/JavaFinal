@@ -16,9 +16,8 @@ public class Torneo {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private TipoEstado estado;
-	private Categoria categorias;
-	private Institucion institucion;
-	private String nombreEquipo;
+	private Equipo equipoGanador;
+	
 	
 	
 public int getIdTorneos() {
@@ -57,82 +56,65 @@ public int getIdTorneos() {
 		return estado;
 	}
 
-	public Categoria getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(Categoria categorias) {
-		this.categorias = categorias;
-	}
-
-	public Institucion getInstitucion() {
-		return institucion;
-	}
-
-	public void setInstitucion(Institucion institucion) {
-		this.institucion = institucion;
-	}
-
-	public String getNombreEquipo() {
-		return nombreEquipo;
-	}
-
-	public void setNombreEquipo(String nombreEquipo) {
-		this.nombreEquipo = nombreEquipo;
-	}
-
 	public void setEstado(TipoEstado estado) {
 		this.estado = estado;
 	}
 	
-
-	
-
-	
-	
-public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, String campeonCat,	String campeonInst, String campeon) {
-		Conexion con= new Conexion();
-		PreparedStatement st= null;
-		
-		try {
-			
-			String consulta= "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
-			
-			st=con.getConexion().prepareStatement(consulta);
-			
-			st.setString(1, nt);
-			st.setDate(2, fi);
-			st.setDate(3, ff);
-			st.setInt(4, estado);
-			st.setInt(5, 2005);// idCategoriaCampeon);
-			st.setInt(6, 1); //idInstitucionCampeon);
-			if(campeon.isEmpty()) {
-				campeon=null;
-			}
-			st.setString(7, campeon );
-			
-			st.executeUpdate();
-			return true;
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-			// TODO: handle exception
-		}finally {
-			if(con.getConexion()!= null)
-				try {
-					con.getConexion().close();
-					if (st!=null) st.close();
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return false;
-				}
-		}
-		
+	public Equipo getEquipoGanador() {
+		return equipoGanador;
 	}
+
+	public void setEquipoGanador(Equipo equipoGanador) {
+		this.equipoGanador = equipoGanador;
+	}
+
+
+	
+	
+//
+//public boolean registrarNuevoTorneo(String nt, Date fi, Date ff, int estado, String campeonCat,	String campeonInst, String campeon) {
+//		Conexion con= new Conexion();
+//		PreparedStatement st= null;
+//		
+//		try {
+//			
+//			String consulta= "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
+//			
+//			st=con.getConexion().prepareStatement(consulta);
+//			
+//			st.setString(1, nt);
+//			st.setDate(2, fi);
+//			st.setDate(3, ff);
+//			st.setInt(4, estado);
+//			st.setInt(5, 2005);// idCategoriaCampeon);
+//			st.setInt(6, 1); //idInstitucionCampeon);
+//			if(campeon.isEmpty()) {
+//				campeon=null;
+//			}
+//			st.setString(7, campeon );
+//			
+//			st.executeUpdate();
+//			return true;
+//			
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return false;
+//			// TODO: handle exception
+//		}finally {
+//			if(con.getConexion()!= null)
+//				try {
+//					con.getConexion().close();
+//					if (st!=null) st.close();
+//					
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//					return false;
+//				}
+//		}
+//		
+//	}
 
 //public static LinkedList<Torneo> getTorneos() throws SQLException{
 //	LinkedList<Torneo>listaTorneos= new LinkedList<Torneo>();
