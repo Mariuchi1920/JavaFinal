@@ -66,7 +66,7 @@
 		   institucion=equipoJugador.getEquipo().getInstitucion();
 		   nombre=equipoJugador.getEquipo().getNombreEquipo();
 		   entrenador=equipoJugador.getEquipo().getEntrenador();
-		   jugadores = catEQJU.listarTodasLosJugadores(encontrado);
+		   jugadores = catEQJU.listarTodasLosJugadores(equipoJugador.getEquipo());
 	}
 %>
 
@@ -143,7 +143,7 @@
 				<tr>
 				<td>
 				  <button 
-				   onclick="javascript: agregar('/admin/agregarPersonasEquipo')"
+				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
 				   id="editar" value="editar" name="editar">Agregar</button>
 				</td>
 				</tr>

@@ -69,10 +69,10 @@ function eliminar(met) {
 					<td><%=equipo.getEntrenador().getApellido() %>, <%=equipo.getEntrenador().getNombre() %></td>
 					<td>
 					<button
-							onclick="javascript: editar('/admin/listarInstituciones/')"
+							onclick="javascript: editar('/admin/listarEquipo')"
 							value="<%=equipo.getInstitucion().getIdInstituciones()%>/<%=equipo.getCategorias().getIdCategorias()%>/<%=equipo.getNombreEquipo()%>" id="editar" name="editar">Editar</button> 
 						<button
-							onclick="javascript: eliminar('/admin/listarInstituciones/')"
+							onclick="javascript: eliminar('/admin/listarEquipo')"
 							value="<%=equipo.getInstitucion().getIdInstituciones()%>/<%=equipo.getCategorias().getIdCategorias()%>/<%=equipo.getNombreEquipo()%>" id="eliminar" name="eliminar">Eliminar</button>
                      </td>
 				</tr>
@@ -82,7 +82,7 @@ function eliminar(met) {
 
 		</form>
 
-		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>
+		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nuevo Equipo</a>
 
 	</div>
 	</div>

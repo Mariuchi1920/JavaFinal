@@ -120,8 +120,11 @@ if(request.getSession().getAttribute("editador")!=null){
 								  
 								  <option value="<%= te.getIdInstituciones() %>"><%=te.getNombre() %></option>
 							 <% }} %>	
+							 
+							 </select>
+					</td>
 					<% } %>
-					 <td>
+					 
 				</tr>
 				
 				<tr>
@@ -200,7 +203,8 @@ if(request.getSession().getAttribute("editador")!=null){
 				<% if(encontrado!=null){ %>
 				<tr>
 					<td colspan="2">Jugadores </td>
-					
+				</tr>
+					<tr>
 						<%
 						   if(jugadores!=null && jugadores.size()>0){
 							   
@@ -211,8 +215,8 @@ if(request.getSession().getAttribute("editador")!=null){
 						</td>
 						<td>
 						  <button align="center"
-				               onclick="javascript: elimiarJugador('/admin/modificarEquipo/editarJugador')"
-				               id="editar" value="<%=jugadores.get(i).getIdPersona() %>" name="editar">Eliminar</button>
+				               onclick="javascript: elimiarJugador('/admin/modificarEquipo')"
+				               id="elimiarJugador" value="<%=jugadores.get(i).getIdPersona() %>" name="elimiarJugador">Eliminar</button>
 						</td>
 					
 					   <%
@@ -226,7 +230,7 @@ if(request.getSession().getAttribute("editador")!=null){
 				<tr>
 				
 				<td colspan="2">
-						<button align="center" onclick="javascript: agregarJugador('/admin/modificarEquipo/agregarJugador')" name="agregarJugador" id="agregarJugador" value="agregarJugador" />
+						<button align="center" onclick="javascript: agregarJugador('/admin/modificarEquipo')" name="agregarJugador" id="agregarJugador" value="agregarJugador" />
 						Agregar Jugadores</button>
 						</td>
 
@@ -237,7 +241,7 @@ if(request.getSession().getAttribute("editador")!=null){
 
 			</table>
 			<% if(encontrado==null){ %>
-			<button align="center" onclick="javascript: agregarEquipo('/admin/modificarEquipo/agregarEquipo')" name="agregarEquipo" id="agregarEquipo" value="agregarEquipo" />
+			<button align="center" onclick="javascript: agregarEquipo('/admin/modificarEquipo')" name="agregarEquipo" id="agregarEquipo" value="agregarEquipo" />
 			  Agregar Equipo</button>
 			   <%
 							   }

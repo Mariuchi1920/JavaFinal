@@ -8,9 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html class="no-js" lang="en">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/style.css"
->
+<link rel="stylesheet" type="text/css" 	href="${pageContext.request.contextPath}/CSS/style.css" 	href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
 <meta charset="UTF-8">
 <title>Maestro categoria</title>

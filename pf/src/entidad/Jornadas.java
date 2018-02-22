@@ -1,6 +1,8 @@
 package entidad;
 
-import sun.util.calendar.LocalGregorianCalendar.Date;
+import java.sql.Date;
+
+
 
 public class Jornadas {
 	
