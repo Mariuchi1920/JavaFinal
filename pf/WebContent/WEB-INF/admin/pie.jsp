@@ -11,7 +11,7 @@
 <body>
 
 <div id="Pie">
-			<div id="LogoPie"><img src="${pageContext.request.contextPath}/imagen/logo_footer.jpg"></div>
+			
 			<p>La EFA es una Agrupación de Escuelas de Fútbol creada por las instituciones fundadoras y cuyo objetivo final es:
 
 "QUE TODOS LOS NIÑOS Y JOVENES SE DIVIERTAN JUGANDO AL FÚTBOL SANAMENTE Y CON ALEGRÍA,
