@@ -51,7 +51,7 @@ function eliminar(met) {
 			<table align="center" width="700" border="void" cellpadding="5">
 
 				<tr>
-					<td colspan="8" align="center">Administrador de Persona</td>
+					<td colspan="9" align="center">Administrador de Persona</td>
 				</tr>
 				<tr>
 					<td align="center">Nombre</td>
@@ -61,7 +61,7 @@ function eliminar(met) {
 					<td align="center">Numero Documento</td>
 					<td align="center">Mail</td>
 					<td align="center">Tipo Persona</td>
-					<td align="center">Acción</td>
+					<td align="center" colspan="2">Acción</td>
 					
 				</tr>
 
@@ -79,10 +79,12 @@ function eliminar(met) {
 					<th><%=c.getMail()%></th>
 					<th><%=c.getTipoPersona().getDescripcion()%></th>
 					<th>
-					<button
+					<button	class="botonEditar"
 							onclick="javascript: editar('/admin/listarPersonas/')"
 							value="<%= c.getIdPersona()%>" id="editar" name="editar">Editar</button> 
-						<button
+					</th>
+					<th>	
+					<button class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarPersonas/')"
 							value="<%= c.getIdPersona()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
@@ -93,12 +95,14 @@ function eliminar(met) {
 				<%
 					}
 				%>
-
+				<th colspan="9">
+				<a type="button"  href="${pageContext.request.contextPath}/reguistarPersonas">Nueva Persona</a>
+				</th>
 			</table>
 
 		</form>
 		
-		<a type="button"  href="${pageContext.request.contextPath}/reguistarPersonas">Nueva Persona</a>
+		
 		
 	</div>
 

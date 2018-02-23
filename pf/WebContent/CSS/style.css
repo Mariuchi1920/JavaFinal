@@ -17,6 +17,7 @@ body{
 }
 #usuario{
 background: #F1FBF5;
+
 }
 #contenedor{
 	border: 10px;
@@ -31,7 +32,7 @@ background: #F1FBF5;
 #Logo{
 	background: #2E4053;
 	display: block;
-	text-align: right;
+	text-align: left;
 	
 	
 
@@ -78,12 +79,12 @@ para acceder a la class nav con el .
 }
 .nav li ul{
 	display: none;/*Todos los sub menus desaparecen*/
-	position: absolute;
+	position: absolute; 
 	min-width: 140px;
 
 }
 .nav li:hover > ul{
-	display: block;
+	display: block; 
 }
 
 #Pie{

@@ -68,10 +68,10 @@ function eliminar(met) {
 					<td><%=equipo.getNombreEquipo() %></td>
 					<td><%=equipo.getEntrenador().getApellido() %>, <%=equipo.getEntrenador().getNombre() %></td>
 					<td>
-					<button
+					<button class="botonEditar"
 							onclick="javascript: editar('/admin/listarEquipo')"
 							value="<%=equipo.getInstitucion().getIdInstituciones()%>/<%=equipo.getCategorias().getIdCategorias()%>/<%=equipo.getNombreEquipo()%>" id="editar" name="editar">Editar</button> 
-						<button
+						<button class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarEquipo')"
 							value="<%=equipo.getInstitucion().getIdInstituciones()%>/<%=equipo.getCategorias().getIdCategorias()%>/<%=equipo.getNombreEquipo()%>" id="eliminar" name="eliminar">Eliminar</button>
                      </td>
