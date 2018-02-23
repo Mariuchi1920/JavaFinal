@@ -83,12 +83,13 @@ function eliminar(met) {
 				<%
 					}
 				%>
-
+				<th colspan="4">
+		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
 			</table>
-
+				</th>
 		</form>
 		
-		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
+		
 		
 	</div>
 

@@ -73,21 +73,29 @@ function eliminar(met) {
 					<td><%=in.getTelefonoDelegado() %></td>
 					<td><%=in.getMailDelegado() %></td>
 					<td>
-					<button
+					<button class="botonEditar"
 							onclick="javascript: editar('/admin/listarInstituciones/')"
 							value="<%=in.getIdInstituciones()%>" id="editar" name="editar">Editar</button> 
+					</td>
+					<td>
 						<button
+							class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarInstituciones/')"
 							value="<%=in.getIdInstituciones()%>" id="eliminar" name="eliminar">Eliminar</button>
                      </td>
 				</tr>
 
 				<% } %>
-			</table>
-
+				
+				</table>
 		</form>
+		<table align="center" width="800" border="void" cellpadding="5">
+		<th colspan="10">
+			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>
+			</th>
+		</table>
 
-		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>
+		
 
 	</div>
 	</div>
