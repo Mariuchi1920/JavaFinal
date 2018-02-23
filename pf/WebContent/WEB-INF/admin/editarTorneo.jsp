@@ -1,3 +1,9 @@
+<%@page import="entidad.Util"%>
+<%@page import="entidad.EquiposTorneos"%>
+<%@page import="datos.EquiposTorneoDAO"%>
+<%@page import="entidad.Equipo"%>
+<%@page import="entidad.Jornadas"%>
+<%@page import="datos.JornadaDAO"%>
 <%@page import="datos.TorneosDAO"%>
 <%@page import="datos.TipoEstadoDAO"%>
 <%@page import="entidad.TipoEstado"%>
@@ -22,14 +28,24 @@
 	
 	function editar(met) {
 		if(confirm("Estas seguro de editar un nuevo Torneo?")){
-			document.myform.registar.value=""  
+			document.myform.registar.value="" ;
+		    document.myform.agregarEquipos.value="";  
 		    document.myForm.action=met;
 		};
     }
 	
+	function agregarEquipos(met) {
+		
+			document.myform.registar.value="";
+			document.myform.editar.value=""  ;
+		    document.myForm.action=met;
+		
+    }
+	
 	function registar(met) {
 		if(confirm("Estas seguro de registrar un nuevo Torneo?")){
-			document.myform.editar.value=""  
+			document.myform.editar.value=""  ;
+				 document.myform.agregarEquipos.value=""; 
 		    document.myForm.action=met;
 		};
     }
@@ -40,34 +56,33 @@
 <body>
 
 <div id="contenedor">
+		<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
 
-		<jsp:include page="cabecera.jsp" />
+		
 
 	</div>
 
 	
 	<%
 	Torneo encontrado= null;
-	String idTorneo="";
+	int idTorneo=0;
 	String nombre="";
 	Date fechaI=null;
 	Date fechaF=null;
 	TipoEstado estado = new TipoEstado();
-	Categoria idCategoriaCampeon=null;
-	Institucion idInstitucionCampeon=null;
-	String nombreEquipoCampeon="";
+	Equipo equipoCampeon=null;
+	
 	TorneosDAO torDao= new TorneosDAO();
 
 	if(request.getSession().getAttribute("editador")!=null){
 	   encontrado = (Torneo)request.getSession().getAttribute("editador");	  
-	   idTorneo=String.valueOf(encontrado.getIdTorneos());
+	   idTorneo=encontrado.getIdTorneos();
 	   nombre=encontrado.getNombre();
 	   fechaI=encontrado.getFechaInicio();
 	   fechaF=encontrado.getFechaFin();
 	   estado=encontrado.getEstado();
-	   idCategoriaCampeon=encontrado.getCategorias();
-	   idInstitucionCampeon=encontrado.getInstitucion();
-	   nombreEquipoCampeon=encontrado.getNombreEquipo();
+	   equipoCampeon=encontrado.getEquipoGanador();
+	   
 	   
 }
 %>
@@ -83,18 +98,40 @@
 			<tr>
 				<td>Nombre Torneo:</td>
 				<td><input type="text" name="nombreTorneo" id="nombreTorneo" value="<%= nombre%>" /></td>
-			</tr>	
+			</tr>
+			
+			<% 
+
+			JornadaDAO catJornada = new JornadaDAO ();
+			LinkedList<Jornadas> jordanadas = catJornada.buscarporTorneos(idTorneo);
+			
+			
+			if(jordanadas!=null && jordanadas.size()>0){ %>	
+			
+			
+			<tr>
+					<td>Fecha de Inicio: <%= fechaI %></td>
+					
+				</tr>	
+			<tr>
+					<td>Fecha de Fin: <%= fechaF %></td>
+					
+			</tr>
+			
+			<% }else{ %>
 			<tr>
 					<td>Fecha de Inicio:</td>
-					<td><input type="text" name="fechaI" id="fechaI"
+					<td><input type="date" name="fechaI" id="fechaI"
 						value="<%= fechaI %>" /></td>
 				</tr>	
 			<tr>
 					<td>Fecha de Fin:</td>
-					<td><input type="text" name="fechaF" id="fechaF"
+					<td><input type="date" name="fechaF" id="fechaF"
 						value="<%= fechaF %>" /></td>
 			</tr>	
 			<tr>
+			
+			<% } %>
 					<td>Estado:</td>
 					<td>
 						<% 
@@ -110,7 +147,9 @@
 							<option selected="selected"
 								value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
 
-							<%}}else {%>
+							<%}else{%>
+							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+                              <%  			     }}else {%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
 
 							<% }} %>
@@ -119,23 +158,59 @@
 					</td>
 
 				</tr>
-				<tr>
-					<td>Categoria Campeona:</td>
-					<td><input type="text" name="catCamp" id="catCamp"
-						value="<%=idCategoriaCampeon.getDescripcion()  %>" /></td>
-				</tr>
-				<tr>
-					<td>Institucion Campeona :</td>
-					<td><input type="text" name="instiCamp" id="fechaF"
-						value="<%= idInstitucionCampeon.getNombre() %>" /></td>
-				</tr>
-				<tr>
-					<td>Nombre del Campeon:</td>
-					<td><input type="text" name="nomequi" id="fechaF"
-						value="<%= nombreEquipoCampeon %>" /></td>
-				</tr>
 				
 				
+				
+				
+				<%  
+				  if(fechaF!=null && Util.compararFechaConHoy(fechaF)){
+   				    EquiposTorneoDAO catEqTor= new EquiposTorneoDAO();
+				    LinkedList<EquiposTorneos> listarEquiposTorneo = catEqTor.buscarporTorneo(encontrado);
+				    if(listarEquiposTorneo!=null && listarEquiposTorneo.size()>0){
+				     
+				%>
+				<tr> 
+					<td>Equipo campión:</td>
+					<td>
+					
+					 <select name="listarEquipos" id="listarEquipos">
+							<%
+							for(EquiposTorneos te :listarEquiposTorneo){  
+                               	if(encontrado.getEquipoGanador()!=null){
+                                  if(encontrado.getEquipoGanador().equals(te.getEquipos())){%>
+							       <option selected="selected" value="<%=te.getEquipos().getInstitucion().getIdInstituciones() %> / <%=te.getEquipos().getCategorias().getIdCategorias()%> / <%=te.getEquipos().getNombreEquipo() %>"> <%=te.getEquipos().getInstitucion().getNombre() %> - <%=te.getEquipos().getCategorias().getAñoCategoria() %> - <%=te.getEquipos().getNombreEquipo()%> </option>
+
+							       <%}else {%>
+							<option  value="<%=te.getEquipos().getInstitucion().getIdInstituciones() %> / <%=te.getEquipos().getCategorias().getIdCategorias() %> / <%=te.getEquipos().getNombreEquipo() %>"> <%=te.getEquipos().getInstitucion().getNombre() %> - <%=te.getEquipos().getCategorias().getAñoCategoria() %> - <%=te.getEquipos().getNombreEquipo() %> </option>
+
+							<% }}else { %>
+							<option  value="<%=te.getEquipos().getInstitucion().getIdInstituciones() %> / <%=te.getEquipos().getCategorias().getIdCategorias()%> / <%=te.getEquipos().getNombreEquipo() %>"> <%=te.getEquipos().getInstitucion().getNombre() %> - <%=te.getEquipos().getCategorias().getAñoCategoria() %> - <%=te.getEquipos().getNombreEquipo() %> </option>
+						<%	} %>
+
+					</select>
+					
+					</td>
+					</tr>
+					
+					<% }}} %>
+					
+				
+			<%
+			   if(fechaI!=null && Util.compararFechaConHoy(fechaI)){
+			    
+			   
+			%>
+				
+					<tr>
+					<td colspan="2">
+					
+				<button align="center"
+				onclick="javascript: agregarEquipos('/admin/modificarTorneo/')"
+				id="agregarEquipos" value="agregarEquipos" name="agregarEquipos">Agregar Equipos</button>
+				</td>
+					</tr>
+				
+				<% } %>
 
 
 
@@ -145,7 +220,7 @@
 				onclick="javascript: editar('/admin/modificarTorneo/editar')"
 				id="editar" value="editar" name="editar">Editar</button>
 
-			<% }else{%>
+			<% }else{ %>
 
 			<button align="center"
 				onclick="javascript: registrar('/admin/modificarTorneo/agregar')"
@@ -156,7 +231,7 @@
 	</div>
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+				<jsp:include page="/WEB-INF/admin/pie.jsp" />
 
 	</div>
 </body>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.CategoriasDAO;
+import datos.EquiposDAO;
 import datos.TipoEstadoDAO;
 import datos.TorneosDAO;
 import entidad.Categoria;
@@ -23,13 +24,13 @@ import java.sql.Date;
  * Servlet implementation class modificarTorneo
  */
 @WebServlet({"/admin/modificarTorneo","/admin/modificarTorneo/*"})
-public class modificarTorneo extends HttpServlet {
+public class ModificarTorneo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public modificarTorneo() {
+    public ModificarTorneo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,42 +49,61 @@ public class modificarTorneo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			
+			TorneosDAO catTorneo = new TorneosDAO();
+			TipoEstadoDAO catEstado = new TipoEstadoDAO();
 			String nombre= request.getParameter("nombreTorneo");
-			Date fechaI=(Util.convertirStringDate(request.getParameter("fechaI")));
-			Date fechaF=(Util.convertirStringDate(request.getParameter("fechaF")));
-			int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));		
-			
-			
-			
-			TorneosDAO tordao= new TorneosDAO();
-			Torneo tor= new Torneo();
-			//como hago para pasarle los datos de los equipos campeones
-			
-//			CategoriasDAO catdao=new CategoriasDAO();
-//			Categoria cat= new Categoria();
-//			cat.setAñoCategoria(añocategoria);
-//			cat.setDescripcion(descripcion);
-//			TipoEstado tipoEstado;
-//			TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
-//			tipoEstado = estadoDAO.getTipoEstados(estado);
-//			cat.setEstado(tipoEstado);
+			Date fechaInicio=(Util.convertirStringDate(request.getParameter("fechaI")));
+			Date fechaFin=(Util.convertirStringDate(request.getParameter("fechaF")));
+			int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
+			String equipoCampio=request.getParameter("listarEquipos");
+            
 		    
 			if (request.getParameter("editar")!=null) {
-				int idcat= ((Categoria)request.getSession().getAttribute("editador")).getIdCategorias();
-//				cat.setIdCategorias(idcat);
-//				catdao.editarCategoria(cat);
+				int idcat= ((Torneo)request.getSession().getAttribute("editador")).getIdTorneos();
+				Torneo torneo = new Torneo();
+				torneo.setNombre(nombre);
+				if(fechaInicio!=null && fechaFin!=null){
+					torneo.setFechaFin(fechaFin);
+					torneo.setFechaInicio(fechaInicio);
+				} 
+				torneo.setIdTorneos(idcat);	
+				torneo.setEstado(catEstado.getTipoEstados(estado));
+				if(equipoCampio!=null){
+					EquiposDAO catEquipo = new EquiposDAO();
+					String [] aux = equipoCampio.split("/");
+					torneo.setEquipoGanador(catEquipo.buscarporIdsEquipo(Integer.parseInt(aux[1]), Integer.parseInt(aux[0]), aux[2]));
+				}
+				
+				catTorneo.modificarTorneo(torneo);;
+
+				
 				response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
 				
 				
 			}else if (request.getParameter("registar")!=null) {
 				
-//				 catdao.nuevaCategoria(cat);
+//				 
+				Torneo torneo = new Torneo();
+				torneo.setNombre(nombre);
+				if(fechaInicio!=null && fechaFin!=null){
+					torneo.setFechaFin(fechaFin);
+					torneo.setFechaInicio(fechaInicio);
+				} 
+			
+				torneo.setEstado(catEstado.getTipoEstados(estado));
+				catTorneo.nuevoTorneo(torneo);
 				 response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
 				
 				 
-			}
-		}catch ( IOException| NumberFormatException ex) {
+			}else if (request.getParameter("agregarEquipos")!=null) {
+				
+//				 
+				
+				 response.sendRedirect(request.getContextPath() + "/admin/agregarEquiposTorneos");
+				
+				 
+			} 
+		}catch ( IOException| NumberFormatException | SQLException ex) {
 				// TODO: handle exception
 			ServletContext context = getServletContext();
 			request.getRequestDispatcher("/WEB-INF/admin/editarTorneo.jsp").forward(request, response);

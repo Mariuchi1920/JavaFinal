@@ -13,6 +13,7 @@ import modelo.Conexion;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.Jornadas;
+import entidad.Partidos;
 
 public class JornadaDAO {
 	
@@ -67,16 +68,21 @@ public class JornadaDAO {
 	}
 	public void eliminarJornada(Jornadas jornada) {
 		try {
-			/* Aca hay eliminar todas las relaciones   EquiposDAO catEquipo= new EquiposDAO();
-			LinkedList<Equipo> equipos = catEquipo.buscarporIdCategoria(cat.getIdCategorias());
-			if(equipos != null && equipos.size()>0) 
-				for (int i = 0; i < equipos.size(); i++) {
-				catEquipo.eliminarEquipo(equipos.get(i));
-			}*/
+
+            PartidoDAO catPartido = new PartidoDAO();
+            LinkedList<Partidos> partidos = catPartido.buscarporIdJornada(jornada.getIdJornadas());
+            if(partidos!=null && partidos.size()>0){
+            	for (int i = 0; i < partidos.size(); i++) {
+					catPartido.eliminarPartido(partidos.get(i));
+				}
+            	
+            }
+            
+			 
 			PreparedStatement ps= con.prepareStatement(DELETE);
 			ps.setInt(1,jornada.getIdJornadas());
 			ps.executeUpdate();
-			//ps.close();
+			ps.close();
 			
 						
 		} catch (SQLException e) {

@@ -10,6 +10,7 @@ import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 import entidad.Equipo;
 import entidad.EquiposJugadores;
+import entidad.JugadoresPartido;
 import entidad.Partidos;
 import entidad.Persona;
 import modelo.Conexion;
@@ -90,12 +91,13 @@ public class PartidoDAO {
 	public void eliminarPartido(Partidos partido ) {
 		try {
 			
-			/*EquiposJugadoresDAO jugadores = new EquiposJugadoresDAO();
-			EquiposJugadores eqju= new EquiposJugadores();
-			eqju.setEquipo(eq);
-			eqju.setJugadores(jugadores.listarTodasLosJugadores(eq));
-			if(eqju!=null)
-			jugadores.eliminarJugadoresEquipo(eqju);*/
+			JugadoresPartidosDAO jugPartido= new JugadoresPartidosDAO();
+			LinkedList<JugadoresPartido> listaJugPar = jugPartido.buscarIDPartido(partido.getIdPartidos());
+			if(listaJugPar!=null && listaJugPar.size()>0){
+				for (int i = 0; i < listaJugPar.size(); i++) {
+					jugPartido.editarJugadorPartido(listaJugPar.get(i));
+				}
+			}
 			
 			PreparedStatement ps= con.prepareStatement(DELETE);
 			ps.setInt(1,partido.getIdPartidos());
@@ -135,8 +137,8 @@ public class PartidoDAO {
 	
 	
 	
-	public Partidos buscarporIdJornada(int idJornada) {
-		Partidos partidos =new Partidos();
+	public LinkedList<Partidos> buscarporIdJornada(int idJornada) {
+		LinkedList<Partidos> partidos =new LinkedList<Partidos>();
 		try {
 			
 			PreparedStatement ps= con.prepareStatement(LISTARPORJORNADA);
@@ -145,7 +147,7 @@ public class PartidoDAO {
 			ResultSet rs= ps.executeQuery();
 			while (rs.next()) {
 				
-				partidos = popularPartidos(rs);
+				partidos.add(popularPartidos(rs));
 				
 				
 			}

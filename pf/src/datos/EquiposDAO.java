@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
+import entidad.EquiposTorneos;
 import entidad.Institucion;
 import entidad.Persona;
 import entidad.TipoEstado;
@@ -73,8 +74,18 @@ public class EquiposDAO {
 			EquiposJugadores eqju= new EquiposJugadores();
 			eqju.setEquipo(eq);
 			eqju.setJugadores(jugadores.listarTodasLosJugadores(eq));
-			if(eqju!=null)
-			jugadores.eliminarJugadoresEquipo(eqju);
+			if(eqju!=null) jugadores.eliminarJugadoresEquipo(eqju);
+			
+			EquiposTorneoDAO equiTorneo = new EquiposTorneoDAO();
+			LinkedList<EquiposTorneos> listaEquipoTorneo = equiTorneo.buscarporEquipo(eq);
+			if(listaEquipoTorneo!=null && listaEquipoTorneo.size()>0){
+				for (int i = 0; i < listaEquipoTorneo.size(); i++) {
+					equiTorneo.eliminarEquipoTorneo(listaEquipoTorneo.get(i));
+				}
+				
+			}
+			
+			
 			
 			PreparedStatement ps= con.prepareStatement(DELETE);
 			ps.setInt(1,eq.getCategorias().getIdCategorias());

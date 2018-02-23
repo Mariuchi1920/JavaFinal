@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class EquiposTorneos {
 	
    private Torneo torneo;
-   private ArrayList<Equipo> equipos;
+   private Equipo equipo;
    
    
 	public Torneo getTorneo() {
@@ -16,11 +16,11 @@ public class EquiposTorneos {
 	public void setTorneo(Torneo torneo) {
 		this.torneo = torneo;
 	}
-	public ArrayList<Equipo> getEquipos() {
-		return equipos;
+	public Equipo getEquipos() {
+		return equipo;
 	}
-	public void setEquipos(ArrayList<Equipo> equipos) {
-		this.equipos = equipos;
+	public void setEquipos(Equipo equipo) {
+		this.equipo = equipo;
 	}
 	   
 

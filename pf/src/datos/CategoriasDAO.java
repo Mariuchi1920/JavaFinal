@@ -13,7 +13,7 @@ import entidad.TipoEstado;
 import modelo.Conexion;
 
 public class CategoriasDAO {
-	private String INSERT= "insert into categorias ( anioCategorias,descripcion, estado)values (?,?)";
+	private String INSERT= "insert into categorias (anioCategorias,descripcion, estado)values (?,?,?)";
 	private String DELETE="delete from categorias where idCategorias=?;";
 	private String EDITAR="update categorias set anioCategorias= ?,descripcion=?, estado=? where idCategorias=?";
 	private String LISTARTODACATEGORIA="select * from categorias";

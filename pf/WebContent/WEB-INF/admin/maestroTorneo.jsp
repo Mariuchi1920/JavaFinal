@@ -17,7 +17,7 @@
 <body>
 	<<div id="contenedor">
 
-		<jsp:include page="EncabezadoUsu.jsp" />
+				<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
 
 	</div>
 
@@ -27,14 +27,13 @@
 <table border="1" width="600" align="center">
 
 <tr >
-<th> id Torneo</th>
+
 <th> Nombre</th> 
 <th> Fecha Inicio</th>
 <th> Fecha Fin</th>
 <th> Estado</th>
-<th> categoria campeon</th>
-<th> Institución campeon</th>
-<th> equipo campeon</th>
+<th> Equipo Campion</th>
+
 
 <th> Accion</th>
 </tr> 
@@ -42,20 +41,19 @@
 en las demas filas  -->
 
 <%  TorneosDAO torneo= new TorneosDAO();
-	LinkedList <Torneo> listaTorneo= torneo.listarTodasLosTorneos();
+	LinkedList <Torneo> listaTorneo= torneo.listarTodosLosTorneos();
 			
 	%>
 
 <% for(Torneo t :listaTorneo){  %>
-	<tr><th><%= t.getIdTorneos() %></th>
+	
 	<th><%=t.getNombre() %></th>
 	<th><%=t.getFechaInicio()%></th>
 	<th><%=t.getFechaFin() %></th>
 	<th><%=t.getEstado().getDescripcion()%></th>
+	<th><%=t.getEquipoGanador().getInstitucion().getNombre()%>- <%=t.getEquipoGanador().getCategorias().getAñoCategoria()%>-<%=t.getNombre()%></th>
 					
-<%-- 	<th><%=t.getIdCategoriaCampeon()%></th>
-	<th><%=t.getIdInstitucionCampeon()%></th>
-	<th><%=t.getNombreEquipoCampeon()%></th> --%>
+
 	<th>
 	<button class="botonEditar"
 							onclick="javascript: editar('/admin/listarCategoriaeditar/')"
@@ -75,7 +73,7 @@ en las demas filas  -->
 		
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+				<jsp:include page="/WEB-INF/admin/pie.jsp" />
 
 	</div>
 </body>

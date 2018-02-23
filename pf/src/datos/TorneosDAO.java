@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import com.mysql.jdbc.EscapeTokenizer;
 
 import entidad.Equipo;
+import entidad.EquiposTorneos;
+import entidad.Jornadas;
 import entidad.TipoEstado;
 import entidad.Torneo;
 import modelo.Conexion;
@@ -70,6 +72,24 @@ public class TorneosDAO {
 
 		public void eliminarTorneo(Torneo t) {
 			try {
+				EquiposTorneoDAO equiTorneo = new EquiposTorneoDAO();
+				LinkedList<EquiposTorneos> listaEquipoTorneo = equiTorneo.buscarporTorneo(t);
+				if(listaEquipoTorneo!=null && listaEquipoTorneo.size()>0){
+					for (int i = 0; i < listaEquipoTorneo.size(); i++) {
+						equiTorneo.eliminarEquipoTorneo(listaEquipoTorneo.get(i));
+					}
+					
+				}
+				JornadaDAO catJornada = new JornadaDAO();
+				LinkedList<Jornadas> jornadas= catJornada.buscarporTorneos(t.getIdTorneos());
+				
+				if(jornadas!=null && jornadas.size()>0){
+					for (int i = 0; i < jornadas.size(); i++) {
+						catJornada.eliminarJornada(jornadas.get(i));
+					}
+					
+				}
+				
 				PreparedStatement ps= con.prepareStatement(DELETE);
 				ps.setInt(1,t.getIdTorneos());
 				ps.executeUpdate();
