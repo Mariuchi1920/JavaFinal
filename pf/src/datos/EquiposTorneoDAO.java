@@ -131,7 +131,7 @@ public class EquiposTorneoDAO {
 		LinkedList<EquiposTorneos>listaEquiposTorneo= new LinkedList<EquiposTorneos>();
 		try {
 			
-			PreparedStatement ps= con.prepareStatement(LISTARPOREQUIPO);
+			PreparedStatement ps= con.prepareStatement(LISTARPORTORNEO);
 			ps.setInt(1,torneo.getIdTorneos());
 			ResultSet rs= ps.executeQuery();
 			while (rs.next()) {

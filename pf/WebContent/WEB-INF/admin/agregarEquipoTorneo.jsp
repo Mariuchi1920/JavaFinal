@@ -20,8 +20,14 @@
 <script type="text/javascript">
 	
 	function agregar(met) {
-		if(confirm("Estas seguro que desea agregar al Equipo al Torneo? ")){
-			
+		if(confirm("Estas seguro que desea agregar al Equipo del Torneo? ")){
+			document.myForm.eliminar.value="";
+		    document.myForm.action=met;
+		};
+    }
+	function eliminar(met) {
+		if(confirm("Estas seguro que desea eliminar al Equipo del Torneo? ")){
+			document.myForm.editar.value="";
 		    document.myForm.action=met;
 		};
     }
@@ -72,6 +78,45 @@
 		<form class="form-signin" id="myForm" name="myForm" action=""
 			method="post">
 			<table border="4" align="center">
+			<%
+					   if(listarEqTorneo!=null && listarEqTorneo.size()>0){%>
+				<tr>
+				  
+				  
+					<td > Equipos dentro del Torneo </td>
+					
+					
+					<td >Accion </td>
+					
+					
+					
+				</tr>
+				
+				<tr>
+				  
+				  
+					<%
+					   for(EquiposTorneos equipo : listarEqTorneo){%>
+						   
+						  <td > <%= equipo.getEquipos().getInstitucion().getNombre() %>-<%= equipo.getEquipos().getCategorias().getAñoCategoria() %>-<%= equipo.getEquipos().getNombreEquipo() %></td>
+						   <td ><button onclick="javascript: eliminar'${pageContext.request.contextPath}/admin/agregarEquiposTorneos')"
+				               id="eliminar" value=" <%= equipo.getEquipos().getInstitucion().getIdInstituciones() %>/<%= equipo.getEquipos().getCategorias().getIdCategorias() %>/<%= equipo.getEquipos().getNombreEquipo() %>" name="eliminar">Eliminar
+						   </button> </td>
+						   <%  }
+					    %>
+
+
+                       
+					
+					
+					
+					
+					
+					
+				</tr>
+				   <%  }
+					    %>
+			
 				<tr>
 				  
 				  
@@ -80,6 +125,9 @@
 					
 					
 				</tr>
+				
+				
+				
 				
 				<tr>
 					
@@ -107,14 +155,13 @@
 
 
 					</td>
-				</tr>
-				<tr>
-				<td>
+					<td>
 				  <button 
 				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos')"
 				   id="editar" value="editar" name="editar">Agregar</button>
 				</td>
 				</tr>
+				
 				
 			</table>
 

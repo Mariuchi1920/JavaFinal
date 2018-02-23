@@ -48,10 +48,24 @@ public class AgregarEquiposTorneos extends HttpServlet {
 		Equipo equipo = equi.buscarporIdsEquipo(Integer.parseInt(aux[1]), Integer.parseInt(aux[0]), aux[2]);
 		EquiposTorneoDAO equipoE = new EquiposTorneoDAO();
 		EquiposTorneos eqTor = new EquiposTorneos();
-		eqTor.setEquipos(equipo);
 		eqTor.setTorneo(((Torneo)request.getSession().getAttribute("editador")));
-		equipoE.nuevoEquipoTorneo(eqTor);
-		response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
+		if(request.getParameter("editar")!=null){
+			eqTor.setEquipos(equipo);
+			equipoE.nuevoEquipoTorneo(eqTor);
+			response.sendRedirect(request.getContextPath() + "/admin/agregarEquiposTorneos");
+		}else if(request.getParameter("eliminar")!=null){
+			EquiposDAO catEquipo = new EquiposDAO();
+			String [] aux1 = request.getParameter("eliminar").split("/");
+			Equipo equipo1 = equi.buscarporIdsEquipo(Integer.parseInt(aux[1]), Integer.parseInt(aux[0]), aux[2]);
+			eqTor.setEquipos(equipo1);
+			equipoE.eliminarEquipoTorneo(eqTor);
+			response.sendRedirect(request.getContextPath() + "/admin/agregarEquiposTorneos");
+		}else{
+			response.sendRedirect(request.getContextPath() + "/admin/agregarEquiposTorneos");
+		}
+		
+		
+		
 		
 	}
 
