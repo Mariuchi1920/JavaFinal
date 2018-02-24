@@ -4,7 +4,7 @@
 <html>
 	<head>		
 		<title>Error 400 - Bad Request</title>
-		 <jsp:include page="/WEB-INF/EncabezadoUsu.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 	</head>
 	<body>
 		

@@ -4,7 +4,7 @@
 <html>
 	<head>		
 		<title>Error 403 - Forbidden</title>
-		 <jsp:include page="/WEB-INF/EncabezadoUsu.jsp" />
+		 <jsp:include page="/WEB-INF/cabecera.jsp" />
 	</head>
 	<body>
 			

@@ -9,6 +9,12 @@ import modelo.Conexion;
 
 public class TipoEstado {
 	
+	public static final int HABILITADA =1;
+	public static final int DESHABILITADA =2;
+	public static final int JUGADO =3;
+	public static final int PENDIENTE =4;
+	public static final int SUSPENDIDO =5;
+	
 	
 	private int idTipoEstado;
 	

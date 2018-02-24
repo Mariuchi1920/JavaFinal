@@ -16,7 +16,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Editar Categoria Seleccionada</title>
+<title>Editar Categoria </title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
 <script type="text/javascript">
 	
@@ -40,7 +40,7 @@
 <body>
 	<div id="contenedor">
 
-				<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
+				<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
 
@@ -133,7 +133,7 @@ if(request.getSession().getAttribute("editador")!=null){
 	</div>
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

@@ -15,57 +15,71 @@ import entidad.Equipo;
 /**
  * Servlet implementation class ListarEquipo
  */
-@WebServlet("/admin/listarEquipo")
+@WebServlet("/admin/listarEquipo/*")
 public class ListarEquipo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListarEquipo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/admin/maestroEquipo.jsp").forward(request, response);
+	public ListarEquipo() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-         try {
-        	 
-        	 Equipo equipo = new Equipo();
-        	 EquiposDAO catEquipo = new EquiposDAO();
-		    
-        	 
-			if(request.getParameter("editar")!=null ) {
+		request.getRequestDispatcher("/WEB-INF/admin/maestroEquipo.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		try {
+
+			Equipo equipo = new Equipo();
+			EquiposDAO catEquipo = new EquiposDAO();
+
+			if (request.getParameter("editar") != null) {
 				String[] editador = request.getParameter("editar").split("/");
-				equipo = catEquipo.buscarporIdsEquipo(Integer.parseInt(editador[0]), Integer.parseInt(editador[1]), editador[2]);
-				
+				equipo = catEquipo.buscarporIdsEquipo(
+						Integer.parseInt(editador[0]),
+						Integer.parseInt(editador[1]), editador[2]);
+
 				request.getSession().setAttribute("editador", equipo);
-				//////
-				response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
-			}else if(request.getParameter("eliminar")!=null) {
+				// ////
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/modificarEquipo");
+			} else if (request.getParameter("eliminar") != null) {
 				String[] editador = request.getParameter("editar").split("/");
-				equipo = catEquipo.buscarporIdsEquipo(Integer.parseInt(editador[0]), Integer.parseInt(editador[1]), editador[2]);
+				equipo = catEquipo.buscarporIdsEquipo(
+						Integer.parseInt(editador[0]),
+						Integer.parseInt(editador[1]), editador[2]);
 				catEquipo.eliminarEquipo(equipo);
-				response.sendRedirect(request.getContextPath() + "/admin/listarEquipo");
-				
-							
-		}} catch (IOException| NumberFormatException ex) {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarEquipo");
+
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarEquipo");
+			}
+		} catch (IOException | NumberFormatException ex) {
 			// TODO: handle exception
-			response.sendRedirect(request.getContextPath() + "/admin/listarEquipo");
-		} 
-		
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarEquipo");
+		}
+
 	}
 
 }

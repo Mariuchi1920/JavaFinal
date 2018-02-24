@@ -3,7 +3,6 @@
  */
 package servlet.admin;
 
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,72 +22,77 @@ import entidad.Institucion;
 import entidad.TipoEstado;
 import modelo.Conexion;
 
-
-@WebServlet({"/admin/modificarCategoria","/admin/modificarCategoria/*"})
+@WebServlet("/admin/modificarCategoria/*")
 public class ModificarCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModificarCategoria() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("/WEB-INF/admin/editarCategoria.jsp").forward(request, response);
+	public ModificarCategoria() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/WEB-INF/admin/editarCategoria.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
 		try {
-			
-			String descripcion= request.getParameter("descripcion");
-			String añocategoria= request.getParameter("añoCategoria");
-			int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));		
-			CategoriasDAO catdao=new CategoriasDAO();
-			Categoria cat= new Categoria();
+
+			String descripcion = request.getParameter("descripcion");
+			String añocategoria = request.getParameter("añoCategoria");
+			int estado = Integer.parseInt(request
+					.getParameter("listaTipoEStado"));
+			CategoriasDAO catdao = new CategoriasDAO();
+			Categoria cat = new Categoria();
 			cat.setAñoCategoria(añocategoria);
 			cat.setDescripcion(descripcion);
 			TipoEstado tipoEstado;
-			TipoEstadoDAO estadoDAO=  new TipoEstadoDAO();
+			TipoEstadoDAO estadoDAO = new TipoEstadoDAO();
 			tipoEstado = estadoDAO.getTipoEstados(estado);
 			cat.setEstado(tipoEstado);
-		    
-			if (request.getParameter("editar")!=null) {
-				int idcat= ((Categoria)request.getSession().getAttribute("editador")).getIdCategorias();
+
+			if (request.getParameter("editar") != null) {
+				int idcat = ((Categoria) request.getSession().getAttribute(
+						"editador")).getIdCategorias();
 				cat.setIdCategorias(idcat);
 				catdao.editarCategoria(cat);
-				response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
-				
-				
-			}else if (request.getParameter("registar")!=null) {
-				
-				 catdao.nuevaCategoria(cat);
-				 response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
-				
-				 
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarCategoria");
+
+			} else if (request.getParameter("registar") != null) {
+
+				catdao.nuevaCategoria(cat);
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarCategoria");
+
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/modificarCategoria");
 			}
-		}catch ( IOException| NumberFormatException ex) {
-				// TODO: handle exception
-			ServletContext context = getServletContext();
-			request.getRequestDispatcher("/WEB-INF/admin/editarCategoria.jsp").forward(request, response);
-			
-			} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException | IOException | NumberFormatException ex) {
+			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarCategoria");
+
 		}
 	}
-	
 
 }

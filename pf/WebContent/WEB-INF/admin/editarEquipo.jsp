@@ -21,7 +21,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Equipo </title>
+<title>Editar Equipo </title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
 <script type="text/javascript">
 	
@@ -68,7 +68,7 @@
 <body>
 	<div id="contenedor">
 
-		<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
 
@@ -252,7 +252,7 @@ if(request.getSession().getAttribute("editador")!=null){
 	</div>
 
 	<div id="Pie">
-		<jsp:include page="/WEB-INF/admin/pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

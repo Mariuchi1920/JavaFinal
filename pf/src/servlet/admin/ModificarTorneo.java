@@ -20,96 +20,110 @@ import entidad.Torneo;
 import entidad.Util;
 
 import java.sql.Date;
+
 /**
  * Servlet implementation class modificarTorneo
  */
-@WebServlet({"/admin/modificarTorneo","/admin/modificarTorneo/*"})
+@WebServlet("/admin/modificarTorneo/*" )
 public class ModificarTorneo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModificarTorneo() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/admin/editarTorneo.jsp").forward(request, response);
+	public ModificarTorneo() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/WEB-INF/admin/editarTorneo.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+
 			TorneosDAO catTorneo = new TorneosDAO();
 			TipoEstadoDAO catEstado = new TipoEstadoDAO();
-			String nombre= request.getParameter("nombreTorneo");
-			Date fechaInicio=(Util.convertirStringDate(request.getParameter("fechaI")));
-			Date fechaFin=(Util.convertirStringDate(request.getParameter("fechaF")));
-			int estado= Integer.parseInt(request.getParameter("listaTipoEStado"));
-			String equipoCampio=request.getParameter("listarEquipos");
-            
-		    
-			if (request.getParameter("editar")!=null) {
-				int idcat= ((Torneo)request.getSession().getAttribute("editador")).getIdTorneos();
-				Torneo torneo = new Torneo();
-				torneo.setNombre(nombre);
-				if(fechaInicio!=null && fechaFin!=null){
-					torneo.setFechaFin(fechaFin);
-					torneo.setFechaInicio(fechaInicio);
-				} 
-				torneo.setIdTorneos(idcat);	
-				torneo.setEstado(catEstado.getTipoEstados(estado));
-				if(equipoCampio!=null){
-					EquiposDAO catEquipo = new EquiposDAO();
-					String [] aux = equipoCampio.split("/");
-					torneo.setEquipoGanador(catEquipo.buscarporIdsEquipo(Integer.parseInt(aux[1]), Integer.parseInt(aux[0]), aux[2]));
-				}
-				
-				catTorneo.modificarTorneo(torneo);;
+			String nombre = request.getParameter("nombreTorneo");
+			Date fechaInicio = (Util.convertirStringDate(request
+					.getParameter("fechaI")));
+			Date fechaFin = (Util.convertirStringDate(request
+					.getParameter("fechaF")));
+			int estado = Integer.parseInt(request
+					.getParameter("listaTipoEStado"));
+			String equipoCampio = request.getParameter("listarEquipos");
 
-				
-				response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
-				
-				
-			}else if (request.getParameter("registar")!=null) {
-				
-//				 
+			if (request.getParameter("editar") != null) {
+				int idcat = ((Torneo) request.getSession().getAttribute(
+						"editador")).getIdTorneos();
 				Torneo torneo = new Torneo();
 				torneo.setNombre(nombre);
-				if(fechaInicio!=null && fechaFin!=null){
+				if (fechaInicio != null && fechaFin != null) {
 					torneo.setFechaFin(fechaFin);
 					torneo.setFechaInicio(fechaInicio);
-				} 
-			
+				}
+				torneo.setIdTorneos(idcat);
+				torneo.setEstado(catEstado.getTipoEstados(estado));
+				if (equipoCampio != null) {
+					EquiposDAO catEquipo = new EquiposDAO();
+					String[] aux = equipoCampio.split("/");
+					torneo.setEquipoGanador(catEquipo.buscarporIdsEquipo(
+							Integer.parseInt(aux[1]), Integer.parseInt(aux[0]),
+							aux[2]));
+				}
+
+				catTorneo.modificarTorneo(torneo);
+				;
+
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarTorneo");
+
+			} else if (request.getParameter("registar") != null) {
+
+				//
+				Torneo torneo = new Torneo();
+				torneo.setNombre(nombre);
+				if (fechaInicio != null && fechaFin != null) {
+					torneo.setFechaFin(fechaFin);
+					torneo.setFechaInicio(fechaInicio);
+				}
+
 				torneo.setEstado(catEstado.getTipoEstados(estado));
 				catTorneo.nuevoTorneo(torneo);
-				 response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
-				
-				 
-			}else if (request.getParameter("agregarEquipos")!=null) {
-				
-//				 
-				
-				 response.sendRedirect(request.getContextPath() + "/admin/agregarEquiposTorneos");
-				
-				 
-			} 
-		}catch ( IOException| NumberFormatException | SQLException ex) {
-				// TODO: handle exception
-			ServletContext context = getServletContext();
-			request.getRequestDispatcher("/WEB-INF/admin/editarTorneo.jsp").forward(request, response);
-			
-			} 
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarTorneo");
+
+			} else if (request.getParameter("agregarEquipos") != null) {
+
+				//
+
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/agregarEquiposTorneos");
+
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/modificarTorneo");
+			}
+		} catch (IOException | NumberFormatException | SQLException ex) {
+			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarTorneo");
+
+		}
 	}
-	
 
 }

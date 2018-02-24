@@ -16,7 +16,7 @@ import sun.font.Script;
 /**
  * Servlet implementation class regInstitucion
  */
-@WebServlet("/admin/listarInstituciones")
+@WebServlet("/admin/listarInstituciones/*")
 public class ListarInstituciones extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,8 @@ public class ListarInstituciones extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/admin/maestroInstituciones.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/admin/maestroInstituciones.jsp")
+				.forward(request, response);
 	}
 
 	/**
@@ -49,26 +50,31 @@ public class ListarInstituciones extends HttpServlet {
 		try {
 			Institucion inst = new Institucion();
 			InstitucionesDAO instDAO = new InstitucionesDAO();
-			
 
 			if (request.getParameter("editar") != null) {
 
-				int id=Integer.parseInt(request.getParameter("editar"));
-				inst= instDAO.buscarPorId(id);
+				int id = Integer.parseInt(request.getParameter("editar"));
+				inst = instDAO.buscarPorId(id);
 				request.getSession().setAttribute("editador", inst);
-				response.sendRedirect(request.getContextPath() + "/admin/modificarInstitucion");
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/modificarInstitucion");
 
 			} else if (request.getParameter("eliminar") != null) {
 
-				int id=Integer.parseInt(request.getParameter("eliminar"));
-				inst= instDAO.buscarPorId(id);
+				int id = Integer.parseInt(request.getParameter("eliminar"));
+				inst = instDAO.buscarPorId(id);
 				instDAO.eliminarInstitucion(inst);
-				response.sendRedirect(request.getContextPath() + "/admin/listarInstituciones");
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarInstituciones");
 
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarInstituciones");
 			}
 		} catch (IOException | NumberFormatException ex) {
 			// TODO: handle exception
-			response.sendRedirect(request.getContextPath() + "/admin/listarInstituciones");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
 		}
 
 	}

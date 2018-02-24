@@ -16,134 +16,120 @@ import entidad.Jornadas;
 import entidad.Partidos;
 
 public class JornadaDAO {
-	
-	
-	private String INSERT= "insert into jornadas (idTorneos,fechaDescripcion, idTipoEstado)values (?,?,?)";
-	private String DELETE="delete from jornadas where idJornadas=?;";
-	private String EDITAR="update jornadas set fechaDescripcion=?, idTipoEstado=? where idJornadas=?";
-	private String LISTARTOJORNADA="select * from jornadas";
-	private String LISTARPORTORNEO="select * from jornadas where idTorneos=?";
-	private String LISTARPORESTADO="select * from jornadas where idTipoEstado=?";
-	private String LISTARIDJORNADA="select * from jornadas where idJornadas=?";
-	
-	
-    private Connection con;
-	
+
+	private String INSERT = "insert into jornadas (idTorneos,fechaDescripcion, idTipoEstado)values (?,?,?)";
+	private String DELETE = "delete from jornadas where idJornadas=?;";
+	private String EDITAR = "update jornadas set fechaDescripcion=?, idTipoEstado=? where idJornadas=?";
+	private String LISTARTOJORNADA = "select * from jornadas";
+	private String LISTARPORTORNEO = "select * from jornadas where idTorneos=?";
+	private String LISTARPORESTADO = "select * from jornadas where idTipoEstado=?";
+	private String LISTARIDJORNADA = "select * from jornadas where idJornadas=?";
+
+	private Connection con;
+
 	public JornadaDAO() {
-		Conexion c=new Conexion();
-		con=c.getConexion();
-		
+		Conexion c = new Conexion();
+		con = c.getConexion();
+
 	}
-	
-	
+
 	public void nuevaJornada(Jornadas jornada) {
 		try {
-			PreparedStatement ps= con.prepareStatement(INSERT);
-			ps.setInt(1,jornada.getTorneos().getIdTorneos());
-			ps.setDate(2,jornada.getFechaDescripcion());
+			PreparedStatement ps = con.prepareStatement(INSERT);
+			ps.setInt(1, jornada.getTorneos().getIdTorneos());
+			ps.setDate(2, jornada.getFechaDescripcion());
 			ps.setInt(3, jornada.getEstado().getIdTipoEstado());
 			ps.executeUpdate();
 			ps.close();
-			
-			
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void editarJornada(Jornadas jornada) {
 		try {
-			PreparedStatement ps= con.prepareStatement(EDITAR);
-			ps.setDate(1,jornada.getFechaDescripcion());
-			ps.setInt(2,jornada.getEstado().getIdTipoEstado());
+			PreparedStatement ps = con.prepareStatement(EDITAR);
+			ps.setDate(1, jornada.getFechaDescripcion());
+			ps.setInt(2, jornada.getEstado().getIdTipoEstado());
 			ps.setInt(3, jornada.getIdJornadas());
 			ps.executeUpdate();
 			ps.close();
-			
-						
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void eliminarJornada(Jornadas jornada) {
 		try {
 
-            PartidoDAO catPartido = new PartidoDAO();
-            LinkedList<Partidos> partidos = catPartido.buscarporIdJornada(jornada.getIdJornadas());
-            if(partidos!=null && partidos.size()>0){
-            	for (int i = 0; i < partidos.size(); i++) {
-					catPartido.eliminarPartido(partidos.get(i));
-				}
-            	
-            }
-            
-			 
-			PreparedStatement ps= con.prepareStatement(DELETE);
-			ps.setInt(1,jornada.getIdJornadas());
-			ps.executeUpdate();
-			ps.close();
-			
-						
+			PartidoDAO catPartido = new PartidoDAO();
+			LinkedList<Partidos> partidos = catPartido
+					.buscarporIdJornada(jornada.getIdJornadas());
+			if (partidos == null && partidos.size() == 0) {
+				PreparedStatement ps = con.prepareStatement(DELETE);
+				ps.setInt(1, jornada.getIdJornadas());
+				ps.executeUpdate();
+				ps.close();
+
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public LinkedList<Jornadas> listarTodasLasJornadas(){
-		LinkedList<Jornadas>listaJornadas= new LinkedList<Jornadas>();
-		try{
-			
+
+	public LinkedList<Jornadas> listarTodasLasJornadas() {
+		LinkedList<Jornadas> listaJornadas = new LinkedList<Jornadas>();
+		try {
+
 			Statement st = con.createStatement();
-			ResultSet rs=st.executeQuery(LISTARTOJORNADA);
-			while(rs.next()) {
+			ResultSet rs = st.executeQuery(LISTARTOJORNADA);
+			while (rs.next()) {
 
 				listaJornadas.add(popularJornadas(rs));
 			}
-			}catch (SQLException ex) {
-				// TODO: handle exception
-				ex.printStackTrace();
-			} 
-		
-		return listaJornadas;
-		
-	}
-	
-	public Jornadas buscarIdJornadas(int idJornada){
-		Jornadas listaJornadas= new Jornadas();
-		try{
-			
-			PreparedStatement ps= con.prepareStatement(LISTARIDJORNADA);
-			ps.setInt(1,idJornada);
-			ResultSet rs= ps.executeQuery();
-			while(rs.next()) {
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
 
-				listaJornadas= popularJornadas(rs);
-			}
-			}catch (SQLException ex) {
-				// TODO: handle exception
-				ex.printStackTrace();
-			} 
-		
 		return listaJornadas;
-		
+
 	}
-	
-	
-	
+
+	public Jornadas buscarIdJornadas(int idJornada) {
+		Jornadas listaJornadas = new Jornadas();
+		try {
+
+			PreparedStatement ps = con.prepareStatement(LISTARIDJORNADA);
+			ps.setInt(1, idJornada);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+
+				listaJornadas = popularJornadas(rs);
+			}
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+
+		return listaJornadas;
+
+	}
+
 	public LinkedList<Jornadas> buscarporTorneos(int idTorneo) {
-		LinkedList<Jornadas>listaJornadas= new LinkedList<Jornadas>();
+		LinkedList<Jornadas> listaJornadas = new LinkedList<Jornadas>();
 		try {
-			
-			PreparedStatement ps= con.prepareStatement(LISTARPORTORNEO);
-			ps.setInt(1,idTorneo);
-			ResultSet rs= ps.executeQuery();
+
+			PreparedStatement ps = con.prepareStatement(LISTARPORTORNEO);
+			ps.setInt(1, idTorneo);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				
+
 				listaJornadas.add(popularJornadas(rs));
-				
-				
+
 			}
 			rs.close();
 			ps.close();
@@ -153,20 +139,18 @@ public class JornadaDAO {
 		}
 		return listaJornadas;
 	}
-	
-	
+
 	public LinkedList<Jornadas> buscarporEstado(int idEstado) {
-		LinkedList<Jornadas>listaJornadas= new LinkedList<Jornadas>();
+		LinkedList<Jornadas> listaJornadas = new LinkedList<Jornadas>();
 		try {
-			
-			PreparedStatement ps= con.prepareStatement(LISTARPORESTADO);
-			ps.setInt(1,idEstado);
-			ResultSet rs= ps.executeQuery();
+
+			PreparedStatement ps = con.prepareStatement(LISTARPORESTADO);
+			ps.setInt(1, idEstado);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				
+
 				listaJornadas.add(popularJornadas(rs));
-				
-				
+
 			}
 			rs.close();
 			ps.close();
@@ -176,11 +160,9 @@ public class JornadaDAO {
 		}
 		return listaJornadas;
 	}
-	
-	
-	
-	public Jornadas popularJornadas(ResultSet rs){
-		
+
+	public Jornadas popularJornadas(ResultSet rs) {
+
 		Jornadas jornada = new Jornadas();
 		try {
 			jornada.setIdJornadas(rs.getInt(1));
@@ -194,12 +176,7 @@ public class JornadaDAO {
 			e.printStackTrace();
 		}
 		return jornada;
-		
-		
-		
-		
+
 	}
-	
-	
 
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import datos.PersonasDAO;
 import entidad.Persona;
-
+import entidad.TipoPersona;
 
 /**
  * Servlet implementation class login
@@ -21,65 +21,83 @@ import entidad.Persona;
 @WebServlet("/login")
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Home() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);;
+	public Home() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter(); 
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request,
+				response);
+		;
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
 		try {
-		HttpSession sesion = request.getSession();//obtiene la sesion de ese usuario en ese mometo.sesion es una variable global, la podemos usar en cualquier parte del proyecto.
-		String usuario=request.getParameter("usu");
-		String contrasena= request.getParameter("con");
-		
-		if (!usuario.equals("")) {
-			PersonasDAO co= new PersonasDAO();
-			//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
-			Persona personaLogin = co.auntenticarPersona(usuario, contrasena);
-			
-			if(personaLogin!=null){
-				sesion.setAttribute("usuario", personaLogin);
-				
-				if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
+			HttpSession sesion = request.getSession();// obtiene la sesion de
+														// ese usuario en ese
+														// mometo.sesion es una
+														// variable global, la
+														// podemos usar en
+														// cualquier parte del
+														// proyecto.
+			String usuario = request.getParameter("usu");
+			String contrasena = request.getParameter("con");
 
-					response.sendRedirect(request.getContextPath() + "/admin");
+			if (!usuario.equals("")) {
+				PersonasDAO co = new PersonasDAO();
+				// como el metodo me devuelve unn boolean puede estar dentro del
+				// if sin comparar
+				Persona personaLogin = co.auntenticarPersona(usuario,
+						contrasena);
 
-				}else {
-					response.sendRedirect(request.getContextPath() + "/user");
-					////response.sendRedirect(request.getContextPath() + "/admin");
-					
+				if (personaLogin != null) {
+					sesion.setAttribute("usuario", personaLogin);
+
+					if (personaLogin.getTipoPersona().getIdTipoPersona() == TipoPersona.ADMINISTADOR) {
+
+						response.sendRedirect(request.getContextPath()
+								+ "/admin");
+
+					} else {
+						response.sendRedirect(request.getContextPath()
+								+ "/user");
+						// //response.sendRedirect(request.getContextPath() +
+						// "/admin");
+
+					}
+				} else {
+
+					response.sendRedirect(request.getContextPath() + "/login");
 				}
-		}
-		
-		
-		}else {
-			
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			
-		}
-		
-	} catch (IOException| NumberFormatException ex) {
-		// TODO: handle exception
-		/////response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
-	} }
 
-	
+			} else {
+
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+				response.sendRedirect(request.getContextPath() + "/login");
+
+			}
+
+		} catch (IOException | NumberFormatException ex) {
+			response.sendRedirect(request.getContextPath() + "/login");
+		}
+	}
 
 }

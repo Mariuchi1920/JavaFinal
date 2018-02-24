@@ -91,7 +91,7 @@ public class Persona {
 	
 	public boolean isAdmin(){
 		boolean respuesta = false;
-		if(tipoPersona.getIdTipoPersona()==1){
+		if(tipoPersona.getIdTipoPersona()==TipoPersona.ADMINISTADOR){
 			respuesta= true;
 		}
 		return respuesta;

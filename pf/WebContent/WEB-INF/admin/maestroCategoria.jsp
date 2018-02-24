@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" 	href="${pageContext.request.contextPath}/CSS/style.css" 	href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
 <meta charset="UTF-8">
-<title>Maestro categoria</title>
+<title>Listar Categorias</title>
 
 
 </head>
@@ -35,7 +35,7 @@ function eliminar(met) {
 <body>
 	<div id="contenedor">
 
-		<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
 
@@ -69,11 +69,11 @@ function eliminar(met) {
 					<th><%=c.getEstado().getDescripcion()%></th>
 					<th>
 					<button class="botonEditar"
-							onclick="javascript: editar('/admin/listarCategoriaeditar/')"
+							onclick="javascript: editar('admin/listarCategoria/editar')"
 							value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
 						<button
 							class="botonEliminar"
-							onclick="javascript: eliminar('/admin/listarCategoriaeliminar/')"
+							onclick="javascript: eliminar('admin/listarCategoria/eliminar')"
 							value="<%= c.getIdCategorias()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
 
@@ -98,7 +98,7 @@ function eliminar(met) {
 
 
 	<div id="Pie">
-		<jsp:include page="/WEB-INF/admin/pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

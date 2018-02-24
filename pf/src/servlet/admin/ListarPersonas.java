@@ -16,57 +16,67 @@ import entidad.Persona;
 /**
  * Servlet implementation class ListarPersonas
  */
-@WebServlet("/admin/listarPersonas")
+@WebServlet("/admin/listarPersonas/*")
 public class ListarPersonas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListarPersonas() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		request.getRequestDispatcher("/WEB-INF/admin/maestroPersona.jsp").forward(request, response);
+	public ListarPersonas() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		request.getRequestDispatcher("/WEB-INF/admin/maestroPersona.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
 			Persona persona = new Persona();
 			PersonasDAO perDao = new PersonasDAO();
-			
 
 			if (request.getParameter("editar") != null) {
 
-				int id=Integer.parseInt(request.getParameter("editar"));
-				persona= perDao.buscarPersonaId(id);
+				int id = Integer.parseInt(request.getParameter("editar"));
+				persona = perDao.buscarPersonaId(id);
 				request.getSession().setAttribute("editador", persona);
-				response.sendRedirect(request.getContextPath() + "/reguistarPersonas");
+				response.sendRedirect(request.getContextPath()
+						+ "/reguistarPersonas");
 
 			} else if (request.getParameter("eliminar") != null) {
 
-				int id=Integer.parseInt(request.getParameter("eliminar"));
-				persona= perDao.buscarPersonaId(id);
+				int id = Integer.parseInt(request.getParameter("eliminar"));
+				persona = perDao.buscarPersonaId(id);
 				perDao.eliminarPersona(persona);
-				response.sendRedirect(request.getContextPath() + "/admin/listarPersonas");
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarPersonas");
 
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarInstituciones");
 			}
-	
-	} catch (IOException | NumberFormatException ex) {
-		// TODO: handle exception
-		response.sendRedirect(request.getContextPath() + "/admin/listarInstituciones");
-	}
+
+		} catch (IOException | NumberFormatException ex) {
+			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
+		}
 
 	}
 

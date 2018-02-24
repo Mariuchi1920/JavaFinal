@@ -6,112 +6,145 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import entidad.Equipo;
+import entidad.EquiposJugadores;
+import entidad.JugadoresPartido;
+import entidad.Partidos;
 import entidad.Persona;
 import entidad.TipoEstado;
 import entidad.TipoPersona;
 import modelo.Conexion;
 
 public class PersonasDAO {
-	
-	
-	private String INSERT= "insert into persona (nombre, apelido, telefono, fechaNacimiento, tipoDocumento, numeroDocumento"
+
+	private String INSERT = "insert into persona (nombre, apelido, telefono, fechaNacimiento, tipoDocumento, numeroDocumento"
 			+ ", mail, idTipoPersona,usuario,contraseña ) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private String DELETE="delete from persona where idPersona=?;";
-	private String EDITAR="update tipoestado set nombre =?, apelido=? , telefono=? ,fechaNacimiento=? ,tipoDocumento=? ,numeroDocumento=? ,"
+	private String DELETE = "delete from persona where idPersona=?;";
+	private String EDITAR = "update tipoestado set nombre =?, apelido=? , telefono=? ,fechaNacimiento=? ,tipoDocumento=? ,numeroDocumento=? ,"
 			+ "mail=? ,idTipoPersona=? ,usuario=? ,contraseña=? "
 			+ " where idPersona=?";
-	private String LISTATODAPERSONAS= "select * from persona";
-	private String LISTARPORIDPERSONA="select * from persona where idPersona=?";
-	private String LISTARPORTIPOPERSONA="select * from persona where idTipoPersona=?";
-	private String LISTARPORDNI="select * from persona where numeroDocumento like ?;";
+	private String LISTATODAPERSONAS = "select * from persona";
+	private String LISTARPORIDPERSONA = "select * from persona where idPersona=?";
+	private String LISTARPORTIPOPERSONA = "select * from persona where idTipoPersona=?";
+	private String LISTARPORDNI = "select * from persona where numeroDocumento like ?;";
 	private String RECUPERARUSUARIO = "select * from persona where usuario like ? and contraseña like ?";
-	
-	
+
 	private Connection con;
-	
-	
-	
-	
-	
-	public PersonasDAO () {
-	Conexion c=new Conexion();
-	con=c.getConexion();
+
+	public PersonasDAO() {
+		Conexion c = new Conexion();
+		con = c.getConexion();
 	}
-	
-	
-	
+
 	public void nuevaPersona(Persona persona) {
 		try {
-			PreparedStatement ps= con.prepareStatement(INSERT);
+			PreparedStatement ps = con.prepareStatement(INSERT);
 			ps.setString(1, persona.getNombre());
-			ps.setString(2,persona.getApellido());
-			ps.setString(3,persona.getTelefono());
-			ps.setDate(4,persona.getFechaNacimiento());
-			ps.setString(5,persona.getTipoDocumento());
-			ps.setString(6,persona.getNumeroDocumento());
-			ps.setString(7,persona.getMail());
-			ps.setInt(8,persona.getTipoPersona().getIdTipoPersona());
-			ps.setString(9,persona.getUsuario());
-			ps.setString(10,persona.getContraseña());
-			
+			ps.setString(2, persona.getApellido());
+			ps.setString(3, persona.getTelefono());
+			ps.setDate(4, persona.getFechaNacimiento());
+			ps.setString(5, persona.getTipoDocumento());
+			ps.setString(6, persona.getNumeroDocumento());
+			ps.setString(7, persona.getMail());
+			ps.setInt(8, persona.getTipoPersona().getIdTipoPersona());
+			ps.setString(9, persona.getUsuario());
+			ps.setString(10, persona.getContraseña());
+
 			ps.executeUpdate();
 			ps.close();
-			
-			
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void editarPersona(Persona persona) {
 		try {
-			PreparedStatement ps= con.prepareStatement(EDITAR);
+			PreparedStatement ps = con.prepareStatement(EDITAR);
 			ps.setString(1, persona.getNombre());
-			ps.setString(2,persona.getApellido());
-			ps.setString(3,persona.getTelefono());
-		    ps.setDate(4,persona.getFechaNacimiento());
-			ps.setString(5,persona.getTipoDocumento());
-			ps.setString(6,persona.getNumeroDocumento());
-			ps.setString(7,persona.getMail());
-			ps.setInt(8,persona.getTipoPersona().getIdTipoPersona());
-			ps.setString(9,persona.getUsuario());
-			ps.setString(10,persona.getContraseña());
+			ps.setString(2, persona.getApellido());
+			ps.setString(3, persona.getTelefono());
+			ps.setDate(4, persona.getFechaNacimiento());
+			ps.setString(5, persona.getTipoDocumento());
+			ps.setString(6, persona.getNumeroDocumento());
+			ps.setString(7, persona.getMail());
+			ps.setInt(8, persona.getTipoPersona().getIdTipoPersona());
+			ps.setString(9, persona.getUsuario());
+			ps.setString(10, persona.getContraseña());
 			ps.setInt(11, persona.getIdPersona());
 			ps.executeUpdate();
 			ps.close();
-			
-						
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void eliminarPersona(Persona persona) {
 		try {
-			
-			
-			PreparedStatement ps= con.prepareStatement(DELETE);
-			ps.setInt(1, persona.getIdPersona());
-			ps.executeUpdate();
-			//ps.close();
-			
-						
+
+			if (validarEliminarPersona(persona)) {
+				PreparedStatement ps = con.prepareStatement(DELETE);
+				ps.setInt(1, persona.getIdPersona());
+				ps.executeUpdate();
+				ps.close();
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	public LinkedList<Persona> listarPersonas(){
-		
-		LinkedList<Persona> personas =new LinkedList<Persona>();
+
+	public boolean validarEliminarPersona(Persona persona) {
+		boolean repuesta = true;
+		EquiposJugadoresDAO catEquipoJugadores = new EquiposJugadoresDAO();
+		LinkedList<Equipo> equipoJugadores = catEquipoJugadores
+				.listarTodasLosEquipos(persona);
+		if (equipoJugadores != null && equipoJugadores.size() > 0)
+			repuesta = false;
+
+		if (repuesta) {
+
+			EquiposDAO catequipo = new EquiposDAO();
+			LinkedList<Equipo> equipo = catequipo.buscarporIdEntrenador(persona
+					.getIdPersona());
+			if (equipo != null && equipo.size() > 0)
+				repuesta = false;
+
+		}
+
+		if (repuesta) {
+
+			JugadoresPartidosDAO catPartido = new JugadoresPartidosDAO();
+			LinkedList<JugadoresPartido> partidosJu = catPartido
+					.buscarporJugador(persona.getIdPersona());
+			if (partidosJu != null && partidosJu.size() > 0)
+				repuesta = false;
+
+		}
+
+		if (repuesta) {
+
+			PartidoDAO catPartido = new PartidoDAO();
+			LinkedList<Partidos> partidos = catPartido
+					.buscarporIdArbrito(persona.getIdPersona());
+			if (partidos != null && partidos.size() > 0)
+				repuesta = false;
+
+		}
+
+		return repuesta;
+	}
+
+	public LinkedList<Persona> listarPersonas() {
+
+		LinkedList<Persona> personas = new LinkedList<Persona>();
 		try {
-			PreparedStatement ps= con.prepareStatement(LISTATODAPERSONAS);
-			ResultSet rs= ps.executeQuery();
-			
+			PreparedStatement ps = con.prepareStatement(LISTATODAPERSONAS);
+			ResultSet rs = ps.executeQuery();
+
 			while (rs.next()) {
-				
+
 				personas.add(personasRecuperada(rs));
 			}
 			rs.close();
@@ -121,22 +154,21 @@ public class PersonasDAO {
 			ex.printStackTrace();
 		}
 		return personas;
-		
+
 	}
-	
-	
-	public Persona buscarPersonaId(int id){
-		
-  	  Persona persona =new Persona();
+
+	public Persona buscarPersonaId(int id) {
+
+		Persona persona = new Persona();
 		try {
-			PreparedStatement ps= con.prepareStatement(LISTARPORIDPERSONA);
+			PreparedStatement ps = con.prepareStatement(LISTARPORIDPERSONA);
 			ps.setInt(1, id);
-			
-			ResultSet rs= ps.executeQuery();
-			
+
+			ResultSet rs = ps.executeQuery();
+
 			if (rs.next()) {
-				
-				persona= personasRecuperada(rs);
+
+				persona = personasRecuperada(rs);
 			}
 			rs.close();
 			ps.close();
@@ -145,88 +177,83 @@ public class PersonasDAO {
 			ex.printStackTrace();
 		}
 		return persona;
-		
+
 	}
-	
-	
-	public LinkedList<Persona> buscarPersonaTipoPersona(int id){
-		
-		LinkedList<Persona> personas =new LinkedList<Persona>();
-			try {
-				PreparedStatement ps= con.prepareStatement(LISTARPORTIPOPERSONA);
-				ps.setInt(1, id);
-				
-				ResultSet rs= ps.executeQuery();
-				
-				if (rs.next()) {
-					
-					Persona persona= personasRecuperada(rs);
-					personas.add(persona);
-				}
-				rs.close();
-				ps.close();
-			} catch (SQLException ex) {
-				// TODO: handle exception
-				ex.printStackTrace();
+
+	public LinkedList<Persona> buscarPersonaTipoPersona(int id) {
+
+		LinkedList<Persona> personas = new LinkedList<Persona>();
+		try {
+			PreparedStatement ps = con.prepareStatement(LISTARPORTIPOPERSONA);
+			ps.setInt(1, id);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+
+				Persona persona = personasRecuperada(rs);
+				personas.add(persona);
 			}
-			return personas;
-			
+			rs.close();
+			ps.close();
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
 		}
-		
-	
-	public Persona buscarPersonaDNI(String dni){
-		
-	  	  Persona persona =new Persona();
-			try {
-				PreparedStatement ps= con.prepareStatement(LISTARPORDNI);
-				ps.setString(1, dni);
-				
-				ResultSet rs= ps.executeQuery();
-				
-				if (rs.next()) {
-					
-					persona= personasRecuperada(rs);
-				}
-				rs.close();
-				ps.close();
-			} catch (SQLException ex) {
-				// TODO: handle exception
-				ex.printStackTrace();
-			}
-			return persona;
-			
-		}
-	
-	
-	
-      public Persona auntenticarPersona(String usuario, String contraseña){
-		
-    	  Persona persona =new Persona();
-  		try {
-  			PreparedStatement ps= con.prepareStatement(RECUPERARUSUARIO);
-  			ps.setString(1, usuario);
-  			ps.setString(2,contraseña);
-  			ResultSet rs= ps.executeQuery();
-  			
-  			if (rs.next()) {
-  				
-  				persona= personasRecuperada(rs);
-  			}
-  			rs.close();
-  			ps.close();
-  		} catch (SQLException ex) {
-  			// TODO: handle exception
-  			ex.printStackTrace();
-  		}
-  		return persona;
-		
+		return personas;
+
 	}
-      
-      
-      public Persona personasRecuperada(ResultSet rs){
-    	  Persona persona =new Persona();
-    	  
-    	  try {
+
+	public Persona buscarPersonaDNI(String dni) {
+
+		Persona persona = new Persona();
+		try {
+			PreparedStatement ps = con.prepareStatement(LISTARPORDNI);
+			ps.setString(1, dni);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+
+				persona = personasRecuperada(rs);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+		return persona;
+
+	}
+
+	public Persona auntenticarPersona(String usuario, String contraseña) {
+
+		Persona persona = new Persona();
+		try {
+			PreparedStatement ps = con.prepareStatement(RECUPERARUSUARIO);
+			ps.setString(1, usuario);
+			ps.setString(2, contraseña);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+
+				persona = personasRecuperada(rs);
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+		}
+		return persona;
+
+	}
+
+	public Persona personasRecuperada(ResultSet rs) {
+		Persona persona = new Persona();
+
+		try {
 			persona.setIdPersona(rs.getInt(1));
 			persona.setNombre(rs.getString(2));
 			persona.setApellido(rs.getString(3));
@@ -243,12 +270,9 @@ public class PersonasDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-			
-			return persona;
-    	  
-    	  
-      }
-	
+
+		return persona;
+
+	}
 
 }

@@ -12,92 +12,80 @@ import entidad.JugadoresPartido;
 import modelo.Conexion;
 
 public class JugadoresPartidosDAO {
-	
-	
-	private String INSERT= "insert into jugadorespartidos ( idPartidos,idJugadores, cantidadTarjetasAmarillas, cantidadTarjetasRojas,cantidadGoles)values (?,?,?,?,?)";
-	private String DELETE="delete from jugadorespartidos where idPartidos=? and idJugadores=? ";
-	private String EDITAR="update jugadorespartidos set cantidadTarjetasAmarillas= ?,cantidadTarjetasRojas=?, cantidadGoles=? where idPartidos=? and idJugadores=? ";
-	private String LISTARTOEQUIPOS="select * from jugadorespartidos";
-	private String LISTARPORJUGADOR="select * from jugadorespartidos where idJugadores=? ";
-	private String LISTARPORPARTIDO="select * from jugadorespartidos where idPartidos=? ";
-	
-	
-    private Connection con;
-	
+
+	private String INSERT = "insert into jugadorespartidos ( idPartidos,idJugadores, cantidadTarjetasAmarillas, cantidadTarjetasRojas,cantidadGoles)values (?,?,?,?,?)";
+	private String DELETE = "delete from jugadorespartidos where idPartidos=? and idJugadores=? ";
+	private String EDITAR = "update jugadorespartidos set cantidadTarjetasAmarillas= ?,cantidadTarjetasRojas=?, cantidadGoles=? where idPartidos=? and idJugadores=? ";
+	private String LISTARTOEQUIPOS = "select * from jugadorespartidos";
+	private String LISTARPORJUGADOR = "select * from jugadorespartidos where idJugadores=? ";
+	private String LISTARPORPARTIDO = "select * from jugadorespartidos where idPartidos=? ";
+
+	private Connection con;
+
 	public JugadoresPartidosDAO() {
-		Conexion c=new Conexion();
-		con=c.getConexion();
-		
-	} 
-	
+		Conexion c = new Conexion();
+		con = c.getConexion();
+
+	}
+
 	public void nuevoJugadorPartido(JugadoresPartido jugPar) {
 		try {
-			PreparedStatement ps= con.prepareStatement(INSERT);
+			PreparedStatement ps = con.prepareStatement(INSERT);
 			ps.setInt(1, jugPar.getPartido().getIdPartidos());
-			ps.setInt(2,jugPar.getJugadores().getIdPersona());
-			ps.setInt(3,jugPar.getCantidadTarjetasAmarillas());
-			ps.setInt(4,jugPar.getCantidadTarjetasRojas());
-			ps.setInt(4,jugPar.getCatidadGoles());
-			
+			ps.setInt(2, jugPar.getJugadores().getIdPersona());
+			ps.setInt(3, jugPar.getCantidadTarjetasAmarillas());
+			ps.setInt(4, jugPar.getCantidadTarjetasRojas());
+			ps.setInt(4, jugPar.getCatidadGoles());
+
 			ps.executeUpdate();
 			ps.close();
-			
-			
-			
-			
+
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		
+
 	}
-	
-	
+
 	public void editarJugadorPartido(JugadoresPartido jugPar) {
 		try {
-			PreparedStatement ps= con.prepareStatement(EDITAR);
-			ps.setInt(1,jugPar.getCantidadTarjetasAmarillas());
-			ps.setInt(2,jugPar.getCantidadTarjetasRojas());
-			ps.setInt(3,jugPar.getCatidadGoles());
+			PreparedStatement ps = con.prepareStatement(EDITAR);
+			ps.setInt(1, jugPar.getCantidadTarjetasAmarillas());
+			ps.setInt(2, jugPar.getCantidadTarjetasRojas());
+			ps.setInt(3, jugPar.getCatidadGoles());
 			ps.setInt(4, jugPar.getPartido().getIdPartidos());
-			ps.setInt(5,jugPar.getJugadores().getIdPersona());
+			ps.setInt(5, jugPar.getJugadores().getIdPersona());
 			ps.executeUpdate();
 			ps.close();
-			
-						
+
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 	}
-	
-	
+
 	public void eliminarJugadorPartido(JugadoresPartido jugPar) {
 		try {
-			
-			
-			PreparedStatement ps= con.prepareStatement(DELETE);
+
+			PreparedStatement ps = con.prepareStatement(DELETE);
 			ps.setInt(1, jugPar.getPartido().getIdPartidos());
-			ps.setInt(2,jugPar.getJugadores().getIdPersona());
+			ps.setInt(2, jugPar.getJugadores().getIdPersona());
 			ps.executeUpdate();
 			ps.close();
-			
-						
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
 	public LinkedList<JugadoresPartido> buscarporJugador(int idJugador) {
-		LinkedList<JugadoresPartido>listaCategorias= new LinkedList<JugadoresPartido>();
+		LinkedList<JugadoresPartido> listaCategorias = new LinkedList<JugadoresPartido>();
 		try {
-			PreparedStatement ps= con.prepareStatement(LISTARPORJUGADOR);
-			ps.setInt(1,idJugador);
-			ResultSet rs= ps.executeQuery();
+			PreparedStatement ps = con.prepareStatement(LISTARPORJUGADOR);
+			ps.setInt(1, idJugador);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				
+
 				listaCategorias.add(popularJugadorEquipo(rs));
-				
+
 			}
 			rs.close();
 			ps.close();
@@ -107,17 +95,17 @@ public class JugadoresPartidosDAO {
 		}
 		return listaCategorias;
 	}
-	
+
 	public LinkedList<JugadoresPartido> buscarIDPartido(int idPartido) {
-		LinkedList<JugadoresPartido>listaCategorias= new LinkedList<JugadoresPartido>();
+		LinkedList<JugadoresPartido> listaCategorias = new LinkedList<JugadoresPartido>();
 		try {
-			PreparedStatement ps= con.prepareStatement(LISTARPORPARTIDO);
-			ps.setInt(1,idPartido);
-			ResultSet rs= ps.executeQuery();
+			PreparedStatement ps = con.prepareStatement(LISTARPORPARTIDO);
+			ps.setInt(1, idPartido);
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				
+
 				listaCategorias.add(popularJugadorEquipo(rs));
-				
+
 			}
 			rs.close();
 			ps.close();
@@ -127,13 +115,12 @@ public class JugadoresPartidosDAO {
 		}
 		return listaCategorias;
 	}
-	
-	
-	public JugadoresPartido popularJugadorEquipo(ResultSet rs){
+
+	public JugadoresPartido popularJugadorEquipo(ResultSet rs) {
 		JugadoresPartido juPa = new JugadoresPartido();
 		PartidoDAO catPartido = new PartidoDAO();
 		PersonasDAO catJugador = new PersonasDAO();
-		
+
 		try {
 			juPa.setPartido(catPartido.buscarporIdsPartido(rs.getInt(1)));
 			juPa.setJugadores(catJugador.buscarPersonaId(rs.getInt(2)));
@@ -144,13 +131,9 @@ public class JugadoresPartidosDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return juPa;
-		
-		
-		
+
 	}
-	
 
 }

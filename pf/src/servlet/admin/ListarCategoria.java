@@ -1,7 +1,5 @@
 package servlet.admin;
 
-
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -16,60 +14,70 @@ import javax.servlet.http.HttpServletResponse;
 import datos.CategoriasDAO;
 import entidad.Categoria;
 
-
 /**
  * Servlet implementation class CategoriaServlets
  */
-@WebServlet({"/admin/listarCategoria","/admin/listarCategoriaeditar/", "/admin/listarCategoriaeliminar/"})
+@WebServlet("/admin/listarCategoria/*")
 public class ListarCategoria extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ListarCategoria() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		/////response.sendRedirect("/admin/maestroCategoria.jsp");
-		///En el get es donde llamo al JSP...
-	   request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
+	public ListarCategoria() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		CategoriasDAO catdao=new CategoriasDAO();
-		try {
-		    
-			if(request.getParameter("editar")!=null) {
-				Categoria categoria = catdao.buscarporIdCategoria(Integer.parseInt(request.getParameter("editar")));
-				request.getSession().setAttribute("editador", categoria);
-				//////
-				response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
-			}else if(request.getParameter("eliminar")!=null) {
-				Categoria categoria= new Categoria();
-				categoria.setIdCategorias(Integer.parseInt(request.getParameter("eliminar")));
-				catdao.eliminarCategoria(categoria);
-				response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
-				
-							
-		}} catch (IOException| NumberFormatException ex) {
-			// TODO: handle exception
-			response.sendRedirect(request.getContextPath() + "/admin/listarCategoria");
-		} 
 
-		
-	
+		// ///response.sendRedirect("/admin/maestroCategoria.jsp");
+		// /En el get es donde llamo al JSP...
+		request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		CategoriasDAO catdao = new CategoriasDAO();
+		try {
+			// System.out.println(request.getPathInfo());
+			if (request.getParameter("editar") != null) {
+				Categoria categoria = catdao.buscarporIdCategoria(Integer
+						.parseInt(request.getParameter("editar")));
+				request.getSession().setAttribute("editador", categoria);
+				// ////
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/modificarCategoria");
+			} else if (request.getParameter("eliminar") != null) {
+				Categoria categoria = new Categoria();
+				categoria.setIdCategorias(Integer.parseInt(request
+						.getParameter("eliminar")));
+				catdao.eliminarCategoria(categoria);
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarCategoria");
+
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarCategoria");
+			}
+		} catch (IOException | NumberFormatException ex) {
+			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarCategoria");
+		}
+
 	}
 
 }

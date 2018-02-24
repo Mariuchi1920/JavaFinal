@@ -48,18 +48,7 @@
 		if (request.getSession().getAttribute("usuario") != null) {
 	%>
 	<div id="contenedor">
-		<%
-			if (((Persona) request.getSession().getAttribute("usuario"))
-						.isAdmin()) {
-		%>
-		<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
-		<%
-			} else {
-		%>
-		<jsp:include page="/WEB-INF/EncabezadoUsu.jsp" />
-		<%
-			}
-		%>
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 	</div>
 
 	<%
@@ -292,7 +281,7 @@
 	</div>
 
 	<div align="center" id="Pie">
-		<jsp:include page="pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

@@ -9,7 +9,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Nueva Institucion</title>
+	<title>Editar Institucion</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
 	<script type="text/javascript">
 	function editar(met) {
@@ -32,8 +32,7 @@
 
 <div id="contenedor">
 
-		<jsp:include page="cabecera.jsp" />
-
+	<jsp:include page="/WEB-INF/cabecera.jsp" />
 	</div>
 
 	<%
@@ -98,7 +97,7 @@ if(request.getSession().getAttribute("editador")!=null){
 	
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 	</div>

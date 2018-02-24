@@ -3,7 +3,7 @@ package entidad;
 
 
 public class Equipo {
-	//private int idEquipo;
+	
 
 	private Categoria categorias;
 	private Institucion institucion;

@@ -4,7 +4,7 @@
 <<html class="no-js" lang="es">
     <head>
         <title>Error 500 - Not Found</title>
-        <jsp:include page="/WEB-INF/EncabezadoUsu.jsp" />
+       <jsp:include page="/WEB-INF/cabecera.jsp" />
     </head>
     <body>
     	
@@ -15,7 +15,7 @@
    				<span class="glyphicon glyphicon-home"></span> volver al inicio 
    			</a>
     		<hr>
-	    <jsp:include page="/WEB-INF/pie.jsp" />
+	 <jsp:include page="/WEB-INF/pie.jsp" />
     	</div>
     	
     	

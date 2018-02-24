@@ -56,7 +56,7 @@
 <body>
 
 <div id="contenedor">
-		<jsp:include page="/WEB-INF/admin/cabecera.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 		
 
@@ -67,8 +67,8 @@
 	Torneo encontrado= null;
 	int idTorneo=0;
 	String nombre="";
-	Date fechaI=null;
-	Date fechaF=null;
+	Date fechaI=Util.recuperarHoraActualStringDate();
+	Date fechaF=Util.recuperarHoraActualStringDate();
 	TipoEstado estado = new TipoEstado();
 	Equipo equipoCampeon=null;
 	
@@ -231,7 +231,7 @@
 	</div>
 
 	<div id="Pie">
-				<jsp:include page="/WEB-INF/admin/pie.jsp" />
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

@@ -19,31 +19,36 @@ import entidad.Institucion;
 @WebServlet("/admin/modificarInstitucion/*")
 public class ModificarInstitucion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModificarInstitucion() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/admin/nuevaInstitucion.jsp").forward(request, response);
+	public ModificarInstitucion() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		InstitucionesDAO instidao= new InstitucionesDAO();
+		request.getRequestDispatcher("/WEB-INF/admin/nuevaInstitucion.jsp")
+				.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		InstitucionesDAO instidao = new InstitucionesDAO();
 		try {
-			Institucion i= new Institucion();
+			Institucion i = new Institucion();
 			i.setNombre(request.getParameter("institucion"));
 			i.setNombreLocalia(request.getParameter("nombreLocalia"));
 			i.setDireccionLocalia(request.getParameter("direccionLocalia"));
@@ -51,37 +56,33 @@ public class ModificarInstitucion extends HttpServlet {
 			i.setApellidoDelegado(request.getParameter("apellidoDelegado"));
 			i.setTelefonoDelegado(request.getParameter("telefonoDelegado"));
 			i.setMailDelegado(request.getParameter("mail"));
-			
-			
-			if (request.getParameter("editar")!=null) {
-				 int id= ((Institucion)request.getSession().getAttribute("editador")).getIdInstituciones();
-				 i.setIdInstituciones(id);
-				
-				 instidao.modificarIstitucion(i);
-				 response.sendRedirect(request.getContextPath() + "/admin/listarInstituciones");
-				
-				
-			}else if (request.getParameter("registar")!=null) {
-				
-				 instidao.nuevaInstitucion(i);
-				 response.sendRedirect(request.getContextPath() + "/admin/listarInstituciones");
-				
-				 
+
+			if (request.getParameter("editar") != null) {
+				int id = ((Institucion) request.getSession().getAttribute(
+						"editador")).getIdInstituciones();
+				i.setIdInstituciones(id);
+
+				instidao.modificarIstitucion(i);
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarInstituciones");
+
+			} else if (request.getParameter("registar") != null) {
+
+				instidao.nuevaInstitucion(i);
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarInstituciones");
+
+			} else {
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/listarInstituciones");
 			}
-			
-			
-		} catch ( IOException| NumberFormatException ex) {
+
+		} catch (IOException | NumberFormatException ex) {
 			// TODO: handle exception
-			System.err.println("Error"+ex.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
 		}
-				
-			}
-			
-	
+
 	}
 
-
-
-
-
-
+}

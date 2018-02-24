@@ -2,6 +2,11 @@ package entidad;
 
 public class TipoPersona {
 	
+	public static final int ADMINISTADOR =1;
+	public static final int ENTRENADOR =2;
+	public static final int ARBITRO =3;
+	public static final int JUGADOR =4;
+	
 	private int idTipoPersona;
 	private String descripcion;
 	

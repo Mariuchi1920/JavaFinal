@@ -74,7 +74,7 @@
 
 		</div>
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
 	</div>
 </body>

@@ -14,68 +14,39 @@ import javax.servlet.http.HttpSession;
 import datos.PersonasDAO;
 import entidad.Persona;
 
-
 /**
  * Servlet implementation class login
  */
 @WebServlet("/user")
 public class PanelUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PanelUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/menuPcpalUsuario.jsp").forward(request, response);
+	public PanelUser() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter(); 
-		
-		HttpSession sesion = request.getSession();//obtiene la sesion de ese usuario en ese mometo.sesion es una variable global, la podemos usar en cualquier parte del proyecto.
-		String usuario=request.getParameter("usu");
-		String contrasena= request.getParameter("con");
-	
-		
-		PersonasDAO co= new PersonasDAO();
-		//como el metodo me devuelve unn boolean puede estar dentro del if sin comparar 
-		Persona personaLogin = co.auntenticarPersona(usuario, contrasena);
-		
-		if(personaLogin!=null){
-			sesion.setAttribute("usuario", personaLogin);
-			
-			if(personaLogin.getTipoPersona().getIdTipoPersona() == 1){
-				response.sendRedirect(request.getContextPath() + "/user");
-			}else {
-				response.sendRedirect(request.getContextPath() + "/user");
-				
-				////response.sendRedirect(request.getContextPath() + "/admin");
-				
-			}
-		}else {
-			
-			out.print("<p style=\"color:red\">El nombre de usuario o contrasena son incorrectos</p>");  
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");  
-            rd.include(request,response);  
-			System.out.println("usuario y o contrasena incorrectos");
-			
-			
-		}
-		
+		request.getRequestDispatcher("/WEB-INF/menuPcpalUsuario.jsp").forward(
+				request, response);
 	}
-	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+	}
 
 }

@@ -13,7 +13,7 @@
 	href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
 <meta charset="UTF-8">
-<title>Administrador de Equipo</title>
+<title>Listar Equipos</title>
 </head>
 
 <script type="text/javascript">
@@ -36,7 +36,7 @@ function eliminar(met) {
 <body>
 	<div id="contenedor">
 
-		<jsp:include page="cabecera.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
 
@@ -88,8 +88,7 @@ function eliminar(met) {
 	</div>
 
 	<div id="Pie">
-		<jsp:include page="pie.jsp" />
-
+		<jsp:include page="/WEB-INF/pie.jsp" />
 	</div>
 </body>
 </html>

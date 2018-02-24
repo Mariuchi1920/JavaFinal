@@ -5,70 +5,61 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 public class Util {
-	
-	
-	
-	public static Date convertirStringDate(String fechaIngresada){
+
+	public static Date convertirStringDate(String fechaIngresada) {
 		Date fecha = null;
-		
-		
-		
+
 		Calendar calendario = Calendar.getInstance();
-		
-		String[] aux= fechaIngresada.split("-");
-		
-		calendario.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+
+		String[] aux = fechaIngresada.split("-");
+
+		calendario.setTimeZone(TimeZone
+				.getTimeZone("America/Argentina/Buenos_Aires"));
 		calendario.set(Calendar.DAY_OF_MONTH, Integer.parseInt(aux[2]));
-		calendario.set(Calendar.MONTH, Integer.parseInt(aux[1])-1);
+		calendario.set(Calendar.MONTH, Integer.parseInt(aux[1]) - 1);
 		calendario.set(Calendar.YEAR, Integer.parseInt(aux[0]));
-		
-		fecha= new Date(calendario.getTimeInMillis());
-		
+
+		fecha = new Date(calendario.getTimeInMillis());
+
 		return fecha;
-		
-		
-		
+
 	}
-	
-	public static Date recuperarHoraActualStringDate(){
+
+	public static Date recuperarHoraActualStringDate() {
 		Date fecha = null;
-		
+
 		Calendar calendario = Calendar.getInstance();
-		
-		
-		
-		calendario.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
-		
-		
-		fecha= new Date(calendario.getTimeInMillis());
-		
+
+		calendario.setTimeZone(TimeZone
+				.getTimeZone("America/Argentina/Buenos_Aires"));
+
+		fecha = new Date(calendario.getTimeInMillis());
+
 		return fecha;
-		
-		
-		
+
 	}
-	
-	
-	public static boolean compararFechaConHoy(Date date){
-	  
-        boolean respuesta=false;		
+
+	public static boolean compararFechaConHoy(Date date) {
+
+		boolean respuesta = false;
 		Calendar calendario = Calendar.getInstance();
-         String[] aux= String.valueOf(date).split("-");
-		
-		calendario.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
+		String[] aux = String.valueOf(date).split("-");
+
+		calendario.setTimeZone(TimeZone
+				.getTimeZone("America/Argentina/Buenos_Aires"));
 		calendario.set(Calendar.DAY_OF_MONTH, Integer.parseInt(aux[2]));
-		calendario.set(Calendar.MONTH, Integer.parseInt(aux[1])-1);
+		calendario.set(Calendar.MONTH, Integer.parseInt(aux[1]) - 1);
 		calendario.set(Calendar.YEAR, Integer.parseInt(aux[0]));
-		
+
 		Calendar calendarioHoy = Calendar.getInstance();
-		calendarioHoy.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
-		
-		if(calendarioHoy.getTimeInMillis()> calendario.getTimeInMillis()) respuesta= true;
-		
+		calendarioHoy.setTimeZone(TimeZone
+				.getTimeZone("America/Argentina/Buenos_Aires"));
+
+		if (calendarioHoy.getTimeInMillis() > calendario.getTimeInMillis())
+			respuesta = true;
+
 		return respuesta;
-		
-		
-		
+
 	}
 
 }
