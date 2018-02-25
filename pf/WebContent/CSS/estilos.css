@@ -1,0 +1,138 @@
+@charset "ISO-8859-1";
+body { 
+font-famyly: 'Releway';
+font-size: 16 px;
+font-weight: 300 ;
+color:#2EFE2E;
+line-height: 30px;
+text-align: center;
+background-color:#222733;
+/*  #2EFE2E  #fff*/
+}
+strong{
+	font-weight: 500;
+}
+a, a:hover, a:focus {
+	text-decoration: none;
+	
+}
+h1, h2{
+	margin-top: 10px;
+	font-size: 38px;
+	font-weight: 100;
+	line-height: 50px;
+
+}
+h3{
+	font-size: 22px;
+	font-weight: 300;
+	color: #2EFE2E;
+}
+/* contenidos y formularios  */
+
+.my-content{
+	padding: 100px 0 170px 0; /* es la separacion entre  contenido y contenido */
+	}
+.my-content .mydescription{
+	margin: 20px 0 10px 0;
+}
+.my-content .mydescription p {
+	opacity: 0.8;
+}
+.myform-cont{
+	margin-top:  35px;
+	
+}
+.myform-top{
+	overflow: hidden;
+	padding: 0 25px 15px 25px;
+	background: rgba(0, 0, 0, 0.35);
+	-moz-border-radius:10px 10px 0 0 ;
+	-webkit-border-radius:10px 10px 0 0 ;
+	border-radius: 10px 10px 0 0;
+	
+}
+.myform-top-left{
+float: left;
+width: 75%;
+padding-top: 25px;
+text-align: left;
+}
+.myform-top-leftt p{
+opacity: 0.8;
+}
+.myform-top-right{
+float: right;
+width: 25%;
+padding-top: 25px;
+text-align: right;
+}
+.myform-bottom{
+	padding: 25 px 25px 30px 25px;
+	background: rgba(0, 0, 0 ,0.3);
+	-moz-border-radius: 0 0 10px 10px;
+	-webkit-border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 10px;
+	
+}
+.myform-bottom .mybtn{
+	width:  100%;
+	}
+	
+input[type-"text"]:focus,
+input[type-"password"]:focus,
+textarea:focus, 
+textarea.form-control:focus{
+	background: #fff;
+	border: 2px solid #2EFEF7;
+}
+button.mybtn{
+	height: 50px;
+	background: #FF8000;
+	border: 0;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 40px;
+	color: #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+button.mybtn:hover, button.mybtn:active{
+	opacity: 0.6;
+	color: #fff;
+	
+}
+button.mybtn:focus{
+	opacity: 0.6;
+	color: #fff;
+	background: #00FFBF;
+}
+
+.mysocial-login{
+	margin-top: 35px;
+}
+.mysocial-login-buttons{
+	display: inline-block;
+	height: 50px;
+	margin: 5px;
+	padding: 15px 20px 0 20px;
+	background: rgba(0, 0, 0, 0.1);
+	border: 1px solid #fff;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 16px;
+	color: #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	
+	 
+}
+.mysocial:hover, .mysocial:active .mysocial:focus{
+	outline: 0;
+	opacity: 0.6;
+	background: rgba(0, 0, 0, 0.3);
+	color: #fff;
+	
+}

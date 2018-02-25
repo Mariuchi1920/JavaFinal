@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Menu Principal</title>
-<link rel="stylesheet" type="text/css" href="CSS/style.css">
+<meta content="width=device-width", user-scalable=no, initial-scale=1.0," name="viewport">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 	<div id="contenedor">
@@ -23,5 +24,7 @@
 
 	</div>
 	</div>
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

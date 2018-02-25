@@ -1,17 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
+
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
 	<title>Inicio de Sesion</title>
-	<link rel="stylesheet" type="text/css" href="CSS/style.css">
-
-
-
-
+	
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="CSS/estilos.css">
+	
+</head>
  <script type="text/javascript" language="JavaScript">
  function carga(){
 	 document.getElementById("usu").focus();
@@ -41,41 +45,65 @@
 }
  
  </script>
-</head>
+
 <body onload="carga()">
-<div id="contenedor">
-		<div id="cabecera">
-					<div id="Logo"><img src="imagen/logo_header.png"></div>
-					<!-- <div id="usuario">muestra el usuario en java</div> -->
+<div class="my-content">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1><strong>LIGA EFA</strong> Bienvenidos </h1>
+				<div class="mydescription">
+				<p>Registro de usuarios</p>
+				</div>
+			</div>
 		</div>
-
-<div id="contenido">
-
-
-<table border="2px" align="center" >
-	<form action="login" method= "POST"    onsubmit="return validarDatos(); ">
-	<caption>Acceso a Liga Efa</caption>
-		<tr align="center"> 
-		<td><label for="usuario"> Usuario:</label>		
-			<input type="text" name="usu" id="usu"/></td>		
-		</tr>
-		<tralign="center"> 
-		<td><label for="contrasena">Contrasena:</label>
-			<input type="password" name="con" id="con"/></td>
+		<div class="row">
+		<div class="col-sm-6 offset-sm-3 myform-cont" >
+			<div class= "myform-top">
+					<div class= "myform-top-left">
+						<h3> Ingresa a nuestro Sitio</h3>
+						<p>Escribe tu usuario y contraseña.</p>
+					</div>
+					<div class= "myform-top-right">
+					<i class="fas fa-key"></i>
+					</div>
+			</div>
 			
-		<tr align="center" >
-		<td><input type="submit" value="Ingresar" > </td>			
-		</tr>
-		<tr><td><a href="${pageContext.request.contextPath}/reguistarPersonas"> Nuevo Usuario</td></a></tr>
-		</form>
-</table>
-
-			
-
-		</div>
-	<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
-
+			<div class="myform-bottom">
+				<form role="form" action="login" method= "POST"    onsubmit="return validarDatos(); "class="">
+					<div class="form-group">
+					<input type="text" name="usu" id="usu" placeholder="Usuario..." class="form-control">
+					</div>
+					<div class="form-group">
+					<input type="password"name="con" id="con" placeholder="Contraseña.." class="form-control">
+					</div>
+					<button type="submit" class="mybtn" >Ingresar</button> 
+				</form>
+			</div>
+	   </div>
+	   </div>
+	   
+	   
+		<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<h3>...Ingresa tambien por:</h3>
+				
+				<div class="mysocial-login-buttons">
+				<a class="mybtn-social" href="https://www.facebook.com/LIGA-EFA-159057650852892/">
+				<i class="fab fa-facebook-square"></i>Facebook
+				</a>
+				</div>
+			</div>
 	</div>
+		</div>
+	</div>
+	
+
+			
+
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
+
