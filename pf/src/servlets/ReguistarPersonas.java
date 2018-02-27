@@ -72,7 +72,7 @@ public class ReguistarPersonas extends HttpServlet {
 					.getParameter("listaTipoPersona"));
 			TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
 
-			persona.setTipoPersona(catTipoPersona.getTipoEstados(estado));
+			persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
 
 			if (catPersona.auntenticarPersona(persona.getUsuario(),
 					persona.getContraseña()) != null) {

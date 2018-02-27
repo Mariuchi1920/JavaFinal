@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +73,7 @@ public class ListarPersonas extends HttpServlet {
 						+ "/admin/listarInstituciones");
 			}
 
-		} catch (IOException | NumberFormatException ex) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");

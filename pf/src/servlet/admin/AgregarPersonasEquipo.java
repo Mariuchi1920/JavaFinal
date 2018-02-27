@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -82,7 +83,7 @@ public class AgregarPersonasEquipo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/agregarPersonasEquipo");
 			}
-		} catch (IOException | NumberFormatException ex) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/agregarPersonasEquipo");

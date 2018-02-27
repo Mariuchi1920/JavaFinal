@@ -35,89 +35,89 @@ public class EquiposDAO {
 
 	}
 
-	public void nuevoEquipo(Equipo e) {
+	public void nuevoEquipo(Equipo equipo) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT);
 
-			ps.setInt(1, e.getCategorias().getIdCategorias());
-			ps.setInt(2, e.getInstitucion().getIdInstituciones());
-			ps.setString(3, e.getNombreEquipo());
-
-			ps.setInt(4, e.getEntrenador().getIdPersona());
+			ps.setInt(1, equipo.getCategorias().getIdCategorias());
+			ps.setInt(2, equipo.getInstitucion().getIdInstituciones());
+			ps.setString(3, equipo.getNombreEquipo());
+			ps.setInt(4, equipo.getEntrenador().getIdPersona());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 
 	}
 
-	public void editarEquipo(Equipo e) {
+	public void editarEquipo(Equipo equipo) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
-			ps.setInt(1, e.getEntrenador().getIdPersona());
-			ps.setInt(2, e.getCategorias().getIdCategorias());
-			ps.setInt(3, e.getInstitucion().getIdInstituciones());
-			ps.setString(4, e.getNombreEquipo());
+			ps.setInt(1, equipo.getEntrenador().getIdPersona());
+			ps.setInt(2, equipo.getCategorias().getIdCategorias());
+			ps.setInt(3, equipo.getInstitucion().getIdInstituciones());
+			ps.setString(4, equipo.getNombreEquipo());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 	}
 
-	public void eliminarEquipo(Equipo eq) {
+	public void eliminarEquipo(Equipo equipo) throws SQLException {
 		try {
-
-			if (validarEliminar(eq)) {
-
+			if (validarEliminar(equipo)) {
+	
 				PreparedStatement ps = con.prepareStatement(DELETE);
-				ps.setInt(1, eq.getCategorias().getIdCategorias());
-				ps.setInt(2, eq.getInstitucion().getIdInstituciones());
-				ps.setString(3, eq.getNombreEquipo());
+				ps.setInt(1, equipo.getCategorias().getIdCategorias());
+				ps.setInt(2, equipo.getInstitucion().getIdInstituciones());
+				ps.setString(3, equipo.getNombreEquipo());
 				ps.executeUpdate();
 				ps.close();
-
+	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public boolean validarEliminar(Equipo eq) {
+	public boolean validarEliminar(Equipo equipo) throws SQLException {
 
 		boolean respuesta = true;
 
-		EquiposJugadoresDAO jugadores = new EquiposJugadoresDAO();
-		EquiposJugadores eqju = new EquiposJugadores();
-		eqju.setEquipo(eq);
-		eqju.setJugadores(jugadores.listarTodasLosJugadores(eq));
-		if (eqju != null)
+		EquiposJugadoresDAO catEquiposJugadores = new EquiposJugadoresDAO();
+		EquiposJugadores equipoJugadores = new EquiposJugadores();
+		equipoJugadores.setEquipo(equipo);
+		equipoJugadores.setJugadores(catEquiposJugadores.listarTodasLosJugadores(equipo));
+		if (equipoJugadores != null)
 			respuesta = false;
 		if (respuesta) {
-			EquiposTorneoDAO equiTorneo = new EquiposTorneoDAO();
-			LinkedList<EquiposTorneos> listaEquipoTorneo = equiTorneo
-					.buscarporEquipo(eq);
+			EquiposTorneoDAO equipoTorneo = new EquiposTorneoDAO();
+			LinkedList<EquiposTorneos> listaEquipoTorneo = equipoTorneo.buscarporEquipo(equipo);
 			if (listaEquipoTorneo != null && listaEquipoTorneo.size() > 0) {
 				respuesta = false;
 
 			}
 		}
 		if (respuesta) {
-			TorneosDAO cattorno = new TorneosDAO();
-			Torneo torneo = cattorno.buscarPorEquipoGanador(eq);
+			TorneosDAO catTorneo = new TorneosDAO();
+			Torneo torneo = catTorneo.buscarPorEquipoGanador(equipo);
 			if (torneo != null)
 				respuesta = false;
 		}
 		if (respuesta) {
 			PartidoDAO catPartido = new PartidoDAO();
-			LinkedList<Partidos> partido = catPartido.buscarEquipoLocal(eq);
+			LinkedList<Partidos> partido = catPartido.buscarEquipoLocal(equipo);
 			if (partido != null && partido.size() > 0)
 				respuesta = false;
 			if (respuesta) {
-				partido = catPartido.buscarEquipoLocal(eq);
+				partido = catPartido.buscarEquipoLocal(equipo);
 				if (partido != null && partido.size() > 0)
 					respuesta = false;
 			}
@@ -127,32 +127,38 @@ public class EquiposDAO {
 
 	}
 
-	public LinkedList<Equipo> listarTodasLosEquipos() {
-		LinkedList<Equipo> listaCategorias = new LinkedList<Equipo>();
+	public LinkedList<Equipo> listarTodasLosEquipos() throws SQLException {
+		LinkedList<Equipo> listaEquipos = null;
 		try {
 
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTARTOEQUIPOS);
-			while (rs.next()) {
-				Equipo cat = new Equipo();
+			if(rs.next()){
+				listaEquipos = new LinkedList<Equipo>();
+				 do {
+					 Equipo cat = new Equipo();
 
-				popularEquipo(cat, rs);
+						popularEquipo(cat, rs);
 
-				listaCategorias.add(cat);
+						listaEquipos.add(cat);
+				 }while (rs.next());
+				
+			
 			}
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
-		return listaCategorias;
+		return listaEquipos;
 
 	}
 
-	private void popularEquipo(Equipo equipo, ResultSet rs) {
+	private void popularEquipo(Equipo equipo, ResultSet rs) throws SQLException {
 
 		// TODO Auto-generated method stub
-		try {
+	
 			CategoriasDAO categoria = new CategoriasDAO();
 			InstitucionesDAO institucion = new InstitucionesDAO();
 			equipo.setCategorias(categoria.buscarporIdCategoria(rs.getInt(1)));
@@ -161,23 +167,20 @@ public class EquiposDAO {
 			PersonasDAO persona = new PersonasDAO();
 			equipo.setEntrenador(persona.buscarPersonaId(rs.getInt(4)));
 
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		
 	}
 
-	public Equipo buscarporIdsEquipo(Equipo eq) {
-		Equipo equipo = new Equipo();
+	public Equipo buscarporIdsEquipo(Equipo equipoBuscar) throws SQLException {
+		Equipo equipo = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARPORIDS);
-			ps.setInt(1, eq.getCategorias().getIdCategorias());
-			ps.setInt(2, eq.getInstitucion().getIdInstituciones());
-			ps.setString(3, eq.getNombreEquipo());
+			ps.setInt(1, equipoBuscar.getCategorias().getIdCategorias());
+			ps.setInt(2, equipoBuscar.getInstitucion().getIdInstituciones());
+			ps.setString(3, equipoBuscar.getNombreEquipo());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-
+				equipo = new Equipo();
 				popularEquipo(equipo, rs);
 
 			}
@@ -186,76 +189,89 @@ public class EquiposDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return equipo;
 	}
 
-	public LinkedList<Equipo> buscarporIdInstitucion(int institucion) {
-		LinkedList<Equipo> listaCategorias = new LinkedList<Equipo>();
+	public LinkedList<Equipo> buscarporIdInstitucion(int institucion) throws SQLException {
+		LinkedList<Equipo> listaEquipos = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORINSITUCION);
 			ps.setInt(1, institucion);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Equipo equipo = new Equipo();
-				popularEquipo(equipo, rs);
-				listaCategorias.add(equipo);
-
+			if(rs.next()){
+				 listaEquipos = new LinkedList<Equipo>();
+				do{
+					Equipo equipo = new Equipo();
+					popularEquipo(equipo, rs);
+					listaEquipos.add(equipo);
+				}while (rs.next());
 			}
+				
+		
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
-		return listaCategorias;
+		return listaEquipos;
 	}
 
-	public LinkedList<Equipo> buscarporIdEntrenador(int idEntrenador) {
-		LinkedList<Equipo> listaCategorias = new LinkedList<Equipo>();
+	public LinkedList<Equipo> buscarporIdEntrenador(int idEntrenador) throws SQLException {
+		LinkedList<Equipo> listaEquipo = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORENTRENADOR);
 			ps.setInt(1, idEntrenador);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Equipo equipo = new Equipo();
-				popularEquipo(equipo, rs);
-				listaCategorias.add(equipo);
-
+			if(rs.next()){
+				listaEquipo = new LinkedList<Equipo>();
+				do{
+					Equipo equipo = new Equipo();
+					popularEquipo(equipo, rs);
+					listaEquipo.add(equipo);
+				}while (rs.next());
 			}
+			
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
-		return listaCategorias;
+		return listaEquipo;
 	}
 
-	public LinkedList<Equipo> buscarporIdCategoria(int categoria) {
-		LinkedList<Equipo> listaCategorias = new LinkedList<Equipo>();
+	public LinkedList<Equipo> buscarporIdCategoria(int categoria) throws SQLException {
+		LinkedList<Equipo> listaEquipo = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORCATEGORIA);
 			ps.setInt(1, categoria);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				Equipo equipo = new Equipo();
-				popularEquipo(equipo, rs);
-				listaCategorias.add(equipo);
-
+			if(rs.next()){
+				listaEquipo = new LinkedList<Equipo>();
+				do{
+					Equipo equipo = new Equipo();
+					popularEquipo(equipo, rs);
+					listaEquipo.add(equipo);
+				}while (rs.next()) ;
 			}
+			
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
-		return listaCategorias;
+		return listaEquipo;
 	}
 
-	public Equipo buscarporIdsEquipo(int idCategoria, int idInstitucion,
-			String nombre) {
-		Equipo equipo = new Equipo();
+	public Equipo buscarporIdsEquipo(int idCategoria, int idInstitucion, String nombre) throws SQLException {
+		Equipo equipo = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORIDS);
 			ps.setInt(1, idCategoria);
@@ -263,7 +279,7 @@ public class EquiposDAO {
 			ps.setString(3, nombre);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-
+				equipo = new Equipo();
 				popularEquipo(equipo, rs);
 
 			}
@@ -272,6 +288,7 @@ public class EquiposDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return equipo;
 	}

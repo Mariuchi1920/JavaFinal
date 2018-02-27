@@ -21,7 +21,7 @@
 		<form id="myForm" name="myForm" action="" method="post">
 			<table align="center" border="void" cellpadding="5">
 				<tr>
-					<td colspan="7" align="center">Administrador de Torneo</td>
+					<td colspan="8" align="center">Administrador de Torneo</td>
 				</tr>
 				<tr>
 
@@ -30,7 +30,7 @@
 					<td align="center">Fecha Fin</td>
 					<td align="center">Estado</td>
 					<td align="center">Equipo Campeon</td>
-					<td align="center" colspan="2">Accion</td>
+					<td align="center" colspan="3">Accion</td>
 				</tr>
 				<%
 					TorneosDAO torneoDao = new TorneosDAO();
@@ -56,12 +56,16 @@
 						}
 					%>
 					<th><button class="botonEditar"
-							onclick="javascript: editar('/admin/listarTorneoeditar/')"
+							onclick="javascript: editar('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="editar" name="editar">Editar</button>
 					</th>
 					<th><button class="botonEliminar"
-							onclick="javascript: eliminar('/admin/listarTorneoeliminar/')"
+							onclick="javascript: eliminar('/admin/listarTorne/')"
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
+					</th>
+					<th><button class="botonEliminar"
+							onclick="javascript: fixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Fixture</button>
 					</th>
 				</tr>
 				<%

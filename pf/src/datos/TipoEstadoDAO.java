@@ -25,7 +25,7 @@ public class TipoEstadoDAO {
 
 	}
 
-	public void nuevaTipoEstado(TipoEstado tipoEstado) {
+	public void nuevaTipoEstado(TipoEstado tipoEstado) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT);
 			ps.setInt(1, tipoEstado.getIdTipoEstado());
@@ -36,10 +36,11 @@ public class TipoEstadoDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void editarTipoEstado(TipoEstado tipoEstado) {
+	public void editarTipoEstado(TipoEstado tipoEstado) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
 			// ps.setInt(1, cat.getIdcateogria());
@@ -50,10 +51,11 @@ public class TipoEstadoDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void eliminarTipoEstado(TipoEstado tipoEstado) {
+	public void eliminarTipoEstado(TipoEstado tipoEstado) throws SQLException {
 		try {
 
 			PreparedStatement ps = con.prepareStatement(DELETE);
@@ -63,25 +65,31 @@ public class TipoEstadoDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
 	public LinkedList<TipoEstado> getTipoEstados() throws SQLException {
-		LinkedList<TipoEstado> lista = new LinkedList<TipoEstado>();
+		LinkedList<TipoEstado> lista = null;
 
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTARTODATIPOESTADO);
-			while (rs.next()) {
-				TipoEstado cat = new TipoEstado();
-				cat.setIdTipoEstado(rs.getInt(1));
-				cat.setDescripcion(rs.getString(2));
+			if(rs.next()){
+				lista = new LinkedList<TipoEstado>();
+				do{
+					TipoEstado cat = new TipoEstado();
+					cat.setIdTipoEstado(rs.getInt(1));
+					cat.setDescripcion(rs.getString(2));
 
-				lista.add(cat);
+					lista.add(cat);
+				}while (rs.next());
 			}
+			
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return lista;
@@ -90,12 +98,13 @@ public class TipoEstadoDAO {
 
 	public TipoEstado getTipoEstados(int idTipoEstado) throws SQLException {
 
-		TipoEstado categorias = new TipoEstado();
+		TipoEstado categorias = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARTODATIPOESTADOID);
 			ps.setInt(1, idTipoEstado);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
+				categorias = new TipoEstado();
 				categorias.setIdTipoEstado(rs.getInt(1));
 				categorias.setDescripcion(rs.getString(2));
 
@@ -105,6 +114,7 @@ public class TipoEstadoDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return categorias;
 

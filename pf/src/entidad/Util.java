@@ -6,6 +6,9 @@ import java.util.TimeZone;
 
 public class Util {
 
+	
+	public static final int K = 2; 
+	
 	public static Date convertirStringDate(String fechaIngresada) {
 		Date fecha = null;
 
@@ -61,5 +64,44 @@ public class Util {
 		return respuesta;
 
 	}
+	
+	
+	
+	public static int calulcarCantidadJordan(int n) {
+		 int jornadas=1;
+		 
+		 int factoriaN= Util.calcularFactorial(n);
+		 int factorialNK= Util.calcularFactorial(n-K);
+		 int factorialK = Util.calcularFactorial(K);
+		 
+		 int divisor =  factorialNK * factorialK;
+		 
+		 jornadas = factoriaN/divisor;
+		 
+		 
+		 
+		 return jornadas;
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	public static int calcularFactorial(int calcular){
+	 int numero = 1;	
+	 for (int i = 1; i<=calcular;i++){
+		 
+		 numero = numero * i;
+	 }
+		
+	 return numero;
+		
+		
+	}
+	
+
 
 }

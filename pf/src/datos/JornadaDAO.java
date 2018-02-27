@@ -33,7 +33,7 @@ public class JornadaDAO {
 
 	}
 
-	public void nuevaJornada(Jornadas jornada) {
+	public void nuevaJornada(Jornadas jornada) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT);
 			ps.setInt(1, jornada.getTorneos().getIdTorneos());
@@ -44,10 +44,11 @@ public class JornadaDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void editarJornada(Jornadas jornada) {
+	public void editarJornada(Jornadas jornada) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
 			ps.setDate(1, jornada.getFechaDescripcion());
@@ -58,10 +59,11 @@ public class JornadaDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void eliminarJornada(Jornadas jornada) {
+	public void eliminarJornada(Jornadas jornada) throws SQLException {
 		try {
 
 			PartidoDAO catPartido = new PartidoDAO();
@@ -77,104 +79,113 @@ public class JornadaDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public LinkedList<Jornadas> listarTodasLasJornadas() {
-		LinkedList<Jornadas> listaJornadas = new LinkedList<Jornadas>();
+	public LinkedList<Jornadas> listarTodasLasJornadas() throws SQLException {
+		LinkedList<Jornadas> listaJornadas = null;
 		try {
 
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTARTOJORNADA);
-			while (rs.next()) {
-
-				listaJornadas.add(popularJornadas(rs));
+			if(rs.next()){
+				listaJornadas = new LinkedList<Jornadas>();
+				do{
+					listaJornadas.add(popularJornadas(rs));
+				}while (rs.next()) ;
 			}
+			
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listaJornadas;
 
 	}
 
-	public Jornadas buscarIdJornadas(int idJornada) {
-		Jornadas listaJornadas = new Jornadas();
+	public Jornadas buscarIdJornadas(int idJornada) throws SQLException {
+		Jornadas jornada = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARIDJORNADA);
 			ps.setInt(1, idJornada);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaJornadas = popularJornadas(rs);
+			if (rs.next()) {
+				
+				jornada = popularJornadas(rs);
 			}
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
-		return listaJornadas;
+		return jornada;
 
 	}
 
-	public LinkedList<Jornadas> buscarporTorneos(int idTorneo) {
-		LinkedList<Jornadas> listaJornadas = new LinkedList<Jornadas>();
+	public LinkedList<Jornadas> buscarporTorneos(int idTorneo) throws SQLException {
+		LinkedList<Jornadas> listaJornadas = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARPORTORNEO);
 			ps.setInt(1, idTorneo);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaJornadas.add(popularJornadas(rs));
-
+			if(rs.next()){
+				listaJornadas = new LinkedList<Jornadas>();
+				do{
+					listaJornadas.add(popularJornadas(rs));
+				}while (rs.next()) ;
 			}
+			
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return listaJornadas;
 	}
 
-	public LinkedList<Jornadas> buscarporEstado(int idEstado) {
-		LinkedList<Jornadas> listaJornadas = new LinkedList<Jornadas>();
+	public LinkedList<Jornadas> buscarporEstado(int idEstado) throws SQLException {
+		LinkedList<Jornadas> listaJornadas = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARPORESTADO);
 			ps.setInt(1, idEstado);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaJornadas.add(popularJornadas(rs));
-
+			if(rs.next()){
+				 listaJornadas = new LinkedList<Jornadas>();
+				do{
+					listaJornadas.add(popularJornadas(rs));
+				}while (rs.next());
 			}
+			
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return listaJornadas;
 	}
 
-	public Jornadas popularJornadas(ResultSet rs) {
+	public Jornadas popularJornadas(ResultSet rs) throws SQLException {
 
 		Jornadas jornada = new Jornadas();
-		try {
-			jornada.setIdJornadas(rs.getInt(1));
-			TorneosDAO catTorneo = new TorneosDAO();
-			jornada.setTorneos(catTorneo.buscarPorId(rs.getInt(2)));
-			jornada.setFechaDescripcion(rs.getDate(3));
-			TipoEstadoDAO estado = new TipoEstadoDAO();
-			jornada.setEstado(estado.getTipoEstados(rs.getInt(4)));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		jornada.setIdJornadas(rs.getInt(1));
+		TorneosDAO catTorneo = new TorneosDAO();
+		jornada.setTorneos(catTorneo.buscarPorId(rs.getInt(2)));
+		jornada.setFechaDescripcion(rs.getDate(3));
+		TipoEstadoDAO estado = new TipoEstadoDAO();
+		jornada.setEstado(estado.getTipoEstados(rs.getInt(4)));
+		
 		return jornada;
 
 	}

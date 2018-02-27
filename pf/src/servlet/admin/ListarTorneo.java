@@ -1,15 +1,21 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datos.EquiposTorneoDAO;
 import datos.TorneosDAO;
-
+import entidad.EquiposTorneos;
+import entidad.Jornadas;
 import entidad.Torneo;
+import entidad.Util;
 
 /**
  * Servlet implementation class ListarTorneo
@@ -49,24 +55,43 @@ public class ListarTorneo extends HttpServlet {
 		try {
 
 			if (request.getParameter("editar") != null) {
-				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request
-						.getParameter("editar")));
+				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request.getParameter("editar")));
 				request.getSession().setAttribute("editador", tor);
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarTorneo");
 			} else if (request.getParameter("eliminar") != null) {
 				Torneo tor = new Torneo();
-				tor.setIdTorneos(Integer.parseInt(request
-						.getParameter("eliminar")));
+				tor.setIdTorneos(Integer.parseInt(request.getParameter("eliminar")));
 				torneodao.eliminarTorneo(tor);
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarTorneo");
+				response.sendRedirect(request.getContextPath()+ "/admin/listarTorneo");
 
-			} else {
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarTorneo");
+			} if (request.getParameter("fixture") != null) {
+			    
+				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request.getParameter("fixture")));
+				EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+				LinkedList<EquiposTorneos> equipoTorneo= catEquipoTorneo.buscarporTorneo(tor);
+				if(equipoTorneo!=null && equipoTorneo.size()>0){
+					int cantidad = equipoTorneo.size();
+					if(cantidad >2){
+						///int jornadas = Util.calulcarCantidadJordan(cantidad);
+						
+						LinkedList<Jornadas> jornadas =  Jornadas.generarJornadas(equipoTorneo);
+						
+						for(int i=0; i<jornadas.size(); i++){
+							for(int j =0 ; j<jornadas.get(i).getPartidos().size();j++ ){
+							    System.out.println(jornadas.get(i).getPartidos().get(j).getEquipoVisitante()  );
+							    System.out.println(jornadas.get(i).getPartidos().get(j).getEquipoLocal() +"\n" );
+							}
+						}
+						
+						
+					}
+				}
+				response.sendRedirect(request.getContextPath()+ "/admin/listarTorneo");
+				
+
 			}
-		} catch (IOException | NumberFormatException ex) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarTorneo");

@@ -28,16 +28,16 @@ public class EquiposJugadoresDAO {
 
 	}
 
-	public void nuevoJugadoresEquipo(EquiposJugadores e) {
+	public void nuevoJugadoresEquipo(EquiposJugadores equipoJugador) throws SQLException {
 		try {
-			for (int i = 0; i < e.getJugadores().size(); i++) {
+			for (int i = 0; i < equipoJugador.getJugadores().size(); i++) {
 				PreparedStatement ps = con.prepareStatement(INSERT);
 
-				ps.setInt(1, e.getJugadores().get(i).getIdPersona());
-				ps.setInt(2, e.getEquipo().getCategorias().getIdCategorias());
-				ps.setInt(3, e.getEquipo().getInstitucion()
+				ps.setInt(1, equipoJugador.getJugadores().get(i).getIdPersona());
+				ps.setInt(2, equipoJugador.getEquipo().getCategorias().getIdCategorias());
+				ps.setInt(3, equipoJugador.getEquipo().getInstitucion()
 						.getIdInstituciones());
-				ps.setString(4, e.getEquipo().getNombreEquipo());
+				ps.setString(4, equipoJugador.getEquipo().getNombreEquipo());
 
 				ps.executeUpdate();
 				ps.close();
@@ -45,208 +45,177 @@ public class EquiposJugadoresDAO {
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 
 	}
 
-	public void nuevoJugadorEquipo(EquiposJugadores e, Persona jugador) {
+	public void nuevoJugadorEquipo(EquiposJugadores equipoJugador, Persona jugador) throws SQLException {
 		try {
 
 			PreparedStatement ps = con.prepareStatement(INSERT);
 
 			ps.setInt(1, jugador.getIdPersona());
-			ps.setInt(2, e.getEquipo().getCategorias().getIdCategorias());
-			ps.setInt(3, e.getEquipo().getInstitucion().getIdInstituciones());
-			ps.setString(4, e.getEquipo().getNombreEquipo());
+			ps.setInt(2, equipoJugador.getEquipo().getCategorias().getIdCategorias());
+			ps.setInt(3, equipoJugador.getEquipo().getInstitucion().getIdInstituciones());
+			ps.setString(4, equipoJugador.getEquipo().getNombreEquipo());
 
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 
 	}
 
-	public void editarJugadoresEquipos(EquiposJugadores e) {
+	public void editarJugadoresEquipos(EquiposJugadores equipoJugador) throws SQLException {
 		try {
-			for (int i = 0; i < e.getJugadores().size(); i++) {
+			for (int i = 0; i < equipoJugador.getJugadores().size(); i++) {
 				PreparedStatement ps = con.prepareStatement(EDITAR);
-				ps.setInt(1, e.getJugadores().get(i).getIdPersona());
-				ps.setInt(2, e.getEquipo().getCategorias().getIdCategorias());
-				ps.setInt(3, e.getEquipo().getInstitucion()
+				ps.setInt(1, equipoJugador.getJugadores().get(i).getIdPersona());
+				ps.setInt(2, equipoJugador.getEquipo().getCategorias().getIdCategorias());
+				ps.setInt(3, equipoJugador.getEquipo().getInstitucion()
 						.getIdInstituciones());
-				ps.setString(4, e.getEquipo().getNombreEquipo());
+				ps.setString(4, equipoJugador.getEquipo().getNombreEquipo());
 				ps.executeUpdate();
 				ps.close();
 			}
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 	}
 
-	public void editarJugadorEquipo(EquiposJugadores e, Persona jugador) {
+	public void editarJugadorEquipo(EquiposJugadores equipoJugador, Persona jugador) throws SQLException {
 		try {
 
 			PreparedStatement ps = con.prepareStatement(EDITAR);
 			ps.setInt(1, jugador.getIdPersona());
-			ps.setInt(2, e.getEquipo().getCategorias().getIdCategorias());
-			ps.setInt(3, e.getEquipo().getInstitucion().getIdInstituciones());
-			ps.setString(4, e.getEquipo().getNombreEquipo());
+			ps.setInt(2, equipoJugador.getEquipo().getCategorias().getIdCategorias());
+			ps.setInt(3, equipoJugador.getEquipo().getInstitucion().getIdInstituciones());
+			ps.setString(4, equipoJugador.getEquipo().getNombreEquipo());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 	}
 
-	public void eliminarJugadoresEquipo(EquiposJugadores e) {
+	public void eliminarJugadoresEquipo(EquiposJugadores equipoJugador) throws SQLException {
 		try {
 
-			for (int i = 0; i < e.getJugadores().size(); i++) {
+			for (int i = 0; i < equipoJugador.getJugadores().size(); i++) {
 				PreparedStatement ps = con.prepareStatement(DELETE);
-				ps.setInt(1, e.getJugadores().get(i).getIdPersona());
-				ps.setInt(2, e.getEquipo().getCategorias().getIdCategorias());
-				ps.setInt(3, e.getEquipo().getInstitucion()
+				ps.setInt(1, equipoJugador.getJugadores().get(i).getIdPersona());
+				ps.setInt(2, equipoJugador.getEquipo().getCategorias().getIdCategorias());
+				ps.setInt(3, equipoJugador.getEquipo().getInstitucion()
 						.getIdInstituciones());
-				ps.setString(4, e.getEquipo().getNombreEquipo());
+				ps.setString(4, equipoJugador.getEquipo().getNombreEquipo());
 				ps.executeUpdate();
 				ps.close();
 			}
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 	}
 
-	public void eliminarJugadorEquipo(EquiposJugadores e, Persona jugador) {
+	public void eliminarJugadorEquipo(EquiposJugadores equipoJugador, Persona jugador) throws SQLException {
 		try {
 
 			PreparedStatement ps = con.prepareStatement(DELETE);
 			ps.setInt(1, jugador.getIdPersona());
-			ps.setInt(2, e.getEquipo().getCategorias().getIdCategorias());
-			ps.setInt(3, e.getEquipo().getInstitucion().getIdInstituciones());
-			ps.setString(4, e.getEquipo().getNombreEquipo());
+			ps.setInt(2, equipoJugador.getEquipo().getCategorias().getIdCategorias());
+			ps.setInt(3, equipoJugador.getEquipo().getInstitucion().getIdInstituciones());
+			ps.setString(4, equipoJugador.getEquipo().getNombreEquipo());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 	}
 
-	public LinkedList<Persona> listarTodasLosJugadores(Equipo e) {
-		LinkedList<Persona> listaPersona = new LinkedList<Persona>();
+	public LinkedList<Persona> listarTodasLosJugadores(Equipo equipo) throws SQLException {
+		LinkedList<Persona> listaPersona = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARJUGADORESEQUIPO);
-			ps.setInt(1, e.getCategorias().getIdCategorias());
-			ps.setInt(2, e.getInstitucion().getIdInstituciones());
-			ps.setString(3, e.getNombreEquipo());
+			ps.setInt(1, equipo.getCategorias().getIdCategorias());
+			ps.setInt(2, equipo.getInstitucion().getIdInstituciones());
+			ps.setString(3, equipo.getNombreEquipo());
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaPersona.add(popularPersona(rs));
+			
+			if(rs.next()){
+				listaPersona = new LinkedList<Persona>();
+				do{
+					listaPersona.add(popularPersona(rs));
+				}while (rs.next()) ;
 			}
+		
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listaPersona;
 
 	}
 
-	public LinkedList<Equipo> listarTodasLosEquipos(Persona e) {
-		LinkedList<Equipo> listaEquipos = new LinkedList<Equipo>();
+	public LinkedList<Equipo> listarTodasLosEquipos(Persona jugador) throws SQLException {
+		LinkedList<Equipo> listaEquipos = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTAREQUIPOJUGADOR);
-			ps.setInt(1, e.getIdPersona());
+			ps.setInt(1, jugador.getIdPersona());
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaEquipos.add(popularEquipo(rs));
+			if(rs.next()){
+				listaEquipos = new LinkedList<Equipo>();
+				do{
+					listaEquipos.add(popularEquipo(rs));
+				}while (rs.next()) ;
 			}
+		
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listaEquipos;
 
 	}
 
-	/*
-	 * public LinkedList<EquiposJugadores> listarTodasLosEquiposJugadores(Equipo
-	 * e){ LinkedList<EquiposJugadores>listaEquipos= new
-	 * LinkedList<EquiposJugadores>(); try{
-	 * 
-	 * PreparedStatement ps= con.prepareStatement(LISTAREQJU);
-	 * ps.setInt(1,e.getCategorias().getIdCategorias()); ps.setInt(2,
-	 * e.getInstitucion().getIdInstituciones());
-	 * ps.setString(3,e.getNombreEquipo()); ResultSet rs= ps.executeQuery();
-	 * while(rs.next()) {
-	 * 
-	 * listaEquipos.add(popularEquipo(rs)); } }catch (SQLException ex) { //
-	 * TODO: handle exception ex.printStackTrace(); }
-	 * 
-	 * return listaEquipos;
-	 * 
-	 * }
-	 */
-
-	public Persona popularPersona(ResultSet rs) {
+	public Persona popularPersona(ResultSet rs) throws SQLException {
 
 		Persona persona = null;
-		try {
-			PersonasDAO catPersona = new PersonasDAO();
-			persona = catPersona.buscarPersonaId(rs.getInt(1));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
+		PersonasDAO catPersona = new PersonasDAO();
+		persona = catPersona.buscarPersonaId(rs.getInt(1));
+		
 		return persona;
 
 	}
 
-	public Equipo popularEquipo(ResultSet rs) {
+	public Equipo popularEquipo(ResultSet rs) throws SQLException {
 
 		Equipo equipo = null;
-		try {
-			EquiposDAO catEquipo = new EquiposDAO();
-
-			equipo = catEquipo.buscarporIdsEquipo(rs.getInt(1), rs.getInt(2),
-					rs.getString(3));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
+		EquiposDAO catEquipo = new EquiposDAO();
+	
+		equipo = catEquipo.buscarporIdsEquipo(rs.getInt(1), rs.getInt(2),rs.getString(3));
+		
 		return equipo;
 
 	}
 
-	/*
-	 * public EquiposJugadores populEquiposJugadores(ResultSet rs){
-	 * 
-	 * Equipo equipo= null; Persona persona= null; EquiposJugadores eqJ=null;
-	 * try { EquiposDAO catEquipo = new EquiposDAO();
-	 * 
-	 * equipo
-	 * =catEquipo.buscarporIdsEquipo(rs.getInt(2),rs.getInt(3),rs.getString(4));
-	 * PersonasDAO catPersona = new PersonasDAO(); persona
-	 * =catPersona.buscarPersonaId(rs.getInt(1)); EquiposJugadores
-	 * 
-	 * } catch (SQLException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
 
 }

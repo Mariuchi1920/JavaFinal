@@ -30,14 +30,12 @@ public class EquiposTorneoDAO {
 
 	}
 
-	public void nuevoEquipoTorneo(EquiposTorneos equipoTorneo) {
+	public void nuevoEquipoTorneo(EquiposTorneos equipoTorneo) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT);
 
-			ps.setInt(1, equipoTorneo.getEquipos().getCategorias()
-					.getIdCategorias());
-			ps.setInt(2, equipoTorneo.getEquipos().getInstitucion()
-					.getIdInstituciones());
+			ps.setInt(1, equipoTorneo.getEquipos().getCategorias().getIdCategorias());
+			ps.setInt(2, equipoTorneo.getEquipos().getInstitucion().getIdInstituciones());
 			ps.setString(3, equipoTorneo.getEquipos().getNombreEquipo());
 			ps.setInt(4, equipoTorneo.getTorneo().getIdTorneos());
 
@@ -45,12 +43,14 @@ public class EquiposTorneoDAO {
 			ps.close();
 
 		} catch (SQLException e1) {
+			
 			e1.printStackTrace();
+			throw e1;
 		}
 
 	}
 
-	public void eliminarEquipoTorneo(EquiposTorneos equipoTorneo) {
+	public void eliminarEquipoTorneo(EquiposTorneos equipoTorneo) throws SQLException {
 		try {
 
 			PreparedStatement ps = con.prepareStatement(DELETE);
@@ -65,88 +65,94 @@ public class EquiposTorneoDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public LinkedList<EquiposTorneos> listarTodasLosEquipoTorneo() {
-		LinkedList<EquiposTorneos> listaEquiposTorneo = new LinkedList<EquiposTorneos>();
+	public LinkedList<EquiposTorneos> listarTodasLosEquipoTorneo() throws SQLException {
+		LinkedList<EquiposTorneos> listaEquiposTorneo = null;
 		try {
 
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTARIDS);
-			while (rs.next()) {
-
-				listaEquiposTorneo.add(popularEquipoTorneo(rs));
-
+			if(rs.next()){
+				 listaEquiposTorneo = new LinkedList<EquiposTorneos>();
+				do{
+					listaEquiposTorneo.add(popularEquipoTorneo(rs));
+					
+				}while (rs.next()) ;
 			}
+			
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listaEquiposTorneo;
 
 	}
 
-	public LinkedList<EquiposTorneos> buscarporEquipo(Equipo eq) {
-		LinkedList<EquiposTorneos> listaEquiposTorneo = new LinkedList<EquiposTorneos>();
+	public LinkedList<EquiposTorneos> buscarporEquipo(Equipo equipo) throws SQLException {
+		LinkedList<EquiposTorneos> listaEquiposTorneo = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARPOREQUIPO);
-			ps.setInt(1, eq.getCategorias().getIdCategorias());
-			ps.setInt(2, eq.getInstitucion().getIdInstituciones());
-			ps.setString(3, eq.getNombreEquipo());
+			ps.setInt(1, equipo.getCategorias().getIdCategorias());
+			ps.setInt(2, equipo.getInstitucion().getIdInstituciones());
+			ps.setString(3, equipo.getNombreEquipo());
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaEquiposTorneo.add(popularEquipoTorneo(rs));
-
+			if(rs.next()){
+				 listaEquiposTorneo = new LinkedList<EquiposTorneos>();
+				do{
+					listaEquiposTorneo.add(popularEquipoTorneo(rs));
+					
+				}while (rs.next());
 			}
+			 
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return listaEquiposTorneo;
 	}
 
-	public LinkedList<EquiposTorneos> buscarporTorneo(Torneo torneo) {
-		LinkedList<EquiposTorneos> listaEquiposTorneo = new LinkedList<EquiposTorneos>();
+	public LinkedList<EquiposTorneos> buscarporTorneo(Torneo torneo) throws SQLException {
+		LinkedList<EquiposTorneos> listaEquiposTorneo = null;
 		try {
 
 			PreparedStatement ps = con.prepareStatement(LISTARPORTORNEO);
 			ps.setInt(1, torneo.getIdTorneos());
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaEquiposTorneo.add(popularEquipoTorneo(rs));
-
+			if(rs.next()){
+				listaEquiposTorneo = new LinkedList<EquiposTorneos>();
+				do{
+					listaEquiposTorneo.add(popularEquipoTorneo(rs));
+				}	while (rs.next()) ;
 			}
+		
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return listaEquiposTorneo;
 	}
 
-	public EquiposTorneos popularEquipoTorneo(ResultSet rs) {
+	public EquiposTorneos popularEquipoTorneo(ResultSet rs) throws SQLException {
 
 		EquiposTorneos equipoTorneo = new EquiposTorneos();
 		EquiposDAO catEquipo = new EquiposDAO();
 		TorneosDAO catTorneo = new TorneosDAO();
 
-		try {
-			equipoTorneo.setEquipos(catEquipo.buscarporIdsEquipo(rs.getInt(1),
-					rs.getInt(2), rs.getString(3)));
-			equipoTorneo.setTorneo(catTorneo.buscarPorId(rs.getInt(4)));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		equipoTorneo.setEquipos(catEquipo.buscarporIdsEquipo(rs.getInt(1),rs.getInt(2), rs.getString(3)));
+		equipoTorneo.setTorneo(catTorneo.buscarPorId(rs.getInt(4)));
+		
 		return equipoTorneo;
 
 	}
