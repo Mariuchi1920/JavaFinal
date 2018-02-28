@@ -59,8 +59,14 @@ public class JornadaDAO {
 			ps.setInt(1, jornada.getTorneos().getIdTorneos());
 			ps.setDate(2, jornada.getFechaDescripcion());
 			ps.setInt(3, jornada.getEstado().getIdTipoEstado());
-			 affectedRows = ps.executeUpdate();
+			
+			
 			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			
+			if(rs.next()){
+				affectedRows = rs.getInt(1) ;
+			}
 			
 			ps.close();
 
