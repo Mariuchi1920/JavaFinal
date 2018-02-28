@@ -50,33 +50,28 @@ public class AgregarEquiposTorneos extends HttpServlet {
 
 		try {
 
-			String equipoBuscar = request.getParameter("listaEquipos");
-			String[] aux = equipoBuscar.split("/");
+			
 			EquiposDAO equi = new EquiposDAO();
-			Equipo equipo = equi.buscarporIdsEquipo(Integer.parseInt(aux[1]),
-					Integer.parseInt(aux[0]), aux[2]);
 			EquiposTorneoDAO equipoE = new EquiposTorneoDAO();
 			EquiposTorneos eqTor = new EquiposTorneos();
-			eqTor.setTorneo(((Torneo) request.getSession().getAttribute(
-					"editador")));
+			eqTor.setTorneo(((Torneo) request.getSession().getAttribute("editador")));
 			if (request.getParameter("editar") != null) {
+				String equipoBuscar = request.getParameter("listaEquipos");
+				String[] aux = equipoBuscar.split("/");
+				Equipo equipo = equi.buscarporIdsEquipo(Integer.parseInt(aux[1]),
+						Integer.parseInt(aux[0]), aux[2]);
 				eqTor.setEquipos(equipo);
 				equipoE.nuevoEquipoTorneo(eqTor);
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/agregarEquiposTorneos");
+				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			} else if (request.getParameter("eliminar") != null) {
 				EquiposDAO catEquipo = new EquiposDAO();
 				String[] aux1 = request.getParameter("eliminar").split("/");
-				Equipo equipo1 = equi.buscarporIdsEquipo(
-						Integer.parseInt(aux[1]), Integer.parseInt(aux[0]),
-						aux[2]);
+				Equipo equipo1 = equi.buscarporIdsEquipo(Integer.parseInt(aux1[1].trim()), Integer.parseInt(aux1[0].trim()),aux1[2].trim());
 				eqTor.setEquipos(equipo1);
 				equipoE.eliminarEquipoTorneo(eqTor);
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/agregarEquiposTorneos");
-			} else {
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/agregarEquiposTorneos");
+				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
+			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
+				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

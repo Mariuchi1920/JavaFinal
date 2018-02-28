@@ -182,7 +182,7 @@
 						<%
 							TipoPersonaDAO catPersona = new TipoPersonaDAO();
 							TipoPersona persona = new TipoPersona();
-							LinkedList<TipoPersona> listaPersona = catPersona.getTipoEstados();
+							LinkedList<TipoPersona> listaPersona = catPersona.getTipoPersonas();
 						%> <select align="center" name="listaTipoPersona"
 						id="listaTipoPersona">
 

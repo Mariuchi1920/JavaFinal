@@ -46,7 +46,7 @@
 	TipoEstado estado = new TipoEstado();
 	Equipo equipoCampeon=null;
 	EquiposTorneoDAO catEqTor = new EquiposTorneoDAO();
-	LinkedList<EquiposTorneos> listarEqTorneo = new LinkedList<EquiposTorneos>(); 
+	LinkedList<EquiposTorneos> listarEqTorneo = null; 
 	
 	TorneosDAO torDao= new TorneosDAO();
 
@@ -97,11 +97,12 @@
 				  
 					<%
 					   for(EquiposTorneos equipo : listarEqTorneo){%>
-						   
+						<tr>   
 						  <td > <%= equipo.getEquipos().getInstitucion().getNombre() %>-<%= equipo.getEquipos().getCategorias().getAñoCategoria() %>-<%= equipo.getEquipos().getNombreEquipo() %></td>
-						   <td ><button onclick="javascript: eliminar'${pageContext.request.contextPath}/admin/agregarEquiposTorneos')"
+						   <td ><button onclick="javascript: eliminar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
 				               id="eliminar" value=" <%= equipo.getEquipos().getInstitucion().getIdInstituciones() %>/<%= equipo.getEquipos().getCategorias().getIdCategorias() %>/<%= equipo.getEquipos().getNombreEquipo() %>" name="eliminar">Eliminar
 						   </button> </td>
+						</tr>
 						   <%  }
 					    %>
 
@@ -117,7 +118,19 @@
 				   <%  }
 					    %>
 			
-				<tr>
+				
+ 						
+					 <% 
+					 EquiposDAO catEquipos = new EquiposDAO();
+					 LinkedList<Equipo> listarEquipos = catEquipos.listarTodasLosEquipos();
+					 if(listarEquipos!=null && listarEquipos.size()>0){ 
+						 int cantidad =0;
+						 if(listarEqTorneo != null ){
+							 cantidad=listarEqTorneo.size() ;
+						 }
+					     if(cantidad < listarEquipos.size() ){ %>
+					 
+					 <tr>
 				  
 				  
 					<td colspan="2"> Equipos </td>
@@ -132,36 +145,37 @@
 				<tr>
 					
                         <td>
- 				
 
 					</select>
 					
 					   <select name="listaEquipos" id="listaEquipos">
 							<%
-							  EquiposDAO catEquipos = new EquiposDAO();
-							  LinkedList<Equipo> listarEquipos = catEquipos.listarTodasLosEquipos();
-							  for(EquiposTorneos i :listarEqTorneo)
-							  listarEquipos.remove(i.getEquipos());
-							  if(listarEquipos!=null && listarEquipos.size()>0){ 
+							  
+							if(listarEqTorneo!=null){
+								for(EquiposTorneos i :listarEqTorneo){
+									listarEquipos = Equipo.removeEquipoLista(listarEquipos , i.getEquipos());
+								}
+							}
+							  
 							    for(Equipo te :listarEquipos){ %>
-								  
-								  <option value="<%= te.getInstitucion().getIdInstituciones() %>/<%= te.getCategorias().getIdCategorias() %>/<%= te.getNombreEquipo() %>"><%= te.getInstitucion().getNombre() %>-<%= te.getCategorias().getAñoCategoria() %>-<%= te.getNombreEquipo() %></option>
-								  
-								  <% }} %>
+									  
+							             <option value="<%= te.getInstitucion().getIdInstituciones() %>/<%= te.getCategorias().getIdCategorias() %>/<%= te.getNombreEquipo() %>"><%= te.getInstitucion().getNombre() %>-<%= te.getCategorias().getAñoCategoria() %>-<%= te.getNombreEquipo() %></option>
+							    
+									  <% } %>
 
 					</select>
 					
-					
+					 
 
 
 					</td>
 					<td>
 				  <button 
-				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos')"
+				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
 				   id="editar" value="editar" name="editar">Agregar</button>
 				</td>
 				</tr>
-				
+				<% }} %>
 				
 			</table>
 

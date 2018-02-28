@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import datos.EquiposTorneoDAO;
 import datos.TorneosDAO;
 import entidad.EquiposTorneos;
+import entidad.FixtureTorneo;
 import entidad.Jornadas;
 import entidad.Torneo;
 import entidad.Util;
@@ -74,16 +75,17 @@ public class ListarTorneo extends HttpServlet {
 					int cantidad = equipoTorneo.size();
 					if(cantidad >2){
 						///int jornadas = Util.calulcarCantidadJordan(cantidad);
-						
-						LinkedList<Jornadas> jornadas =  Jornadas.generarJornadas(equipoTorneo);
-						
-						for(int i=0; i<jornadas.size(); i++){
-							for(int j =0 ; j<jornadas.get(i).getPartidos().size();j++ ){
-							    System.out.println(jornadas.get(i).getPartidos().get(j).getEquipoVisitante()  );
-							    System.out.println(jornadas.get(i).getPartidos().get(j).getEquipoLocal() +"\n" );
+						 FixtureTorneo.generarFixture(equipoTorneo);
+						/*LinkedList<FixtureTorneo> jornadaPartidos =  FixtureTorneo.generarJornadas(equipoTorneo);
+						if(jornadaPartidos!=null){
+							for(int i=0; i<jornadaPartidos.size(); i++){
+								for(int j =0 ; j<jornadaPartidos.get(i).getPartidos().size();j++ ){
+									System.out.println(" Jornada " +i);
+								    System.out.println(" VISITANTE: " + jornadaPartidos.get(i).getPartidos().get(j).getEquipoVisitante().getNombreEquipo()  );
+								    System.out.println(" LOCAL " +jornadaPartidos.get(i).getPartidos().get(j).getEquipoLocal().getNombreEquipo() +"\n" );
+								}
 							}
-						}
-						
+						}*/
 						
 					}
 				}

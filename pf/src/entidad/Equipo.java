@@ -1,5 +1,7 @@
 package entidad;
 
+import java.util.LinkedList;
+
 
 
 public class Equipo {
@@ -34,6 +36,43 @@ public class Equipo {
 	}
 	public void setEntrenador(Persona entrenador) {
 		this.entrenador = entrenador;
+	}
+	
+	
+	
+	public static boolean ifIgualDosEquipos (Equipo equipo1,Equipo equipo2 ){
+		boolean  repuesta = false;
+		if(equipo1.getCategorias().getIdCategorias() ==  equipo2.getCategorias().getIdCategorias()){
+			if(equipo1.getInstitucion().getIdInstituciones() ==  equipo2.getInstitucion().getIdInstituciones()){
+				if(equipo1.getNombreEquipo().equals(equipo2.getNombreEquipo())){
+					repuesta = true;
+					
+				}
+			}
+			
+		}
+		
+		
+		return repuesta;
+		
+	}
+	
+	
+	
+	public static LinkedList<Equipo> removeEquipoLista (LinkedList<Equipo> listaequipos,Equipo equipo2 ){
+		LinkedList<Equipo> lista = listaequipos;
+		
+		for (int i = 0; i < lista.size(); i++) {
+			
+			if(Equipo.ifIgualDosEquipos(lista.get(i), equipo2)){
+				lista.remove(i);
+			}
+			
+		}
+		
+		
+		return lista;
+		
 	}
 	
 	

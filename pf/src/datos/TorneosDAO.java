@@ -20,6 +20,7 @@ public class TorneosDAO {
 	private String INSERT = "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
 	private String DELETE = "delete from torneos where idTorneos=?;";
 	private String EDITAR = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=? ,idCategoriaCampeon=?, tidIntitucionCampeon=?,nombreEquipoCampeon=? where idTorneos=?";
+	private String EDITARSINEQUIPO = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=?  where idTorneos=?";
 	private String LISTATORNEO = "select * from torneos";
 	private String LISTARPORCODIGOTORNEO = "select * from torneos where idTorneos=?;";
 	private String BUSCARTORNEOGANADOR = "select * from torneos where idCategoriaCampeon=? and idIntitucionCampeon=? and nombreEquipoCampeon=?;";
@@ -52,18 +53,49 @@ public class TorneosDAO {
 			throw e;
 		}
 	}
-
 	public void modificarTorneo(Torneo torneo) throws SQLException {
+		if(torneo.getEquipoGanador()!=null){
+			modificarTorneoConEqupoGanador(torneo);
+		}else{
+			modificarTorneoSinEquipoGanador(torneo);
+		}
+
+	}
+	
+	public void modificarTorneoConEqupoGanador(Torneo torneo) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
 			ps.setString(1, torneo.getNombre());
 			ps.setDate(2, torneo.getFechaInicio());
 			ps.setDate(3, torneo.getFechaFin());
 			ps.setInt(4, torneo.getEstado().getIdTipoEstado());
+			
 			ps.setInt(5, torneo.getEquipoGanador().getCategorias().getIdCategorias());
 			ps.setInt(6, torneo.getEquipoGanador().getInstitucion().getIdInstituciones());
 			ps.setString(7, torneo.getEquipoGanador().getNombreEquipo());
+			
 			ps.setInt(8, torneo.getIdTorneos());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+
+	}
+	
+
+	public void modificarTorneoSinEquipoGanador(Torneo torneo) throws SQLException {
+		try {
+			PreparedStatement ps = con.prepareStatement(EDITARSINEQUIPO);
+			ps.setString(1, torneo.getNombre());
+			ps.setDate(2, torneo.getFechaInicio());
+			ps.setDate(3, torneo.getFechaFin());
+			ps.setInt(4, torneo.getEstado().getIdTipoEstado());	
+			
+			
+			ps.setInt(5, torneo.getIdTorneos());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {

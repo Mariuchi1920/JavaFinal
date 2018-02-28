@@ -21,6 +21,10 @@ public class PartidoDAO {
 			+ "nombreEquipoLocal,idCategoriasVisitante,idIntitucionesVisitante,nombreEquipoVisitante,golesVisitante ,"
 			+ "golesLocales, idTipoEstado,observaciones, hora)"
 			+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	
+	private String INSERTSINGOL = "insert into partidos (idJornadas,idArbrito, idCategoriasLocal, idIntitucionesLocal,"
+			+ "nombreEquipoLocal,idCategoriasVisitante,idIntitucionesVisitante,nombreEquipoVisitante, idTipoEstado, hora)"
+			+ "values (?,?,?,?,?,?,?,?,?,?)";
 	private String DELETE = "delete from partidos where idPartidos=? ";
 	private String EDITAR = "update partidos set golesVisitante= ?,golesLocales=? , idTipoEstado=?, observaciones=?,hora=?  where idPartidos=?";
 	private String LISTARTOPARTIDOS = "select * from partidos";
@@ -57,6 +61,32 @@ public class PartidoDAO {
 			ps.setInt(11, partido.getEstado().getIdTipoEstado());
 			ps.setString(12, partido.getObservaciones());
 			ps.setTime(12, partido.getHora());
+
+			ps.executeUpdate();
+			ps.close();
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			throw e1;
+		}
+
+	}
+	
+	
+	public void nuevoPartidoSINGOL(Partidos partido) throws SQLException {
+		try {
+			PreparedStatement ps = con.prepareStatement(INSERTSINGOL);
+
+			ps.setInt(1, partido.getJornada().getIdJornadas());
+			ps.setInt(2, partido.getArbrito().getIdPersona());
+			ps.setInt(3, partido.getEquipoLocal().getCategorias().getIdCategorias());
+			ps.setInt(4, partido.getEquipoLocal().getInstitucion().getIdInstituciones());
+			ps.setString(5, partido.getEquipoLocal().getNombreEquipo());
+			ps.setInt(6, partido.getEquipoVisitante().getCategorias().getIdCategorias());
+			ps.setInt(7, partido.getEquipoVisitante().getInstitucion().getIdInstituciones());
+			ps.setString(8, partido.getEquipoVisitante().getNombreEquipo());
+			ps.setInt(9, partido.getEstado().getIdTipoEstado());
+			ps.setTime(10, partido.getHora());
 
 			ps.executeUpdate();
 			ps.close();

@@ -196,7 +196,7 @@
 					
 				
 			<%
-			   if(fechaI!=null && Util.compararFechaConHoy(fechaI)){
+			   if(fechaI!=null && !Util.compararFechaConHoy(fechaI)){
 			    
 			   
 			%>

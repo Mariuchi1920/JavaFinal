@@ -9,6 +9,38 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Listar Torneo</title>
 </head>
+
+<script type="text/javascript">
+	
+	function editar(met) {
+		
+		document.myform.fixture.value="" ;
+	    document.myform.eliminar.value="";  
+	    document.myForm.action=met;
+		
+    }
+	
+	function eliminar(met) {
+		if(confirm("Estas seguro de eliminar el Torneo?")){
+		
+			document.myform.fixture.value="";
+			document.myform.editar.value=""  ;
+		    document.myForm.action=met;
+		};
+    }
+	
+	function fixture(met) {
+		if(confirm("Estas seguro de realizar el Fixture?")){
+			document.myform.editar.value="" ;
+		    document.myform.eliminar.value="";  
+		    document.myForm.action=met;
+		};
+    }
+
+	
+	</script>
+
+
 <body>
 	<div id="contenedor">
 
@@ -44,7 +76,7 @@
 					<td><%=t.getFechaFin()%></td>
 					<td><%=t.getEstado().getDescripcion()%></td>
 					<%
-						if (t.getEquipoGanador().getInstitucion() != null) {
+						if (t.getEquipoGanador() != null) {
 					%>
 					<td><%=t.getEquipoGanador().getInstitucion().getNombre()%>-
 						<%=t.getEquipoGanador().getCategorias().getAñoCategoria()%> - <%=t.getEquipoGanador().getNombreEquipo() %> </td>

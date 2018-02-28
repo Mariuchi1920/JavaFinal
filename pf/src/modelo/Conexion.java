@@ -20,7 +20,7 @@ public class Conexion {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/baseligaefe",userDb, passDb);
-			System.out.println("Se ha conectado a la base:"+ dataBases);
+		//	System.out.println("Se ha conectado a la base:"+ dataBases);
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("ERROR"+e);

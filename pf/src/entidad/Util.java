@@ -1,6 +1,7 @@
 package entidad;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -16,8 +17,7 @@ public class Util {
 
 		String[] aux = fechaIngresada.split("-");
 
-		calendario.setTimeZone(TimeZone
-				.getTimeZone("America/Argentina/Buenos_Aires"));
+		calendario.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
 		calendario.set(Calendar.DAY_OF_MONTH, Integer.parseInt(aux[2]));
 		calendario.set(Calendar.MONTH, Integer.parseInt(aux[1]) - 1);
 		calendario.set(Calendar.YEAR, Integer.parseInt(aux[0]));
@@ -30,14 +30,9 @@ public class Util {
 
 	public static Date recuperarHoraActualStringDate() {
 		Date fecha = null;
-
 		Calendar calendario = Calendar.getInstance();
-
-		calendario.setTimeZone(TimeZone
-				.getTimeZone("America/Argentina/Buenos_Aires"));
-
+		calendario.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
 		fecha = new Date(calendario.getTimeInMillis());
-
 		return fecha;
 
 	}
@@ -48,15 +43,12 @@ public class Util {
 		Calendar calendario = Calendar.getInstance();
 		String[] aux = String.valueOf(date).split("-");
 
-		calendario.setTimeZone(TimeZone
-				.getTimeZone("America/Argentina/Buenos_Aires"));
+		calendario.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
 		calendario.set(Calendar.DAY_OF_MONTH, Integer.parseInt(aux[2]));
 		calendario.set(Calendar.MONTH, Integer.parseInt(aux[1]) - 1);
 		calendario.set(Calendar.YEAR, Integer.parseInt(aux[0]));
-
 		Calendar calendarioHoy = Calendar.getInstance();
-		calendarioHoy.setTimeZone(TimeZone
-				.getTimeZone("America/Argentina/Buenos_Aires"));
+		calendarioHoy.setTimeZone(TimeZone.getTimeZone("America/Argentina/Buenos_Aires"));
 
 		if (calendarioHoy.getTimeInMillis() > calendario.getTimeInMillis())
 			respuesta = true;
@@ -78,15 +70,22 @@ public class Util {
 		 
 		 jornadas = factoriaN/divisor;
 		 
-		 
-		 
 		 return jornadas;
 		
+	
+	}
+	
+	
+	public static boolean isPar(int numero){
 		
-		
-		
+		if(numero%2==0){
+           return true;
+       }else{
+    	   return false;
+       }      
 		
 	}
+	
 	
 	
 	
@@ -102,6 +101,51 @@ public class Util {
 		
 	}
 	
+	
+	
+	public static int calularCantidadDias(Date fechaInicio , Date fechaFin){
+		
+		
+		return  (int)( (fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24));
+	}
+	
+	
+	public static int cantidadDiasPorJornada (int cantidadDias , int cantidadJornadas){
+		
+		
+		return (int ) cantidadDias/cantidadJornadas;
+		
+		
+	}
+	
+	
+	public static Date addDays(Date date, int days)
+    {
+		
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        return new Date(cal.getTimeInMillis());
+    }
+	
+	
+    public static int cantidadHorasPorPartidos ( int cantidadPatidos){
+		
+		
+		return (int ) 12/cantidadPatidos;
+		
+		
+	}
+	
+	public static Time addTime( int horas)
+    {
+		
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR,8);
+        cal.add(Calendar.HOUR, horas); //minus number would decrement the days
+        return new Time(cal.getTimeInMillis());
+    }
+
 
 
 }

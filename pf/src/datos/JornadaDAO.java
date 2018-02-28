@@ -47,6 +47,29 @@ public class JornadaDAO {
 			throw e;
 		}
 	}
+	
+	
+	
+	
+	public int nuevaJornadaDevuelveId(Jornadas jornada) throws SQLException {
+		int affectedRows = 0;
+		try {
+			
+			PreparedStatement ps = con.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, jornada.getTorneos().getIdTorneos());
+			ps.setDate(2, jornada.getFechaDescripcion());
+			ps.setInt(3, jornada.getEstado().getIdTipoEstado());
+			 affectedRows = ps.executeUpdate();
+			ps.executeUpdate();
+			
+			ps.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		return affectedRows;
+	}
 
 	public void editarJornada(Jornadas jornada) throws SQLException {
 		try {
