@@ -6,24 +6,32 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-</head>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
-<body>
 
-<div id="Pie">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="CSS/estilos.css">
+	
+</head>
+
+<body>
+<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="Pie">
 			
 			<p>La EFA es una Agrupación de Escuelas de Fútbol creada por las instituciones fundadoras y cuyo objetivo final es:
-
-"QUE TODOS LOS NIÑOS Y JOVENES SE DIVIERTAN JUGANDO AL FÚTBOL SANAMENTE Y CON ALEGRÍA,
-SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES".S
-
-Los adultos que integran la EFA. (Delegados, Técnicos, padres y público en general),
-solamente serán colaboradores para lograr el fin mencionado en el párrafo anterior.
-</p>
+				"QUE TODOS LOS NIÑOS Y JOVENES SE DIVIERTAN JUGANDO AL FÚTBOL SANAMENTE Y CON ALEGRÍA,
+				SIN PRESIONES DE NINGUNA NATURALEZA, SIENDO ELLOS LOS PROTAGONISTAS PRINCIPALES".
+				Los adultos que integran la EFA. (Delegados, Técnicos, padres y público en general),
+				solamente serán colaboradores para lograr el fin mencionado en el párrafo anterior.
+			</p>
 			<div id="LogoFondoPag"><img src="${pageContext.request.contextPath}/imagen/firma_efa.jpg"></div>
 			
 
 		</div>
+	</div>
+	</div>
 	</div>
 	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>

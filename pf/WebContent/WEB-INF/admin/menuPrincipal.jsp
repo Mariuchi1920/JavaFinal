@@ -7,19 +7,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Menu Principal</title>
-<link rel="stylesheet" type="text/css" href="CSS/style.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="CSS/estilos.css">
+	
+	<style type="text/css">
+	.fondo{
+	background: url('${pageContext.request.contextPath}/imagen/bannerLigaEfa.jpg');
+	background-position: center;
+	background-size: cover; 
+	height: 50vh;
+	
+}
+	
+	
+	</style>
 </head>
 <body>
+<div class="container">
 	<div id="contenedor">
-
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
 	</div>
+	
+	<!-- slider -->
+	<div class="container fondo">
+		<div class="container">
+			<!-- <h1>Bienvenidos a la Gestion de la Liga Efa</h1> -->
+		</div>
+	</div>
+	<!-- slider -->
 
-	<div id="Pie">
+	
+
+	 <div id="Pie">
 		<jsp:include page="/WEB-INF/pie.jsp" />
 
+	 
 	</div>
-	</div>
+		</div>
+		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

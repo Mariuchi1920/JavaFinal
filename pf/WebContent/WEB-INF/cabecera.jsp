@@ -7,6 +7,11 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> --%>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="CSS/estilos.css">
 </head>
 <body>
 	<%
@@ -15,121 +20,116 @@
 			if (persona.isAdmin()) {
 	%>
 
-	<link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath}/CSS/style.css">
-
-	<div id="contenedor">
-		<div id="cabecera">
-			<div id="Logo">
-				<img src="${pageContext.request.contextPath}/imagen/logo_header.png">
-			</div>
-			<div id="usuario">
-
-				Bienvenido
-				<%=persona.getNombre()%>
-				<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar
-					Sesion</a>
-			</div>
-		</div>
-		<div id="menu">
-
-			<ul class="nav">
-				<li><a href="#">Personas</a>
-					<ul>
-						<li><a
+<!--  nav bar-->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light container">
+  	
+  		
+  			<img src="${pageContext.request.contextPath}/imagen/logo_header.png">
+  			<a class="navbar-brand" href="${pageContext.request.contextPath}/login">Liga  Efa</a>
+  			<!-- <button class="btn btn-default" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    		</button> -->
+		
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    	 
+    	
+    		<ul class="nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Personas</a>
+        <ul>
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/listarPersonas">Listar
 								Persona</a></li>
-						<li><a
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/reguistarPersonas">Agregar
 								Persona</a></li>
 
 
-					</ul></li>
-				<li><a href="#">Torneo</a>
-					<ul>
-						<li><a
+		</ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Torneo</a>
+        <ul>
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/listarTorneo">Listar
 								Torneos</a></li>
-						<li><a
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo
 								Torneo</a></li>
 
 
-					</ul></li>
-				<li><a href="#">Categoria</a>
-					<ul>
+					</ul>
+        
+      </li>
+       <li class="nav-item ">
+         <a class="nav-link" href="#">Categoria</a>
+         <ul>
 						<li>
-							<!-- Aca voy al Servlet --> <a
+							<!-- Aca voy al Servlet --> <a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/listarCategoria">Listar
 								Categorias</a>
 						</li>
-						<li><a
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva
 								Categoria</a></li>
 
 
-					</ul></li>
-
-				<li><a href="#">Institucion</a>
-					<ul>
-						<li><a
+					</ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Institucion</a>
+        <ul>
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/listarInstituciones">Listar
 								Instituciones</a></li>
-						<li><a
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/modificarInstituciones">Nueva
 								Institucion</a></li>
 
 
 					</ul>
-				<li><a href="#">Partido</a></li>
-				<li><a href="#">Equipos</a>
-					<ul>
-						<li><a
-							href="${pageContext.request.contextPath}/admin/listarEquipo">Listar
+	 <li class="nav-item">
+				<a class="nav-link" href="#">Partido</a></li>
+	<li class="nav-item">
+				<a class="nav-link" href="#">Equipos</a>
+				<ul>
+						<li><a class="nav-link" href="${pageContext.request.contextPath}/admin/listarEquipo">Listar
 								Equipos</a></li>
-						<li><a
+						<li><a class="nav-link"
 							href="${pageContext.request.contextPath}/admin/modificarEquipo">Nueva
 								Equipos</a></li>
-					</ul></li>
+					</ul>
+      </li>
+   
+    </ul>
+  
+    
+    
+    
+   </div>
+    <div class="usuario">
+    	Usuario: <%=persona.getNombre()%>
+    	<hr>
+				<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a><%}}%>
+    </div>
+   
+   
+  
+</nav>
+	<!--  nav bar-->
+	
+
+
+		
+	
+		
 
 
 
-			</ul>
 
-		</div>
-
-
-		<%
-			} else {
-		%>
+	
 
 
-
-
-
-
-		<div id="contenedor">
-			<div id="cabecera">
-				<div id="Logo">
-					<img
-						src="${pageContext.request.contextPath}/imagen/logo_header.png">
-				</div>
-				<div id="usuario">
-
-					Bienvenido
-					<%=persona.getNombre()%>
-
-					<a href="${pageContext.request.contextPath}/reguistarPersonas">Perfil</a>
-
-					<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a>
-				</div>
-			</div>
-
-
-			<%}}
-
-
-%>
+			
 			<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>

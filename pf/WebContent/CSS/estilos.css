@@ -1,4 +1,5 @@
 @charset "ISO-8859-1";
+
 body { 
 font-famyly: 'Releway';
 font-size: 16 px;
@@ -81,8 +82,7 @@ text-align: right;
 	
 input[type-"text"]:focus,
 input[type-"password"]:focus,
-textarea:focus, 
-textarea.form-control:focus{
+textarea:focus, textarea.form-control:focus{
 	background: #fff;
 	border: 2px solid #2EFEF7;
 }
@@ -136,3 +136,102 @@ button.mybtn:focus{
 	color: #fff;
 	
 }
+
+
+
+.myform-header-left{
+float: left;
+width: 75%;
+padding-top: 25px;
+text-align: left;
+}
+.myform-header-left p{
+opacity: 0.8;
+}
+.myform-header-right{
+float: right;
+width: 25%;
+padding-top: 25px;
+text-align: right;
+}
+
+
+/*  menu*/
+#collapse{
+
+	
+	height: 100px;/*achicar cuando se pongan en linea*/
+	font-family: arial black;
+	font-size: 16 px;
+	margin: auto;
+	width: 600px;
+	
+}
+
+ ul, ol {
+	/*margin: 10px;
+	padding-top: 5px; */
+	list-style: none;
+	/*word-spacing: 45px;*/
+}
+/*
+para acceder a la class nav con el .
+*/
+.nav nav-item nav-link {
+	background-color: #222733;
+	color: #fff;
+	text-decoration: none;
+	padding: 10px 15px;/*ancho y largo*/
+	display: block;/*los elementos se pueden agrupar*/
+}
+
+.nav > nav-item{
+	float: left;
+
+}
+/*para cuando se pase el  mouse por arriba el hover*/
+.nav nav-item nav-link:hover{
+	background-color: #FF8000 ;
+
+	
+}
+.nav nav-item ul{
+	display: none;/*Todos los sub menus desaparecen*/
+	position: absolute; 
+	min-width: 140px;
+
+}
+.nav nav-item:hover > ul{
+	display: block; 
+}/* 
+#Pie{
+	padding:10px;
+	margin: 0px;
+	background: #222733;
+	color: white;
+	
+}
+#Logopie {
+	margin: 10px;
+
+}
+.botonEditar{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;color de la letra 
+    background-color: #00FF00; color de fondo del boton
+    border-radius: 6px;
+    border: none;
+  }
+  .botonEliminar{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;color de la letra 
+    background-color:#FF0000; color de fondo del boton
+    border-radius: 6px;
+    border: none;
+  } */

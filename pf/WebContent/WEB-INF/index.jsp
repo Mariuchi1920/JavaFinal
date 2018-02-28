@@ -87,7 +87,7 @@
 		<div class="row">
 			<div class="col-sm-12 mysocial-login">
 				
-				<h3>...Ingresa tambien por:</h3>
+				<h3>...visítanos tambien  por:</h3>
 				
 				<div class="mysocial-login-buttons">
 				<a class="mybtn-social" href="https://www.facebook.com/LIGA-EFA-159057650852892/">
