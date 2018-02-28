@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,7 +78,7 @@ public class ModificarInstitucion extends HttpServlet {
 						+ "/admin/listarInstituciones");
 			}
 
-		} catch (IOException | NumberFormatException ex) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");

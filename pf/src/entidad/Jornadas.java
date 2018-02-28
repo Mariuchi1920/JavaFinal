@@ -4,12 +4,16 @@ import java.sql.Date;
 
 
 
+
+
 public class Jornadas {
 	
 	private int idJornadas;
 	private Torneo torneos;
 	private Date fechaDescripcion;
 	private TipoEstado estado;
+	
+	
 	
 	
 	public int getIdJornadas() {
@@ -36,6 +40,9 @@ public class Jornadas {
 	public void setEstado(TipoEstado estado) {
 		this.estado = estado;
 	}
+	
+	
+	
 	
 	
 	

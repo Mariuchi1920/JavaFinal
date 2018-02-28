@@ -2,6 +2,7 @@ package servlet.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -81,8 +82,9 @@ public class PanelAdmin extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/login");
 
 			}
-		} catch (IOException | NumberFormatException ex) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			request.setAttribute("error", "something");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}

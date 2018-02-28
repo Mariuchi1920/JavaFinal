@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -84,18 +85,23 @@ public class Home extends HttpServlet {
 
 					}
 				} else {
-
+					request.setAttribute("error", "something");
 					response.sendRedirect(request.getContextPath() + "/login");
 				}
 
 			} else {
 
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+				request.setAttribute("error", "something");
+				//response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 				response.sendRedirect(request.getContextPath() + "/login");
 
 			}
 
-		} catch (IOException | NumberFormatException ex) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
+			request.setAttribute("error", "something");
+			response.sendRedirect(request.getContextPath() + "/login");
+		} catch (Exception e){
+			request.setAttribute("error", "something");
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}

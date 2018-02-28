@@ -28,111 +28,115 @@ public class JugadoresPartidosDAO {
 
 	}
 
-	public void nuevoJugadorPartido(JugadoresPartido jugPar) {
+	public void nuevoJugadorPartido(JugadoresPartido jugadoresPartido) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT);
-			ps.setInt(1, jugPar.getPartido().getIdPartidos());
-			ps.setInt(2, jugPar.getJugadores().getIdPersona());
-			ps.setInt(3, jugPar.getCantidadTarjetasAmarillas());
-			ps.setInt(4, jugPar.getCantidadTarjetasRojas());
-			ps.setInt(4, jugPar.getCatidadGoles());
+			ps.setInt(1, jugadoresPartido.getPartido().getIdPartidos());
+			ps.setInt(2, jugadoresPartido.getJugadores().getIdPersona());
+			ps.setInt(3, jugadoresPartido.getCantidadTarjetasAmarillas());
+			ps.setInt(4, jugadoresPartido.getCantidadTarjetasRojas());
+			ps.setInt(4, jugadoresPartido.getCatidadGoles());
 
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 
 	}
 
-	public void editarJugadorPartido(JugadoresPartido jugPar) {
+	public void editarJugadorPartido(JugadoresPartido jugadoresPartido) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
-			ps.setInt(1, jugPar.getCantidadTarjetasAmarillas());
-			ps.setInt(2, jugPar.getCantidadTarjetasRojas());
-			ps.setInt(3, jugPar.getCatidadGoles());
-			ps.setInt(4, jugPar.getPartido().getIdPartidos());
-			ps.setInt(5, jugPar.getJugadores().getIdPersona());
+			ps.setInt(1, jugadoresPartido.getCantidadTarjetasAmarillas());
+			ps.setInt(2, jugadoresPartido.getCantidadTarjetasRojas());
+			ps.setInt(3, jugadoresPartido.getCatidadGoles());
+			ps.setInt(4, jugadoresPartido.getPartido().getIdPartidos());
+			ps.setInt(5, jugadoresPartido.getJugadores().getIdPersona());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+			throw e1;
 		}
 	}
 
-	public void eliminarJugadorPartido(JugadoresPartido jugPar) {
+	public void eliminarJugadorPartido(JugadoresPartido jugadoresPartido) throws SQLException {
 		try {
 
 			PreparedStatement ps = con.prepareStatement(DELETE);
-			ps.setInt(1, jugPar.getPartido().getIdPartidos());
-			ps.setInt(2, jugPar.getJugadores().getIdPersona());
+			ps.setInt(1, jugadoresPartido.getPartido().getIdPartidos());
+			ps.setInt(2, jugadoresPartido.getJugadores().getIdPersona());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public LinkedList<JugadoresPartido> buscarporJugador(int idJugador) {
-		LinkedList<JugadoresPartido> listaCategorias = new LinkedList<JugadoresPartido>();
+	public LinkedList<JugadoresPartido> buscarporJugador(int idJugador) throws SQLException {
+		LinkedList<JugadoresPartido> listaCategorias = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORJUGADOR);
 			ps.setInt(1, idJugador);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaCategorias.add(popularJugadorEquipo(rs));
-
+			if(rs.next()){
+				listaCategorias = new LinkedList<JugadoresPartido>();
+				do{
+					listaCategorias.add(popularJugadorEquipo(rs));
+				}while (rs.next());
 			}
+		
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return listaCategorias;
 	}
 
-	public LinkedList<JugadoresPartido> buscarIDPartido(int idPartido) {
-		LinkedList<JugadoresPartido> listaCategorias = new LinkedList<JugadoresPartido>();
+	public LinkedList<JugadoresPartido> buscarIDPartido(int idPartido) throws SQLException {
+		LinkedList<JugadoresPartido> listaCategorias = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORPARTIDO);
 			ps.setInt(1, idPartido);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
-				listaCategorias.add(popularJugadorEquipo(rs));
-
+			if(rs.next()){
+				listaCategorias = new LinkedList<JugadoresPartido>();
+				do{
+					listaCategorias.add(popularJugadorEquipo(rs));
+				}while (rs.next()) ;
 			}
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return listaCategorias;
 	}
 
-	public JugadoresPartido popularJugadorEquipo(ResultSet rs) {
-		JugadoresPartido juPa = new JugadoresPartido();
+	public JugadoresPartido popularJugadorEquipo(ResultSet rs) throws SQLException {
+		JugadoresPartido jugadoresPartido = new JugadoresPartido();
 		PartidoDAO catPartido = new PartidoDAO();
 		PersonasDAO catJugador = new PersonasDAO();
 
-		try {
-			juPa.setPartido(catPartido.buscarporIdsPartido(rs.getInt(1)));
-			juPa.setJugadores(catJugador.buscarPersonaId(rs.getInt(2)));
-			juPa.setCantidadTarjetasAmarillas(rs.getInt(3));
-			juPa.setCantidadTarjetasRojas(rs.getInt(4));
-			juPa.setCatidadGoles(rs.getInt(5));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		jugadoresPartido.setPartido(catPartido.buscarporIdsPartido(rs.getInt(1)));
+		jugadoresPartido.setJugadores(catJugador.buscarPersonaId(rs.getInt(2)));
+		jugadoresPartido.setCantidadTarjetasAmarillas(rs.getInt(3));
+		jugadoresPartido.setCantidadTarjetasRojas(rs.getInt(4));
+		jugadoresPartido.setCatidadGoles(rs.getInt(5));
+	
 
-		return juPa;
+		return jugadoresPartido;
 
 	}
 

@@ -20,6 +20,7 @@ public class TorneosDAO {
 	private String INSERT = "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
 	private String DELETE = "delete from torneos where idTorneos=?;";
 	private String EDITAR = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=? ,idCategoriaCampeon=?, tidIntitucionCampeon=?,nombreEquipoCampeon=? where idTorneos=?";
+	private String EDITARSINEQUIPO = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=?  where idTorneos=?";
 	private String LISTATORNEO = "select * from torneos";
 	private String LISTARPORCODIGOTORNEO = "select * from torneos where idTorneos=?;";
 	private String BUSCARTORNEOGANADOR = "select * from torneos where idCategoriaCampeon=? and idIntitucionCampeon=? and nombreEquipoCampeon=?;";
@@ -32,7 +33,7 @@ public class TorneosDAO {
 
 	}
 
-	public void nuevoTorneo(Torneo torneo) {
+	public void nuevoTorneo(Torneo torneo) throws SQLException {
 		try {
 			System.out.println("Entre aca en  nuevo torneo");
 			PreparedStatement ps = con.prepareStatement(INSERT);
@@ -49,98 +50,133 @@ public class TorneosDAO {
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
+	public void modificarTorneo(Torneo torneo) throws SQLException {
+		if(torneo.getEquipoGanador()!=null){
+			modificarTorneoConEqupoGanador(torneo);
+		}else{
+			modificarTorneoSinEquipoGanador(torneo);
+		}
 
-	public void modificarTorneo(Torneo torneo) {
+	}
+	
+	public void modificarTorneoConEqupoGanador(Torneo torneo) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
 			ps.setString(1, torneo.getNombre());
 			ps.setDate(2, torneo.getFechaInicio());
 			ps.setDate(3, torneo.getFechaFin());
 			ps.setInt(4, torneo.getEstado().getIdTipoEstado());
-			ps.setInt(5, torneo.getEquipoGanador().getCategorias()
-					.getIdCategorias());
-			ps.setInt(6, torneo.getEquipoGanador().getInstitucion()
-					.getIdInstituciones());
+			
+			ps.setInt(5, torneo.getEquipoGanador().getCategorias().getIdCategorias());
+			ps.setInt(6, torneo.getEquipoGanador().getInstitucion().getIdInstituciones());
 			ps.setString(7, torneo.getEquipoGanador().getNombreEquipo());
+			
 			ps.setInt(8, torneo.getIdTorneos());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
+		}
+
+	}
+	
+
+	public void modificarTorneoSinEquipoGanador(Torneo torneo) throws SQLException {
+		try {
+			PreparedStatement ps = con.prepareStatement(EDITARSINEQUIPO);
+			ps.setString(1, torneo.getNombre());
+			ps.setDate(2, torneo.getFechaInicio());
+			ps.setDate(3, torneo.getFechaFin());
+			ps.setInt(4, torneo.getEstado().getIdTipoEstado());	
+			
+			
+			ps.setInt(5, torneo.getIdTorneos());
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
 
 	}
 
-	public void eliminarTorneo(Torneo t) {
+	public void eliminarTorneo(Torneo torneo) throws SQLException {
 		try {
 
-			if (validarElimiarTorneo(t)) {
+			if (validarElimiarTorneo(torneo)) {
 				PreparedStatement ps = con.prepareStatement(DELETE);
-				ps.setInt(1, t.getIdTorneos());
+				ps.setInt(1, torneo.getIdTorneos());
 				ps.executeUpdate();
 				ps.close();
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 
 	}
 
-	public boolean validarElimiarTorneo(Torneo t) {
+	public boolean validarElimiarTorneo(Torneo torneo) throws SQLException {
 
 		boolean respuesta = true;
-		EquiposTorneoDAO equiTorneo = new EquiposTorneoDAO();
-		LinkedList<EquiposTorneos> listaEquipoTorneo = equiTorneo
-				.buscarporTorneo(t);
+		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> listaEquipoTorneo = catEquipoTorneo.buscarporTorneo(torneo);
 		if (listaEquipoTorneo != null && listaEquipoTorneo.size() > 0) {
 			respuesta = false;
-
 		}
 		JornadaDAO catJornada = new JornadaDAO();
-		LinkedList<Jornadas> jornadas = catJornada.buscarporTorneos(t
-				.getIdTorneos());
+		LinkedList<Jornadas> listarJornadas = catJornada.buscarporTorneos(torneo.getIdTorneos());
 
-		if (jornadas != null && jornadas.size() > 0) {
+		if (listarJornadas != null && listarJornadas.size() > 0) {
 			respuesta = false;
 		}
 		return respuesta;
 	}
 
-	public LinkedList<Torneo> listarTodosLosTorneos() {
-		LinkedList<Torneo> listarTorneos = new LinkedList<Torneo>();
+	public LinkedList<Torneo> listarTodosLosTorneos() throws SQLException {
+		LinkedList<Torneo> listarTorneos = null;
 		try {
 
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTATORNEO);
-			while (rs.next()) {
-				Torneo i = new Torneo();
-				popularTorneo(i, rs);
-				listarTorneos.add(i);
+			if(rs.next()){
+				 listarTorneos = new LinkedList<Torneo>();
+				do{
+					Torneo torneo = new Torneo();
+					popularTorneo(torneo, rs);
+					listarTorneos.add(torneo);
+				}while (rs.next());
 			}
+			
 			rs.close();
 			st.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listarTorneos;
 
 	}
 
-	public Torneo buscarPorId(int idTorneos) {
-		Torneo i = new Torneo();
+	public Torneo buscarPorId(int idTorneos) throws SQLException {
+		Torneo torneo = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORCODIGOTORNEO);
 			ps.setInt(1, idTorneos);
 			ResultSet rs = ps.executeQuery();
 
-			while (rs.next()) {
-				popularTorneo(i, rs);
+			if (rs.next()) {
+				torneo = new Torneo();
+				popularTorneo(torneo, rs);
 
 			}
 			rs.close();
@@ -149,14 +185,15 @@ public class TorneosDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
-		return i;
+		return torneo;
 
 	}
 
-	public Torneo buscarPorEquipoGanador(Equipo ganador) {
-		Torneo i = new Torneo();
+	public Torneo buscarPorEquipoGanador(Equipo ganador) throws SQLException {
+		Torneo torneo = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(BUSCARTORNEOGANADOR);
 			ps.setInt(1, ganador.getCategorias().getIdCategorias());
@@ -164,8 +201,9 @@ public class TorneosDAO {
 			ps.setString(3, ganador.getNombreEquipo());
 			ResultSet rs = ps.executeQuery();
 
-			while (rs.next()) {
-				popularTorneo(i, rs);
+			if (rs.next()) {
+				 torneo = new Torneo();
+				popularTorneo(torneo, rs);
 
 			}
 			rs.close();
@@ -174,46 +212,28 @@ public class TorneosDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
-		return i;
+		return torneo;
 
 	}
 
-	private void popularTorneo(Torneo i, ResultSet rs) {
+	private void popularTorneo(Torneo torneo, ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
-		try {
-			i.setIdTorneos(rs.getInt(1));
-			i.setNombre(rs.getString(2));
-			i.setFechaInicio(rs.getDate(3));
-			i.setFechaFin(rs.getDate(4));
-			TipoEstadoDAO tedao = new TipoEstadoDAO();
-			TipoEstado te = tedao.getTipoEstados(rs.getInt(5));
-			i.setEstado(te);
-			EquiposDAO edao = new EquiposDAO();
-			Equipo equipoCam = edao.buscarporIdsEquipo(rs.getInt(6),
-					rs.getInt(7), rs.getString(8));
-			i.setEquipoGanador(equipoCam);
+	
+		torneo.setIdTorneos(rs.getInt(1));
+		torneo.setNombre(rs.getString(2));
+		torneo.setFechaInicio(rs.getDate(3));
+		torneo.setFechaFin(rs.getDate(4));
+		TipoEstadoDAO tedao = new TipoEstadoDAO();
+		TipoEstado te = tedao.getTipoEstados(rs.getInt(5));
+		torneo.setEstado(te);
+		EquiposDAO edao = new EquiposDAO();
+		Equipo equipoCampeon = edao.buscarporIdsEquipo(rs.getInt(6),rs.getInt(7), rs.getString(8));
+		torneo.setEquipoGanador(equipoCampeon);
 
-			// i.setNombre(rs.getString(4));
-			// i.setIdTorneos(rs.getInt(5));
-			// i.setNombre(rs.getString(6));
-			// i.setIdTorneos(rs.getInt(7));
-			// i.setNombre(rs.getString(8));
-			// i.setFechaInicio(rs.getDate(3));
-			// i.setFechaFin(rs.getDate(4));
-			// TipoEstadoDAO estadoDAO= new TipoEstadoDAO();
-			// TipoEstado estadoTorneo = estadoDAO.getTipoEstados(rs.getInt(5));
-			// i.setEstado(estadoTorneo);
-			// // EquiposDAO edao= new EquiposDAO();
-			// // Equipo equipoCampeon=edao.
-			// // i.setEquipoGanador(edao.buscarporIdsEquipo(rs.getInt(6),
-			// rs.getInt(7), rs.getString(8)));
 
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 	}
 
 }

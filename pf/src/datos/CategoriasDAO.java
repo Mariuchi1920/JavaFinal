@@ -26,7 +26,7 @@ public class CategoriasDAO {
 
 	}
 
-	public void nuevaCategoria(Categoria cat) {
+	public void nuevaCategoria(Categoria cat) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(INSERT);
 			ps.setString(1, cat.getAñoCategoria());
@@ -37,10 +37,11 @@ public class CategoriasDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void editarCategoria(Categoria cat) {
+	public void editarCategoria(Categoria cat) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
 			ps.setString(1, cat.getAñoCategoria());
@@ -51,11 +52,13 @@ public class CategoriasDAO {
 			ps.close();
 
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void eliminarCategoria(Categoria cat) {
+	public void eliminarCategoria(Categoria cat) throws SQLException {
 		try {
 			EquiposDAO catEquipo = new EquiposDAO();
 			LinkedList<Equipo> equipos = catEquipo.buscarporIdCategoria(cat
@@ -69,57 +72,58 @@ public class CategoriasDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public LinkedList<Categoria> listarTodasLasCategorias() {
-		LinkedList<Categoria> listaCategorias = new LinkedList<Categoria>();
+	public LinkedList<Categoria> listarTodasLasCategorias() throws SQLException {
+		LinkedList<Categoria> listaCategorias = null;
 		try {
 
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTARTODACATEGORIA);
-			while (rs.next()) {
-				Categoria cat = new Categoria();
-
-				popularCategoria(cat, rs);
-
-				listaCategorias.add(cat);
-			}
+			if (rs.next()) {
+				listaCategorias = new LinkedList<Categoria>();
+                do {
+                	Categoria cat = new Categoria();
+    				popularCategoria(cat, rs);
+    				listaCategorias.add(cat);
+                } while (rs.next());
+            }
+			
 		} catch (SQLException ex) {
 			// TODO: handle exception
+		
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listaCategorias;
 
 	}
 
-	private void popularCategoria(Categoria cat, ResultSet rs) {
+	private void popularCategoria(Categoria cat, ResultSet rs) throws SQLException {
 
-		// TODO Auto-generated method stub
-		try {
+		
+		cat.setIdCategorias(rs.getInt(1));
+		cat.setAñoCategoria(rs.getString(2));
+		cat.setDescripcion(rs.getString(3));
+		TipoEstadoDAO estadoDAO = new TipoEstadoDAO();
+		TipoEstado estadoCategoria = estadoDAO.getTipoEstados(rs.getInt(4));
+		cat.setEstado(estadoCategoria);
 
-			cat.setIdCategorias(rs.getInt(1));
-			cat.setAñoCategoria(rs.getString(2));
-			cat.setDescripcion(rs.getString(3));
-			TipoEstadoDAO estadoDAO = new TipoEstadoDAO();
-			TipoEstado estadoCategoria = estadoDAO.getTipoEstados(rs.getInt(4));
-			cat.setEstado(estadoCategoria);
-
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		
 	}
 
-	public Categoria buscarporIdCategoria(int idCat) {
-		Categoria categorias = new Categoria();
+	public Categoria buscarporIdCategoria(int idCat) throws SQLException {
+		Categoria categorias = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORCODIGOCAT);
 			ps.setInt(1, idCat);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-
+			if (rs.next()) {
+				
+				categorias = new Categoria();
 				popularCategoria(categorias, rs);
 
 			}
@@ -128,6 +132,7 @@ public class CategoriasDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 		return categorias;
 	}

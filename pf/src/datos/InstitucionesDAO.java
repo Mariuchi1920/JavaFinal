@@ -43,45 +43,47 @@ public class InstitucionesDAO {
 		con = c.getConexion();
 	}
 
-	public void nuevaInstitucion(Institucion inst) {
+	public void nuevaInstitucion(Institucion institucion) throws SQLException {
 		try {
-			System.out.println("Entre aca en  nueva categoria");
+		
 			PreparedStatement ps = con.prepareStatement(INSERT);
-			ps.setString(1, inst.getNombre());
-			ps.setString(2, inst.getNombreLocalia());
-			ps.setString(3, inst.getDireccionLocalia());
-			ps.setString(4, inst.getNombreDelegado());
-			ps.setString(5, inst.getApellidoDelegado());
-			ps.setString(6, inst.getTelefonoDelegado());
-			ps.setString(7, inst.getMailDelegado());
+			ps.setString(1, institucion.getNombre());
+			ps.setString(2, institucion.getNombreLocalia());
+			ps.setString(3, institucion.getDireccionLocalia());
+			ps.setString(4, institucion.getNombreDelegado());
+			ps.setString(5, institucion.getApellidoDelegado());
+			ps.setString(6, institucion.getTelefonoDelegado());
+			ps.setString(7, institucion.getMailDelegado());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
-	public void modificarIstitucion(Institucion i) {
+	public void modificarIstitucion(Institucion institucion) throws SQLException {
 		try {
 			PreparedStatement ps = con.prepareStatement(EDITAR);
-			ps.setString(1, i.getNombre());
-			ps.setString(2, i.getNombreLocalia());
-			ps.setString(3, i.getDireccionLocalia());
-			ps.setString(4, i.getNombreDelegado());
-			ps.setString(5, i.getApellidoDelegado());
-			ps.setString(6, i.getTelefonoDelegado());
-			ps.setString(7, i.getMailDelegado());
-			ps.setInt(8, i.getIdInstituciones());
+			ps.setString(1, institucion.getNombre());
+			ps.setString(2, institucion.getNombreLocalia());
+			ps.setString(3, institucion.getDireccionLocalia());
+			ps.setString(4, institucion.getNombreDelegado());
+			ps.setString(5, institucion.getApellidoDelegado());
+			ps.setString(6, institucion.getTelefonoDelegado());
+			ps.setString(7, institucion.getMailDelegado());
+			ps.setInt(8, institucion.getIdInstituciones());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw e;
 		}
 
 	}
 
-	public void eliminarInstitucion(Institucion institucion) {
+	public void eliminarInstitucion(Institucion institucion) throws SQLException {
 		try {
 			EquiposDAO catEquipo = new EquiposDAO();
 			LinkedList<Equipo> equipos = catEquipo
@@ -96,40 +98,47 @@ public class InstitucionesDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 
 	}
 
-	public LinkedList<Institucion> listarTodasLasInstituciones() {
-		LinkedList<Institucion> listaInstituciones = new LinkedList<Institucion>();
+	public LinkedList<Institucion> listarTodasLasInstituciones() throws SQLException {
+		LinkedList<Institucion> listaInstituciones = null;
 		try {
 
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(LISTATODAINSTITUCIONES);
-			while (rs.next()) {
-				Institucion i = new Institucion();
-				popularInstitucion(i, rs);
-				listaInstituciones.add(i);
+			if(rs.next()){
+				listaInstituciones = new LinkedList<Institucion>();
+				do{
+					Institucion i = new Institucion();
+					popularInstitucion(i, rs);
+					listaInstituciones.add(i);
+				}while (rs.next());
 			}
+			
 			rs.close();
 			st.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return listaInstituciones;
 
 	}
 
-	public Institucion buscarPorId(int idInstitucion) {
-		Institucion i = new Institucion();
+	public Institucion buscarPorId(int idInstitucion) throws SQLException {
+		Institucion i = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARPORCODIGOINST);
 			ps.setInt(1, idInstitucion);
 			ResultSet rs = ps.executeQuery();
 
-			while (rs.next()) {
+			if (rs.next()) {
+				 i = new Institucion();
 				popularInstitucion(i, rs);
 
 			}
@@ -139,28 +148,26 @@ public class InstitucionesDAO {
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
+			throw ex;
 		}
 
 		return i;
 
 	}
 
-	private void popularInstitucion(Institucion i, ResultSet rs) {
+	private void popularInstitucion(Institucion institucion, ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
-		try {
-			i.setIdInstituciones(rs.getInt(1));
-			i.setNombre(rs.getString(2));
-			i.setNombreLocalia(rs.getString(3));
-			i.setDireccionLocalia(rs.getString(4));
-			i.setNombreDelegado(rs.getString(5));
-			i.setApellidoDelegado(rs.getString(6));
-			i.setTelefonoDelegado(rs.getString(7));
-			i.setMailDelegado(rs.getString(8));
+	
+		institucion.setIdInstituciones(rs.getInt(1));
+		institucion.setNombre(rs.getString(2));
+		institucion.setNombreLocalia(rs.getString(3));
+		institucion.setDireccionLocalia(rs.getString(4));
+		institucion.setNombreDelegado(rs.getString(5));
+		institucion.setApellidoDelegado(rs.getString(6));
+		institucion.setTelefonoDelegado(rs.getString(7));
+		institucion.setMailDelegado(rs.getString(8));
 
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		
 	}
 
 }

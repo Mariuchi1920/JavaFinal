@@ -10,10 +10,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
 	<title>Inicio de Sesion</title>
 	
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="bootstrap/font-awesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="CSS/estilos.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/estilos.css">
 	
 </head>
  <script type="text/javascript" language="JavaScript">
@@ -47,6 +47,14 @@
  </script>
 
 <body onload="carga()">
+
+<%if(request.getAttribute("error")!=null){ %>
+<div>
+   
+holaAAAA
+</div>
+
+<%} %>
 <div class="my-content">
 	<div class="container">
 		<div class="row">
@@ -102,8 +110,8 @@
 
 			
 
-	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 

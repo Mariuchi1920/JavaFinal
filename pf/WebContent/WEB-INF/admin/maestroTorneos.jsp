@@ -15,6 +15,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
 <title>Listar Torneo</title>
 </head>
+
+<script type="text/javascript">
+	
+	function editar(met) {
+		
+		document.myform.fixture.value="" ;
+	    document.myform.eliminar.value="";  
+	    document.myForm.action=met;
+		
+    }
+	
+	function eliminar(met) {
+		if(confirm("Estas seguro de eliminar el Torneo?")){
+		
+			document.myform.fixture.value="";
+			document.myform.editar.value=""  ;
+		    document.myForm.action=met;
+		};
+    }
+	
+	function fixture(met) {
+		if(confirm("Estas seguro de realizar el Fixture?")){
+			document.myform.editar.value="" ;
+		    document.myform.eliminar.value="";  
+		    document.myForm.action=met;
+		};
+    }
+
+	
+	</script>
+
+
 <body>
 <div class="container">
 	<div id="contenedor">
@@ -28,7 +60,7 @@
 		<form id="myForm" name="myForm" action="" method="post">
 			<table align="center" border="void" cellpadding="5">
 				<tr>
-					<td colspan="7" align="center">Administrador de Torneo</td>
+					<td colspan="8" align="center">Administrador de Torneo</td>
 				</tr>
 				<tr>
 
@@ -37,7 +69,7 @@
 					<td align="center">Fecha Fin</td>
 					<td align="center">Estado</td>
 					<td align="center">Equipo Campeon</td>
-					<td align="center" colspan="2">Accion</td>
+					<td align="center" colspan="3">Accion</td>
 				</tr>
 				<%
 					TorneosDAO torneoDao = new TorneosDAO();
@@ -51,7 +83,7 @@
 					<td><%=t.getFechaFin()%></td>
 					<td><%=t.getEstado().getDescripcion()%></td>
 					<%
-						if (t.getEquipoGanador().getInstitucion() != null) {
+						if (t.getEquipoGanador() != null) {
 					%>
 					<td><%=t.getEquipoGanador().getInstitucion().getNombre()%>-
 						<%=t.getEquipoGanador().getCategorias().getAñoCategoria()%> - <%=t.getEquipoGanador().getNombreEquipo() %> </td>
@@ -63,12 +95,16 @@
 						}
 					%>
 					<th><button class="botonEditar"
-							onclick="javascript: editar('/admin/listarTorneoeditar/')"
+							onclick="javascript: editar('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="editar" name="editar">Editar</button>
 					</th>
 					<th><button class="botonEliminar"
-							onclick="javascript: eliminar('/admin/listarTorneoeliminar/')"
+							onclick="javascript: eliminar('/admin/listarTorne/')"
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
+					</th>
+					<th><button class="botonEliminar"
+							onclick="javascript: fixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Fixture</button>
 					</th>
 				</tr>
 				<%

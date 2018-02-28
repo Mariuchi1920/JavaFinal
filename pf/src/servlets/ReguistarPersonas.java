@@ -72,72 +72,76 @@ public class ReguistarPersonas extends HttpServlet {
 					.getParameter("listaTipoPersona"));
 			TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
 
-			persona.setTipoPersona(catTipoPersona.getTipoEstados(estado));
+			persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
 
-			if (catPersona.auntenticarPersona(persona.getUsuario(),
-					persona.getContraseña()) != null) {
+			if (catPersona.auntenticarPersona(persona.getUsuario(),persona.getContraseña()) == null) {
 
 				if (request.getParameter("editar") != null) {
-					Persona personaEditada = ((Persona) request.getSession()
-							.getAttribute("editador"));
+					Persona personaEditada = ((Persona) request.getSession().getAttribute("editador"));
 					persona.setIdPersona(personaEditada.getIdPersona());
-					if (catPersona.buscarPersonaDNI(persona
-							.getNumeroDocumento()) != null) {
+					if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
 						catPersona.editarPersona(persona);
 
-						if (request.getSession().getAttribute("usuario") != null) {
-							if (((Persona) request.getSession().getAttribute(
-									"usuario")).isAdmin()) {
-								response.sendRedirect(request.getContextPath()
-										+ "/admin/listarPersonas");
-							} else {
-								response.sendRedirect(request.getContextPath()
-										+ "/user");
-							}
-						} else {
-							response.sendRedirect(request.getContextPath()
-									+ "/login");
-						}
-					} else {
-
-						// ////////DNI existe
+						definirRedireccion (request,response, true, "editar");
+					}else{
+						definirRedireccion (request,response, false, "editar");
 					}
 
 				} else if (request.getParameter("registar") != null) {
 
-					if (catPersona.buscarPersonaDNI(persona
-							.getNumeroDocumento()) != null) {
+					if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
 						catPersona.nuevaPersona(persona);
-						if (request.getSession().getAttribute("usuario") != null) {
-							if (((Persona) request.getSession().getAttribute(
-									"usuario")).isAdmin()) {
-								response.sendRedirect(request.getContextPath()
-										+ "/admin/listarPersonas");
-							} else {
-								response.sendRedirect(request.getContextPath()
-										+ "/login");
-							}
-						} else {
-							response.sendRedirect(request.getContextPath()
-									+ "/login");
-						}
+						definirRedireccion (request,response, true,"registar");
 					} else {
 
 						// ////////DNI existe
-						response.sendRedirect(request.getContextPath()
-								+ "/login");
+						definirRedireccion (request,response, false, "registar");
 					}
 
 				}
 			} else {
-				// ////////EXISTE USER
-				response.sendRedirect(request.getContextPath() + "/login");
+				definirRedireccion (request,response, false,"registar");
+				
+				
 
 			}
 		} catch (SQLException | IOException | NumberFormatException ex) {
-			response.sendRedirect(request.getContextPath() + "/login");
+			definirRedireccion (request,response,false,"registar");
 
 		}
+	}
+	
+	
+	
+	public void definirRedireccion (HttpServletRequest request,HttpServletResponse response , boolean ok, String boton) throws IOException{
+		
+		if(request.getSession().getAttribute("usuario")!=null){
+			
+			
+			if (((Persona) request.getSession().getAttribute("usuario")).isAdmin()) {
+				if(ok){
+				response.sendRedirect(request.getContextPath() + "/admin/listarPersonas");
+				}else{
+					response.sendRedirect(request.getContextPath() + "/reguistarPersonas");
+				}
+			} else {
+				if(boton.equals("editar")){
+			 
+				response.sendRedirect(request.getContextPath()
+						+ "/user");
+				}else{
+					response.sendRedirect(request.getContextPath()
+							+ "/login");
+				}
+			}
+			
+		    
+			 
+		}else {
+			
+			response.sendRedirect(request.getContextPath() + "/login");
+		}
+		
 	}
 
 }
