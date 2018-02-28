@@ -86,12 +86,14 @@ public class Home extends HttpServlet {
 					}
 				} else {
 					request.setAttribute("error", "something");
+					request.getSession().setAttribute("error", "something");
 					response.sendRedirect(request.getContextPath() + "/login");
 				}
 
 			} else {
 
 				request.setAttribute("error", "something");
+				request.getSession().setAttribute("error", "something");
 				//response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 				response.sendRedirect(request.getContextPath() + "/login");
 
@@ -99,9 +101,11 @@ public class Home extends HttpServlet {
 
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			request.setAttribute("error", "something");
+			request.getSession().setAttribute("error", "something");
 			response.sendRedirect(request.getContextPath() + "/login");
 		} catch (Exception e){
 			request.setAttribute("error", "something");
+			request.getSession().setAttribute("error", "something");
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}

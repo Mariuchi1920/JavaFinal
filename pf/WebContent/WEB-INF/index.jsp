@@ -97,6 +97,18 @@ holaAAAA
 				
 				<h3>...visítanos tambien  por:</h3>
 				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3>EEEERRORR2222</h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
 				<div class="mysocial-login-buttons">
 				<a class="mybtn-social" href="https://www.facebook.com/LIGA-EFA-159057650852892/">
 				<i class="fab fa-facebook-square"></i>Facebook

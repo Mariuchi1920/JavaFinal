@@ -121,7 +121,7 @@ public class FixtureTorneo {
 		PersonasDAO catPersona = new PersonasDAO();
 		LinkedList<Persona> arbitos = catPersona.buscarPersonaTipoPersona(TipoPersona.ARBITRO);
 		if(arbitos!=null && arbitos.size()>0){
-		int arbito =0;
+		int arbito =0; 
 		int cantidadDias = Util.calularCantidadDias(equipoTorne.get(0).getTorneo().getFechaInicio(), equipoTorne.get(0).getTorneo().getFechaFin());
         if(cantidadJornadas <= cantidadDias){
         	 jornadasPartidos = new LinkedList<FixtureTorneo>();
