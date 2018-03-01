@@ -18,19 +18,20 @@
     pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html  lang="en">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
 	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
-
-<head>
-	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+	
+	
+<meta charset="UTF-8">
 	<title>Editar Torneo</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 	<script type="text/javascript">
@@ -63,15 +64,6 @@
 	</script>
 </head>
 <body>
-
-<div id="contenedor">
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
-		
-
-	</div>
-
-	
 	<%
 	Torneo encontrado= null;
 	int idTorneo=0;
@@ -96,17 +88,22 @@
 }
 %>
 	
+<div class="container-fluid">
 	
-		<div id="contenido">
-		<form class="form-signin" id="myForm" name="myForm" action="" method="post">
-			<table border="4" align="center">
-			<tr>
-				<td colspan="2">Editar Torneo Seleccionado</td>
-			</tr>
-				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		
+			<div class="container tablaPersona">
+			
+			<h1>Edicion de Torneos</h1>
+			<form id="needs-validation" name="myForm" action="" method="post"
+				onsubmit="return validacion()">
+				<table class="table table-bordered" align="center">
+					<thead>
 			<tr>
 				<td>Nombre Torneo:</td>
-				<td><input type="text" name="nombreTorneo" id="nombreTorneo" value="<%= nombre%>" /></td>
+				<td><input type="text" name="nombreTorneo" id="nombreTorneo" value="<%= nombre%> " class="form-control" placeholder="nombre del torneo..." required="" /></td>
 			</tr>
 			
 			<% 
@@ -131,12 +128,12 @@
 			<tr>
 					<td>Fecha de Inicio:</td>
 					<td><input type="date" name="fechaI" id="fechaI"
-						value="<%= fechaI %>" /></td>
+						value="<%= fechaI %>" class="form-control" placeholder="Fecha de inicio del TOrneo..." required=""/></td>
 				</tr>	
 			<tr>
 					<td>Fecha de Fin:</td>
 					<td><input type="date" name="fechaF" id="fechaF"
-						value="<%= fechaF %>" /></td>
+						value="<%= fechaF %>" class="form-control" placeholder="fecha FIn del Torneo." required="" /></td>
 			</tr>	
 			<tr>
 			
@@ -149,7 +146,7 @@
 			
                                			 LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados();
                                			 %> <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
-						<select name="listaTipoEStado" id="tipoEstado">
+						<select name="listaTipoEStado" id="tipoEstado" class="form-control" placeholder="Selecciona Opcion" required="">
 							<% for(TipoEstado te :listaEstado){  
                                			if(encontrado!=null){
                                			     if(estado.getIdTipoEstado()== te.getIdTipoEstado()){%>
@@ -182,7 +179,7 @@
 					<td>Equipo campión:</td>
 					<td>
 					
-					 <select name="listarEquipos" id="listarEquipos">
+					 <select name="listarEquipos" id="listarEquipos" class="form-control" placeholder=campeon..." required="">
 							<%
 							for(EquiposTorneos te :listarEquiposTorneo){  
                                	if(encontrado.getEquipoGanador()!=null){
@@ -238,11 +235,40 @@
 		</form>
 
 	</div>
+		
+		<div class= "container Pie">
+			<div id="Pie">
+	 <div id="Pie">
+		<jsp:include page="/WEB-INF/pie.jsp" />
 
-	<div id="Pie">
-				<jsp:include page="/WEB-INF/pie.jsp" />
-
+	 
 	</div>
+		</div>
 	
+		</div>
+		</div>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+	(function(){
+		'use strict';
+		
+		window.addEventListenner('load',function(){
+			var form= document.getElementById('needs-validation');
+			form.addEventListenner('submit',function(event){
+				if(from.checkValidty()==false){
+					event.preventDefault();
+					event.stopPropagation();
+					
+				}
+			form.classList.add('was-validated');
+			},false);
+		},false);
+	})();
+		)
+		}
+	</script>
 </body>
 </html>

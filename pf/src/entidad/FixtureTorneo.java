@@ -111,6 +111,7 @@ public class FixtureTorneo {
 
 		
 		int cantidadJornadas = equipoTorne.size() - 1;
+		
 		if (Util.isPar(equipoTorne.size())) {
 			cantidadJornadas = equipoTorne.size() - 1;
 		} else {
@@ -119,12 +120,14 @@ public class FixtureTorneo {
 		
 		
 		PersonasDAO catPersona = new PersonasDAO();
+		//busco los si hay arbitros para asignarle al partido
 		LinkedList<Persona> arbitos = catPersona.buscarPersonaTipoPersona(TipoPersona.ARBITRO);
 		if(arbitos!=null && arbitos.size()>0){
 		int arbito =0;
-		int cantidadDias = Util.calularCantidadDias(equipoTorne.get(0).getTorneo().getFechaInicio(), equipoTorne.get(0).getTorneo().getFechaFin());
+		int cantidadDias = Util.calularCantidadDias(equipoTorne.get(0).getTorneo().getFechaInicio(), equipoTorne.get(0).getTorneo().getFechaFin())+1;
         if(cantidadJornadas <= cantidadDias){
         	 jornadasPartidos = new LinkedList<FixtureTorneo>();
+        	 // cada cuantos dias se juega una fecha es el calculo de acá 
         	 int diasPartidos = Util.cantidadDiasPorJornada(cantidadDias, cantidadJornadas);
         	
 		
@@ -134,7 +137,7 @@ public class FixtureTorneo {
 				Jornadas jornada = new Jornadas();
 				jornada.setFechaDescripcion(dayJornada);
 				jornadaPartido.setJornada(jornada);
-				arbito=definirArbrito(partidos.get(i), arbito,arbitos );
+				arbito=definirArbrito(partidos.get(i), arbito,arbitos );//aca le mando el partido que le voy a agregar un árbitro
 				jornadaPartido.agregarPartidos(partidos.get(i));
 	
 				for (int j = 0; j < partidos.size(); j++) {
