@@ -39,8 +39,8 @@ public class ListarCategoria extends HttpServlet {
 
 		// ///response.sendRedirect("/admin/maestroCategoria.jsp");
 		// /En el get es donde llamo al JSP...
-		request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp")
-				.forward(request, response);
+		request.getSession(false).setAttribute("editador",null);
+		request.getRequestDispatcher("/WEB-INF/admin/maestroCategoria.jsp").forward(request, response);
 	}
 
 	/**

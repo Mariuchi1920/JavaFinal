@@ -1,6 +1,10 @@
 package entidad;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
+
+import jdk.nashorn.internal.runtime.RewriteException;
+import datos.EquiposJugadoresDAO;
 
 
 
@@ -73,6 +77,18 @@ public class Equipo {
 		
 		return lista;
 		
+	}
+	public static boolean validarEquipoParaTorneo(Equipo equipo) throws SQLException {
+		// TODO Auto-generated method stub
+		boolean respuesta = false;
+		EquiposJugadoresDAO catJugadoresPorEquipo = new EquiposJugadoresDAO();
+		LinkedList<Persona> jugadores = catJugadoresPorEquipo.listarTodasLosJugadores(equipo);
+		if(jugadores.size()>=7 && jugadores.size()<=25){
+			respuesta = true;
+		}
+		
+		
+		return respuesta;
 	}
 	
 	

@@ -69,7 +69,18 @@
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
-	
+	  <%    
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<div>
+				<h3><%=request.getSession().getAttribute("error").toString()%></h3>
+			    </div>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
 	
 	
 	<div id="contenido">

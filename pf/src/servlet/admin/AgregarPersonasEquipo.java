@@ -52,7 +52,7 @@ public class AgregarPersonasEquipo extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			if (request.getSession().getAttribute("editarEntrenador") != null) {
+			if (request.getParameter("agregarEntrenador") != null) {
 				int idPersona = Integer.parseInt(request
 						.getParameter("listaEntrenadores"));
 				PersonasDAO catPersona = new PersonasDAO();
@@ -65,7 +65,7 @@ public class AgregarPersonasEquipo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarEquipo");
 
-			} else if (request.getSession().getAttribute("agregarJugador") != null) {
+			} else if (request.getParameter("agregarJugador") != null) {
 
 				int idPersona = Integer.parseInt(request
 						.getParameter("listaJugadores"));
@@ -76,10 +76,25 @@ public class AgregarPersonasEquipo extends HttpServlet {
 
 				catEJ.nuevoJugadorEquipo(equipo,
 						catPersona.buscarPersonaId(idPersona));
-				request.getSession(false).removeAttribute("agregarJugador");
+				
 				response.sendRedirect(request.getContextPath()
-						+ "/admin/modificarEquipo");
-			} else {
+						+ "/admin/agregarPersonasEquipo");
+			} else if (request.getParameter("elimiarJugador") != null) {
+				int idcat = Integer.parseInt(request
+						.getParameter("elimiarJugador"));
+				PersonasDAO catpersona = new PersonasDAO();
+				EquiposJugadores equipo = new EquiposJugadores();
+				equipo.setEquipo(((Equipo) request.getSession().getAttribute(
+						"editador")));
+				EquiposJugadoresDAO catEJ = new EquiposJugadoresDAO();
+				catEJ.eliminarJugadorEquipo(equipo,
+						catpersona.buscarPersonaId(idcat));
+				response.sendRedirect(request.getContextPath()
+						+ "/admin/agregarPersonasEquipo");
+
+			}else if (request.getParameter("elimiarJugador") == null &&
+					request.getParameter("agregarJugador")  == null && 
+					request.getParameter("agregarEntrenador") == null){
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/agregarPersonasEquipo");
 			}

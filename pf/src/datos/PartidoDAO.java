@@ -28,7 +28,7 @@ public class PartidoDAO {
 	private String DELETE = "delete from partidos where idPartidos=? ";
 	private String EDITAR = "update partidos set golesVisitante= ?,golesLocales=? , idTipoEstado=?, observaciones=?,hora=?  where idPartidos=?";
 	private String LISTARTOPARTIDOS = "select * from partidos";
-	private String LISTARPORIDS = "select * from partidos where where idPartidos=?";
+	private String LISTARPORIDS = "select * from partidos where  idPartidos=?";
 	private String LISTARPORJORNADA = "select * from partidos where idJornadas=? ";
 	private String LISTARPORARBITO = "select * from partidos where idArbrito=? ";
 	private String LISTARPOREQUIPOLOCAL = "select * from partidos where idCategoriasLocal=? and idIntitucionesLocal=? and nombreEquipoLocal=? ";

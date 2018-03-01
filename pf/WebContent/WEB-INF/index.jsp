@@ -48,13 +48,7 @@
 
 <body onload="carga()">
 
-<%if(request.getAttribute("error")!=null){ %>
-<div>
-   
-holaAAAA
-</div>
 
-<%} %>
 <div class="my-content">
 	<div class="container">
 		<div class="row">
@@ -102,7 +96,7 @@ holaAAAA
 				if(request.getSession().getAttribute("error")!=null){
 				
 				%>
-				<h3>EEEERRORR2222</h3>
+				<h3><%=request.getSession().getAttribute("error").toString()%></h3>
 				<%
 				request.getSession(false).setAttribute("error" , null);
 				

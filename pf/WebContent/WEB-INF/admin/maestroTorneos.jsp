@@ -1,3 +1,5 @@
+<%@page import="datos.JornadaDAO"%>
+<%@page import="entidad.Jornadas"%>
 <%@page import="entidad.Torneo"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="datos.TorneosDAO"%>
@@ -19,7 +21,7 @@
 <script type="text/javascript">
 	
 	function editar(met) {
-		
+		document.myform.verfixture.value="";
 		document.myform.fixture.value="" ;
 	    document.myform.eliminar.value="";  
 	    document.myForm.action=met;
@@ -28,7 +30,7 @@
 	
 	function eliminar(met) {
 		if(confirm("Estas seguro de eliminar el Torneo?")){
-		
+			document.myform.verfixture.value="";
 			document.myform.fixture.value="";
 			document.myform.editar.value=""  ;
 		    document.myForm.action=met;
@@ -37,12 +39,22 @@
 	
 	function fixture(met) {
 		if(confirm("Estas seguro de realizar el Fixture?")){
+			document.myform.verfixture.value="";
 			document.myform.editar.value="" ;
 		    document.myform.eliminar.value="";  
 		    document.myForm.action=met;
 		};
     }
-
+	
+	function verfixture(met) {
+	     	document.myform.fixture.value="";
+			document.myform.editar.value="" ;
+		    document.myform.eliminar.value="";  
+		    document.myForm.action=met;
+	
+    }
+	
+	
 	
 	</script>
 
@@ -54,6 +66,21 @@
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
+	
+	
+	
+	       <%    
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<div>
+				<h3><%=request.getSession().getAttribute("error").toString()%></h3>
+			    </div>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
 
 
 	<div id="contenido">
@@ -102,10 +129,28 @@
 							onclick="javascript: eliminar('/admin/listarTorne/')"
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
-					<th><button class="botonEliminar"
-							onclick="javascript: fixture('/admin/listarTorneo/')"
-							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Fixture</button>
+					
+					<%
+						JornadaDAO catJornada = new JornadaDAO();
+					    LinkedList<Jornadas> listaJornada = catJornada.buscarporTorneos(t.getIdTorneos());
+					    if(listaJornada!=null && listaJornada.size()>0){
+					%>
+					 <th><button class="botonEliminar"
+							onclick="javascript: verfixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button>
 					</th>
+					
+					<%
+					}else{
+				%>
+				    <th><button class="botonEliminar"
+							onclick="javascript: fixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Generar Fixture</button>
+					</th>
+				<%
+					}
+				%>
+					
 				</tr>
 				<%
 					}

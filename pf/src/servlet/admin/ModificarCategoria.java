@@ -89,8 +89,7 @@ public class ModificarCategoria extends HttpServlet {
 			}
 		} catch (SQLException | IOException | NumberFormatException ex) {
 			// TODO: handle exception
-			response.sendRedirect(request.getContextPath()
-					+ "/admin/modificarCategoria");
+			response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
 
 		}
 	}

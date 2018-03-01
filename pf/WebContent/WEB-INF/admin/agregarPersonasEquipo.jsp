@@ -22,16 +22,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Agregar Personas en un Equipo</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/style.css">
 <script type="text/javascript">
-	
-	function agregar(met) {
+
+	function agregarEntrenador(met) {
 		if(confirm("Estas seguro que desea agregarlo al Equipo")){
-			
+			document.myform.elimiarJugador.value="";
+			document.myform.agregarJugador.value="";
 		    document.myForm.action=met;
 		};
     }
 	
+	function agregarJugador(met) {
+		if(confirm("Estas seguro que desea agregarlo el Jugador al equipo")){
+			document.myform.elimiarJugador.value="";
+			document.myform.agregarEntrenador.value="";
+		    document.myForm.action=met;
+		};
+    }
+	function elimiarJugador(met) {
+		if(confirm("Estas seguro que desea Eliminar este Jugador?")){
+			document.myform.agregarEntrenador.value="";
+			document.myform.agregarJugador.value="";
+			document.myForm.action=met;
+		};
+    }
 	
 	</script>
 </head>
@@ -77,28 +93,47 @@
 			method="post">
 			<table border="4" align="center">
 				<tr>
-				  <%if(encontrado!=null){ %>
-				  
-					<td colspan="2"> Entrenadores</td>
-					
-					
+					<%if(encontrado!=null){ %>
+
+					<td colspan="2">Entrenadores</td>
+
+
 					<%}else{ %>
-					  <td colspan="2"> Jugadores</td>
-					
+					<td colspan="2">Jugadores</td>
+
 					<%} %>
 				</tr>
+
+				
+
+
+
+					<%if(encontrado==null){
+						   if(jugadores!=null && jugadores.size()>0){
+							   
+							   for(int i=0; i<jugadores.size(); i++){
+						%>
 				
 				<tr>
-					
-                        <td>
- 					<%if(encontrado!=null){ %>
-				  
-					
-					
-					
-					
-					   <select name="listaEntrenadores" id="listaEntrenadores">
-							<%
+					<td><%=jugadores.get(i).getApellido() %>, <%=jugadores.get(i).getNombre() %>
+					</td>
+					<td>
+						<button align="center"
+							onclick="javascript: elimiarJugador('/admin/modificarEquipo')"
+							id="elimiarJugador" value="<%=jugadores.get(i).getIdPersona() %>"
+							name="elimiarJugador">Eliminar</button>
+					</td>
+				</tr>
+				<%
+							   }}}
+						%>
+          <tr>
+				
+					<%if(encontrado!=null){ %>
+					<td> 
+					<select name="listaEntrenadores"
+					id="listaEntrenadores">
+						<%
 							  PersonasDAO catPersonas = new PersonasDAO();
 							  LinkedList<Persona> entrenadores = new LinkedList<Persona>();
 							  entrenadores = catPersonas.buscarPersonaTipoPersona(2);
@@ -106,51 +141,60 @@
 							  for(Persona te :entrenadores){  
                                			if(encontrado!=null){
                                			     if(entrenador.equals(te)){%>
-							<option selected="selected"
-								value="<%= te.getIdPersona() %>"><%=te.getApellido() %>, <%=te.getNombre() %></option>
+						<option selected="selected" value="<%= te.getIdPersona() %>"><%=te.getApellido() %>,
+							<%=te.getNombre() %></option>
 
-							<%}else {%>
-							<option value="<%= te.getIdPersona() %>"><%=te.getApellido() %>, <%=te.getNombre() %></option>
+						<%}else {%>
+						<option value="<%= te.getIdPersona() %>"><%=te.getApellido() %>,
+							<%=te.getNombre() %></option>
 
-							<% }}}} %>
+						<% }}}} %>
 
-					</select>
-					
-					
-					
-					
-					<%}else{ %>
-					   <select name="listaJugadores" id="listaJugadores">
-							<%
+				</select>
+				</td>
+
+				<td>
+					<button
+						onclick="javascript: agregarEntrenador('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
+						id="agregarEntrenador" value="agregarEntrenador" name="agregarEntrenador">Agregar</button>
+				</td>
+
+				<%}else{ %>
+				<%
 							  PersonasDAO catPersonas = new PersonasDAO();
 							  LinkedList<Persona> jugadorTotal = new LinkedList<Persona>();
 							  jugadorTotal = catPersonas.buscarPersonaTipoPersona(4);
-							  jugadorTotal.removeAll(jugadores);
-							  if(jugadorTotal!=null && jugadorTotal.size()>0){ 
-							    for(Persona te :jugadorTotal){ %>
-								  
-								  <option value="<%= te.getIdPersona() %>"><%=te.getApellido() %>, <%=te.getNombre() %></option>
-								  
-								  <% }} %>
+							  if(jugadores!=null && jugadores.size()>0){
+								  for(Persona persona :jugadores){
+									  jugadorTotal= Persona.eliminarPersonas(jugadorTotal, persona);
+								  }
+							  }
+							         
+							  if(jugadorTotal!=null && jugadorTotal.size()>0){ %>
+				<td><select name="listaJugadores" id="listaJugadores">
+						<%   for(Persona te :jugadorTotal){ %>
 
-					</select>
-					
-					<%} %>
+						<option value="<%= te.getIdPersona() %>"><%=te.getApellido() %>,
+							<%=te.getNombre() %></option>
 
 
-					</td>
-				</tr>
-				<tr>
+
+				</select></td>
+
 				<td>
-				  <button 
-				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
-				   id="editar" value="editar" name="editar">Agregar</button>
+					<button
+						onclick="javascript: agregarJugador('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
+						id="agregarJugador" value="agregarJugador" name="agregarJugador">Agregar</button>
 				</td>
+				<% }}} %>
 				</tr>
-				
+
+
+
+
 			</table>
 
-			
+
 		</form>
 
 	</div>

@@ -244,8 +244,6 @@ CREATE TABLE `partidos` (
   `observaciones` varchar(100) DEFAULT NULL,
   `hora` time NOT NULL,
   PRIMARY KEY (`idPartidos`),
-  UNIQUE KEY `idIntitucionesLocal_UNIQUE` (`idIntitucionesLocal`),
-  UNIQUE KEY `nombreEquipoLocal_UNIQUE` (`nombreEquipoLocal`),
   KEY `fk_partidas_jornadas1_idx` (`idJornadas`),
   KEY `fk_Partidos_Persona1_idx` (`idArbrito`),
   KEY `fk_Partidos_Equipos1_idx` (`idCategoriasLocal`,`idIntitucionesLocal`,`nombreEquipoLocal`),

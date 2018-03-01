@@ -35,6 +35,7 @@ public class ListarEquipo extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getSession(false).setAttribute("editador",null);
 		request.getRequestDispatcher("/WEB-INF/admin/maestroEquipo.jsp")
 				.forward(request, response);
 	}
