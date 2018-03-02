@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.CategoriasDAO;
+import entidad.ApplicationException;
 import entidad.Categoria;
 
 /**
@@ -68,12 +69,22 @@ public class ListarCategoria extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarCategoria");
 
-			} else {
+			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarCategoria");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarCategoria");
+		}catch (ApplicationException ex) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", ex.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarCategoria");
+		}catch (Exception ex) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarCategoria");
 		}

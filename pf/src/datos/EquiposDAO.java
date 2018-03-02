@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
@@ -69,7 +70,7 @@ public class EquiposDAO {
 		}
 	}
 
-	public void eliminarEquipo(Equipo equipo) throws SQLException {
+	public void eliminarEquipo(Equipo equipo) throws SQLException, ApplicationException {
 		try {
 			if (validarEliminar(equipo)) {
 	
@@ -87,7 +88,7 @@ public class EquiposDAO {
 		}
 	}
 
-	public boolean validarEliminar(Equipo equipo) throws SQLException {
+	public boolean validarEliminar(Equipo equipo) throws SQLException, ApplicationException {
 
 		boolean respuesta = true;
 
@@ -95,31 +96,41 @@ public class EquiposDAO {
 		EquiposJugadores equipoJugadores = new EquiposJugadores();
 		equipoJugadores.setEquipo(equipo);
 		equipoJugadores.setJugadores(catEquiposJugadores.listarTodasLosJugadores(equipo));
-		if (equipoJugadores != null)
+		if (equipoJugadores != null){
 			respuesta = false;
+			throw new ApplicationException("Existen Jugadores asociados al equipo");
+		}
+		
 		if (respuesta) {
 			EquiposTorneoDAO equipoTorneo = new EquiposTorneoDAO();
 			LinkedList<EquiposTorneos> listaEquipoTorneo = equipoTorneo.buscarporEquipo(equipo);
 			if (listaEquipoTorneo != null && listaEquipoTorneo.size() > 0) {
 				respuesta = false;
+				throw new ApplicationException("El equipo se encuentre en un torneo");
 
 			}
 		}
 		if (respuesta) {
 			TorneosDAO catTorneo = new TorneosDAO();
 			Torneo torneo = catTorneo.buscarPorEquipoGanador(equipo);
-			if (torneo != null)
+			if (torneo != null){
 				respuesta = false;
+				throw new ApplicationException("El equipo es ganador de un torneo generado");
+			}
 		}
 		if (respuesta) {
 			PartidoDAO catPartido = new PartidoDAO();
 			LinkedList<Partidos> partido = catPartido.buscarEquipoLocal(equipo);
-			if (partido != null && partido.size() > 0)
+			if (partido != null && partido.size() > 0){
 				respuesta = false;
+				throw new ApplicationException("El equipo se encuentra en un partido");
+			}
 			if (respuesta) {
 				partido = catPartido.buscarEquipoLocal(equipo);
-				if (partido != null && partido.size() > 0)
+				if (partido != null && partido.size() > 0){
 					respuesta = false;
+					throw new ApplicationException("El equipo se encuentra en un partido");
+				}
 			}
 		}
 

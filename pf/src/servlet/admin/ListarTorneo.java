@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omg.CORBA.portable.ApplicationException;
+
+
 
 import datos.EquiposTorneoDAO;
 import datos.TorneosDAO;
-
+import entidad.ApplicationException;
 import entidad.EquiposTorneos;
 import entidad.FixtureTorneo;
 import entidad.Jornadas;

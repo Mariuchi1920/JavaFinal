@@ -199,7 +199,7 @@ DROP TABLE IF EXISTS `jugadorespartidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `jugadorespartidos` (
-  `idPartidos` int(11) NOT NULL AUTO_INCREMENT,
+  `idPartidos` int(11) NOT NULL,
   `idJugadores` int(11) NOT NULL,
   `cantidadTarjetasAmarillas` int(11) DEFAULT NULL,
   `cantidadTarjetasRojas` int(11) DEFAULT NULL,

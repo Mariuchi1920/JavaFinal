@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.InstitucionesDAO;
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Institucion;
 import sun.font.Script;
@@ -69,12 +70,22 @@ public class ListarInstituciones extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarInstituciones");
 
-			} else {
+			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarInstituciones");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
+		}catch (ApplicationException ex) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", ex.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
+		}catch (Exception ex) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}

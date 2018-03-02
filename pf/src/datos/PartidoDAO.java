@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
 import entidad.JugadoresPartido;
@@ -73,9 +75,10 @@ public class PartidoDAO {
 	}
 	
 	
-	public void nuevoPartidoSINGOL(Partidos partido) throws SQLException {
+	public int nuevoPartidoReturnId(Partidos partido) throws SQLException {
+		int affectedRows=0;
 		try {
-			PreparedStatement ps = con.prepareStatement(INSERTSINGOL);
+			PreparedStatement ps = con.prepareStatement(INSERTSINGOL, Statement.RETURN_GENERATED_KEYS);
 
 			ps.setInt(1, partido.getJornada().getIdJornadas());
 			ps.setInt(2, partido.getArbrito().getIdPersona());
@@ -89,12 +92,21 @@ public class PartidoDAO {
 			ps.setTime(10, partido.getHora());
 
 			ps.executeUpdate();
+			
+            ResultSet rs = ps.getGeneratedKeys();
+			
+			if(rs.next()){
+				affectedRows = rs.getInt(1) ;
+			}
+
+			rs.close();
 			ps.close();
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			throw e1;
 		}
+		return affectedRows;
 
 	}
 
@@ -117,7 +129,7 @@ public class PartidoDAO {
 		}
 	}
 
-	public void eliminarPartido(Partidos partido) throws SQLException {
+	public void eliminarPartido(Partidos partido) throws SQLException, ApplicationException {
 		try {
 
 			JugadoresPartidosDAO catJugadoresPartido = new JugadoresPartidosDAO();
@@ -127,6 +139,9 @@ public class PartidoDAO {
 				ps.setInt(1, partido.getIdPartidos());
 				ps.executeUpdate();
 				ps.close();
+			}else {
+				throw new ApplicationException(
+						"El partido tiene Jugadores asociados");
 			}
 
 		} catch (SQLException e) {

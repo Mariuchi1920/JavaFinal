@@ -14,6 +14,7 @@ import datos.EquiposDAO;
 import datos.EquiposJugadoresDAO;
 import datos.InstitucionesDAO;
 import datos.PersonasDAO;
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
@@ -80,8 +81,7 @@ public class ModificarEquipo extends HttpServlet {
 				equipo.setEquipo(((Equipo) request.getSession().getAttribute(
 						"editador")));
 				EquiposJugadoresDAO catEJ = new EquiposJugadoresDAO();
-				catEJ.eliminarJugadorEquipo(equipo,
-						catpersona.buscarPersonaId(idcat));
+				catEJ.eliminarJugadorEquipo(equipo, catpersona.buscarPersonaId(idcat));
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarEquipo");
 
@@ -115,16 +115,27 @@ public class ModificarEquipo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarEquipo");
 
-			} else {
+			} else if (request.getParameter("agregarEquipo") == null && request.getParameter("agregarJugador") == null 
+					&& request.getParameter("elimiarJugador") == null && request.getParameter("editarEntrenador") == null ) {
 
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarEquipo");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			response.sendRedirect(request.getContextPath()
-					+ "/admin/modificarEquipo");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
+			response.sendRedirect(request.getContextPath()+ "/admin/modificarEquipo");
 
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
+			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
 		}
 
 	}

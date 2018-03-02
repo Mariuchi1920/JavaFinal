@@ -13,7 +13,7 @@ import modelo.Conexion;
 
 public class JugadoresPartidosDAO {
 
-	private String INSERT = "insert into jugadorespartidos ( idPartidos,idJugadores, cantidadTarjetasAmarillas, cantidadTarjetasRojas,cantidadGoles)values (?,?,?,?,?)";
+	private String INSERT = "insert into jugadorespartidos ( idPartidos,idJugadores, cantidadTarjetasAmarillas, cantidadTarjetasRojas,cantidadGoles) values (?,?,?,?,?)";
 	private String DELETE = "delete from jugadorespartidos where idPartidos=? and idJugadores=? ";
 	private String EDITAR = "update jugadorespartidos set cantidadTarjetasAmarillas= ?,cantidadTarjetasRojas=?, cantidadGoles=? where idPartidos=? and idJugadores=? ";
 	private String LISTARTOEQUIPOS = "select * from jugadorespartidos";
@@ -35,7 +35,7 @@ public class JugadoresPartidosDAO {
 			ps.setInt(2, jugadoresPartido.getJugadores().getIdPersona());
 			ps.setInt(3, jugadoresPartido.getCantidadTarjetasAmarillas());
 			ps.setInt(4, jugadoresPartido.getCantidadTarjetasRojas());
-			ps.setInt(4, jugadoresPartido.getCatidadGoles());
+			ps.setInt(5, jugadoresPartido.getCatidadGoles());
 
 			ps.executeUpdate();
 			ps.close();

@@ -83,14 +83,19 @@ public class ModificarCategoria extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarCategoria");
 
-			} else {
+			} else if (request.getParameter("registar") == null && request.getParameter("editar") == null){
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarCategoria");
 			}
 		} catch (SQLException | IOException | NumberFormatException ex) {
 			// TODO: handle exception
+			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
 
+		}catch (Exception e) {
+			request.setAttribute("error", "error inseperado");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarCategoria");
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.TipoEstado;
@@ -58,7 +59,7 @@ public class CategoriasDAO {
 		}
 	}
 
-	public void eliminarCategoria(Categoria cat) throws SQLException {
+	public void eliminarCategoria(Categoria cat) throws SQLException, ApplicationException {
 		try {
 			EquiposDAO catEquipo = new EquiposDAO();
 			LinkedList<Equipo> equipos = catEquipo.buscarporIdCategoria(cat
@@ -68,6 +69,9 @@ public class CategoriasDAO {
 				ps.setInt(1, cat.getIdCategorias());
 				ps.executeUpdate();
 				ps.close();
+			}else {
+				throw new ApplicationException(
+						"La categoria tiene equipos asociados");
 			}
 
 		} catch (SQLException e) {
@@ -90,6 +94,8 @@ public class CategoriasDAO {
     				listaCategorias.add(cat);
                 } while (rs.next());
             }
+			rs.close();
+			st.close();
 			
 		} catch (SQLException ex) {
 			// TODO: handle exception

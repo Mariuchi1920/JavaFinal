@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.InstitucionesDAO;
 import datos.PersonasDAO;
+import entidad.ApplicationException;
 import entidad.Institucion;
 import entidad.Persona;
 
@@ -67,15 +68,25 @@ public class ListarPersonas extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarPersonas");
 
-			} else {
+			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null  ){
 				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarInstituciones");
+						+ "/admin/listarPersonas");
 			}
 
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath()
-					+ "/admin/listarInstituciones");
+					+ "/admin/listarPersonas");
+		}catch (ApplicationException ex) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", ex.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarPersonas");
+		}catch (Exception ex) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarPersonas");
 		}
 
 	}

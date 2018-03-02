@@ -115,15 +115,20 @@ public class ModificarTorneo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/agregarEquiposTorneos");
 
-			} else {
+			} else if (request.getParameter("registar") == null && request.getParameter("editar") != null && request.getParameter("agregarEquipos") == null) {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarTorneo");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarTorneo");
 
+		}catch (Exception e) {
+			request.setAttribute("error", "error inseperado");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarTorneo");
 		}
 	}
 

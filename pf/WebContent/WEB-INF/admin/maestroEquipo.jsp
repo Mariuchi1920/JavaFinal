@@ -82,7 +82,7 @@ function eliminar(met) {
 
 		</form>
 
-		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nuevo Equipo</a>
+		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarEquipo">Nuevo Equipo</a>
 
 	</div>
 	</div>

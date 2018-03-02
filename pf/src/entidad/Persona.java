@@ -114,4 +114,17 @@ public class Persona {
 	}
 	
 	
+     public static boolean buscarPersona(LinkedList<Persona> personas ,Persona persona){
+		boolean respuesta =false ;
+		for(int i=0; i<personas.size(); i++){
+			if(personas.get(i).getIdPersona() == persona.getIdPersona()){
+				respuesta= true;
+			}
+		}
+		
+		return respuesta;
+		
+	} 
+	
+	
 }

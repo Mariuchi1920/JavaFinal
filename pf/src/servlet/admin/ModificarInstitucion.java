@@ -73,13 +73,18 @@ public class ModificarInstitucion extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarInstituciones");
 
-			} else {
+			} else if (request.getParameter("registar") == null && request.getParameter("editar") != null)  {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarInstituciones");
 			}
 
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			request.setAttribute("error", "error inseperado");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
+		}catch (Exception e) {
+			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}
