@@ -105,14 +105,12 @@
 		<ul class="nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/reguistarPersonas">Editar Persona</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#">Torneo</a>
+			<li class="nav-item"><a class="nav-link" href="#">Torneos</a>
 				<ul>
 					<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/listarTorneo">Listar
+						href="${pageContext.request.contextPath}/listarTorneo">Listar
 							Torneos</a></li>
-					<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo
-							Torneo</a></li>
+					
 
 
 				</ul></li>

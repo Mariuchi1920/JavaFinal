@@ -13,6 +13,7 @@ import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposTorneos;
 import entidad.Jornadas;
+import entidad.Partidos;
 import entidad.TipoEstado;
 import entidad.Torneo;
 import modelo.Conexion;
@@ -25,6 +26,17 @@ public class TorneosDAO {
 	private String LISTATORNEO = "select * from torneos";
 	private String LISTARPORCODIGOTORNEO = "select * from torneos where idTorneos=?;";
 	private String BUSCARTORNEOGANADOR = "select * from torneos where idCategoriaCampeon=? and idIntitucionCampeon=? and nombreEquipoCampeon=?;";
+	private String BUSCARTODOSLOSPARTIDOS = "select partidos.idCategoriasLocal, partidos.idIntitucionesLocal, partidos.nombreEquipoLocal,"
+			+ "partidos.idCategoriasVisitante,partidos.idIntitucionesVisitante, "
+			+ "partidos.nombreEquipoVisitante ,partidos.golesLocales, partidos.golesVisitante"
+			+ " from torneos inner join jornadas on torneos.idTorneos = jornadas.idTorneos"
+			+ " inner join partidos on jornadas.idJornadas =partidos.idJornadas    ";
+	
+	private String BUSCARTODOSLOSPARTIDOSJUGADOS = "select partidos.idCategoriasLocal, partidos.idIntitucionesLocal, partidos.nombreEquipoLocal,"
+			+ "partidos.idCategoriasVisitante,partidos.idIntitucionesVisitante, partidos.nombreEquipoVisitante ,partidos.golesLocales, partidos.golesVisitante "
+			+ "from torneos inner join jornadas on torneos.idTorneos = jornadas.idTorneos"
+			+ " inner join partidos on jornadas.idJornadas =partidos.idJornadas  where partidos.idTipoEstado= 3 and torneos.idTorneos=? ";
+	
 	private Connection con;
 
 	public TorneosDAO() {
@@ -223,6 +235,57 @@ public class TorneosDAO {
 		return torneo;
 
 	}
+	
+	
+	public LinkedList<Partidos> buscarPartidosJugados(Torneo torneo) throws SQLException {
+		LinkedList<Partidos> partidosJugados=null;
+		try {
+			PreparedStatement ps = con.prepareStatement(BUSCARTODOSLOSPARTIDOSJUGADOS);
+			ps.setInt(1,torneo.getIdTorneos());
+			
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				partidosJugados= new LinkedList<Partidos>();
+				do{
+					Partidos partido = popularPartidos(rs);
+					partidosJugados.add(partido);
+					
+				}while(rs.next());
+				
+				
+
+			}
+			rs.close();
+			ps.close();
+
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+			throw ex;
+		}
+
+		return partidosJugados;
+
+	}
+	
+	
+	public Partidos popularPartidos(ResultSet rs) throws SQLException {
+		Partidos partido = new Partidos();
+	
+		
+		
+		
+		EquiposDAO catEquipo = new EquiposDAO();
+		partido.setEquipoLocal(catEquipo.buscarporIdsEquipo(rs.getInt(1),rs.getInt(2), rs.getString(3)));
+		partido.setEquipoVisitante(catEquipo.buscarporIdsEquipo(rs.getInt(4), rs.getInt(5), rs.getString(6)));
+		partido.setGolesVisitante(rs.getInt(8));
+		partido.setGolesLocal(rs.getInt(7));
+	
+		return partido;
+
+	}
+	
 
 	private void popularTorneo(Torneo torneo, ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
