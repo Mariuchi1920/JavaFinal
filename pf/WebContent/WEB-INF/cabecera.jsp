@@ -141,10 +141,15 @@
 
 	</div>
 	</nav>
-	<%	}}%>
+	<%}}else { %>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light container">
+	<img src="${pageContext.request.contextPath}/imagen/logo_header.png">
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/user">Liga	Efa</a>
+	</nav> 
 
 
-
+	<%}%>
 
 
 	<!--  nav bar-->

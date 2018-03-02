@@ -47,9 +47,7 @@
 </script>
 </head>
 <body>
-<%
-		if (request.getSession().getAttribute("usuario") != null) {
-	%>
+
 <div class="container">
 	
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
@@ -57,9 +55,7 @@
 	
 	<!-- slider -->
 		<div class="container tablaPersona">
-			<%
-		}
-	%>
+		
 			<%
 		Persona encontrado = null;
 		String idPersona = "";
