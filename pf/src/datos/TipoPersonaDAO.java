@@ -103,6 +103,7 @@ public class TipoPersonaDAO {
 	public TipoPersona getTipoPersona(int idTipoPersona) throws SQLException {
 
 		TipoPersona tipoPersona = null;
+		System.out.println("TIPO "+idTipoPersona);
 		try {
 			PreparedStatement ps = con.prepareStatement(RECUPERARIDPERSONA);
 			ps.setInt(1, idTipoPersona);

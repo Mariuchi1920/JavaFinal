@@ -90,6 +90,8 @@ public class CategoriasDAO {
     				listaCategorias.add(cat);
                 } while (rs.next());
             }
+			rs.close();
+			st.close();
 			
 		} catch (SQLException ex) {
 			// TODO: handle exception

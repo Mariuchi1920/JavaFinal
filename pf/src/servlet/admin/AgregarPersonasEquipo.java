@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import datos.EquiposDAO;
 import datos.EquiposJugadoresDAO;
 import datos.PersonasDAO;
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
 import entidad.Persona;
@@ -67,15 +68,14 @@ public class AgregarPersonasEquipo extends HttpServlet {
 
 			} else if (request.getParameter("agregarJugador") != null) {
 
-				int idPersona = Integer.parseInt(request
-						.getParameter("listaJugadores"));
+				int idPersona = Integer.parseInt(request.getParameter("listaJugadores"));
 				PersonasDAO catPersona = new PersonasDAO();
 				EquiposJugadoresDAO catEJ = new EquiposJugadoresDAO();
-				EquiposJugadores equipo = ((EquiposJugadores) request
-						.getSession().getAttribute("agregarJugador"));
+				EquiposJugadores equipo = ((EquiposJugadores) request.getSession().getAttribute("agregarJugador"));
+				
+				
 
-				catEJ.nuevoJugadorEquipo(equipo,
-						catPersona.buscarPersonaId(idPersona));
+				catEJ.nuevoJugadorEquipo(equipo,catPersona.buscarPersonaId(idPersona));
 				
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/agregarPersonasEquipo");
@@ -95,11 +95,22 @@ public class AgregarPersonasEquipo extends HttpServlet {
 			}else if (request.getParameter("elimiarJugador") == null &&
 					request.getParameter("agregarJugador")  == null && 
 					request.getParameter("agregarEntrenador") == null){
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/agregarPersonasEquipo");
+				  response.sendRedirect(request.getContextPath() + "/admin/agregarPersonasEquipo");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			request.getSession().setAttribute("error","ocurrio un error inesperado");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/agregarPersonasEquipo");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/agregarPersonasEquipo");
+			
+		}catch(Exception e){
+			request.getSession().setAttribute("error","ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/agregarPersonasEquipo");
 		}

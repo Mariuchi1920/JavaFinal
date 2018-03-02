@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.LinkedList;
 
+import datos.EquiposJugadoresDAO;
 import datos.JornadaDAO;
+import datos.JugadoresPartidosDAO;
 import datos.PartidoDAO;
 import datos.PersonasDAO;
 import datos.TipoEstadoDAO;
@@ -52,6 +54,10 @@ public class FixtureTorneo {
 		TipoEstado pendiente = catEstado.getTipoEstados(TipoEstado.PENDIENTE);
 		Jornadas jornadaInsertar= null;
 		Partidos partidoInsetar = null;
+		JugadoresPartidosDAO catJugadoPartido= new JugadoresPartidosDAO();
+		EquiposJugadoresDAO catEquipoJugadores = new EquiposJugadoresDAO();
+		
+		
 		for(int i=0; i<jornadasPartidos.size(); i++ ){
 			jornadaInsertar = new Jornadas();
 			jornadaInsertar.setTorneos(torneo);
@@ -69,13 +75,30 @@ public class FixtureTorneo {
 				partidoInsetar.setJornada(jornadaInsertar);
 				Time hora = Util.addTime((horasEntrePartidos * j));
 				partidoInsetar.setHora(hora);
-				catPartido.nuevoPartidoSINGOL(partidoInsetar);
+				partidoInsetar.setIdPartidos(catPartido.nuevoPartidoReturnId(partidoInsetar));
+				LinkedList<Persona> listaEquipoJugadoreslocal = catEquipoJugadores.listarTodasLosJugadores(partidoInsetar.getEquipoLocal());
+				for (Persona persona : listaEquipoJugadoreslocal) {
+				   JugadoresPartido jugadorPartido = new JugadoresPartido();
+				   jugadorPartido.setPartido(partidoInsetar);
+				   jugadorPartido.setJugadores(persona);
+				   jugadorPartido.setCantidadTarjetasAmarillas(0);
+				   jugadorPartido.setCantidadTarjetasRojas(0);
+				   jugadorPartido.setCatidadGoles(0);
+				   catJugadoPartido.nuevoJugadorPartido(jugadorPartido);
+				}
 				
-				
-				
-				
-				
-				
+				LinkedList<Persona> listaEquipoJugadoresvisitante = catEquipoJugadores.listarTodasLosJugadores(partidoInsetar.getEquipoVisitante());
+				for (Persona persona : listaEquipoJugadoresvisitante) {
+				   JugadoresPartido jugadorPartido = new JugadoresPartido();
+				   jugadorPartido.setPartido(partidoInsetar);
+				   jugadorPartido.setJugadores(persona);
+				   jugadorPartido.setCantidadTarjetasAmarillas(0);
+				   jugadorPartido.setCantidadTarjetasRojas(0);
+				   jugadorPartido.setCatidadGoles(0);
+				   catJugadoPartido.nuevoJugadorPartido(jugadorPartido);
+				}
+
+
 			}
 			
 		}

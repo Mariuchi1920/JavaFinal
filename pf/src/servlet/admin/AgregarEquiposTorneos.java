@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.EquiposDAO;
 import datos.EquiposTorneoDAO;
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposTorneos;
 import entidad.Torneo;
@@ -82,6 +83,11 @@ public class AgregarEquiposTorneos extends HttpServlet {
 			// TODO: handle exception
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/agregarPersonasEquipo");
+		}catch (ApplicationException ex) {
+			request.getSession().setAttribute("error",ex.getMessage());
+			response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
+			
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");

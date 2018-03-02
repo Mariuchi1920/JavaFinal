@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+import sun.awt.image.ImageWatched.Link;
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
 import entidad.EquiposTorneos;
+import entidad.Persona;
 import entidad.Torneo;
 import modelo.Conexion;
 
@@ -30,17 +33,21 @@ public class EquiposTorneoDAO {
 
 	}
 
-	public void nuevoEquipoTorneo(EquiposTorneos equipoTorneo) throws SQLException {
+	public void nuevoEquipoTorneo(EquiposTorneos equipoTorneo) throws SQLException, ApplicationException {
 		try {
-			PreparedStatement ps = con.prepareStatement(INSERT);
-
-			ps.setInt(1, equipoTorneo.getEquipos().getCategorias().getIdCategorias());
-			ps.setInt(2, equipoTorneo.getEquipos().getInstitucion().getIdInstituciones());
-			ps.setString(3, equipoTorneo.getEquipos().getNombreEquipo());
-			ps.setInt(4, equipoTorneo.getTorneo().getIdTorneos());
-
-			ps.executeUpdate();
-			ps.close();
+			if(validarPersonasEquipo(equipoTorneo)){
+				PreparedStatement ps = con.prepareStatement(INSERT);
+	
+				ps.setInt(1, equipoTorneo.getEquipos().getCategorias().getIdCategorias());
+				ps.setInt(2, equipoTorneo.getEquipos().getInstitucion().getIdInstituciones());
+				ps.setString(3, equipoTorneo.getEquipos().getNombreEquipo());
+				ps.setInt(4, equipoTorneo.getTorneo().getIdTorneos());
+	
+				ps.executeUpdate();
+				ps.close();
+			}else{
+				throw new ApplicationException("Algun jugador se encuentra en este torneo");
+			}
 
 		} catch (SQLException e1) {
 			
@@ -49,6 +56,37 @@ public class EquiposTorneoDAO {
 		}
 
 	}
+	
+	public boolean  validarPersonasEquipo(EquiposTorneos equipoTorneo) throws SQLException{
+		boolean respuesta = true;
+		LinkedList<EquiposTorneos> equipos = buscarporTorneo(equipoTorneo.getTorneo());
+		if(equipos!=null && equipos.size()>0){
+			EquiposJugadoresDAO catEquiposJugadoes = new EquiposJugadoresDAO();
+			LinkedList<Persona> listaJugaoresEquipos = new LinkedList<Persona>();
+			for (EquiposTorneos equiposenTorneos : equipos) {
+				listaJugaoresEquipos.addAll(catEquiposJugadoes.listarTodasLosJugadores(equiposenTorneos.getEquipos()));
+				
+				
+			}
+			
+			LinkedList<Persona> jugadoresEquipoNuevo = catEquiposJugadoes.listarTodasLosJugadores(equipoTorneo.getEquipos());
+			if(listaJugaoresEquipos!=null && listaJugaoresEquipos.size()>0){
+				for (Persona persona : jugadoresEquipoNuevo) {
+					if(Persona.buscarPersona(listaJugaoresEquipos, persona)){
+						respuesta= false;
+						break;
+					}
+				}
+				
+			}
+		}
+		
+		
+		
+		
+		return respuesta;
+	}
+	
 
 	public void eliminarEquipoTorneo(EquiposTorneos equipoTorneo) throws SQLException {
 		try {

@@ -61,7 +61,7 @@ public class TipoEstadoDAO {
 			PreparedStatement ps = con.prepareStatement(DELETE);
 			ps.setInt(1, tipoEstado.getIdTipoEstado());
 			ps.executeUpdate();
-			// ps.close();
+			ps.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,7 +85,8 @@ public class TipoEstadoDAO {
 					lista.add(cat);
 				}while (rs.next());
 			}
-			
+			rs.close();
+			st.close();
 		} catch (SQLException ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
@@ -98,15 +99,15 @@ public class TipoEstadoDAO {
 
 	public TipoEstado getTipoEstados(int idTipoEstado) throws SQLException {
 
-		TipoEstado categorias = null;
+		TipoEstado tipoEstado = null;
 		try {
 			PreparedStatement ps = con.prepareStatement(LISTARTODATIPOESTADOID);
 			ps.setInt(1, idTipoEstado);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				categorias = new TipoEstado();
-				categorias.setIdTipoEstado(rs.getInt(1));
-				categorias.setDescripcion(rs.getString(2));
+				tipoEstado = new TipoEstado();
+				tipoEstado.setIdTipoEstado(rs.getInt(1));
+				tipoEstado.setDescripcion(rs.getString(2));
 
 			}
 			rs.close();
@@ -115,8 +116,12 @@ public class TipoEstadoDAO {
 			// TODO: handle exception
 			ex.printStackTrace();
 			throw ex;
+		}catch (Exception ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+			throw ex;
 		}
-		return categorias;
+		return tipoEstado;
 
 	}
 

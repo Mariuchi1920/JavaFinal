@@ -67,7 +67,7 @@ public class JornadaDAO {
 			if(rs.next()){
 				affectedRows = rs.getInt(1) ;
 			}
-			
+			rs.close();
 			ps.close();
 
 		} catch (SQLException e) {

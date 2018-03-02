@@ -108,7 +108,7 @@
 
 
 
-					<%if(encontrado==null){
+					<%if(equipoJugador!=null){
 						   if(jugadores!=null && jugadores.size()>0){
 							   
 							   for(int i=0; i<jugadores.size(); i++){
@@ -171,14 +171,18 @@
 							  }
 							         
 							  if(jugadorTotal!=null && jugadorTotal.size()>0){ %>
-				<td><select name="listaJugadores" id="listaJugadores">
+				              <td>
+				              <select name="listaJugadores" id="listaJugadores">
 						<%   for(Persona te :jugadorTotal){ %>
 
-						<option value="<%= te.getIdPersona() %>"><%=te.getApellido() %>,
+						      <option value="<%= te.getIdPersona() %>"> <%=te.getApellido() %>,
 							<%=te.getNombre() %></option>
 
 
 
+				
+				<% }%>
+				
 				</select></td>
 
 				<td>
@@ -186,7 +190,8 @@
 						onclick="javascript: agregarJugador('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
 						id="agregarJugador" value="agregarJugador" name="agregarJugador">Agregar</button>
 				</td>
-				<% }}} %>
+						
+				<%			  }} %>
 				</tr>
 
 

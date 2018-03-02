@@ -164,6 +164,7 @@ public class PersonasDAO {
 
 		Persona persona = null;
 		try {
+			
 			PreparedStatement ps = con.prepareStatement(LISTARPORIDPERSONA);
 			ps.setInt(1, id);
 
@@ -176,6 +177,10 @@ public class PersonasDAO {
 			rs.close();
 			ps.close();
 		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+			throw ex;
+		} catch (Exception ex) {
 			// TODO: handle exception
 			ex.printStackTrace();
 			throw ex;

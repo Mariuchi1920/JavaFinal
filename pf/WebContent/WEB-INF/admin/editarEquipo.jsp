@@ -71,9 +71,7 @@
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
-
-
-	<%
+<%
 Equipo encontrado = null;
 Categoria categoria =null;
 Institucion institucion= null;
@@ -200,30 +198,7 @@ if(request.getSession().getAttribute("editador")!=null){
 				<% } %>
 				</tr>
 				
-				<%-- <% if(encontrado!=null){ %>
-				<tr>
-					<td colspan="2">Jugadores </td>
-				</tr>
-					
-						<%
-						   if(jugadores!=null && jugadores.size()>0){
-							   
-							   for(int i=0; i<jugadores.size(); i++){
-						%>
-					<tr>   
-						<td>
-						   <%=jugadores.get(i).getApellido() %>, <%=jugadores.get(i).getNombre() %>
-						</td>
-						<td>
-						  <button align="center"
-				               onclick="javascript: elimiarJugador('/admin/modificarEquipo')"
-				               id="elimiarJugador" value="<%=jugadores.get(i).getIdPersona() %>" name="elimiarJugador">Eliminar</button>
-						</td>
-					</tr>
-					   <%
-							   }}
-						%>
-						 --%>
+				
 						
 			
 
@@ -236,9 +211,7 @@ if(request.getSession().getAttribute("editador")!=null){
 						</td>
 
                 </tr>
-<%--                 <% --%>
-// 							   }
-<%-- 						%> --%>
+
 
 			</table>
 			<% if(encontrado==null){ %>
