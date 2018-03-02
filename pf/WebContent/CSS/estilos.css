@@ -238,3 +238,25 @@ button.mybtn:focus{
     border-radius: 6px;
     border: none;
   }
+  
+  .botonGenerarFixture{
+     text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;/* color de la letra  */
+    background-color:#0000a0; /* color de fondo del boton */
+    border-radius: 6px;
+    border: none;
+  
+  }
+  .verFixture{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;/* color de la letra  */
+    background-color:#fd860f; /* color de fondo del boton */
+    border-radius: 6px;
+    border: none;
+  }

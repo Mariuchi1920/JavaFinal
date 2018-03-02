@@ -83,7 +83,7 @@
 					<td align="center">Fecha Fin</td>
 					<td align="center">Estado</td>
 					<td align="center">Equipo Campeon</td>
-					<td align="center" colspan="3">Accion</td>
+					<td align="center" colspan="4">Accion</td>
 				</tr>
   
   </thead>
@@ -130,7 +130,7 @@
 					    LinkedList<Jornadas> listaJornada = catJornada.buscarporTorneos(t.getIdTorneos());
 					    if(listaJornada!=null && listaJornada.size()>0){
 					%>
-					 <th><button class="botonEliminar"
+					 <th><button class="verFixture"
 							onclick="javascript: verfixture('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button>
 
@@ -139,7 +139,7 @@
 					<%
 					}else{
 				%>
-				    <th><button class="botonEliminar"
+				    <th><button class="botonGenerarFixture"
 							onclick="javascript: fixture('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Generar Fixture</button>
 					</th>

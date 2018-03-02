@@ -66,9 +66,11 @@
 						<h3> Ingresa a nuestro Sitio</h3>
 						<p>Escribe tu usuario y contraseña.</p>
 					</div>
+				
 					<div class= "myform-top-right">
 					<img src="${pageContext.request.contextPath}/imagen/logoconborde.png">
 					</div>
+						
 			</div>
 			
 			<div class="myform-bottom">
@@ -96,8 +98,6 @@
 		<div class="row">
 			<div class="col-sm-12 mysocial-login">
 				
-				<h3>...visítanos tambien  por:</h3>
-				
 				<%
 				
 				if(request.getSession().getAttribute("error")!=null){
@@ -110,11 +110,7 @@
 				} %>
 			
 				
-				<div class="mysocial-login-buttons">
-				<a class="mybtn-social" href="https://www.facebook.com/LIGA-EFA-159057650852892/">
-				<i class="fab fa-facebook-square"></i>Facebook
-				</a>
-				</div>
+				
 			</div>
 	</div>
 		</div>
