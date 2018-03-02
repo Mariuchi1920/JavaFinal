@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.LinkedList;
 
+
 import datos.EquiposJugadoresDAO;
+
 import datos.JornadaDAO;
 import datos.JugadoresPartidosDAO;
 import datos.PartidoDAO;
@@ -142,6 +144,7 @@ public class FixtureTorneo {
 
 		
 		int cantidadJornadas = equipoTorne.size() - 1;
+		
 		if (Util.isPar(equipoTorne.size())) {
 			cantidadJornadas = equipoTorne.size() - 1;
 		} else {
@@ -150,45 +153,47 @@ public class FixtureTorneo {
 		
 		
 		PersonasDAO catPersona = new PersonasDAO();
+		//busco los si hay arbitros para asignarle al partido
 		LinkedList<Persona> arbitos = catPersona.buscarPersonaTipoPersona(TipoPersona.ARBITRO);
 		if(arbitos!=null && arbitos.size()>0){
-			int arbito =0; 
-			int cantidadDias = Util.calularCantidadDias(equipoTorne.get(0).getTorneo().getFechaInicio(), equipoTorne.get(0).getTorneo().getFechaFin());
-	        if(cantidadJornadas <= cantidadDias){
-	        	 jornadasPartidos = new LinkedList<FixtureTorneo>();
-	        	 int diasPartidos = Util.cantidadDiasPorJornada(cantidadDias, cantidadJornadas);
-	        	
-			
-				for (int i = 0; i < cantidadJornadas; i++) {
-					FixtureTorneo jornadaPartido = new FixtureTorneo();
-					Date dayJornada = Util.addDays(equipoTorne.get(0).getTorneo().getFechaInicio(), (diasPartidos * i));
-					Jornadas jornada = new Jornadas();
-					jornada.setFechaDescripcion(dayJornada);
-					jornadaPartido.setJornada(jornada);
-					arbito=definirArbrito(partidos.get(i), arbito,arbitos );
-					jornadaPartido.agregarPartidos(partidos.get(i));
-		
-					for (int j = 0; j < partidos.size(); j++) {
-		
-						if (partidoEnJorda(partidos.get(j), jornadaPartido)) {
-		                   
-							arbito=definirArbrito(partidos.get(j), arbito,arbitos );
-							jornadaPartido.agregarPartidos(partidos.get(j));
-						}
-		
+
+		int arbito =0;
+		int cantidadDias = Util.calularCantidadDias(equipoTorne.get(0).getTorneo().getFechaInicio(), equipoTorne.get(0).getTorneo().getFechaFin())+1;
+        if(cantidadJornadas <= cantidadDias){
+        	 jornadasPartidos = new LinkedList<FixtureTorneo>();
+        	 // cada cuantos dias se juega una fecha es el calculo de acá 
+        	 int diasPartidos = Util.cantidadDiasPorJornada(cantidadDias, cantidadJornadas);
+        	
+
+			for (int i = 0; i < cantidadJornadas; i++) {
+				FixtureTorneo jornadaPartido = new FixtureTorneo();
+				Date dayJornada = Util.addDays(equipoTorne.get(0).getTorneo().getFechaInicio(), (diasPartidos * i));
+				Jornadas jornada = new Jornadas();
+				jornada.setFechaDescripcion(dayJornada);
+				jornadaPartido.setJornada(jornada);
+				arbito=definirArbrito(partidos.get(i), arbito,arbitos );//aca le mando el partido que le voy a agregar un árbitro
+				jornadaPartido.agregarPartidos(partidos.get(i));
+	
+				for (int j = 0; j < partidos.size(); j++) {
+	
+					if (partidoEnJorda(partidos.get(j), jornadaPartido)) {
+	                   
+						arbito=definirArbrito(partidos.get(j), arbito,arbitos );
+						jornadaPartido.agregarPartidos(partidos.get(j));
+
 					}
 					if(jornadaPartido.getPartidos().size()>6){
 						
-						 throw new ApplicationException("El torneo supera la cantidad de equipos maximos");
+						 throw new ApplicationException("El torneo supera la cantidad de equipos maximos", null);
 						
 					}
 					jornadasPartidos.add(jornadaPartido);
 				}
-			 }else{
-				 throw new ApplicationException("La cantidad de dias debe ser mayor a " + cantidadJornadas);
+			}}else{
+				 throw new ApplicationException("La cantidad de dias debe ser mayor a " + cantidadJornadas, null);
 			 }
 		}else{
-			throw new ApplicationException("Primero debe ingresar Personas tipo Arbitro");
+			throw new ApplicationException("Primero debe ingresar Personas tipo Arbitro", null);
 		}
 
 		return jornadasPartidos;

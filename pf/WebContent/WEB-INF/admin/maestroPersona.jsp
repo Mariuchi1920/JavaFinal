@@ -9,14 +9,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html  lang="en">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
 	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
 
 <title>Listar Personas</title>
 
@@ -40,41 +42,40 @@ function eliminar(met) {
 	
 	</script>
 <body>
-	<div class="container">
-		<div id="contenedor">
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-	</div>
-	<!-- listado de personas -->
+	<div class="container-fluid">
 	
-	<div class="container">
-		<form id="myForm" name="myForm" action="" method="post">
-
-
-			<table class="table" align="center" width="700" border="void" cellpadding="5">
-			<thead class="thead-default">
-				<tr>
-					<td colspan="9" align="center">Administrador de Persona</td>
-				</tr>
-				<tr>
-					<td align="center">Nombre</td>
-					<td align="center">Apellido</td>
-					<td align="center">Telefono</td>
-					<td align="center">Fecha Nacimiento</td>
-					<td align="center">Numero Documento</td>
-					<td align="center">Mail</td>
-					<td align="center">Tipo Persona</td>
-					<td align="center" colspan="2">Acción</td>
-					
-				</tr>
-
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+	
+		<!-- slider -->
+		<div class="container tablaPersona">
+			
+				 <h1>Administrador de Personas</h1> 
+				 <form id="myForm" name="myForm" action="" method="post">
+				 <table class="table table-bordered" align="center">
+  <thead>
+    <tr>
+    	<th align="center">Nombre</th>
+					<th align="center">Apellido</th>
+					<th align="center">Telefono</th>
+					<th align="center">Fecha Nacimiento</th>
+					<th align="center">Numero Documento</th>
+					<th align="center">Mail</th>
+					<th align="center">Tipo Persona</th>
+					<th align="center" colspan="2">Acción</th>
+          </tr>
+  </thead>
+  
 				<%
 					PersonasDAO catPersona = new PersonasDAO();
 					LinkedList<Persona> personas = catPersona.listarPersonas();
 					for (Persona c : personas) {
 				%>
-				<tr>
-					<th><%=c.getNombre()%></th>
-					<th><%=c.getApellido()%></th>
+  <tbody>
+    <tr>
+      <th scope="row"><%=c.getNombre()%></th>
+      				<th><%=c.getApellido()%></th>
 					<th><%=c.getTelefono()%></th>
 					<th><%=c.getFechaNacimiento().toString()%></th>
 					<th><%=c.getNumeroDocumento()%></th>
@@ -91,27 +92,33 @@ function eliminar(met) {
 							value="<%= c.getIdPersona()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
 
-<%
+				<%
 					}
 				%>
 
-				</tr>
-				
-				<th colspan="9">
-				<a type="button"  href="${pageContext.request.contextPath}/reguistarPersonas">Nueva Persona</a>
-				</th>
-				</thead>
-			</table>
+	</tr>
+    <tr>
+    <th colspan="9"><a type="button"  href="${pageContext.request.contextPath}/reguistarPersonas">Nueva Persona</a></th>
+    </tr>
+    
+  </tbody>
+</table>
 
+				
 		</form>
-	</div>
-		
-		 <div id="Pie">
-			<jsp:include page="/WEB-INF/pie.jsp" />
-		 </div>
+			</div>
+		</div>
+		<!-- slider -->
+
+
+		<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
+
+
+			</div>
+		</div>
 	
-	
-	</div>
 	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>

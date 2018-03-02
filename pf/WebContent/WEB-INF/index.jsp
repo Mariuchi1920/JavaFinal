@@ -67,7 +67,7 @@
 						<p>Escribe tu usuario y contraseña.</p>
 					</div>
 					<div class= "myform-top-right">
-					<i class="fas fa-key"></i>
+					<img src="${pageContext.request.contextPath}/imagen/logoconborde.png">
 					</div>
 			</div>
 			
@@ -83,9 +83,16 @@
 				</form>
 			</div>
 	   </div>
+	   <!-- MENSAJE DE ERROR EN ROJO--> 
+	
+	    <!-- Mensaje de error en rojo -->
 	   </div>
-	   
-	   
+	   <div class="row">
+			<div class="col-sm-12 ">
+			¿No tienes cuenta?
+			<a href="${pageContext.request.contextPath}/reguistarPersonas">Ingresa aquí</a>
+	   		</div>
+	   </div>
 		<div class="row">
 			<div class="col-sm-12 mysocial-login">
 				

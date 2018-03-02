@@ -22,8 +22,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Persona</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/style.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}CSS/estilos.css">
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js'></script>
+<script src='validarDatosPersona.js'></script>
+
 <script type="text/javascript">
 	function editar(met) {
 		if (confirm("Estas seguro de editar una nueva categoria?")) {
@@ -40,21 +42,25 @@
 		}
 		;
 	}
+	
+	
 </script>
 </head>
 <body>
-
-	<%
+<%
 		if (request.getSession().getAttribute("usuario") != null) {
 	%>
-	<div id="contenedor">
+<div class="container">
+	
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
-	</div>
-
-	<%
+	
+	
+	<!-- slider -->
+		<div class="container tablaPersona">
+			<%
 		}
 	%>
-	<%
+			<%
 		Persona encontrado = null;
 		String idPersona = "";
 		String nombre = "";
@@ -101,188 +107,212 @@
 			}
 		}
 	%>
-
-	<div align="center" id="contenido">
-
-
-		<form class="form-signin" id="myForm" name="myForm" action=""
-			method="post">
-			<table border="4" align="center">
-				<tr>
-					<%
-						if (encontrado != null) {
-					%>
-					<td colspan="2">Editar</td>
-					<%
-						} else {
-					%>
-					<td colspan="2">Resgistarse</td>
-					<%
-						}
-					%>
-				</tr>
-				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
-				
-				<tr>
-					<td>Nombre</td>
-					<td><input align="center" type="text" name="nombre"
-						id="nombre" value="<%=nombre%>" /></td>
-
-				</tr>
-
-				<tr>
-					<td>Apellido:</td>
-					<td><input align="center" type="text" name="apellido"
-						id="apellido" value="<%=apellido%>" /></td>
-				</tr>
-
-
-				<tr>
-					<td>Numero Documento:</td>
-					<td><input align="center" type="text" name="numeroDocumento"
-						id="numeroDocumento" value="<%=numeroDocumento%>" /></td>
-				</tr>
-				<tr>
-					<td>Telefono:</td>
-					<td><input align="center" type="text" name="telefono"
-						id="telefono" value="<%=telefono%>" /></td>
-				</tr>
-
-				<tr>
-					<td>Fecha Nacimiento:</td>
-					<td>
-					
-					 <input align="center" type="date"   name="fechaNacimiento"
-						id="fechaNacimiento" value="<%=fechaNacimiento%>" /></td> 
-				</tr>
-				
-				<tr>
-					<td>Mail</td>
-					<td><input align="center" type="text" name="mail"
-						id="mail" value="<%=mail%>" /></td>
-				</tr>
-				
-
-				<tr>
-					<td>Usuario:</td>
-					<td><input align="center" type="text" name="usuario"
-						id="usuario" value="<%=usuario%>" /></td>
-				</tr>
-
-				<tr>
-					<td>Contraseña:</td>
-					<td><input align="center" type="text" name="contraseña"
-						id="contraseña" value="<%=contraseña%>" /></td>
-				</tr>
-
-
-				<tr>
-					<td>Tipo Persona:</td>
-					<td>
-						<%
-							TipoPersonaDAO catPersona = new TipoPersonaDAO();
-							TipoPersona persona = new TipoPersona();
-							LinkedList<TipoPersona> listaPersona = catPersona.getTipoPersonas();
-						%> <select align="center" name="listaTipoPersona"
-						id="listaTipoPersona">
-
+			<h1>Ingrese sus datos para el registro</h1>
+			<form id="needs-validation" name="myForm" action="" method="post"
+				onsubmit="return validacion()">
+				<table class="table table-bordered" align="center">
+					<thead>
+						<tr>
 							<%
-								if (request.getSession().getAttribute("usuario") != null
-										&& ((Persona) request.getSession().getAttribute("usuario"))
-												.isAdmin()) {
-									for (TipoPersona te : listaPersona) {
-										if (encontrado != null) {
-											if (encontrado.getTipoPersona().getIdTipoPersona() == te
-													.getIdTipoPersona()) {
+								if (encontrado != null) {
 							%>
-							<option selected="selected"
-								value="<%=encontrado.getTipoPersona()
-									.getIdTipoPersona()%>"><%=encontrado.getTipoPersona()
-									.getDescripcion()%></option>
-
+							<td colspan="2">Editar</td>
 							<%
 								} else {
 							%>
 
-							<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
 							<%
 								}
 							%>
+						</tr>
 
-							<%
-								} else {
-							%>
-							<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
+						<tr>
+							<td>Nombre</td>
+							<td><input align="center" type="text" name="nombre"	id="nombre" value="<%=nombre%>" class="form-control" placeholder="nombre..." required="" /></td>
+							<div class="invalid-feedback">
+								debe ingresar un nombre
+							</div>
+						</tr>
 
-
-							<%
-								}
-									}
-								} else {
-
-									for (TipoPersona te : listaPersona) {
-										if (te.getIdTipoPersona() != 1) {
-											if (encontrado != null) {
-												if (encontrado.getTipoPersona().getIdTipoPersona() == te
-														.getIdTipoPersona()) {
-							%>
-							<option selected="selected"
-								value="<%=encontrado.getTipoPersona()
-										.getIdTipoPersona()%>"><%=encontrado.getTipoPersona()
-										.getDescripcion()%></option>
-
-							<%
-								} else {
-							%>
-
-							<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
-							<%
-								}
-							%>
-
-							<%
-								} else {
-							%>
-							<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
+						<tr>
+							<td>Apellido:</td>
+							<td><input align="center" type="text" name="apellido" id="apellido" value="<%=apellido%>" class="form-control" placeholder="apellido..." required="" /></td>
+						
+						</tr>
 
 
+						<tr>
+							<td>Numero Documento:</td>
+							<td><input align="center" type="text" name="numeroDocumento"
+								id="numeroDocumento" value="<%=numeroDocumento%>" class="form-control" placeholder="dni..." required=""/></td>
+						</tr>
+						<tr>
+							<td>Telefono:</td>
+							<td><input align="center" type="text" name="telefono"
+								id="telefono" value="<%=telefono%>" class="form-control" placeholder="telefono..." required=""  /></td>
+						</tr>
 
-							<%
-								}
+						<tr>
+							<td>Fecha Nacimiento:</td>
+							<td><input align="center" type="date" name="fechaNacimiento"
+								id="fechaNacimiento" value="<%=fechaNacimiento%>" class="form-control" placeholder="Fecha nacimiento..." required="" /></td>
+						</tr>
+
+						<tr>
+							<td>Mail</td>
+							<td><input align="center" type="text" name="mail" id="mail"
+								value="<%=mail%>" class="form-control" placeholder="mail..." required="" /></td>
+						</tr>
+
+
+						<tr>
+							<td>Usuario:</td>
+							<td><input align="center" type="text" name="usuario"
+								id="usuario" value="<%=usuario%>" class="form-control" placeholder="usuario..." required="" /></td>
+						</tr>
+
+						<tr>
+							<td>Contraseña:</td>
+							<td><input align="center" type="text" name="contraseña"
+								id="contraseña" value="<%=contraseña%>" class="form-control" placeholder=contraseña..." required="" /></td>
+						</tr>
+
+
+						<tr>
+							<td>Tipo Persona:</td>
+							<td>
+								<%
+									TipoPersonaDAO catPersona = new TipoPersonaDAO();
+									TipoPersona persona = new TipoPersona();
+									LinkedList<TipoPersona> listaPersona = catPersona.getTipoPersonas();
+								%> <select align="center" name="listaTipoPersona"
+								id="listaTipoPersona">
+
+									<%
+										if (request.getSession().getAttribute("usuario") != null
+												&& ((Persona) request.getSession().getAttribute("usuario")).isAdmin()) {
+											for (TipoPersona te : listaPersona) {
+												if (encontrado != null) {
+													if (encontrado.getTipoPersona().getIdTipoPersona() == te.getIdTipoPersona()) {
+									%>
+									<option selected="selected"
+										value="<%=encontrado.getTipoPersona().getIdTipoPersona()%>"><%=encontrado.getTipoPersona().getDescripcion()%></option>
+
+									<%
+										} else {
+									%>
+
+									<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
+									<%
 										}
-									}
-								}
+									%>
+
+									<%
+										} else {
+									%>
+									<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
+
+
+									<%
+										}
+											}
+										} else {
+
+											for (TipoPersona te : listaPersona) {
+												if (te.getIdTipoPersona() != 1) {
+													if (encontrado != null) {
+														if (encontrado.getTipoPersona().getIdTipoPersona() == te.getIdTipoPersona()) {
+									%>
+									<option selected="selected"
+										value="<%=encontrado.getTipoPersona().getIdTipoPersona()%>"><%=encontrado.getTipoPersona().getDescripcion()%></option>
+
+									<%
+										} else {
+									%>
+
+									<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
+									<%
+										}
+									%>
+
+									<%
+										} else {
+									%>
+									<option value="<%=te.getIdTipoPersona()%>"><%=te.getDescripcion()%></option>
+
+
+
+									<%
+										}
+												}
+											}
+										}
+									%>
+
+							</select>
+							</td>
+
+						</tr>
+						<td colspan="2" align="center">
+							<%
+								if (encontrado != null) {
+							%>
+							<button align="center"
+								onclick="javascript: editar('/admin/modificarCategoria/editar')"
+								id="editar" value="editar" name="editar" class="editar">Editar</button>
+							<%
+								} else {
 							%>
 
-					</select>
-					</td>
-
-				</tr>
-				<td colspan="2" align="center">
-					<%
-						if (encontrado != null) {
-					%>
-					<button align="center"
-						onclick="javascript: editar('/admin/modificarCategoria/editar')"
-						id="editar" value="editar" name="editar">Editar</button> <%
- 	} else {
- %>
-
-					<button align="center"
-						onclick="javascript: registrar('/admin/modificarCategoria/agregar')"
-						id="registar" value="registar" name="registar">Agregar</button> <%
+							<button align="center"
+								onclick="javascript: registrar('/admin/modificarCategoria/agregar')"
+								id="registar" value="registar" name="registar" class="agregar">Agregar</button>
+							<%
  	}
  %>
-				</td>
-			</table>
+						</td>
 
-		</form>
 
-	</div>
+					</thead>
+				</table>
+			</form>
+		</div>
+		<!-- slider -->
 
-	<div align="center" id="Pie">
+
+		<div class= "container Pie">
+			<div id="Pie">
+	 <div id="Pie">
 		<jsp:include page="/WEB-INF/pie.jsp" />
 
+	 
 	</div>
+		</div>
+	
+		</div>
+		</div>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+	(function(){
+		'use strict';
+		
+		window.addEventListenner('load',function(){
+			var form= document.getElementById('needs-validation');
+			form.addEventListenner('submit',function(event){
+				if(from.checkValidty()==false){
+					event.preventDefault();
+					event.stopPropagation();
+					
+				}
+			form.classList.add('was-validated');
+			},false);
+		},false);
+	})();
+		);
+		}
+	</script>
 </body>
 </html>

@@ -7,15 +7,19 @@
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
 	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
-<title>Listar Torneo</title>
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+
+<title>Listar Torneos</title>
+
+
 </head>
 
 <script type="text/javascript">
@@ -58,38 +62,21 @@
 	
 	</script>
 
-
 <body>
-<div class="container">
-	<div id="contenedor">
 
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
-	</div>
+<div class="container-fluid">
 	
-	
-	
-	       <%    
-				
-				if(request.getSession().getAttribute("error")!=null){
-				
-				%>
-				<div>
-				<h3><%=request.getSession().getAttribute("error").toString()%></h3>
-			    </div>
-				<%
-				request.getSession(false).setAttribute("error" , null);
-				
-				} %>
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		<div class="container tablaPersona">
+			
+				 <h1>Administrador de Torneo</h1>
+				 <form id="myForm" name="myForm" action="" method="post">
+				 <table class="table table-bordered" align="center">
+  <thead>
+ 				<tr>
 
-
-	<div id="contenido">
-		<form id="myForm" name="myForm" action="" method="post">
-			<table align="center" border="void" cellpadding="5">
-				<tr>
-					<td colspan="8" align="center">Administrador de Torneo</td>
-				</tr>
-				<tr>
 
 					<td align="center">Nombre</td>
 					<td align="center">Fecha Inicio</td>
@@ -98,12 +85,15 @@
 					<td align="center">Equipo Campeon</td>
 					<td align="center" colspan="3">Accion</td>
 				</tr>
-				<%
+  
+  </thead>
+  <%
 					TorneosDAO torneoDao = new TorneosDAO();
 					LinkedList<Torneo> torneos = torneoDao.listarTodosLosTorneos();
 					for (Torneo t : torneos) {
 				%>
-				<tr>
+  <tbody>
+  <tr>
 
 					<th><%=t.getNombre()%></th>
 					<td><%=t.getFechaInicio()%></td>
@@ -129,6 +119,11 @@
 							onclick="javascript: eliminar('/admin/listarTorne/')"
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
+
+					<th><button class="botonFixture"
+							onclick="javascript: fixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Fixture</button>
+
 					
 					<%
 						JornadaDAO catJornada = new JornadaDAO();
@@ -138,6 +133,7 @@
 					 <th><button class="botonEliminar"
 							onclick="javascript: verfixture('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button>
+
 					</th>
 					
 					<%
@@ -155,10 +151,8 @@
 				<%
 					}
 				%>
-				<th colspan="10"><a type="button"
-					href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo
-						Torneo</th>
-				</form>
+				<th colspan="10"> <a type="button" href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></th>
+				
 
 
 			</table>
@@ -166,12 +160,15 @@
 
 	</div>
 
-	<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
+		<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
-	</div>
-	</div>
-		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+
+			</div>
+		</div>
+
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

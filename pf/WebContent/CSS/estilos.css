@@ -4,19 +4,82 @@ body {
 font-famyly: 'Releway';
 font-size: 16 px;
 font-weight: 300 ;
-color:#2EFE2E;
+/*color de la letra */
+color:#000000; 
 line-height: 30px;
 text-align: center;
-background-color:#222733;
+background-color: #222733;
 /*  #2EFE2E  #fff*/
 }
+
 strong{
 	font-weight: 500;
 }
+#contenedor{
+	border: 10px;
+	
+	padding: 10px;
+	
+	text-align: center;
+	margin: 0px auto;
+	
+	background-color:#222733;
+	
+}
+#Logo{
+	background: #2E4053;
+	display: block;
+	text-align: left;
+	
+	
+
+
+}
+
+#menu{
+
+	/*background: #58D68D ;*/
+	height: 100px;/*achicar cuando se pongan en linea*/
+	font-family: arial black;
+	font-size: 16 px;
+	margin: auto;
+	width: 600px;
+	
+}
+.nav li a {
+	background-color: #566573;/*color enegro*/
+	color: #fff;
+	text-decoration: none;
+	padding: 10px 15px;/*ancho y largo*/
+	display: block;/*los elementos se pueden agrupar*/
+}
+
+.nav > li{
+	float: left;
+
+}
+/*para cuando se pase el  mouse por arriba el hover*/
+.nav li a:hover{
+	background-color: #A9DFBF ;
+
+	
+}
+.nav li ul{
+	display: none;/*Todos los sub menus desaparecen*/
+	position: absolute; 
+	min-width: 140px;
+
+}
+.nav li:hover > ul{
+	display: block; 
+}
+
+/*todas las redirecciones */
 a, a:hover, a:focus {
 	text-decoration: none;
 	
 }
+
 h1, h2{
 	margin-top: 10px;
 	font-size: 38px;
@@ -64,12 +127,14 @@ opacity: 0.8;
 }
 .myform-top-right{
 float: right;
-width: 25%;
+
 padding-top: 25px;
 text-align: right;
 }
+
+/*antes del formulario*/
 .myform-bottom{
-	padding: 25 px 25px 30px 25px;
+	padding: 25px 25px 30px 25px;
 	background: rgba(0, 0, 0 ,0.3);
 	-moz-border-radius: 0 0 10px 10px;
 	-webkit-border-radius: 0 0 10px 10px;
@@ -108,120 +173,48 @@ button.mybtn:focus{
 	color: #fff;
 	background: #00FFBF;
 }
-
-.mysocial-login{
-	margin-top: 35px;
-}
-.mysocial-login-buttons{
-	display: inline-block;
-	height: 50px;
-	margin: 5px;
-	padding: 15px 20px 0 20px;
-	background: rgba(0, 0, 0, 0.1);
-	border: 1px solid #fff;
-	font-size: 16px;
-	font-weight: 300;
-	line-height: 16px;
-	color: #fff;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	
-	 
-}
-.mysocial:hover, .mysocial:active .mysocial:focus{
-	outline: 0;
-	opacity: 0.6;
-	background: rgba(0, 0, 0, 0.3);
-	color: #fff;
+.tablaPersona{
+	color: #000000;
+	background-color: white;
 	
 }
 
-
-
-.myform-header-left{
-float: left;
-width: 75%;
-padding-top: 25px;
-text-align: left;
-}
-.myform-header-left p{
-opacity: 0.8;
-}
-.myform-header-right{
-float: right;
-width: 25%;
-padding-top: 25px;
-text-align: right;
+.Pie{
+	/*fondo de pie*/
+	background-color: white;
 }
 
 
-/*  menu*/
-#collapse{
 
-	
-	height: 100px;/*achicar cuando se pongan en linea*/
-	font-family: arial black;
-	font-size: 16 px;
-	margin: auto;
-	width: 600px;
-	
+.error{
+    background-color: #BC1010;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-left: 16px;
+    margin-top: 6px;
+    position: absolute;
 }
-
- ul, ol {
-	/*margin: 10px;
-	padding-top: 5px; */
-	list-style: none;
-	/*word-spacing: 45px;*/
-}
-/*
-para acceder a la class nav con el .
-*/
-.nav nav-item nav-link {
-	background-color: #222733;
-	color: #fff;
-	text-decoration: none;
-	padding: 10px 15px;/*ancho y largo*/
-	display: block;/*los elementos se pueden agrupar*/
+.error:before{ /* Este es un truco para crear una flechita */
+    content: '';
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid #BC1010;
+    border-left: 8px solid transparent;
+    left: -16px;
+    position: absolute;
+    top: 5px;
 }
 
-.nav > nav-item{
-	float: left;
 
-}
-/*para cuando se pase el  mouse por arriba el hover*/
-.nav nav-item nav-link:hover{
-	background-color: #FF8000 ;
-
-	
-}
-.nav nav-item ul{
-	display: none;/*Todos los sub menus desaparecen*/
-	position: absolute; 
-	min-width: 140px;
-
-}
-.nav nav-item:hover > ul{
-	display: block; 
-}/* 
-#Pie{
-	padding:10px;
-	margin: 0px;
-	background: #222733;
-	color: white;
-	
-}
-#Logopie {
-	margin: 10px;
-
-}
 .botonEditar{
     text-decoration: none;
     padding: 10px;
     font-weight: 600;
     font-size: 12px;
-    color: #FFFFFF;color de la letra 
-    background-color: #00FF00; color de fondo del boton
+    color: #FFFFFF;/* color de la letra  */
+    background-color: #00FF00; /* color de fondo del boton */
     border-radius: 6px;
     border: none;
   }
@@ -230,8 +223,18 @@ para acceder a la class nav con el .
     padding: 10px;
     font-weight: 600;
     font-size: 12px;
-    color: #FFFFFF;color de la letra 
-    background-color:#FF0000; color de fondo del boton
+    color: #FFFFFF;/* color de la letra  */
+    background-color:#FF0000; /* color de fondo del boton */
     border-radius: 6px;
     border: none;
-  } */
+  }
+  .botonFixture{
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #FFFFFF;/* color de la letra  */
+    background-color:#fd860f; /* color de fondo del boton */
+    border-radius: 6px;
+    border: none;
+  }
