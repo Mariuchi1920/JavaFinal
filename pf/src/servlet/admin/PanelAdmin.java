@@ -84,7 +84,11 @@ public class PanelAdmin extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			request.setAttribute("error", "something");
+			request.setAttribute("error", "error inseperado");
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/listarInstituciones");
+		}catch (Exception e) {
+			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}

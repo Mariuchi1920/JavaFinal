@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
 import entidad.JugadoresPartido;
@@ -82,7 +83,7 @@ public class PersonasDAO {
 		}
 	}
 
-	public void eliminarPersona(Persona persona) throws SQLException {
+	public void eliminarPersona(Persona persona) throws SQLException, ApplicationException {
 		try {
 
 			if (validarEliminarPersona(persona)) {
@@ -98,19 +99,25 @@ public class PersonasDAO {
 		}
 	}
 
-	public boolean validarEliminarPersona(Persona persona) throws SQLException {
+	public boolean validarEliminarPersona(Persona persona) throws SQLException, ApplicationException {
 		boolean repuesta = true;
 		EquiposJugadoresDAO catEquipoJugadores = new EquiposJugadoresDAO();
 		LinkedList<Equipo> equipoJugadores = catEquipoJugadores.listarTodasLosEquipos(persona);
-		if (equipoJugadores != null && equipoJugadores.size() > 0)
+		if (equipoJugadores != null && equipoJugadores.size() > 0){
 			repuesta = false;
+			throw new ApplicationException(
+					"El Persona (Jugador) esta asociado a un equipo");
+		}
 		if (repuesta) {
 
 			EquiposDAO catEquipo = new EquiposDAO();
 			LinkedList<Equipo> listarEquipo = catEquipo.buscarporIdEntrenador(persona
 					.getIdPersona());
-			if (listarEquipo != null && listarEquipo.size() > 0)
+			if (listarEquipo != null && listarEquipo.size() > 0){
 				repuesta = false;
+				throw new ApplicationException(
+						"El Persona (Entrenador) esta asociado a un equipo");
+			}
 
 		}
 
@@ -119,8 +126,11 @@ public class PersonasDAO {
 			JugadoresPartidosDAO catJugadoresPartido = new JugadoresPartidosDAO();
 			LinkedList<JugadoresPartido> listarJugadoresPartido = catJugadoresPartido
 					.buscarporJugador(persona.getIdPersona());
-			if (listarJugadoresPartido != null && listarJugadoresPartido.size() > 0)
+			if (listarJugadoresPartido != null && listarJugadoresPartido.size() > 0){
 				repuesta = false;
+				throw new ApplicationException(
+						"El Persona (Jugador) esta asociado a un partido");
+			}
 
 		}
 
@@ -128,8 +138,11 @@ public class PersonasDAO {
 
 			PartidoDAO catPartido = new PartidoDAO();
 			LinkedList<Partidos> listarPartidos = catPartido.buscarporIdArbrito(persona.getIdPersona());
-			if (listarPartidos != null && listarPartidos.size() > 0)
+			if (listarPartidos != null && listarPartidos.size() > 0){
 				repuesta = false;
+				throw new ApplicationException(
+						"El Persona (Arbitro) esta asociado a un partido");
+			}
 
 		}
 

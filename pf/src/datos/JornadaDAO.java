@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import com.mysql.jdbc.EscapeTokenizer;
 
 import modelo.Conexion;
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.Jornadas;
@@ -92,7 +93,7 @@ public class JornadaDAO {
 		}
 	}
 
-	public void eliminarJornada(Jornadas jornada) throws SQLException {
+	public void eliminarJornada(Jornadas jornada) throws SQLException, ApplicationException {
 		try {
 
 			PartidoDAO catPartido = new PartidoDAO();
@@ -104,6 +105,9 @@ public class JornadaDAO {
 				ps.executeUpdate();
 				ps.close();
 
+			}else {
+				throw new ApplicationException(
+						"La jornada tiene partidos asociados");
 			}
 
 		} catch (SQLException e) {

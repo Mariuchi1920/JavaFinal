@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposJugadores;
 import entidad.JugadoresPartido;
@@ -128,7 +129,7 @@ public class PartidoDAO {
 		}
 	}
 
-	public void eliminarPartido(Partidos partido) throws SQLException {
+	public void eliminarPartido(Partidos partido) throws SQLException, ApplicationException {
 		try {
 
 			JugadoresPartidosDAO catJugadoresPartido = new JugadoresPartidosDAO();
@@ -138,6 +139,9 @@ public class PartidoDAO {
 				ps.setInt(1, partido.getIdPartidos());
 				ps.executeUpdate();
 				ps.close();
+			}else {
+				throw new ApplicationException(
+						"El partido tiene Jugadores asociados");
 			}
 
 		} catch (SQLException e) {

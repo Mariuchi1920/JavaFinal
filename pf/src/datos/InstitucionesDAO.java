@@ -25,6 +25,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.LinkedList;
 
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.Institucion;
@@ -83,7 +84,7 @@ public class InstitucionesDAO {
 
 	}
 
-	public void eliminarInstitucion(Institucion institucion) throws SQLException {
+	public void eliminarInstitucion(Institucion institucion) throws SQLException, ApplicationException {
 		try {
 			EquiposDAO catEquipo = new EquiposDAO();
 			LinkedList<Equipo> equipos = catEquipo
@@ -94,6 +95,9 @@ public class InstitucionesDAO {
 				ps.setInt(1, institucion.getIdInstituciones());
 				ps.executeUpdate();
 				ps.close();
+			}else{
+				throw new ApplicationException(
+						"La institucion tiene equipos asociados");
 			}
 
 		} catch (SQLException e) {

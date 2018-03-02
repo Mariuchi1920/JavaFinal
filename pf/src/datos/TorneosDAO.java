@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import com.mysql.jdbc.EscapeTokenizer;
 
+import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposTorneos;
 import entidad.Jornadas;
@@ -106,7 +107,7 @@ public class TorneosDAO {
 
 	}
 
-	public void eliminarTorneo(Torneo torneo) throws SQLException {
+	public void eliminarTorneo(Torneo torneo) throws SQLException, ApplicationException {
 		try {
 
 			if (validarElimiarTorneo(torneo)) {
@@ -123,19 +124,23 @@ public class TorneosDAO {
 
 	}
 
-	public boolean validarElimiarTorneo(Torneo torneo) throws SQLException {
+	public boolean validarElimiarTorneo(Torneo torneo) throws SQLException, ApplicationException {
 
 		boolean respuesta = true;
 		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
 		LinkedList<EquiposTorneos> listaEquipoTorneo = catEquipoTorneo.buscarporTorneo(torneo);
 		if (listaEquipoTorneo != null && listaEquipoTorneo.size() > 0) {
 			respuesta = false;
+			throw new ApplicationException(
+					"El Torneo tiene equipos asociados");
+
 		}
 		JornadaDAO catJornada = new JornadaDAO();
 		LinkedList<Jornadas> listarJornadas = catJornada.buscarporTorneos(torneo.getIdTorneos());
 
 		if (listarJornadas != null && listarJornadas.size() > 0) {
 			respuesta = false;
+			throw new ApplicationException("El Torneo tiene Jornadas (Fixture)");
 		}
 		return respuesta;
 	}
