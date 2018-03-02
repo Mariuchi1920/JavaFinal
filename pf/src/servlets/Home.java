@@ -50,58 +50,46 @@ public class Home extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
+		
 		try {
-			HttpSession sesion = request.getSession();// obtiene la sesion de
-														// ese usuario en ese
-														// mometo.sesion es una
-														// variable global, la
-														// podemos usar en
-														// cualquier parte del
-														// proyecto.
 			String usuario = request.getParameter("usu");
 			String contrasena = request.getParameter("con");
 
-			if (!usuario.equals("")) {
+			if (usuario !=null && contrasena!=null && !usuario.equals("") && !contrasena.equals("")) {
 				PersonasDAO co = new PersonasDAO();
 				// como el metodo me devuelve unn boolean puede estar dentro del
 				// if sin comparar
-				Persona personaLogin = co.auntenticarPersona(usuario,
-						contrasena);
+				Persona personaLogin = co.auntenticarPersona(usuario,contrasena);
 
 				if (personaLogin != null) {
-					sesion.setAttribute("usuario", personaLogin);
+					request.getSession().setAttribute("usuario", personaLogin);
 
 					if (personaLogin.getTipoPersona().getIdTipoPersona() == TipoPersona.ADMINISTADOR) {
 
-						response.sendRedirect(request.getContextPath()
-								+ "/admin");
+						response.sendRedirect(request.getContextPath() + "/admin");
 
 					} else {
-						response.sendRedirect(request.getContextPath()
-								+ "/user");
-						// //response.sendRedirect(request.getContextPath() +
-						// "/admin");
+						response.sendRedirect(request.getContextPath()+ "/user");
 
 					}
 				} else {
-					request.setAttribute("error", "something");
+					request.getSession().setAttribute("error", "No existe el Usuario y/o Contraseña");
 					response.sendRedirect(request.getContextPath() + "/login");
 				}
 
 			} else {
 
-				request.setAttribute("error", "something");
-				//response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+				
+				request.getSession().setAttribute("error", "Usuario y/o Contrsaeña vacio");
 				response.sendRedirect(request.getContextPath() + "/login");
 
 			}
 
 		} catch (IOException | NumberFormatException | SQLException ex) {
-			request.setAttribute("error", "something");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/login");
 		} catch (Exception e){
-			request.setAttribute("error", "something");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/login");
 		}
 	}

@@ -5,6 +5,7 @@ package entidad;
 
 
 import java.sql.Date;
+import java.util.LinkedList;
 
 import com.mysql.fabric.xmlrpc.base.Data;
 
@@ -96,6 +97,19 @@ public class Persona {
 		}
 		return respuesta;
 		
+		
+	}
+	
+	
+	public static LinkedList<Persona> eliminarPersonas (LinkedList<Persona> personas ,Persona persona){
+		
+		for(int i=0; i<personas.size(); i++){
+			if(personas.get(i).getIdPersona() == persona.getIdPersona()){
+				personas.remove(i);
+			}
+		}
+		
+		return personas;
 		
 	}
 	

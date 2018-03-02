@@ -1,3 +1,5 @@
+<%@page import="datos.JornadaDAO"%>
+<%@page import="entidad.Jornadas"%>
 <%@page import="entidad.Torneo"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="datos.TorneosDAO"%>
@@ -23,7 +25,7 @@
 <script type="text/javascript">
 	
 	function editar(met) {
-		
+		document.myform.verfixture.value="";
 		document.myform.fixture.value="" ;
 	    document.myform.eliminar.value="";  
 	    document.myForm.action=met;
@@ -32,7 +34,7 @@
 	
 	function eliminar(met) {
 		if(confirm("Estas seguro de eliminar el Torneo?")){
-		
+			document.myform.verfixture.value="";
 			document.myform.fixture.value="";
 			document.myform.editar.value=""  ;
 		    document.myForm.action=met;
@@ -41,16 +43,27 @@
 	
 	function fixture(met) {
 		if(confirm("Estas seguro de realizar el Fixture?")){
+			document.myform.verfixture.value="";
 			document.myform.editar.value="" ;
 		    document.myform.eliminar.value="";  
 		    document.myForm.action=met;
 		};
     }
-
+	
+	function verfixture(met) {
+	     	document.myform.fixture.value="";
+			document.myform.editar.value="" ;
+		    document.myform.eliminar.value="";  
+		    document.myForm.action=met;
+	
+    }
+	
+	
 	
 	</script>
 
 <body>
+
 <div class="container-fluid">
 	
 		<div id="contenedor">
@@ -63,6 +76,7 @@
 				 <table class="table table-bordered" align="center">
   <thead>
  				<tr>
+
 
 					<td align="center">Nombre</td>
 					<td align="center">Fecha Inicio</td>
@@ -105,16 +119,39 @@
 							onclick="javascript: eliminar('/admin/listarTorne/')"
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
+
 					<th><button class="botonFixture"
 							onclick="javascript: fixture('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Fixture</button>
+
+					
+					<%
+						JornadaDAO catJornada = new JornadaDAO();
+					    LinkedList<Jornadas> listaJornada = catJornada.buscarporTorneos(t.getIdTorneos());
+					    if(listaJornada!=null && listaJornada.size()>0){
+					%>
+					 <th><button class="botonEliminar"
+							onclick="javascript: verfixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button>
+
 					</th>
+					
+					<%
+					}else{
+				%>
+				    <th><button class="botonEliminar"
+							onclick="javascript: fixture('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Generar Fixture</button>
+					</th>
+				<%
+					}
+				%>
+					
 				</tr>
 				<%
 					}
 				%>
-				<th colspan="10"><a type="button" href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo
-						Torneo</a></th>
+				<th colspan="10"> <a type="button" href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></th>
 				
 
 
@@ -123,7 +160,6 @@
 
 	</div>
 
-
 		<div class= "container Pie">
 			<div id="Pie">
 				<jsp:include page="/WEB-INF/pie.jsp" />
@@ -131,7 +167,7 @@
 
 			</div>
 		</div>
-	
+
 	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>

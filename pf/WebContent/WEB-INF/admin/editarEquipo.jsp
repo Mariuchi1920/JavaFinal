@@ -200,16 +200,17 @@ if(request.getSession().getAttribute("editador")!=null){
 				<% } %>
 				</tr>
 				
-				<% if(encontrado!=null){ %>
+				<%-- <% if(encontrado!=null){ %>
 				<tr>
 					<td colspan="2">Jugadores </td>
 				</tr>
-					<tr>
+					
 						<%
 						   if(jugadores!=null && jugadores.size()>0){
 							   
 							   for(int i=0; i<jugadores.size(); i++){
-						%>   
+						%>
+					<tr>   
 						<td>
 						   <%=jugadores.get(i).getApellido() %>, <%=jugadores.get(i).getNombre() %>
 						</td>
@@ -218,15 +219,15 @@ if(request.getSession().getAttribute("editador")!=null){
 				               onclick="javascript: elimiarJugador('/admin/modificarEquipo')"
 				               id="elimiarJugador" value="<%=jugadores.get(i).getIdPersona() %>" name="elimiarJugador">Eliminar</button>
 						</td>
-					
+					</tr>
 					   <%
 							   }}
 						%>
-						
+						 --%>
 						
 			
 
-				</tr>
+				
 				<tr>
 				
 				<td colspan="2">
@@ -235,9 +236,9 @@ if(request.getSession().getAttribute("editador")!=null){
 						</td>
 
                 </tr>
-                <%
-							   }
-						%>
+<%--                 <% --%>
+// 							   }
+<%-- 						%> --%>
 
 			</table>
 			<% if(encontrado==null){ %>

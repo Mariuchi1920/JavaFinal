@@ -43,6 +43,7 @@ public class ModificarTorneo extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getSession(false).removeAttribute("agregarJugador");
 		request.getRequestDispatcher("/WEB-INF/admin/editarTorneo.jsp")
 				.forward(request, response);
 	}

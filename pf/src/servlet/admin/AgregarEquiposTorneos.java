@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -61,7 +62,11 @@ public class AgregarEquiposTorneos extends HttpServlet {
 				Equipo equipo = equi.buscarporIdsEquipo(Integer.parseInt(aux[1]),
 						Integer.parseInt(aux[0]), aux[2]);
 				eqTor.setEquipos(equipo);
-				equipoE.nuevoEquipoTorneo(eqTor);
+				if(Equipo.validarEquipoParaTorneo(equipo)){
+				 equipoE.nuevoEquipoTorneo(eqTor);
+				}else{
+					request.getSession().setAttribute("error", "El equipo no contiene la cantidad de jugadores para un torneo");
+				}
 				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			} else if (request.getParameter("eliminar") != null) {
 				EquiposDAO catEquipo = new EquiposDAO();
@@ -73,11 +78,14 @@ public class AgregarEquiposTorneos extends HttpServlet {
 			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
 				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			}
-		} catch (Exception e) {
+		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-
-			response.sendRedirect(request.getContextPath()
-					+ "/admin/agregarEquiposTorneos");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
+			response.sendRedirect(request.getContextPath() + "/admin/agregarPersonasEquipo");
+		}catch (Exception e) {
+			// TODO: handle exception
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
+			response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 		}
 
 	}
