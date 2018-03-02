@@ -120,11 +120,7 @@
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
 
-					<th><button class="botonFixture"
-							onclick="javascript: fixture('/admin/listarTorneo/')"
-							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Fixture</button>
-
-					
+								
 					<%
 						JornadaDAO catJornada = new JornadaDAO();
 					    LinkedList<Jornadas> listaJornada = catJornada.buscarporTorneos(t.getIdTorneos());
