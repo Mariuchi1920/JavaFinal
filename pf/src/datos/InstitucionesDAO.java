@@ -28,6 +28,7 @@ import java.util.LinkedList;
 import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
+import entidad.EquiposTorneos;
 import entidad.Institucion;
 import modelo.Conexion;
 
@@ -63,19 +64,23 @@ public class InstitucionesDAO {
 		}
 	}
 
-	public void modificarIstitucion(Institucion institucion) throws SQLException {
+	public void modificarIstitucion(Institucion institucion) throws SQLException, ApplicationException {
 		try {
-			PreparedStatement ps = con.prepareStatement(EDITAR);
-			ps.setString(1, institucion.getNombre());
-			ps.setString(2, institucion.getNombreLocalia());
-			ps.setString(3, institucion.getDireccionLocalia());
-			ps.setString(4, institucion.getNombreDelegado());
-			ps.setString(5, institucion.getApellidoDelegado());
-			ps.setString(6, institucion.getTelefonoDelegado());
-			ps.setString(7, institucion.getMailDelegado());
-			ps.setInt(8, institucion.getIdInstituciones());
-			ps.executeUpdate();
-			ps.close();
+			if(validarTorneo(institucion)){
+				PreparedStatement ps = con.prepareStatement(EDITAR);
+				ps.setString(1, institucion.getNombre());
+				ps.setString(2, institucion.getNombreLocalia());
+				ps.setString(3, institucion.getDireccionLocalia());
+				ps.setString(4, institucion.getNombreDelegado());
+				ps.setString(5, institucion.getApellidoDelegado());
+				ps.setString(6, institucion.getTelefonoDelegado());
+				ps.setString(7, institucion.getMailDelegado());
+				ps.setInt(8, institucion.getIdInstituciones());
+				ps.executeUpdate();
+				ps.close();
+			}else {
+				throw new ApplicationException("La intitucion se encuentra en un torneo");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,13 +88,33 @@ public class InstitucionesDAO {
 		}
 
 	}
+	
+	public boolean validarTorneo(Institucion institucion) throws SQLException{
+		boolean repuesta=true;
+		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> listaEquipos = catEquipoTorneo.listarTodasLosEquipoTorneo();
+		if(listaEquipos!=null && listaEquipos.size()>0){
+			for (EquiposTorneos equiposTorneos : listaEquipos) {
+				if(equiposTorneos.getEquipos().getInstitucion().getIdInstituciones() ==institucion.getIdInstituciones() ){
+					repuesta= false;
+					break;
+						
+				}
+			}
+			
+		}
+		
+		
+		return repuesta;
+	}
+	
 
 	public void eliminarInstitucion(Institucion institucion) throws SQLException, ApplicationException {
 		try {
 			EquiposDAO catEquipo = new EquiposDAO();
 			LinkedList<Equipo> equipos = catEquipo
 					.buscarporIdInstitucion(institucion.getIdInstituciones());
-			if (equipos == null && equipos.size() == 0) {
+			if (equipos == null ) {
 
 				PreparedStatement ps = con.prepareStatement(DELETE);
 				ps.setInt(1, institucion.getIdInstituciones());

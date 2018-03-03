@@ -68,6 +68,35 @@ public int getIdTorneos() {
 		this.equipoGanador = equipoGanador;
 	}
 
+	public static boolean validarTorneo(Torneo torneo) throws ApplicationException {
+		// TODO Auto-generated method stub
+		boolean respuesta= true;
+		Date fechaInicio = torneo.getFechaInicio();
+		Date fechaFin = torneo.getFechaFin();
+		
+		if(fechaInicio!=null && fechaFin!=null){
+			
+			if(fechaInicio.getTime()>= fechaFin.getTime()){
+				respuesta = false;
+				throw new ApplicationException("Fecha inicio del torneo es mayor o igual a la fecha fin");
+			}else if(Util.compararFechaConHoy(fechaInicio)){
+				
+				respuesta = false;
+				throw new ApplicationException("Fecha inicio menor a la fecha hoy");
+			}else if (Util.compararFechaConHoy(fechaFin)){
+				respuesta = false;
+				throw new ApplicationException("Fecha fin menor a la fecha hoy");
+			}
+			
+		}else{
+			respuesta = false;
+			throw new ApplicationException("El torneo no tiene fecha inicio y/o fin ingresadas");
+		}
+		
+		
+		return respuesta;
+	}
+
 
 	
 	

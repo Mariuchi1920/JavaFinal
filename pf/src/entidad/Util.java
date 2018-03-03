@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Util {
 
@@ -145,6 +147,49 @@ public class Util {
         cal.add(Calendar.HOUR, horas); //minus number would decrement the days
         return new Time(cal.getTimeInMillis());
     }
+	
+	
+	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	private static final String PATTERN_NOMBRE_APELLIDO = "[^A-Za-z0-9.@_-~#]+";
+	private static final String PATTERN_NUMEROS = "/[^0-9]/";
+ 
+   
+    public static boolean validateEmail(String email) {
+ 
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+ 
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+ 
+    }
+    
+    public static boolean validateNombreApellido(String nombre) {
+    	 
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_NOMBRE_APELLIDO);
+ 
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(nombre);
+        return matcher.matches();
+ 
+    }
+    
+    public static boolean validateTelefono(String telefono) {
+   	 
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_NUMEROS);
+ 
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(telefono);
+        return matcher.matches();
+ 
+    }
+    
+    
+    
 
 
 
