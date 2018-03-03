@@ -81,19 +81,34 @@ public int getIdTorneos() {
 			if(fechaInicio.getTime()>= fechaFin.getTime()){
 				respuesta = false;
 				throw new ApplicationException("Fecha inicio del torneo es mayor o igual a la fecha fin");
-			}else if(Util.compararFechaConHoy(fechaInicio)){
+			}else {
+				if(Util.compararFechaConHoy(fechaInicio)){
+			
 				
 				if(equipoCampeo==null){
 					respuesta = false;
-					throw new ApplicationException("Fecha inicio menor a la fecha hoy");
+					throw new ApplicationException("La aun el torneo no finalizo, no puede modificarlo");
 					
-				}else if(estadoTorneo.getIdTipoEstado() != TipoEstado.INICIADO){
-					respuesta = false;
-					throw new ApplicationException("El debe colocarse en estado INICIADO");
+				}else if(estadoTorneo.getIdTipoEstado() != TipoEstado.INICIADO ){
+					if (Util.compararFechaConHoy(fechaFin)){
+						if(equipoCampeo==null){
+							respuesta = false;
+							throw new ApplicationException("Fecha fin menor a la fecha hoy, debe elegir un equipo campeon");
+							
+						}else if(estadoTorneo.getIdTipoEstado() != TipoEstado.FINALIZADO){
+							respuesta = false;
+							throw new ApplicationException("El debe colocarse en estado Finalizado");
+						}
+
+					}else  {
+						respuesta = false;
+						throw new ApplicationException("La aun el torneo no finalizo, no puede modificarlo");
+					}
 				}
 				
 				
-			}else if (Util.compararFechaConHoy(fechaFin)){
+			}
+			if (Util.compararFechaConHoy(fechaFin)){
 				if(equipoCampeo==null){
 					respuesta = false;
 					throw new ApplicationException("Fecha fin menor a la fecha hoy, debe elegir un equipo campeon");
@@ -104,7 +119,7 @@ public int getIdTorneos() {
 				}
 
 			}
-			
+			}
 		}else{
 			respuesta = false;
 			throw new ApplicationException("El torneo no tiene fecha inicio y/o fin ingresadas");

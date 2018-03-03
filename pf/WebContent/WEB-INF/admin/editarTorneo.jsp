@@ -190,12 +190,13 @@
 							<option  value="<%=te.getEquipos().getInstitucion().getIdInstituciones() %> / <%=te.getEquipos().getCategorias().getIdCategorias()%> / <%=te.getEquipos().getNombreEquipo() %>"> <%=te.getEquipos().getInstitucion().getNombre() %> - <%=te.getEquipos().getCategorias().getAñoCategoria() %> - <%=te.getEquipos().getNombreEquipo() %> </option>
 						<%	} %>
 
+					
+					
+					<% }}} %>
 					</select>
 					
 					</td>
 					</tr>
-					
-					<% }}} %>
 					
 				
 			<%

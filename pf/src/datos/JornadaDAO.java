@@ -99,7 +99,7 @@ public class JornadaDAO {
 			PartidoDAO catPartido = new PartidoDAO();
 			LinkedList<Partidos> partidos = catPartido
 					.buscarporIdJornada(jornada.getIdJornadas());
-			if (partidos == null && partidos.size() == 0) {
+			if (partidos == null ) {
 				PreparedStatement ps = con.prepareStatement(DELETE);
 				ps.setInt(1, jornada.getIdJornadas());
 				ps.executeUpdate();

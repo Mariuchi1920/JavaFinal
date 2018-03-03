@@ -14,6 +14,7 @@ import datos.CategoriasDAO;
 import datos.EquiposDAO;
 import datos.TipoEstadoDAO;
 import datos.TorneosDAO;
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
 import entidad.TipoEstado;
@@ -61,8 +62,8 @@ public class ModificarTorneo extends HttpServlet {
 			TorneosDAO catTorneo = new TorneosDAO();
 			TipoEstadoDAO catEstado = new TipoEstadoDAO();
 			torneo.setNombre(request.getParameter("nombreTorneo"));
-			torneo.setFechaInicio(Util.convertirStringDate(request.getParameter("fechaI")));
-			torneo.setFechaFin(Util.convertirStringDate(request.getParameter("fechaF")));
+		
+			
 			torneo.setEstado(catEstado.getTipoEstados(Integer.parseInt(request.getParameter("listaTipoEStado"))));
 
 			String equipoCampio = request.getParameter("listarEquipos");
@@ -70,7 +71,8 @@ public class ModificarTorneo extends HttpServlet {
 			if(equipoCampio!=null){
 				EquiposDAO catEquipo = new EquiposDAO();
 				String[] aux = equipoCampio.split("/");
-				torneo.setEquipoGanador(catEquipo.buscarporIdsEquipo(Integer.parseInt(aux[1]), Integer.parseInt(aux[0]),aux[2]));
+				Equipo equipoGanador =catEquipo.buscarporIdsEquipo(Integer.parseInt(aux[1].trim()), Integer.parseInt(aux[0].trim()),aux[2].trim());
+				torneo.setEquipoGanador(equipoGanador);
 			}else{
 				Equipo equipo =null;
 				torneo.setEquipoGanador(equipo);
@@ -79,9 +81,17 @@ public class ModificarTorneo extends HttpServlet {
 			
 
 			if (request.getParameter("editar") != null) {
-				int idTorneo = ((Torneo) request.getSession().getAttribute("editador")).getIdTorneos();
+				Torneo idTorneo = ((Torneo) request.getSession().getAttribute("editador"));
+				if(idTorneo.getEstado().getIdTipoEstado()==TipoEstado.INICIADO || idTorneo.getEstado().getIdTipoEstado()==TipoEstado.FINALIZADO){
+					torneo.setFechaInicio(idTorneo.getFechaInicio());
+					torneo.setFechaFin(idTorneo.getFechaFin());
+				}else{
+					torneo.setFechaInicio(Util.convertirStringDate(request.getParameter("fechaI")));
+					torneo.setFechaFin(Util.convertirStringDate(request.getParameter("fechaF")));
+				}
+				
 				if(Torneo.validarTorneo(torneo)){
-					torneo.setIdTorneos(idTorneo);
+					torneo.setIdTorneos(idTorneo.getIdTorneos());
 					catTorneo.modificarTorneo(torneo);
 					response.sendRedirect(request.getContextPath()+ "/admin/listarTorneo");
 				}else{
@@ -110,11 +120,17 @@ public class ModificarTorneo extends HttpServlet {
 			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarTorneo");
 
+		}catch (ApplicationException e) {
+			request.setAttribute("error", e.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarTorneo");
 		}catch (Exception e) {
 			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarTorneo");
 		}
+		
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 
 }

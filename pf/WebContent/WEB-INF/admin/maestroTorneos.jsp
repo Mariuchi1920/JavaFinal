@@ -113,11 +113,15 @@
 						}
 					%>
 					
-				
+				  <%if(t.getEstado().getIdTipoEstado()!=TipoEstado.FINALIZADO){ %>
 					<th><button class="botonEditar"
 							onclick="javascript: editar('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="editar" name="editar">Editar</button>
+							
 					</th>
+					<%
+					  }
+				    %>
 					<%if(t.getEstado().getIdTipoEstado()!=TipoEstado.INICIADO){ %>
 					<th><button class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarTorne/')"

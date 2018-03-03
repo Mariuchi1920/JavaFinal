@@ -134,7 +134,7 @@ public class PartidoDAO {
 
 			JugadoresPartidosDAO catJugadoresPartido = new JugadoresPartidosDAO();
 			LinkedList<JugadoresPartido> listaJugadoresPartido = catJugadoresPartido.buscarIDPartido(partido.getIdPartidos());
-			if (listaJugadoresPartido == null && listaJugadoresPartido.size() == 0) {
+			if (listaJugadoresPartido == null ) {
 				PreparedStatement ps = con.prepareStatement(DELETE);
 				ps.setInt(1, partido.getIdPartidos());
 				ps.executeUpdate();

@@ -66,8 +66,8 @@ public class ListarTorneo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarTorneo");
 			} else if (request.getParameter("eliminar") != null) {
-				Torneo tor = new Torneo();
-				tor.setIdTorneos(Integer.parseInt(request.getParameter("eliminar")));
+				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request.getParameter("eliminar")));
+				
 				torneodao.eliminarTorneo(tor);
 				response.sendRedirect(request.getContextPath()+ "/admin/listarTorneo");
 

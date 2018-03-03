@@ -23,7 +23,7 @@ import modelo.Conexion;
 public class TorneosDAO {
 	private String INSERT = "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
 	private String DELETE = "delete from torneos where idTorneos=?;";
-	private String EDITAR = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=? ,idCategoriaCampeon=?, tidIntitucionCampeon=?,nombreEquipoCampeon=? where idTorneos=?";
+	private String EDITAR = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=? ,idCategoriaCampeon=?, idIntitucionCampeon=?,nombreEquipoCampeon=? where idTorneos=?";
 	private String EDITARSINEQUIPO = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=?  where idTorneos=?";
 	private String LISTATORNEO = "select * from torneos";
 	private String LISTARPORCODIGOTORNEO = "select * from torneos where idTorneos=?;";
@@ -143,22 +143,84 @@ public class TorneosDAO {
 	public boolean validarElimiarTorneo(Torneo torneo) throws SQLException, ApplicationException {
 
 		boolean respuesta = true;
+		if(torneo.getEstado().getIdTipoEstado()== TipoEstado.INICIADO || 
+				torneo.getEstado().getIdTipoEstado()== TipoEstado.HABILITADA){
+			EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+			LinkedList<EquiposTorneos> listaEquipoTorneo = catEquipoTorneo.buscarporTorneo(torneo);
+			if (listaEquipoTorneo != null && listaEquipoTorneo.size() > 0) {
+				respuesta = false;
+				throw new ApplicationException(
+						"El Torneo tiene equipos asociados");
+	
+			}
+			JornadaDAO catJornada = new JornadaDAO();
+			LinkedList<Jornadas> listarJornadas = catJornada.buscarporTorneos(torneo.getIdTorneos());
+	
+			if (listarJornadas != null && listarJornadas.size() > 0) {
+				respuesta = false;
+				throw new ApplicationException("El Torneo tiene Jornadas (Fixture)");
+			}
+		}else{
+			borrarRelaciones(torneo);
+		}
+		return respuesta;
+	}
+	
+
+
+	private void borrarRelaciones(Torneo torneo) throws SQLException, ApplicationException {
+		
+		// TODO Auto-generated method stub
+		
 		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
 		LinkedList<EquiposTorneos> listaEquipoTorneo = catEquipoTorneo.buscarporTorneo(torneo);
 		if (listaEquipoTorneo != null && listaEquipoTorneo.size() > 0) {
-			respuesta = false;
-			throw new ApplicationException(
-					"El Torneo tiene equipos asociados");
+			for (EquiposTorneos equiposTorneos : listaEquipoTorneo) {
+				catEquipoTorneo.eliminarEquipoTorneo(equiposTorneos);
+			}
 
 		}
 		JornadaDAO catJornada = new JornadaDAO();
 		LinkedList<Jornadas> listarJornadas = catJornada.buscarporTorneos(torneo.getIdTorneos());
 
 		if (listarJornadas != null && listarJornadas.size() > 0) {
-			respuesta = false;
-			throw new ApplicationException("El Torneo tiene Jornadas (Fixture)");
+			
+			for (Jornadas jornadas : listarJornadas) {
+				  borrarJornada(jornadas);
+				  catJornada.eliminarJornada(jornadas);
+			}
 		}
-		return respuesta;
+		
+	}
+	
+	
+	
+	
+
+	private void borrarJornada(Jornadas jornadas) throws SQLException, ApplicationException {
+		// TODO Auto-generated method stub
+		PartidoDAO catPartidos = new PartidoDAO();
+		LinkedList<Partidos> listaPartidos = catPartidos.buscarporIdJornada(jornadas.getIdJornadas());
+		if(listaPartidos!=null && listaPartidos.size()>0){
+			for (Partidos partidos : listaPartidos) {
+				borrarPartido (partidos);
+				catPartidos.eliminarPartido(partidos);
+			}
+		}
+		
+		
+		
+	}
+
+	private void borrarPartido(Partidos partidos) throws SQLException {
+		// TODO Auto-generated method stub
+		JugadoresPartidosDAO catJugadorPartigo = new JugadoresPartidosDAO();
+		LinkedList<JugadoresPartido> listaJugadores = catJugadorPartigo.buscarIDPartido(partidos.getIdPartidos());
+		if(listaJugadores!=null && listaJugadores.size()>0){
+			for (JugadoresPartido jugadoresPartido : listaJugadores) {
+				catJugadorPartigo.eliminarJugadorPartido(jugadoresPartido);
+			}
+		}
 	}
 
 	public LinkedList<Torneo> listarTodosLosTorneos() throws SQLException {
