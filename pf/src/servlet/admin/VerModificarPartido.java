@@ -100,6 +100,7 @@ public class VerModificarPartido extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/verModificarPartido");
 		}
+        System.out.println(request.getSession().getAttribute("error"));
 		
 	}
 

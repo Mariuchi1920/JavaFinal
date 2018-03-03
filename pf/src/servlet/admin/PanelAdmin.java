@@ -92,6 +92,7 @@ public class PanelAdmin extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 
 }

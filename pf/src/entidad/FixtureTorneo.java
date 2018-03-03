@@ -6,13 +6,14 @@ import java.sql.Time;
 import java.util.LinkedList;
 
 
-import datos.EquiposJugadoresDAO;
 
+import datos.EquiposJugadoresDAO;
 import datos.JornadaDAO;
 import datos.JugadoresPartidosDAO;
 import datos.PartidoDAO;
 import datos.PersonasDAO;
 import datos.TipoEstadoDAO;
+import datos.TorneosDAO;
 
 public class FixtureTorneo {
 
@@ -104,7 +105,9 @@ public class FixtureTorneo {
 			}
 			
 		}
-		
+		TorneosDAO catTorneo = new TorneosDAO();
+		torneo.setEstado(catEstado.getTipoEstados(TipoEstado.INICIADO));
+		catTorneo.modificarTorneo(torneo);
 		
 		
 		

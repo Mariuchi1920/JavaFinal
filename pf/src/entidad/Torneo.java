@@ -73,6 +73,8 @@ public int getIdTorneos() {
 		boolean respuesta= true;
 		Date fechaInicio = torneo.getFechaInicio();
 		Date fechaFin = torneo.getFechaFin();
+		TipoEstado estadoTorneo= torneo.getEstado();
+		Equipo equipoCampeo = torneo.getEquipoGanador();
 		
 		if(fechaInicio!=null && fechaFin!=null){
 			
@@ -81,17 +83,35 @@ public int getIdTorneos() {
 				throw new ApplicationException("Fecha inicio del torneo es mayor o igual a la fecha fin");
 			}else if(Util.compararFechaConHoy(fechaInicio)){
 				
-				respuesta = false;
-				throw new ApplicationException("Fecha inicio menor a la fecha hoy");
+				if(equipoCampeo==null){
+					respuesta = false;
+					throw new ApplicationException("Fecha inicio menor a la fecha hoy");
+					
+				}else if(estadoTorneo.getIdTipoEstado() != TipoEstado.INICIADO){
+					respuesta = false;
+					throw new ApplicationException("El debe colocarse en estado INICIADO");
+				}
+				
+				
 			}else if (Util.compararFechaConHoy(fechaFin)){
-				respuesta = false;
-				throw new ApplicationException("Fecha fin menor a la fecha hoy");
+				if(equipoCampeo==null){
+					respuesta = false;
+					throw new ApplicationException("Fecha fin menor a la fecha hoy, debe elegir un equipo campeon");
+					
+				}else if(estadoTorneo.getIdTipoEstado() != TipoEstado.FINALIZADO){
+					respuesta = false;
+					throw new ApplicationException("El debe colocarse en estado Finalizado");
+				}
+
 			}
 			
 		}else{
 			respuesta = false;
 			throw new ApplicationException("El torneo no tiene fecha inicio y/o fin ingresadas");
 		}
+		
+		
+		
 		
 		
 		return respuesta;

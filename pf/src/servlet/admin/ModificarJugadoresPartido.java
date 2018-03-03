@@ -127,6 +127,7 @@ public class ModificarJugadoresPartido extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarJugadoresPartido");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 		 
 

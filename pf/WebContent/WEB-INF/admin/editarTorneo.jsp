@@ -108,11 +108,9 @@
 			
 			<% 
 
-			JornadaDAO catJornada = new JornadaDAO ();
-			LinkedList<Jornadas> jordanadas = catJornada.buscarporTorneos(idTorneo);
 			
 			
-			if(jordanadas!=null && jordanadas.size()>0){ %>	
+			if(encontrado.getEstado().getIdTipoEstado()== TipoEstado.INICIADO){ %>	
 			
 			
 			<tr>
@@ -150,10 +148,9 @@
 							<% for(TipoEstado te :listaEstado){  
                                			if(encontrado!=null){
                                			     if(estado.getIdTipoEstado()== te.getIdTipoEstado()){%>
-							<option selected="selected"
-								value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
+							                    <option selected="selected" value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
 
-							<%}else{%>
+							<%}else if(te.getIdTipoEstado()!=TipoEstado.JUGADO){%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
                               <%  			     }}else {%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
@@ -267,7 +264,7 @@
 			},false);
 		},false);
 	})();
-		)
+		
 		}
 	</script>
 </body>

@@ -136,7 +136,7 @@ public class EquiposTorneoDAO {
 		try {
 
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(LISTARIDS);
+			ResultSet rs = st.executeQuery(LISTARTOEQUIPOS);
 			if(rs.next()){
 				 listaEquiposTorneo = new LinkedList<EquiposTorneos>();
 				do{
@@ -163,6 +163,7 @@ public class EquiposTorneoDAO {
 			ps.setInt(1, equipo.getCategorias().getIdCategorias());
 			ps.setInt(2, equipo.getInstitucion().getIdInstituciones());
 			ps.setString(3, equipo.getNombreEquipo());
+		
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()){
 				 listaEquiposTorneo = new LinkedList<EquiposTorneos>();

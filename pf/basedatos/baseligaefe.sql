@@ -321,7 +321,7 @@ CREATE TABLE `tipoestado` (
 
 LOCK TABLES `tipoestado` WRITE;
 /*!40000 ALTER TABLE `tipoestado` DISABLE KEYS */;
-INSERT INTO `tipoestado` VALUES (1,'Habilitada'),(2,'Deshabilitada'),(3,'Jugado'),(4,'Pendiente'),(5,'Suspendido');
+INSERT INTO `tipoestado` VALUES (1,'Habilitada'),(2,'Deshabilitada'),(3,'Jugado'),(4,'Pendiente'),(5,'Suspendido'), (6,'Iniciado'), (7,'Finalizado');
 /*!40000 ALTER TABLE `tipoestado` ENABLE KEYS */;
 UNLOCK TABLES;
 

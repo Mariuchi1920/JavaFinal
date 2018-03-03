@@ -57,18 +57,18 @@ public class ListarEquipo extends HttpServlet {
 			if (request.getParameter("editar") != null) {
 				String[] editador = request.getParameter("editar").split("/");
 				equipo = catEquipo.buscarporIdsEquipo(
-						Integer.parseInt(editador[0]),
-						Integer.parseInt(editador[1]), editador[2]);
+						Integer.parseInt(editador[1]),
+						Integer.parseInt(editador[0]), editador[2]);
 
 				request.getSession().setAttribute("editador", equipo);
 				// ////
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarEquipo");
 			} else if (request.getParameter("eliminar") != null) {
-				String[] editador = request.getParameter("editar").split("/");
+				String[] editador = request.getParameter("eliminar").split("/");
 				equipo = catEquipo.buscarporIdsEquipo(
-						Integer.parseInt(editador[0]),
-						Integer.parseInt(editador[1]), editador[2]);
+						Integer.parseInt(editador[1]),
+						Integer.parseInt(editador[0]), editador[2]);
 				catEquipo.eliminarEquipo(equipo);
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarEquipo");
@@ -79,15 +79,18 @@ public class ListarEquipo extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			System.out.println(ex.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarEquipo");
 		}catch (ApplicationException ex) {
 			// TODO: handle exception
+			System.out.println(ex.getMessage());
 			request.getSession().setAttribute("error", ex.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarEquipo");
 		}catch (Exception ex) {
 			// TODO: handle exception
+			System.out.println(ex.getMessage());
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarEquipo");

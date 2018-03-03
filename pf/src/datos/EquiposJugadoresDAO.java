@@ -36,8 +36,7 @@ public class EquiposJugadoresDAO {
 		try {
 			if (validarNoEquipoEnTorneo(equipoJugador.getEquipo())) {
 				for (int i = 0; i < equipoJugador.getJugadores().size(); i++) {
-					if (validarJugadoreNoTorneo(equipoJugador.getJugadores()
-							.get(i))) {
+					
 						PreparedStatement ps = con.prepareStatement(INSERT);
 
 						ps.setInt(1, equipoJugador.getJugadores().get(i)
@@ -51,10 +50,7 @@ public class EquiposJugadoresDAO {
 
 						ps.executeUpdate();
 						ps.close();
-					} else {
-						throw new ApplicationException(
-								"El jugador se encuentra en un equipo que esta en un torneo");
-					}
+					
 				}
 			} else {
 				throw new ApplicationException(
@@ -73,7 +69,7 @@ public class EquiposJugadoresDAO {
 		try {
 
 			if (validarNoEquipoEnTorneo(equipoJugador.getEquipo())) {
-				if (validarJugadoreNoTorneo(jugador)) {
+				
 					PreparedStatement ps = con.prepareStatement(INSERT);
 
 					ps.setInt(1, jugador.getIdPersona());
@@ -85,10 +81,7 @@ public class EquiposJugadoresDAO {
 
 					ps.executeUpdate();
 					ps.close();
-				} else {
-					throw new ApplicationException(
-							"El jugador se encuentra en un equipo que esta en un torneo");
-				}
+				
 			} else {
 				throw new ApplicationException(
 						"El equipo que esta en un torneo");
@@ -299,7 +292,7 @@ public class EquiposJugadoresDAO {
 		Persona persona = null;
 
 		PersonasDAO catPersona = new PersonasDAO();
-		System.out.println(rs.getInt(1));
+		
 		persona = catPersona.buscarPersonaId(rs.getInt(1));
 
 		return persona;

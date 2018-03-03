@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
 import datos.EquiposTorneoDAO;
 import datos.TorneosDAO;
 import entidad.ApplicationException;
@@ -115,6 +116,8 @@ public class ListarTorneo extends HttpServlet {
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
 		}
+		
+		System.out.println(request.getSession().getAttribute("error"));
 
 	}
 

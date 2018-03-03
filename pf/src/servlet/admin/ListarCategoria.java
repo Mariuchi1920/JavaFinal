@@ -75,15 +75,18 @@ public class ListarCategoria extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
+			System.out.println(ex.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarCategoria");
 		}catch (ApplicationException ex) {
 			// TODO: handle exception
+			System.out.println(ex.getMessage());
 			request.getSession().setAttribute("error", ex.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarCategoria");
 		}catch (Exception ex) {
 			// TODO: handle exception
+			System.out.println(ex.getMessage());
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarCategoria");

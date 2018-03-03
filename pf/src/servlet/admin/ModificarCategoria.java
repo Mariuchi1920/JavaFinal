@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.CategoriasDAO;
 import datos.TipoEstadoDAO;
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Institucion;
 import entidad.TipoEstado;
@@ -58,8 +59,7 @@ public class ModificarCategoria extends HttpServlet {
 
 			String descripcion = request.getParameter("descripcion");
 			String añocategoria = request.getParameter("añoCategoria");
-			int estado = Integer.parseInt(request
-					.getParameter("listaTipoEStado"));
+			int estado = Integer.parseInt(request.getParameter("listaTipoEStado"));
 			CategoriasDAO catdao = new CategoriasDAO();
 			Categoria cat = new Categoria();
 			cat.setAñoCategoria(añocategoria);
@@ -68,6 +68,7 @@ public class ModificarCategoria extends HttpServlet {
 			TipoEstadoDAO estadoDAO = new TipoEstadoDAO();
 			tipoEstado = estadoDAO.getTipoEstados(estado);
 			cat.setEstado(tipoEstado);
+			if(Categoria.validarCategoria(cat)){
 
 			if (request.getParameter("editar") != null) {
 				int idcat = ((Categoria) request.getSession().getAttribute(
@@ -87,16 +88,24 @@ public class ModificarCategoria extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarCategoria");
 			}
+			}else{
+				response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
+			}
 		} catch (SQLException | IOException | NumberFormatException ex) {
 			// TODO: handle exception
 			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
 
+		}catch (ApplicationException e) {
+			request.setAttribute("error", e.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarCategoria");
 		}catch (Exception e) {
 			request.setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarCategoria");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 
 }
