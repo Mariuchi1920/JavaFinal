@@ -65,6 +65,18 @@ public class ListarTorneo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+ "/mostrarFixture");
 				
 				
+			}else if(request.getParameter("tablaPosiciones") != null){
+				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request.getParameter("tablaPosiciones")));
+				request.getSession().setAttribute("editador", tor);
+				response.sendRedirect(request.getContextPath()+ "/listarTablasPosiciones");
+				
+				
+			}else if(request.getParameter("ranking") != null){
+				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request.getParameter("ranking")));
+				request.getSession().setAttribute("editador", tor);
+				response.sendRedirect(request.getContextPath()+ "/mostrarFixture");
+				
+				
 			}else{
 				response.sendRedirect(request.getContextPath()+ "/admin/listarTorneo");
 			}

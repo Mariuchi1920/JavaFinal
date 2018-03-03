@@ -1,3 +1,5 @@
+<%@page import="entidad.TipoEstado"%>
+<%@page import="com.mysql.jdbc.EscapeTokenizer"%>
 <%@page import="datos.JornadaDAO"%>
 <%@page import="entidad.Jornadas"%>
 <%@page import="entidad.Torneo"%>
@@ -26,10 +28,24 @@
 
 	
 	function verfixture(met) {
-	     	 
+		document.myform.ranking.value="";
+		document.myform.tablaPosiciones.value="";
 		    document.myForm.action=met;
 	
     }
+	
+	function tablaPosiciones(met) {
+		document.myform.verfixture.value="";
+		document.myform.ranking.value="";
+	    document.myForm.action=met;
+
+}
+	function ranking(met) {
+		document.myform.verfixture.value="";
+		document.myform.tablaPosiciones.value="";
+	    document.myForm.action=met;
+
+}
 	
 	
 	
@@ -64,6 +80,7 @@
 					TorneosDAO torneoDao = new TorneosDAO();
 					LinkedList<Torneo> torneos = torneoDao.listarTodosLosTorneos();
 					for (Torneo t : torneos) {
+						if(t.getEstado().getIdTipoEstado()!= TipoEstado.DESHABILITADA){
 				%>
   <tbody>
   <tr>
@@ -91,11 +108,20 @@
 					    LinkedList<Jornadas> listaJornada = catJornada.buscarporTorneos(t.getIdTorneos());
 					    if(listaJornada!=null && listaJornada.size()>0){
 					%>
-					 <th><button class="botonFixture"
+					 <th>
+					   <td><button class="botonFixture"
 							onclick="javascript: verfixture('/admin/listarTorneo/')"
-							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button>
+							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button></td>
+						<td><button class="botonFixture"
+							onclick="javascript: tablaPosiciones('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="tablaPosiciones" name="tablaPosiciones">Tabla Posiciones</button></td>
+						<td><button class="botonFixture"
+							onclick="javascript: ranking('/admin/listarTorneo/')"
+							value="<%=t.getIdTorneos()%>" id="ranking" name="ranking">Ranking Goleadores</button></td>
 
 					</th>
+					
+				
 					
 					<%
 					}else{
@@ -108,7 +134,7 @@
 					
 				</tr>
 				<%
-					}
+					}}
 				%>
 				
 				
