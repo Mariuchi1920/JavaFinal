@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import datos.PersonasDAO;
 import datos.TipoEstadoDAO;
 import datos.TipoPersonaDAO;
+import entidad.ApplicationException;
 import entidad.Institucion;
 import entidad.Persona;
 import entidad.TipoPersona;
@@ -55,66 +56,125 @@ public class ReguistarPersonas extends HttpServlet {
 
 		try {
 			Persona persona = new Persona();
-			PersonasDAO catPersona = new PersonasDAO();
-
 			persona.setNombre(request.getParameter("nombre"));
 			persona.setApellido(request.getParameter("apellido"));
 			persona.setNumeroDocumento(request.getParameter("numeroDocumento"));
 			persona.setTipoDocumento("DNI");
 			persona.setMail(request.getParameter("mail"));
 			persona.setTelefono(request.getParameter("telefono"));
-			persona.setUsuario(request.getParameter("usuario"));
-			persona.setContraseña(request.getParameter("contraseña"));
-
-			persona.setFechaNacimiento(Util.convertirStringDate(request
-					.getParameter("fechaNacimiento")));
-			int estado = Integer.parseInt(request
-					.getParameter("listaTipoPersona"));
-			TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
-
-			persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
-
-			if (catPersona.auntenticarPersona(persona.getUsuario(),persona.getContraseña()) == null) {
-
-				if (request.getParameter("editar") != null) {
-					Persona personaEditada = ((Persona) request.getSession().getAttribute("editador"));
-					persona.setIdPersona(personaEditada.getIdPersona());
-					if(!persona.getNumeroDocumento().equals(personaEditada.getNumeroDocumento())){
-					if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
-						catPersona.editarPersona(persona);
-
-						definirRedireccion (request,response, true, "editar");
-					}else{
-						definirRedireccion (request,response, false, "editar");
-					}
+			persona.setFechaNacimiento(Util.convertirStringDate(request .getParameter("fechaNacimiento")));
+			
+			if(Persona.validarPersona(persona)){
+			    persona.setUsuario(request.getParameter("usuario"));
+				persona.setContraseña(request.getParameter("contraseña"));
+				
+				if(Persona.validarPersonaUsuarioContraseña(persona)){
+					
+					int estado = Integer.parseInt(request.getParameter("listaTipoPersona"));
+					TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
+					persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
+					if(validarIngresarTipoPersona(request, response,persona )){
+					
+						if (request.getParameter("editar") != null) {
+							editarPersona(request, response, persona);
+							
+						}else if (request.getParameter("registar") != null) {
+							
+							reguistarPersona (request, response, persona);
+						}else{
+					         /// No clickeo Opcion
+					        definirRedireccion (request,response, false,"registar");
+				        }
 					}else {
-						catPersona.editarPersona(persona);
-
-						definirRedireccion (request,response, true, "editar");
+						///No puede ingresar ese tipo persona
+						 request.getSession().setAttribute("error","Usted no tiene permisos para registrar ese tipo de persona");
+						 definirRedireccion (request,response, false,"registar");
 					}
-
-				} else if (request.getParameter("registar") != null) {
-
-					if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
-						catPersona.nuevaPersona(persona);
-						definirRedireccion (request,response, true,"registar");
-					} else {
-
-						// ////////DNI existe
-						definirRedireccion (request,response, false, "registar");
-					}
-
-				}
-			} else {
+						
+			  }else{
+				  ////ERROR USUARIO CONTRASEÑA
+				  definirRedireccion (request,response, false,"registar");
+			  }
+			}else{
+				///ERROR VALIDAR PERSONA
 				definirRedireccion (request,response, false,"registar");
-				
-				
-
 			}
+		     
 		} catch (SQLException | IOException | NumberFormatException ex) {
+			request.getSession().setAttribute("error","Error inesperado");
 			definirRedireccion (request,response,false,"registar");
 
+		}catch (ApplicationException e){
+			request.getSession().setAttribute("error", e.getMessage());
+			definirRedireccion (request,response,false,"registar");
+		}catch (Exception e) {
+			request.getSession().setAttribute("error","Error inesperado");
+			definirRedireccion (request,response,false,"registar");
 		}
+	}
+	
+	
+	
+	public void reguistarPersona (HttpServletRequest request,HttpServletResponse response, Persona persona) throws SQLException, IOException{
+		PersonasDAO catPersona = new PersonasDAO();
+
+		if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
+		 ///DNI NO EXISTE
+			catPersona.nuevaPersona(persona);
+			definirRedireccion (request,response, true,"registar");
+      	}else{
+		///// DNI EXISTE
+		request.getSession().setAttribute("error","El dni ingresado ya existe");
+		definirRedireccion (request,response, false, "registar");
+	   }
+
+	}
+	
+	
+	
+	public boolean validarIngresarTipoPersona (HttpServletRequest request,HttpServletResponse response, Persona persona){
+		boolean respuesta = true;
+		if(request.getSession().getAttribute("usuario")==null){
+			if(persona.getTipoPersona().getIdTipoPersona()== TipoPersona.ADMINISTADOR){
+				respuesta=false;
+			}
+			
+		}else if(!((Persona) request.getSession().getAttribute("usuario")).isAdmin()){
+			if(persona.getTipoPersona().getIdTipoPersona()== TipoPersona.ADMINISTADOR){
+				respuesta=false;
+			}
+		}  
+		 
+		
+		
+		return respuesta;
+	}
+	
+	public void editarPersona(HttpServletRequest request,HttpServletResponse response, Persona persona) throws SQLException,IOException {
+		PersonasDAO catPersona = new PersonasDAO();
+		Persona personaEditada = ((Persona) request.getSession().getAttribute(
+				"editador"));
+		if (!persona.getNumeroDocumento().equals(
+				personaEditada.getNumeroDocumento())) {
+			if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
+				// ///DNI NO EXISTE
+				persona.setIdPersona(personaEditada.getIdPersona());
+				catPersona.editarPersona(persona);
+				definirRedireccion(request, response, true, "editar");
+			} else {
+				// / DNI NO EXISTE
+				request.getSession().setAttribute("error",
+						"El dni ingresado ya existe");
+				definirRedireccion(request, response, false, "editar");
+			}
+
+		} else {
+			// / NO modifico campo DNI
+			persona.setIdPersona(personaEditada.getIdPersona());
+			catPersona.editarPersona(persona);
+			definirRedireccion(request, response, true, "editar");
+		}
+
 	}
 	
 	

@@ -5,9 +5,12 @@ package entidad;
 
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import com.mysql.fabric.xmlrpc.base.Data;
+
+import datos.PersonasDAO;
 
 public class Persona {
 	
@@ -137,7 +140,126 @@ public class Persona {
  		
  		return respuesta;
  		
- 	} 
+ 	}
+     
+    public static boolean  validarPersonaUsuarioContraseña(Persona persona) throws ApplicationException, SQLException{
+    	boolean respuesta = true;
+    	String usuario = persona.getUsuario().trim();
+		String contraseña = persona.getContraseña().trim();
+    	if(usuario!=null && usuario!="" ){
+    		if(contraseña!=null && contraseña!="" ){
+    			PersonasDAO catPersona = new PersonasDAO();
+    			Persona personaBuscada = catPersona.validarUsuarioPersona(usuario);
+    			if(personaBuscada!=null){
+    				throw new ApplicationException("Usuario ya existe");
+    			}
+    			
+    			
+    		}else{
+    			throw new ApplicationException("Debe ingresar una contraseña");
+    		}
+    		
+    	}else if(contraseña!=null && contraseña!="" ){
+    		
+    		throw new ApplicationException("Debe ingresar un usuario");
+    	}
+    	
+    	
+		return respuesta;
+    	
+    	
+    	
+    }
+     
+	public static boolean validarPersona(Persona persona) throws ApplicationException {
+		// TODO Auto-generated method stub
+		boolean respuesta= true;
+		String nombre = persona.getNombre().trim();
+		String apellido = persona.getApellido().trim();
+		String numeroDocumento = persona.getNumeroDocumento().trim();
+		String mail = persona.getMail().trim();
+		String telefono = persona.getTelefono().trim();
+		Date fechaNacimiento = persona.getFechaNacimiento();
+		
+		
+		if(nombre!=null && nombre!=""){
+			if(!Util.validateNombreApellido(nombre)){
+				respuesta= false;
+				throw new ApplicationException("Nombre ingresado no es valido");
+			}
+			
+		}else {
+			respuesta= false;
+			throw new ApplicationException("Ingresar un valor al campo nombre");
+		}
+		
+		
+		if(apellido!=null && apellido!=""){
+			if(!Util.validateNombreApellido(apellido)){
+				respuesta= false;
+				throw new ApplicationException("Apellido ingresado no es valido");
+			}
+			
+		}else {
+			respuesta= false;
+			throw new ApplicationException("Ingresar un valor al campo apellido");
+		}
+		
+		
+		if(telefono!=null && telefono!=""){
+			if(!Util.validateTelefono(telefono)){
+				respuesta= false;
+				throw new ApplicationException("Telefono contiene caracteres especiales");
+			}else if(Integer.parseInt(telefono)<9){
+				respuesta= false;
+				throw new ApplicationException("Telefono es de longitud incorrecta");
+			}
+			
+		}else {
+			respuesta= false;
+			throw new ApplicationException("Ingresar un valor al campo telefono");
+		}
+		
+		
+		
+		if(numeroDocumento!=null && numeroDocumento!=""){
+			if(!Util.validateTelefono(numeroDocumento)){
+				respuesta= false;
+				throw new ApplicationException("Numero documento contiene caracteres especiales");
+			}else if(Integer.parseInt(numeroDocumento)<9){
+				respuesta= false;
+				throw new ApplicationException("Numero documento es de longitud incorrecta");
+			}
+			
+		}else {
+			respuesta= false;
+			throw new ApplicationException("Ingresar un valor al campo numero Documento");
+		}
+		
+		if(mail!=null && mail!=""){
+			if(!Util.validateEmail(mail)){
+				respuesta= false;
+				throw new ApplicationException("Mail es incorrecto");
+			}
+		}else {
+			respuesta= false;
+			throw new ApplicationException("Ingresar un valor al mail");
+		}
+		if(fechaNacimiento!=null){
+			if(!Util.compararFechaConHoy(fechaNacimiento)){
+				respuesta= false;
+				throw new ApplicationException("Fecha incorrecta");
+			}
+		}else{
+			respuesta= false;
+			throw new ApplicationException("Ingresar un valor en fecha Nacimiento");
+		}
+		
+		
+		return respuesta;
+		
+		
+	} 
 	
 	
 }

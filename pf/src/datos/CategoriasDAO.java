@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Equipo;
+import entidad.EquiposTorneos;
 import entidad.TipoEstado;
 import modelo.Conexion;
 
@@ -42,15 +43,19 @@ public class CategoriasDAO {
 		}
 	}
 
-	public void editarCategoria(Categoria cat) throws SQLException {
+	public void editarCategoria(Categoria cat) throws SQLException, ApplicationException {
 		try {
-			PreparedStatement ps = con.prepareStatement(EDITAR);
-			ps.setString(1, cat.getAñoCategoria());
-			ps.setString(2, cat.getDescripcion());
-			ps.setInt(3, cat.getEstado().getIdTipoEstado());
-			ps.setInt(4, cat.getIdCategorias());
-			ps.executeUpdate();
-			ps.close();
+			if(validarTorneo(cat)){
+				PreparedStatement ps = con.prepareStatement(EDITAR);
+				ps.setString(1, cat.getAñoCategoria());
+				ps.setString(2, cat.getDescripcion());
+				ps.setInt(3, cat.getEstado().getIdTipoEstado());
+				ps.setInt(4, cat.getIdCategorias());
+				ps.executeUpdate();
+				ps.close();
+			}else{
+				throw new ApplicationException("No se puede editar, Categoria esta en un Torneo");
+			}
 
 		} catch (SQLException e) {
 			
@@ -58,13 +63,33 @@ public class CategoriasDAO {
 			throw e;
 		}
 	}
+	
+	
+	public boolean validarTorneo(Categoria cat) throws SQLException{
+		boolean repuesta=true;
+		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> listaEquipos = catEquipoTorneo.listarTodasLosEquipoTorneo();
+		if(listaEquipos!=null && listaEquipos.size()>0){
+			for (EquiposTorneos equiposTorneos : listaEquipos) {
+				if(equiposTorneos.getEquipos().getCategorias().getIdCategorias() ==cat.getIdCategorias() ){
+					repuesta= false;
+					break;
+						
+				}
+			}
+			
+		}
+		
+		
+		
+		return repuesta;
+	}
 
 	public void eliminarCategoria(Categoria cat) throws SQLException, ApplicationException {
 		try {
 			EquiposDAO catEquipo = new EquiposDAO();
-			LinkedList<Equipo> equipos = catEquipo.buscarporIdCategoria(cat
-					.getIdCategorias());
-			if (equipos == null && equipos.size() == 0) {
+			LinkedList<Equipo> equipos = catEquipo.buscarporIdCategoria(cat.getIdCategorias());
+			if (equipos == null) {
 				PreparedStatement ps = con.prepareStatement(DELETE);
 				ps.setInt(1, cat.getIdCategorias());
 				ps.executeUpdate();
