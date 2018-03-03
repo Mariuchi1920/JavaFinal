@@ -151,11 +151,12 @@
 				%>
 					
 				</tr>
-				<%
-					}}%>
-					<tr>
-					<th colspan="8" style="color: red">
-					No hay Torneos registrados!</tr>
+				<%}}else {%>
+				<tr>
+				<th colspan="8" style="color: red">
+				No hay torneos registrados</th>
+				</tr>
+				<% } %>
 				<tr>
 				<th colspan="10">
 			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></th>

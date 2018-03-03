@@ -91,11 +91,13 @@ function eliminar(met) {
                      </td>
 				</tr>
 
-				<% } }%>
+				<% }}else {%>
 				<tr>
 				<th colspan="8" style="color: red">
-				No hay instituciones registradas todavia!</th>
+				No hay instituciones disponibles !</th>
 				</tr>
+				<% } %>
+				
 				<tr>
 				<th colspan="10">
 			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>

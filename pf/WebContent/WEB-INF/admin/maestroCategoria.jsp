@@ -84,11 +84,12 @@ function eliminar(met) {
 
 				</tr>
 				<%
-					}}%>
+					}}else {%>
 					<tr>
 					<th colspan="8" style="color: red">
 					No hay categorias disponibles!</th>
 					</tr>
+					<% } %>
 				<tr>
 				<th colspan="10">
 				<a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
