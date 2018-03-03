@@ -66,7 +66,8 @@ function eliminar(met) {
 		<tbody>
 		<% InstitucionesDAO institucionDAO= new InstitucionesDAO();
 						   LinkedList <Institucion> listadoI = institucionDAO.listarTodasLasInstituciones();
-						
+						   
+						if(listadoI!=null){
 						 for(Institucion in: listadoI){ %>
 				<tr>
 					
@@ -90,7 +91,11 @@ function eliminar(met) {
                      </td>
 				</tr>
 
-				<% } %>
+				<% } }%>
+				<tr>
+				<th colspan="8" style="color: red">
+				No hay instituciones registradas todavia!</th>
+				</tr>
 				<tr>
 				<th colspan="10">
 			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>

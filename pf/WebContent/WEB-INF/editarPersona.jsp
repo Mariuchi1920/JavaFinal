@@ -220,13 +220,13 @@ function validarDatos() {
 						<tr>
 							<td>Usuario:</td>
 							<td><input align="center" type="text" name="usuario"
-								id="usuario" value="<%=usuario%>" class="form-control" placeholder="usuario..." required="" /></td>
+								id="usuario" value="<%=usuario%>" class="form-control" placeholder="usuario..."/></td>
 						</tr>
 
 						<tr>
 							<td>Contraseña:</td>
 							<td><input align="center" type="text" name="contraseña"
-								id="contraseña" value="<%=contraseña%>" class="form-control" placeholder=contraseña..." required="" /></td>
+								id="contraseña" value="<%=contraseña%>" class="form-control" placeholder=contraseña..."  /></td>
 						</tr>
 
 
