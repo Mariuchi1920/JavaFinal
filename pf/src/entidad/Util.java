@@ -151,7 +151,7 @@ public class Util {
 	
 	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	private static final String PATTERN_NOMBRE_APELLIDO = "[^A-Za-z0-9.@_-~#]+";
+	private static final String PATTERN_NOMBRE_APELLIDO = "([a-z]|[A-Z]|\\s)+";
 	private static final String PATTERN_NUMEROS = "/[^0-9]/";
  
    
@@ -187,6 +187,30 @@ public class Util {
         return matcher.matches();
  
     }
+    
+    
+    public static boolean isNumeric(String cadena){
+    	try {
+    		Integer.parseInt(cadena);
+    		return true;
+    	} catch (NumberFormatException nfe){
+    		return false;
+    	}
+    }
+
+	public static boolean compararAño(String añoCategoria) {
+		// TODO Auto-generated method stub
+		boolean respuesta= true;
+		
+		int año = Integer.parseInt(añoCategoria);
+		Calendar calendarioHoy = Calendar.getInstance();
+		if(año >= calendarioHoy.get(Calendar.YEAR)){
+			respuesta= false;
+		}
+		
+		
+		return respuesta;
+	}
     
     
     

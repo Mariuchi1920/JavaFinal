@@ -146,22 +146,27 @@ public class Persona {
     	boolean respuesta = true;
     	String usuario = persona.getUsuario().trim();
 		String contraseña = persona.getContraseña().trim();
-    	if(usuario!=null && usuario!="" ){
-    		if(contraseña!=null && contraseña!="" ){
+    	if( usuario!="" ){
+    		if( contraseña!="" ){
     			PersonasDAO catPersona = new PersonasDAO();
     			Persona personaBuscada = catPersona.validarUsuarioPersona(usuario);
     			if(personaBuscada!=null){
+    				respuesta=false;
     				throw new ApplicationException("Usuario ya existe");
     			}
     			
     			
     		}else{
+    			respuesta=false;
     			throw new ApplicationException("Debe ingresar una contraseña");
     		}
     		
-    	}else if(contraseña!=null && contraseña!="" ){
-    		
+    	}else if( contraseña!="" ){
+    		respuesta=false;
     		throw new ApplicationException("Debe ingresar un usuario");
+    	}else if(persona.getTipoPersona().getIdTipoPersona()== TipoPersona.ADMINISTADOR){
+    		respuesta=false;
+    		throw new ApplicationException("Debe ingresar un usuario y contraseña si es administrador");
     	}
     	
     	
@@ -182,7 +187,7 @@ public class Persona {
 		Date fechaNacimiento = persona.getFechaNacimiento();
 		
 		
-		if(nombre!=null && nombre!=""){
+		if(nombre.equals(null) || nombre.equals("null")){
 			if(!Util.validateNombreApellido(nombre)){
 				respuesta= false;
 				throw new ApplicationException("Nombre ingresado no es valido");
@@ -194,7 +199,7 @@ public class Persona {
 		}
 		
 		
-		if(apellido!=null && apellido!=""){
+		if(apellido.equals(null) || apellido.equals("null")){
 			if(!Util.validateNombreApellido(apellido)){
 				respuesta= false;
 				throw new ApplicationException("Apellido ingresado no es valido");
@@ -206,11 +211,11 @@ public class Persona {
 		}
 		
 		
-		if(telefono!=null && telefono!=""){
-			if(!Util.validateTelefono(telefono)){
+		if(telefono.equals(null) || telefono.equals("") ){
+			if(!Util.isNumeric(telefono)){
 				respuesta= false;
 				throw new ApplicationException("Telefono contiene caracteres especiales");
-			}else if(Integer.parseInt(telefono)<9){
+			}else if(telefono.length()<9){
 				respuesta= false;
 				throw new ApplicationException("Telefono es de longitud incorrecta");
 			}
@@ -222,11 +227,11 @@ public class Persona {
 		
 		
 		
-		if(numeroDocumento!=null && numeroDocumento!=""){
-			if(!Util.validateTelefono(numeroDocumento)){
+		if(numeroDocumento.equals(null) || numeroDocumento.equals("null") || numeroDocumento.equals("") ){
+			if(!Util.isNumeric(numeroDocumento)){
 				respuesta= false;
 				throw new ApplicationException("Numero documento contiene caracteres especiales");
-			}else if(Integer.parseInt(numeroDocumento)<9){
+			}else if(numeroDocumento.length()<9){
 				respuesta= false;
 				throw new ApplicationException("Numero documento es de longitud incorrecta");
 			}

@@ -78,6 +78,7 @@ public class MostrarFixture extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/mostrarFixture");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 
 }

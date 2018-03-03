@@ -47,6 +47,32 @@ public class Categoria {
 	public void setAñoCategoria(String añoCategoria) {
 		this.añoCategoria = añoCategoria;
 	}
+
+	public static boolean validarCategoria(Categoria cat) throws ApplicationException {
+		// TODO Auto-generated method stub
+		boolean respuesta = true;
+		String añoCategoria = cat.añoCategoria;
+		String descripcion = cat.descripcion;
+		if(cat.equals("")){
+			
+			respuesta= false;
+			throw new ApplicationException("La descripcion esta vacia");
+		}
+		
+		if(Util.isNumeric(añoCategoria)){
+			if(!Util.compararAño(añoCategoria)){
+				respuesta= false;
+				throw new ApplicationException("El año es mayor al año de hoy");
+			}
+		}else{
+			respuesta= false;
+			throw new ApplicationException("El año de categoria esta vacia");
+		}
+		
+		
+		
+		return respuesta;
+	}
 	
 
 	}

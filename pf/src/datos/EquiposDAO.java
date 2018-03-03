@@ -56,7 +56,7 @@ public class EquiposDAO {
 
 	public void editarEquipo(Equipo equipo) throws SQLException, ApplicationException {
 		try {
-			if(validarEntrenador(equipo)){
+			if(validarNoEquipoEnTorneo(equipo)){
 				PreparedStatement ps = con.prepareStatement(EDITAR);
 				ps.setInt(1, equipo.getEntrenador().getIdPersona());
 				ps.setInt(2, equipo.getCategorias().getIdCategorias());
@@ -65,13 +65,36 @@ public class EquiposDAO {
 				ps.executeUpdate();
 				ps.close();
 			}else{
-				throw new ApplicationException("El entrenador se encuentra en un Torneo");
+				throw new ApplicationException("El equipo se encuentra en un toreno");
 			}
-
+		
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			throw e1;
 		}
+	}
+	
+	public boolean validarNoEquipoEnTorneo(Equipo equipo) throws SQLException {
+		boolean respuesta = true;
+		try {
+
+			EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+			LinkedList<EquiposTorneos> encontrado;
+
+			encontrado = catEquipoTorneo.buscarporEquipo(equipo);
+
+			if (encontrado != null && encontrado.size() > 0) {
+				respuesta = false;
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+
+		return respuesta;
 	}
 	
 	
@@ -118,9 +141,9 @@ public class EquiposDAO {
 		boolean respuesta = true;
 
 		EquiposJugadoresDAO catEquiposJugadores = new EquiposJugadoresDAO();
-		EquiposJugadores equipoJugadores = new EquiposJugadores();
-		equipoJugadores.setEquipo(equipo);
-		equipoJugadores.setJugadores(catEquiposJugadores.listarTodasLosJugadores(equipo));
+	
+		
+		LinkedList<Persona> equipoJugadores =catEquiposJugadores.listarTodasLosJugadores(equipo);
 		if (equipoJugadores != null){
 			respuesta = false;
 			throw new ApplicationException("Existen Jugadores asociados al equipo");

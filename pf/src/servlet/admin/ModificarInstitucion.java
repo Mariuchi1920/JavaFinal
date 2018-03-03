@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.InstitucionesDAO;
+import entidad.ApplicationException;
 import entidad.Categoria;
 import entidad.Institucion;
 
@@ -57,37 +58,48 @@ public class ModificarInstitucion extends HttpServlet {
 			i.setApellidoDelegado(request.getParameter("apellidoDelegado"));
 			i.setTelefonoDelegado(request.getParameter("telefonoDelegado"));
 			i.setMailDelegado(request.getParameter("mail"));
+			
+			if(Institucion.validarInstitucion(i)){
 
-			if (request.getParameter("editar") != null) {
-				int id = ((Institucion) request.getSession().getAttribute(
-						"editador")).getIdInstituciones();
-				i.setIdInstituciones(id);
-
-				instidao.modificarIstitucion(i);
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarInstituciones");
-
-			} else if (request.getParameter("registar") != null) {
-
-				instidao.nuevaInstitucion(i);
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarInstituciones");
-
-			} else if (request.getParameter("registar") == null && request.getParameter("editar") != null)  {
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarInstituciones");
+				if (request.getParameter("editar") != null) {
+					int id = ((Institucion) request.getSession().getAttribute(
+							"editador")).getIdInstituciones();
+					i.setIdInstituciones(id);
+	
+					instidao.modificarIstitucion(i);
+					response.sendRedirect(request.getContextPath()
+							+ "/admin/listarInstituciones");
+	
+				} else if (request.getParameter("registar") != null) {
+	
+					instidao.nuevaInstitucion(i);
+					response.sendRedirect(request.getContextPath()
+							+ "/admin/listarInstituciones");
+	
+				} else if (request.getParameter("registar") == null && request.getParameter("editar") != null)  {
+					response.sendRedirect(request.getContextPath()
+							+ "/admin/listarInstituciones");
+				}
+			}else{
+				
 			}
+			
 
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
-					+ "/admin/listarInstituciones");
+					+ "/admin/modificarInstitucion");
+		}catch (ApplicationException e) {
+			request.getSession().setAttribute("error", e.getMessage());
+			response.sendRedirect(request.getContextPath()
+					+ "/admin/modificarInstitucion");
 		}catch (Exception e) {
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
-					+ "/admin/listarInstituciones");
+					+ "/admin/modificarInstitucion");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 
 	}
 

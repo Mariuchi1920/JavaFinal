@@ -119,8 +119,8 @@ function validarDatos() {
 		String numeroDocumento = "";
 		String tipoDocumento = "";
 		String telefono = "";
-		String usuario = "";
-		String contraseña = "";
+		String usuario = null;
+		String contraseña = null;
 		///Date fechaNacimiento = Util.recuperarHoraActualStringDate();
 		String fechaNacimiento = "";
 		String mail = "";
@@ -220,13 +220,19 @@ function validarDatos() {
 						<tr>
 							<td>Usuario:</td>
 							<td><input align="center" type="text" name="usuario"
+
 								id="usuario" value="<%=usuario%>" class="form-control" placeholder="usuario..."/></td>
+
+								
 						</tr>
 
 						<tr>
 							<td>Contraseña:</td>
 							<td><input align="center" type="text" name="contraseña"
+
 								id="contraseña" value="<%=contraseña%>" class="form-control" placeholder=contraseña..."  /></td>
+
+								
 						</tr>
 
 

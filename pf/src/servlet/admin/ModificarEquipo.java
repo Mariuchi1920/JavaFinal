@@ -43,7 +43,8 @@ public class ModificarEquipo extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		request.getSession(false).setAttribute("editarEntrenador", null);
+		request.getSession(false).setAttribute("agregarJugador", null);
 		request.getRequestDispatcher("/WEB-INF/admin/editarEquipo.jsp")
 				.forward(request, response);
 	}
@@ -137,6 +138,7 @@ public class ModificarEquipo extends HttpServlet {
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 
 	}
 

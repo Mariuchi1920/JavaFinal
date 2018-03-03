@@ -67,12 +67,13 @@ public class ReguistarPersonas extends HttpServlet {
 			if(Persona.validarPersona(persona)){
 			    persona.setUsuario(request.getParameter("usuario"));
 				persona.setContraseña(request.getParameter("contraseña"));
+				int estado = Integer.parseInt(request.getParameter("listaTipoPersona"));
+				TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
+				persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
 				
 				if(Persona.validarPersonaUsuarioContraseña(persona)){
 					
-					int estado = Integer.parseInt(request.getParameter("listaTipoPersona"));
-					TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
-					persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
+					
 					if(validarIngresarTipoPersona(request, response,persona )){
 					
 						if (request.getParameter("editar") != null) {
@@ -111,6 +112,7 @@ public class ReguistarPersonas extends HttpServlet {
 			request.getSession().setAttribute("error","Error inesperado");
 			definirRedireccion (request,response,false,"registar");
 		}
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 	
 	

@@ -14,6 +14,9 @@ public class TipoEstado {
 	public static final int JUGADO =3;
 	public static final int PENDIENTE =4;
 	public static final int SUSPENDIDO =5;
+	public static final int INICIADO =6;
+	public static final int FINALIZADO = 7;
+	
 	
 	
 	private int idTipoEstado;

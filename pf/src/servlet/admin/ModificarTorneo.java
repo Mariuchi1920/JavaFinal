@@ -87,9 +87,6 @@ public class ModificarTorneo extends HttpServlet {
 				}else{
 					response.sendRedirect(request.getContextPath() + "/admin/modificarTorneo");
 				}
-				
-
-				
 
 			} else if (request.getParameter("registar") != null) {
 

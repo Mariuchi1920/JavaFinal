@@ -1,3 +1,4 @@
+<%@page import="entidad.TipoEstado"%>
 <%@page import="datos.JornadaDAO"%>
 <%@page import="entidad.Jornadas"%>
 <%@page import="entidad.Torneo"%>
@@ -112,15 +113,20 @@
 					<%
 						}
 					%>
+					
+				
 					<th><button class="botonEditar"
 							onclick="javascript: editar('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="editar" name="editar">Editar</button>
 					</th>
+					<%if(t.getEstado().getIdTipoEstado()!=TipoEstado.INICIADO){ %>
 					<th><button class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarTorne/')"
 							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
-
+                  <%
+					  }
+				    %>
 								
 					<%
 						JornadaDAO catJornada = new JornadaDAO();
