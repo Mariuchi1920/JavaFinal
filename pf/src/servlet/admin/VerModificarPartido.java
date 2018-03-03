@@ -56,9 +56,12 @@ public class VerModificarPartido extends HttpServlet {
 				partido.setObservaciones(request.getParameter("observaciones"));
 				///partido.setGolesLocal(Integer.parseInt(request.getParameter("golesLocal")));
 				////partido.setGolesVisitante(Integer.parseInt(request.getParameter("golesVisitante")));
-				TipoEstadoDAO catalogoEstado = new TipoEstadoDAO();
-	            TipoEstado tpEstado= catalogoEstado.getTipoEstados(Integer.parseInt(request.getParameter("listaTipoEStado")));
-	            partido.setEstado(tpEstado);
+				if(partido.getEstado().getIdTipoEstado()!= TipoEstado.JUGADO){
+					TipoEstadoDAO catalogoEstado = new TipoEstadoDAO();
+					
+		            TipoEstado tpEstado= catalogoEstado.getTipoEstados(Integer.parseInt(request.getParameter("listaTipoEStado")));
+		            partido.setEstado(tpEstado);
+				}
 	            catPartido.editarPartido(partido);
 	            Jornadas.definirEstadoJoranda(partido.getJornada().getIdJornadas());
 	            TorneosDAO catTorneo = new TorneosDAO();

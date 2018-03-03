@@ -36,6 +36,7 @@ public class EquiposTorneoDAO {
 	public void nuevoEquipoTorneo(EquiposTorneos equipoTorneo) throws SQLException, ApplicationException {
 		try {
 			if(validarPersonasEquipo(equipoTorneo)){
+				if(validarEntrenador(equipoTorneo)){
 				PreparedStatement ps = con.prepareStatement(INSERT);
 	
 				ps.setInt(1, equipoTorneo.getEquipos().getCategorias().getIdCategorias());
@@ -45,8 +46,11 @@ public class EquiposTorneoDAO {
 	
 				ps.executeUpdate();
 				ps.close();
+			  }else{
+				  throw new ApplicationException("El Entrenador se encuentra en este torneo con algun equipo");
+			  }
 			}else{
-				throw new ApplicationException("Algun jugador se encuentra en este torneo");
+				throw new ApplicationException("El Jugador se encuentra en este torneo con algun equipo");
 			}
 
 		} catch (SQLException e1) {
@@ -55,6 +59,26 @@ public class EquiposTorneoDAO {
 			throw e1;
 		}
 
+	}
+	
+	public boolean validarEntrenador(EquiposTorneos equipo) throws SQLException{
+		boolean respuesta = true;
+		
+		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> listaEquipos = buscarporTorneo(equipo.getTorneo());
+		if(listaEquipos!=null && listaEquipos.size()>0){
+			for (EquiposTorneos equiposTorneos : listaEquipos) {
+				if(equiposTorneos.getEquipos().getEntrenador().getIdPersona() ==equipo.getEquipos().getEntrenador().getIdPersona() ){
+					respuesta= false;
+					break;
+						
+				}
+			}
+			
+		}
+		
+		
+		return respuesta;
 	}
 	
 	public boolean  validarPersonasEquipo(EquiposTorneos equipoTorneo) throws SQLException{

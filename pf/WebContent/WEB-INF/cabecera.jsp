@@ -103,8 +103,7 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="nav mr-auto">
-			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/reguistarPersonas">Editar Persona</a>
-			</li>
+			
 			<li class="nav-item"><a class="nav-link" href="#">Torneos</a>
 				<ul>
 					<li><a class="nav-link"
@@ -114,21 +113,18 @@
 
 
 				</ul></li>
-			<li class="nav-item "><a class="nav-link" href="#">Categoria</a>
+			<li class="nav-item "><a class="nav-link" href="#">Mis Partidos</a>
 				<ul>
 					<li>
 						<!-- Aca voy al Servlet --> <a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/listarCategoria">Listar
-							Categorias</a>
+						href="${pageContext.request.contextPath}/verMisPartidos">Lista Mis Partidos</a>
 					</li>
-					<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva
-							Categoria</a></li>
+					
 
 
 				</ul></li>
 				<div class="usuario">
-		Usuario:
+		Usuario:s
 		<%=persona.getNombre()%>
 		<hr>
 		<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar

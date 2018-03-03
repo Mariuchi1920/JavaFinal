@@ -21,7 +21,7 @@ public class PersonasDAO {
 	private String INSERT = "insert into persona (nombre, apelido, telefono, fechaNacimiento, tipoDocumento, numeroDocumento"
 			+ ", mail, idTipoPersona,usuario,contraseña ) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private String DELETE = "delete from persona where idPersona=?;";
-	private String EDITAR = "update tipoestado set nombre =?, apelido=? , telefono=? ,fechaNacimiento=? ,tipoDocumento=? ,numeroDocumento=? ,"
+	private String EDITAR = "update persona set nombre =?, apelido=? , telefono=? ,fechaNacimiento=? ,tipoDocumento=? ,numeroDocumento=? ,"
 			+ "mail=? ,idTipoPersona=? ,usuario=? ,contraseña=? "
 			+ " where idPersona=?";
 	private String LISTATODAPERSONAS = "select * from persona";

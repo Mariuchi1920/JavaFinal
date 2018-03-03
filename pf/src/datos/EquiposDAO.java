@@ -54,20 +54,45 @@ public class EquiposDAO {
 
 	}
 
-	public void editarEquipo(Equipo equipo) throws SQLException {
+	public void editarEquipo(Equipo equipo) throws SQLException, ApplicationException {
 		try {
-			PreparedStatement ps = con.prepareStatement(EDITAR);
-			ps.setInt(1, equipo.getEntrenador().getIdPersona());
-			ps.setInt(2, equipo.getCategorias().getIdCategorias());
-			ps.setInt(3, equipo.getInstitucion().getIdInstituciones());
-			ps.setString(4, equipo.getNombreEquipo());
-			ps.executeUpdate();
-			ps.close();
+			if(validarEntrenador(equipo)){
+				PreparedStatement ps = con.prepareStatement(EDITAR);
+				ps.setInt(1, equipo.getEntrenador().getIdPersona());
+				ps.setInt(2, equipo.getCategorias().getIdCategorias());
+				ps.setInt(3, equipo.getInstitucion().getIdInstituciones());
+				ps.setString(4, equipo.getNombreEquipo());
+				ps.executeUpdate();
+				ps.close();
+			}else{
+				throw new ApplicationException("El entrenador se encuentra en un Torneo");
+			}
 
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			throw e1;
 		}
+	}
+	
+	
+	public boolean validarEntrenador(Equipo equipo) throws SQLException{
+		boolean respuesta = true;
+		
+		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> listaEquipos = catEquipoTorneo.listarTodasLosEquipoTorneo();
+		if(listaEquipos!=null && listaEquipos.size()>0){
+			for (EquiposTorneos equiposTorneos : listaEquipos) {
+				if(equiposTorneos.getEquipos().getEntrenador().getIdPersona() ==equipo.getEntrenador().getIdPersona() ){
+					respuesta= false;
+					break;
+						
+				}
+			}
+			
+		}
+		
+		
+		return respuesta;
 	}
 
 	public void eliminarEquipo(Equipo equipo) throws SQLException, ApplicationException {

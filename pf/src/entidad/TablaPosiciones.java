@@ -1,6 +1,8 @@
 package entidad;
 
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 import datos.EquiposTorneoDAO;
@@ -48,9 +50,9 @@ public class TablaPosiciones {
 	
 	
 	
-	public void generarTablaPosiciones(Torneo torneo) throws SQLException{
+	public static LinkedList<TablaPosiciones> generarTablaPosiciones(Torneo torneo) throws SQLException{
 		
-		LinkedList<TablaPosiciones> tablaPosiciones;
+		LinkedList<TablaPosiciones> tablaPosiciones=null;
 		
 		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
 		
@@ -111,7 +113,16 @@ public class TablaPosiciones {
 			
 		}
 		
+		 Collections.sort(tablaPosiciones, new Comparator<TablaPosiciones>() {
+			 
+		        @Override
+		        public int compare(TablaPosiciones p1, TablaPosiciones p2) {
+		            return p2.getPuntuacion() - p1.getPuntuacion();
+		        }
+		    });
 		
+		
+		return tablaPosiciones;
 		
 		
 		
