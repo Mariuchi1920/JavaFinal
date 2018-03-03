@@ -125,6 +125,19 @@ public class Persona {
 		return respuesta;
 		
 	} 
+     
+     
+     public static int buscarPersonaListaRanking(LinkedList<RankingPosiciones> personas ,Persona persona){
+ 		int respuesta =-1 ;
+ 		for(int i=0; i<personas.size(); i++){
+ 			if(personas.get(i).getJugadores().getIdPersona() == persona.getIdPersona()){
+ 				respuesta= i;
+ 			}
+ 		}
+ 		
+ 		return respuesta;
+ 		
+ 	} 
 	
 	
 }

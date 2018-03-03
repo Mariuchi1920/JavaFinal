@@ -74,7 +74,7 @@ public class ListarTorneo extends HttpServlet {
 			}else if(request.getParameter("ranking") != null){
 				Torneo tor = torneodao.buscarPorId(Integer.parseInt(request.getParameter("ranking")));
 				request.getSession().setAttribute("editador", tor);
-				response.sendRedirect(request.getContextPath()+ "/mostrarFixture");
+				response.sendRedirect(request.getContextPath()+ "/listarRankingJugadores");
 				
 				
 			}else{

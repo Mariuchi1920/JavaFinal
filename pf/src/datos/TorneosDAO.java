@@ -13,7 +13,9 @@ import entidad.ApplicationException;
 import entidad.Equipo;
 import entidad.EquiposTorneos;
 import entidad.Jornadas;
+import entidad.JugadoresPartido;
 import entidad.Partidos;
+import entidad.Persona;
 import entidad.TipoEstado;
 import entidad.Torneo;
 import modelo.Conexion;
@@ -26,11 +28,13 @@ public class TorneosDAO {
 	private String LISTATORNEO = "select * from torneos";
 	private String LISTARPORCODIGOTORNEO = "select * from torneos where idTorneos=?;";
 	private String BUSCARTORNEOGANADOR = "select * from torneos where idCategoriaCampeon=? and idIntitucionCampeon=? and nombreEquipoCampeon=?;";
-	private String BUSCARTODOSLOSPARTIDOS = "select partidos.idCategoriasLocal, partidos.idIntitucionesLocal, partidos.nombreEquipoLocal,"
-			+ "partidos.idCategoriasVisitante,partidos.idIntitucionesVisitante, "
-			+ "partidos.nombreEquipoVisitante ,partidos.golesLocales, partidos.golesVisitante"
-			+ " from torneos inner join jornadas on torneos.idTorneos = jornadas.idTorneos"
-			+ " inner join partidos on jornadas.idJornadas =partidos.idJornadas    ";
+	private String BUSCARTODOSJUGADORESPARTIDO = "select  jugadorespartidos.idJugadores, jugadorespartidos.cantidadGoles  "
+			+ "from torneos "
+			+ "inner join jornadas on torneos.idTorneos = jornadas.idTorneos "
+			+ "inner join partidos on jornadas.idJornadas =partidos.idJornadas  "
+			+ "inner join jugadorespartidos on jugadorespartidos.idPartidos = partidos.idPartidos "
+			//+ "inner join persona on persona.idPersona = jugadorespartidos.idJugadores"
+			+ "where torneos.idTorneos=? ";
 	
 	private String BUSCARTODOSLOSPARTIDOSJUGADOS = "select partidos.idCategoriasLocal, partidos.idIntitucionesLocal, partidos.nombreEquipoLocal,"
 			+ "partidos.idCategoriasVisitante,partidos.idIntitucionesVisitante, partidos.nombreEquipoVisitante ,partidos.golesLocales, partidos.golesVisitante "
@@ -267,6 +271,54 @@ public class TorneosDAO {
 
 		return partidosJugados;
 
+	}
+	
+	
+	
+	
+	public LinkedList<JugadoresPartido> buscarJugadores(Torneo torneo) throws SQLException {
+		LinkedList<JugadoresPartido> jugadores=null;
+		try {
+			PreparedStatement ps = con.prepareStatement(BUSCARTODOSJUGADORESPARTIDO);
+			ps.setInt(1,torneo.getIdTorneos());
+			
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				jugadores= new LinkedList<JugadoresPartido>();
+				do{
+					JugadoresPartido persona = popularJugador(rs);
+					jugadores.add(persona);
+					
+				}while(rs.next());
+				
+				
+
+			}
+			rs.close();
+			ps.close();
+
+		} catch (SQLException ex) {
+			// TODO: handle exception
+			ex.printStackTrace();
+			throw ex;
+		}
+
+		return jugadores;
+
+	}
+	
+	public JugadoresPartido popularJugador (ResultSet rs)throws SQLException {
+		JugadoresPartido persona = new JugadoresPartido();
+		PersonasDAO catPersona = new PersonasDAO();
+		Persona jugador = catPersona.buscarPersonaId(rs.getInt(1));
+		persona.setJugadores(jugador);
+		persona.setCatidadGoles(rs.getInt(2));
+
+		return persona;
+		
+		
+		
 	}
 	
 	
