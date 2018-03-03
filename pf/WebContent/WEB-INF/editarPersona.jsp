@@ -32,6 +32,7 @@ function carga(){
 	 
 	 
 }
+
 function validarDatos() {
 	
 	var verificar=true;

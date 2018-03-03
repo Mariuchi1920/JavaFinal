@@ -8,9 +8,15 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Editar Institucion</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+	
 	<script type="text/javascript">
 	function editar(met) {
 		if(confirm("Estas seguro de editar esta Institución?")){
@@ -30,10 +36,15 @@
 </head>
 <body>
 
-<div id="contenedor">
-
-	<jsp:include page="/WEB-INF/cabecera.jsp" />
-	</div>
+<div class="container-fluid">
+	
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		
+		
+		
+	
 
 	<%
 Institucion encontrado = null;
@@ -62,13 +73,11 @@ if(request.getSession().getAttribute("editador")!=null){
 %>
 
 	
-		<div id="contenido">
-			
-			<form class="form-signin" id="myForm" name="myForm" action=""
-			method="post">
-		
-			<table border="4" align="center">
-				<tr><td colspan="2">Nueva Intitucion</td></tr>
+		<div class="container tablaPersona">
+		<h1>Nueva Institucion</h1>
+			<form id="needs-validation" name="myForm" action="" method="post" onsubmit="return validarDatos()">
+				<table class="table table-bordered" align="center">
+				
 				<tr><td>Institucion:</td> <td><input type="text" value="<%= nombre %>" name="institucion" id="nombre"/></td> </tr>
 				<tr><td>Nombre Localia:</td><td><input type="text" value="<%= nombreLocalia %>" name="nombreLocalia"id="descripcion"/></td></tr>
 				<tr><td>Direccion:</td><td><input type="text" value="<%= direccionLocalia %>" name="direccionLocalia"id="direccionlocalia"/></td></tr>
@@ -95,11 +104,16 @@ if(request.getSession().getAttribute("editador")!=null){
 
 		</div>
 	
+</div>
+	<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
-	<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
 
-	</div>
-	</div>
+			</div>
+		</div>
+	
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
