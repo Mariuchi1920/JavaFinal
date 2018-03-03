@@ -146,8 +146,8 @@ public class Persona {
     	boolean respuesta = true;
     	String usuario = persona.getUsuario().trim();
 		String contraseña = persona.getContraseña().trim();
-    	if( usuario!="" ){
-    		if( contraseña!="" ){
+    	if(  !usuario.equals("") && usuario.equals(null) && usuario.equals("null") ){
+    		if( !contraseña.equals("") && contraseña.equals(null) && contraseña.equals("null")){
     			PersonasDAO catPersona = new PersonasDAO();
     			Persona personaBuscada = catPersona.validarUsuarioPersona(usuario);
     			if(personaBuscada!=null){
@@ -161,7 +161,7 @@ public class Persona {
     			throw new ApplicationException("Debe ingresar una contraseña");
     		}
     		
-    	}else if( contraseña!="" ){
+    	}else if( !contraseña.equals("") && contraseña.equals(null) && contraseña.equals("null")){
     		respuesta=false;
     		throw new ApplicationException("Debe ingresar un usuario");
     	}else if(persona.getTipoPersona().getIdTipoPersona()== TipoPersona.ADMINISTADOR){
@@ -188,50 +188,46 @@ public class Persona {
 		
 		
 		if(nombre.equals(null) || nombre.equals("null")){
-			if(!Util.validateNombreApellido(nombre)){
-				respuesta= false;
-				throw new ApplicationException("Nombre ingresado no es valido");
-			}
 			
-		}else {
 			respuesta= false;
 			throw new ApplicationException("Ingresar un valor al campo nombre");
-		}
+		}else if(!Util.validateNombreApellido(nombre)){
+			respuesta= false;
+			throw new ApplicationException("Nombre ingresado no es valido");
+		} 
+			
+		
 		
 		
 		if(apellido.equals(null) || apellido.equals("null")){
-			if(!Util.validateNombreApellido(apellido)){
-				respuesta= false;
-				throw new ApplicationException("Apellido ingresado no es valido");
-			}
 			
-		}else {
 			respuesta= false;
 			throw new ApplicationException("Ingresar un valor al campo apellido");
-		}
+		}else if(!Util.validateNombreApellido(apellido)){
+			respuesta= false;
+			throw new ApplicationException("Apellido ingresado no es valido");
+		} 
 		
 		
 		if(telefono.equals(null) || telefono.equals("") ){
-			if(!Util.isNumeric(telefono)){
-				respuesta= false;
-				throw new ApplicationException("Telefono contiene caracteres especiales");
-			}else if(telefono.length()<9){
-				respuesta= false;
-				throw new ApplicationException("Telefono es de longitud incorrecta");
-			}
-			
-		}else {
 			respuesta= false;
 			throw new ApplicationException("Ingresar un valor al campo telefono");
+			
+		}else if(!Util.isNumeric(telefono)){
+			respuesta= false;
+			throw new ApplicationException("Telefono contiene caracteres especiales");
+		}else if(telefono.length()>9){
+			respuesta= false;
+			throw new ApplicationException("Telefono es de longitud incorrecta");
 		}
 		
 		
 		
-		if(numeroDocumento.equals(null) || numeroDocumento.equals("null") || numeroDocumento.equals("") ){
+		if(!numeroDocumento.equals(null) || !numeroDocumento.equals("null") || !numeroDocumento.equals("") ){
 			if(!Util.isNumeric(numeroDocumento)){
 				respuesta= false;
 				throw new ApplicationException("Numero documento contiene caracteres especiales");
-			}else if(numeroDocumento.length()<9){
+			}else if(numeroDocumento.length()>9){
 				respuesta= false;
 				throw new ApplicationException("Numero documento es de longitud incorrecta");
 			}

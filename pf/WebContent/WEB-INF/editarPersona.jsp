@@ -119,8 +119,8 @@ function validarDatos() {
 		String numeroDocumento = "";
 		String tipoDocumento = "";
 		String telefono = "";
-		String usuario = null;
-		String contraseña = null;
+		String usuario = "";
+		String contraseña = "";
 		///Date fechaNacimiento = Util.recuperarHoraActualStringDate();
 		String fechaNacimiento = "";
 		String mail = "";
