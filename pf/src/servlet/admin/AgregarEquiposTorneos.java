@@ -61,7 +61,7 @@ public class AgregarEquiposTorneos extends HttpServlet {
 				String equipoBuscar = request.getParameter("listaEquipos");
 				String[] aux = equipoBuscar.split("/");
 				Equipo equipo = equi.buscarporIdsEquipo(Integer.parseInt(aux[1]),
-						Integer.parseInt(aux[0]), aux[2]);
+				Integer.parseInt(aux[0]), aux[2]);
 				eqTor.setEquipos(equipo);
 				if(Equipo.validarEquipoParaTorneo(equipo)){
 				 equipoE.nuevoEquipoTorneo(eqTor);

@@ -57,6 +57,7 @@ public class MisPartidos {
 		JugadoresPartidosDAO catJugadoresPartido = new JugadoresPartidosDAO();
 		LinkedList<JugadoresPartido> listaJugadoresPartido = catJugadoresPartido.buscarporJugador(personaLogin.getIdPersona());
 		if(listaJugadoresPartido!=null && listaJugadoresPartido.size()>0){	
+			misPartido= new LinkedList<Partidos>();
 			for (JugadoresPartido jugadoresPartido : listaJugadoresPartido) {
 				misPartido.add(jugadoresPartido.getPartido());
 
@@ -73,6 +74,7 @@ public class MisPartidos {
 		EquiposDAO catEquipo = new EquiposDAO();
 		LinkedList<Equipo> listaEquipo = catEquipo.buscarporIdEntrenador(personaLogin.getIdPersona());
 		if(listaEquipo!=null && listaEquipo.size()>0){
+			misPartido= new LinkedList<Partidos>();
 			PartidoDAO catPartido = new PartidoDAO();
 			LinkedList<Partidos> listaPartidosLocal = new LinkedList<Partidos>();
 			LinkedList<Partidos> listaPartidosVisitante = new LinkedList<Partidos>();

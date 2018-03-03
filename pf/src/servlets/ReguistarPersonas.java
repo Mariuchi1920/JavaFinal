@@ -79,12 +79,18 @@ public class ReguistarPersonas extends HttpServlet {
 				if (request.getParameter("editar") != null) {
 					Persona personaEditada = ((Persona) request.getSession().getAttribute("editador"));
 					persona.setIdPersona(personaEditada.getIdPersona());
+					if(!persona.getNumeroDocumento().equals(personaEditada.getNumeroDocumento())){
 					if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
 						catPersona.editarPersona(persona);
 
 						definirRedireccion (request,response, true, "editar");
 					}else{
 						definirRedireccion (request,response, false, "editar");
+					}
+					}else {
+						catPersona.editarPersona(persona);
+
+						definirRedireccion (request,response, true, "editar");
 					}
 
 				} else if (request.getParameter("registar") != null) {

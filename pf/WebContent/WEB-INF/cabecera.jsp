@@ -117,7 +117,7 @@
 				<ul>
 					<li>
 						<!-- Aca voy al Servlet --> <a class="nav-link"
-						href="${pageContext.request.contextPath}/admin/listarCategoria">Lista Mis Partidos</a>
+						href="${pageContext.request.contextPath}/verMisPartidos">Lista Mis Partidos</a>
 					</li>
 					
 
