@@ -27,8 +27,62 @@
 <script src='validarDatosPersona.js'></script>
 
 <script type="text/javascript">
+function carga(){
+	 document.getElementById("nombre").focus();
+	 
+	 
+}
+function validarDatos() {
+	
+	var verificar=true;
+	var expRegNom=/^[a-zA-Z—Ò¡·…ÈÕÌ”Û⁄˙‹¸\s]+$/;
+	var expRegMail=/^[\w-\.]+@([\w-]\.)+[\w-]{2,4}$/;
+	var expRegDni=/(^([0-9]{8,8})$/;
+	
+	var formulario= document.getElementById("needs-validation");
+	var nom= document.getElementById("nombre");
+	var ape= document.getElementById("apellido");
+	var dni= document.getElementById("dni");
+	var tel= document.getElementById("telefono");
+	var fecha= document.getElementById("fechaNacimiento");
+	var mail= document.getElementById("mail");
+	var usu= document.getElementById("usuario");
+	var con= document.getElementById("contraseÒa");
+	
+	if(!expRegNom.exec(nom.value)){
+		alert("El campo nombre solo puede terner letras y espacios en blanco");
+		nombre.focus();
+		verificar=false;
+		
+	}else if(!expRegNom.exec(ape.value)){
+		alert("El campo apellido solo puede terner letras y espacios en blanco");
+		apellido.focus();
+		verificar=false;
+		
+	}else if(!expRegDni.exec(dni.value)){
+		alert("El campo apellido solo puede terner letras y espacios en blanco");
+		apellido.focus();
+		verificar=false;
+		
+	}else if(isNaN(tel.value)){
+		alert("el campo telefono debe tener solo valores numerios del 0-9");
+		telefono.focus();
+		verificar=false;
+		
+	}else if(!expRegMail.exec(mail.value)){
+		alert("El campo email no es v·lido");
+		mail.focus();
+		verificar=false;
+		
+	}
+	if(verificar==true){
+		alert("Se ha registrado correctamente");
+	}
+	
+}
+
 	function editar(met) {
-		if (confirm("Estas seguro de editar una nueva categoria?")) {
+		if (confirm("Estas seguro que desea hacer cambios?")) {
 			document.myform.registar.value = ""
 			document.myForm.action = met;
 		}
@@ -36,7 +90,7 @@
 	}
 
 	function registar(met) {
-		if (confirm("Estas seguro de registrar una nueva categoria?")) {
+		if (confirm("Estas seguro que desea registrarse?")) {
 			document.myform.editar.value = ""
 			document.myForm.action = met;
 		}
@@ -46,7 +100,7 @@
 	
 </script>
 </head>
-<body>
+<body onload="carga()">
 
 <div class="container">
 	
@@ -104,8 +158,7 @@
 		}
 	%>
 			<h1>Ingrese sus datos para el registro</h1>
-			<form id="needs-validation" name="myForm" action="" method="post"
-				onsubmit="return validacion()">
+			<form id="needs-validation" name="myForm" action="" method="post" onsubmit="return validarDatos()">
 				<table class="table table-bordered" align="center">
 					<thead>
 						<tr>
@@ -140,7 +193,7 @@
 						<tr>
 							<td>Numero Documento:</td>
 							<td><input align="center" type="text" name="numeroDocumento"
-								id="numeroDocumento" value="<%=numeroDocumento%>" class="form-control" placeholder="dni..." required=""/></td>
+								id="dni" value="<%=numeroDocumento%>" class="form-control" placeholder="dni..." required=""/></td>
 						</tr>
 						<tr>
 							<td>Telefono:</td>
@@ -155,9 +208,11 @@
 						</tr>
 
 						<tr>
-							<td>Mail</td>
-							<td><input align="center" type="text" name="mail" id="mail"
-								value="<%=mail%>" class="form-control" placeholder="mail..." required="" /></td>
+							<td>Mail:</td>
+							<td><input align="center" type="text" name="mail" id="mail"	value="<%=mail%>" class="form-control" placeholder="mail..." required="" />
+							<span id="emailOK"></span>
+							
+							</td>
 						</tr>
 
 
@@ -292,7 +347,7 @@
 	
 	
 	<script type="text/javascript">
-	(function(){
+/* 	(function(){
 		'use strict';
 		
 		window.addEventListenner('load',function(){
@@ -308,7 +363,7 @@
 		},false);
 	})();
 		);
-		}
+		} */
 	</script>
 </body>
 </html>
