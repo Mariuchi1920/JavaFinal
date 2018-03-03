@@ -60,10 +60,10 @@ function eliminar(met) {
 		 <tbody>
 		 <%
 					CategoriasDAO catDao = new CategoriasDAO();
-					LinkedList<Categoria> categorias = catDao
-							.listarTodasLasCategorias();
-					for (Categoria c : categorias) {
-				%>
+					LinkedList<Categoria> categorias = catDao.listarTodasLasCategorias();
+					if(categorias!=null){
+					
+					for (Categoria c : categorias) {%>
 		 <tr>
 					<th><%=c.getAñoCategoria()%></th>
 					<th><%=c.getDescripcion()%></th>
@@ -84,9 +84,17 @@ function eliminar(met) {
 
 				</tr>
 				<%
-					}
-				%>
-				<th colspan="4"><a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
+					}}else {%>
+					<tr>
+					<th colspan="8" style="color: red">
+					No hay categorias disponibles!</th>
+					</tr>
+					<% } %>
+				<tr>
+				<th colspan="10">
+				<a type="button"  href="${pageContext.request.contextPath}/admin/modificarCategoria">Nueva Categoria</a>
+				</th>
+				</tr>	
 		 </tbody>
 		</table></form>
 		</div>

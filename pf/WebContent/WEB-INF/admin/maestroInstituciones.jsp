@@ -5,22 +5,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html  lang="en">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
 	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
 
-<head>
-<meta charset="UTF-8">
 <title>Listar Instituciones</title>
-
-</head>
 
 <script type="text/javascript">
 	
@@ -29,7 +25,7 @@ function editar(met) {
 	document.myForm.action = met;
 }
 function eliminar(met) {
-	if (confirm("Estas seguro de eliminar Categoría?")) {
+	if (confirm("Estas seguro de eliminar Institución?")) {
 		
 		document.myform.editar.value=""  
 		document.myForm.action = met;
@@ -39,22 +35,22 @@ function eliminar(met) {
 	
 	</script>
 
+</head>
 <body>
-	<div id="contenedor">
-
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
-	</div>
-
-
-	<div id="contenido">
-		<form id="myForm" name="myForm" action="" method="post">
-
-			<table align="center" width="800" border="void" cellpadding="5">
-				<tr>
-					<td colspan="10" align="center">Administrador de Instituciones</td>
-				</tr>
-				<tr>
+<div class="container-fluid">
+	
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		
+		<!--cuerpo  -->
+		<div class="container tablaPersona">
+		<h1>Administrador Instituciones</h1>
+			<form id="needs-validation" name="myForm" action="" method="post" onsubmit="return validarDatos()">
+				<table class="table table-bordered" align="center">
+					<thead>
+					
+					<tr>
 					
 					<td>Nombre</td>
 					<td>Nombre Localia</td>
@@ -66,9 +62,12 @@ function eliminar(met) {
 					<td colspan="2">Accion</td>
 
 				</tr>
-				<% InstitucionesDAO institucionDAO= new InstitucionesDAO();
+		</thead>
+		<tbody>
+		<% InstitucionesDAO institucionDAO= new InstitucionesDAO();
 						   LinkedList <Institucion> listadoI = institucionDAO.listarTodasLasInstituciones();
-						
+						   
+						if(listadoI!=null){
 						 for(Institucion in: listadoI){ %>
 				<tr>
 					
@@ -92,24 +91,44 @@ function eliminar(met) {
                      </td>
 				</tr>
 
+				<% }}else {%>
+				<tr>
+				<th colspan="8" style="color: red">
+				No hay instituciones disponibles !</th>
+				</tr>
 				<% } %>
 				
-				</table>
+				<tr>
+				<th colspan="10">
+			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>
+			</th>
+				</tr>	
+		</tbody>
+		
+		</table>
 		</form>
-		<table align="center" width="800" border="void" cellpadding="5">
+		<%-- <table align="center" width="800" border="void" cellpadding="5">
 		<th colspan="10">
 			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarInstitucion">Nueva Institución</a>
 			</th>
 		</table>
-
+		</div> --%>
 		
+		
+		
+	
+</div>
+</div>
+<!--cuerpo  -->
+		<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
-	</div>
-	</div>
 
-	<div id="Pie">
-         <jsp:include page="/WEB-INF/pie.jsp" />
-
-	</div>
+			</div>
+		</div>
+	
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

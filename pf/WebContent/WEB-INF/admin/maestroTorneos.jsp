@@ -91,6 +91,7 @@
   <%
 					TorneosDAO torneoDao = new TorneosDAO();
 					LinkedList<Torneo> torneos = torneoDao.listarTodosLosTorneos();
+					if(torneos!=null){
 					for (Torneo t : torneos) {
 				%>
   <tbody>
@@ -154,13 +155,17 @@
 				%>
 					
 				</tr>
-				<%
-					}
-				%>
-				<th colspan="10"> <a type="button" href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></th>
-				
-
-
+				<%}}else {%>
+				<tr>
+				<th colspan="8" style="color: red">
+				No hay torneos registrados</th>
+				</tr>
+				<% } %>
+				<tr>
+				<th colspan="10">
+			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></th>
+				</tr>	
+		</tbody>
 			</table>
 		</form>
 

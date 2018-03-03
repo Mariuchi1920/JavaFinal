@@ -16,9 +16,36 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Editar Categoria </title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+<title>Editar Categoria</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/style.css">
+!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/estilos.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/CSS/style.css">
+
+
 <script type="text/javascript">
+function carga(){
+	 document.getElementById("añoCategoria").focus();
+	 
+	 
+}
 	
 	function editar(met) {
 		if(confirm("Estas seguro de editar una nueva categoria?")){
@@ -37,10 +64,10 @@
 	
 	</script>
 </head>
-<body>
+<body onload="carga()">
 	<div id="contenedor">
 
-				<jsp:include page="/WEB-INF/cabecera.jsp" />
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
 
 	</div>
 
@@ -62,61 +89,61 @@ if(request.getSession().getAttribute("editador")!=null){
 }
 %>
 
-	<div id="contenido">
+	<div class="container tablaPersona">
 
+		<h1>administrador de categorias</h1>
+		<form id="myForm" name="myForm" action="" method="post">
 
-		<form class="form-signin" id="myForm" name="myForm" action=""
-			method="post">
-			<table border="4" align="center">
-				<tr>
-					<td colspan="2">Editar categoria seleccionada</td>
-				</tr>
-				<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
+			<table class="table table-bordered" align="center">
 				
-				<tr>
-					<td>Año Categoria</td>
-					<td><input type="text" name="añoCategoria" id="añoCategoria"
-						value="<%= añoCategoria %>" /></td>
-					
-				</tr>
-				
+					<tr>
+						<!-- ESTO NO SE MUY BIEN COMO ES SI VA A UN SERVLETS O NO -->
+					<tr>
+						<td>Año Categoria</td>
+						<td><input type="text" name="añoCategoria" id="añoCategoria"
+							value="<%= añoCategoria %>" class="form-control" placeholder="nombre..." required="" /></td>
+
+					</tr>
 
 
 
-				<tr>
-					<td>Descripcion:</td>
-					<td><input type="text" name="descripcion" id="descripcion"
-						value="<%= descripcion %>" /></td>
-				</tr>
-				<tr>
-					<td>Estado:</td>
-					<td>
-						<% 
+
+					<tr>
+						<td>Descripcion:</td>
+						<td><input type="text" name="descripcion" id="descripcion"
+							value="<%= descripcion %>"class="form-control" placeholder="nombre..." required="" /></td>
+					</tr>
+					<tr>
+						<td>Estado:</td>
+						<td>
+							<% 
 										TipoEstadoDAO catalogo = new TipoEstadoDAO();
 				                         TipoEstado tpEstado= new TipoEstado();
 			
                                			 LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados();
                                			 %> <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
-						<select name="listaTipoEStado" id="tipoEstado">
-							<% for(TipoEstado te :listaEstado){  
+							<select name="listaTipoEStado" id="tipoEstado" class="form-control" placeholder="Selecciones tipo de estado" required="" >
+								<option value="" selected="selected">- selecciona tipo de estado-</option>
+								<% for(TipoEstado te :listaEstado){  
                                			if(encontrado!=null){
                                			     if(estado.getIdTipoEstado()== te.getIdTipoEstado()){%>
-							<option selected="selected"
-								value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
+								<option selected="selected"
+									value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
 
-							<%}}else {%>
-							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+								<%}}else {%>
+								<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
 
-							<% }} %>
+								<% }} %>
 
-					</select>
-					</td>
+						</select>
+						</td>
 
-				</tr>
-
-
-
-			</table>
+					</tr>
+					
+					
+			<!-- ver si puedo meter estos botones adentro de la tabla  -->
+			<tr>
+			<th colspan="2">
 			<%if(encontrado!=null){ %>
 			<button align="center"
 				onclick="javascript: editar('/admin/modificarCategoria/editar')"
@@ -128,13 +155,24 @@ if(request.getSession().getAttribute("editador")!=null){
 				onclick="javascript: registrar('/admin/modificarCategoria/agregar')"
 				id="registar" value="registar" name="registar">Agregar</button>
 			<% } %>
+			
+			</th>
+			</tr>
+			</table>
+			
 		</form>
 
 	</div>
 
-	<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
+	<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
-	</div>
+
+			</div>
+		</div>
+	
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
