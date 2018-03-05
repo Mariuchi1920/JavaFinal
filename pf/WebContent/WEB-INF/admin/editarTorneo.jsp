@@ -201,9 +201,9 @@
                                			     if(estado.getIdTipoEstado()== te.getIdTipoEstado()){%>
 							                    <option selected="selected" value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
 
-							<%}else if(te.getIdTipoEstado()!=TipoEstado.JUGADO){%>
+							<%}else if(te.getIdTipoEstado()!=TipoEstado.JUGADO && te.getIdTipoEstado()!=TipoEstado.PENDIENTE && te.getIdTipoEstado()!=TipoEstado.SUSPENDIDO){%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
-                              <%  			     }}else {%>
+                              <%  			     }}else if(te.getIdTipoEstado()!=TipoEstado.JUGADO && te.getIdTipoEstado()!=TipoEstado.PENDIENTE && te.getIdTipoEstado()!=TipoEstado.SUSPENDIDO){%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
 
 							<% }} %>

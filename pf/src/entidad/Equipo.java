@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import jdk.nashorn.internal.runtime.RewriteException;
 import datos.EquiposJugadoresDAO;
+import datos.EquiposTorneoDAO;
+import datos.TipoEstadoDAO;
 
 
 
@@ -78,19 +80,81 @@ public class Equipo {
 		return lista;
 		
 	}
-	public static boolean validarEquipoParaTorneo(Equipo equipo) throws SQLException {
+	public static boolean validarEquipoParaTorneo(Equipo equipo) throws SQLException, ApplicationException {
 		// TODO Auto-generated method stub
 		boolean respuesta = false;
 		EquiposJugadoresDAO catJugadoresPorEquipo = new EquiposJugadoresDAO();
 		LinkedList<Persona> jugadores = catJugadoresPorEquipo.listarTodasLosJugadores(equipo);
 		if(jugadores.size()>=7 && jugadores.size()<=25){
 			respuesta = true;
+		}else{
+			respuesta = false;
+			throw new ApplicationException("La cantidad de Jugadores del equipo es menor a 7 y/o mayor a 25");
+		}
+		if(equipo.getCategorias().getEstado().getIdTipoEstado()!=TipoEstado.DESHABILITADA){
+			respuesta = true;
+		}else{
+			respuesta = false;
+			throw new ApplicationException("La categoria del equipo se encuentra deshabilitada");
 		}
 		
 		
 		return respuesta;
 	}
 	
+	
+	
+	public static boolean validarEntrenador(EquiposTorneos equipo) throws SQLException, ApplicationException{
+		boolean respuesta = true;
+		
+		EquiposTorneoDAO catEquipoTorneo = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> listaEquipos = catEquipoTorneo.buscarporTorneo(equipo.getTorneo());
+		if(listaEquipos!=null && listaEquipos.size()>0){
+			for (EquiposTorneos equiposTorneos : listaEquipos) {
+				if(equiposTorneos.getEquipos().getEntrenador().getIdPersona() ==equipo.getEquipos().getEntrenador().getIdPersona() ){
+					respuesta= false;
+					throw new ApplicationException("El Entrenador se encuentra en este torneo con algun equipo");
+				
+						
+				}
+			}
+			
+		}
+		
+		   
+		return respuesta;
+	}
+	
+	public static boolean  validarPersonasEquipo(EquiposTorneos equipoTorneo) throws SQLException, ApplicationException{
+		boolean respuesta = true;
+		EquiposTorneoDAO catEquipoTorne = new EquiposTorneoDAO();
+		LinkedList<EquiposTorneos> equipos = catEquipoTorne.buscarporTorneo(equipoTorneo.getTorneo());
+		if(equipos!=null && equipos.size()>0){
+			EquiposJugadoresDAO catEquiposJugadoes = new EquiposJugadoresDAO();
+			LinkedList<Persona> listaJugaoresEquipos = new LinkedList<Persona>();
+			for (EquiposTorneos equiposenTorneos : equipos) {
+				listaJugaoresEquipos.addAll(catEquiposJugadoes.listarTodasLosJugadores(equiposenTorneos.getEquipos()));
+				
+				
+			}
+			
+			LinkedList<Persona> jugadoresEquipoNuevo = catEquiposJugadoes.listarTodasLosJugadores(equipoTorneo.getEquipos());
+			if(listaJugaoresEquipos!=null && listaJugaoresEquipos.size()>0){
+				for (Persona persona : jugadoresEquipoNuevo) {
+					if(Persona.buscarPersona(listaJugaoresEquipos, persona)){
+						respuesta= false;
+						throw new ApplicationException("El Jugador se encuentra en este torneo con algun equipo");
+					}
+				}
+				
+			}
+		}
+		
+		
+		
+		
+		return respuesta;
+	}
 	
 	
 	

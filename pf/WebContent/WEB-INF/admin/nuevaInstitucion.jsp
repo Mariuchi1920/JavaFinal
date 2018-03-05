@@ -175,13 +175,13 @@ if(request.getSession().getAttribute("editador")!=null){
 			</table>
 			
 			<%if(encontrado!=null){ %>
-			<button align="center"
+			<button align="center"  class="botonEditar"
 				onclick="javascript: editar('${pageContext.request.contextPath}/admin/modificarInstitucion/editar')"
 				id="editar" value="editar" name="editar">Editar</button>
 
 			<% }else{%>
 
-			<button align="center"
+			<button align="center"  class="botonEditar"
 				onclick="javascript: registrar('${pageContext.request.contextPath}/admin/modificarInstitucion/agregar')"
 				id="registar" value="registar" name="registar">Agregar</button>
 			<% } %>

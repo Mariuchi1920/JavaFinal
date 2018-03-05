@@ -13,8 +13,8 @@
 	<div id="contenedor">
 		<div id="cabecera">
 					<div id="Logo"><img src="${pageContext.request.contextPath}/imagen/logo_header.png"></div>
-					<div id="usuario">La sesion a sido cerrada 
-			<a href="${pageContext.request.contextPath}/login">Volver al inicio</a>						
+					<div id="usuario"> <h3>La sesion a sido cerrada correctamente <h3>
+			<a type="button" href="${pageContext.request.contextPath}/login">Volver al inicio</a>						
 					
 					
 					</div>
