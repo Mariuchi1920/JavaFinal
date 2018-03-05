@@ -185,14 +185,21 @@ public class FixtureTorneo {
 						jornadaPartido.agregarPartidos(partidos.get(j));
 
 					}
-					if(jornadaPartido.getPartidos().size()>6){
-						
-						 throw new ApplicationException("El torneo supera la cantidad de equipos maximos", null);
-						
-					}
-					jornadasPartidos.add(jornadaPartido);
+					
+					
 				}
-			}}else{
+				
+				if(jornadaPartido.getPartidos().size()>6){
+					
+					 throw new ApplicationException("El torneo supera la cantidad de equipos maximos", null);
+					
+				}
+				jornadasPartidos.add(jornadaPartido);
+			}
+			
+			
+        
+        }else{
 				 throw new ApplicationException("La cantidad de dias debe ser mayor a " + cantidadJornadas, null);
 			 }
 		}else{

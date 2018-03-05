@@ -106,6 +106,26 @@ function validarDatos() {
 <div class="container">
 	
 		<jsp:include page="/WEB-INF/cabecera.jsp" />
+		
+		<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
+		
 	
 	
 	<!-- slider -->
@@ -158,6 +178,9 @@ function validarDatos() {
 			}
 		}
 	%>
+	
+	
+	
 			<h1>Ingrese sus datos para el registro</h1>
 			<form id="needs-validation" name="myForm" action="" method="post" onsubmit="return validarDatos()">
 				<table class="table table-bordered" align="center">

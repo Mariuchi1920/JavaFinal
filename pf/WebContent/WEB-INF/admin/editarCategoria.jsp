@@ -89,9 +89,29 @@ if(request.getSession().getAttribute("editador")!=null){
 }
 %>
 
+<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
+
+
 	<div class="container tablaPersona">
 
-		<h1>administrador de categorias</h1>
+		<h1>Administrador de Categorías</h1>
 		<form id="myForm" name="myForm" action="" method="post">
 
 			<table class="table table-bordered" align="center">

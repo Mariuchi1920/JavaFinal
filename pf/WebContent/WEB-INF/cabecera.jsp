@@ -68,7 +68,7 @@
 				
 
 				</ul>
-			<li class="nav-item"><a class="nav-link" href="#">Partido</a></li>
+		
 			<li class="nav-item"><a class="nav-link" href="#">Equipos</a>
 				<ul>
 					<li><a class="nav-link"

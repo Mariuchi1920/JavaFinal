@@ -74,7 +74,7 @@
 }
 %>
 
-<<div class="container-fluid">
+<div class="container-fluid">
 	
 		<div id="contenedor">
 			<jsp:include page="/WEB-INF/cabecera.jsp" />
@@ -83,18 +83,24 @@
 		
 		
 	
-	  <%    
+	<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
 				
 				if(request.getSession().getAttribute("error")!=null){
 				
 				%>
-				<div>
-				<h3><%=request.getSession().getAttribute("error").toString()%></h3>
-			    </div>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
 				<%
 				request.getSession(false).setAttribute("error" , null);
 				
 				} %>
+			
+				
+				
+			</div>
+	</div>
 	
 	
 	
@@ -117,16 +123,17 @@
 				</tr>
 				</thead>
 				<tbody>
-				<tr>
+				
 				  
 				  
 					<%
 					   for(EquiposTorneos equipo : listarEqTorneo){%>
 						<tr>   
 						  <td > <%= equipo.getEquipos().getInstitucion().getNombre() %>-<%= equipo.getEquipos().getCategorias().getAñoCategoria() %>-<%= equipo.getEquipos().getNombreEquipo() %></td>
-						  </tr>
-						  <tr>
-						   <td colspan="1"><button onclick="javascript: eliminar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
+						  
+						 
+						   <td colspan="1"><button class="botonEliminar" 
+						    onclick="javascript: eliminar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
 				               id="eliminar" value=" <%= equipo.getEquipos().getInstitucion().getIdInstituciones() %>/<%= equipo.getEquipos().getCategorias().getIdCategorias() %>/<%= equipo.getEquipos().getNombreEquipo() %>" name="eliminar">Eliminar
 						   </button> </td>
 						</tr>
@@ -195,14 +202,14 @@
 
 
 					</td>
-					</tr>
-					<tr>
+					
+					
 					<td>
-				  <button 
+				  <button  class="botonEditar" 
 				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
 				   id="editar" value="editar" name="editar" style="border: navy;">Agregar</button>
 				</td>
-				</tr>
+				
 				<% }} %>
 				
 			</table>

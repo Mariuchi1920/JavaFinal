@@ -18,6 +18,7 @@ import entidad.JugadoresPartido;
 import entidad.Partidos;
 import entidad.Persona;
 import entidad.TipoEstado;
+import entidad.Util;
 
 /**
  * Servlet implementation class ModificarJugadoresPartido
@@ -54,65 +55,74 @@ public class ModificarJugadoresPartido extends HttpServlet {
 				String[] cantidadgoles = request.getParameterValues("cantidadgoles");
 				String[] cantidadAmarillas = request.getParameterValues("cantidadAmarillas");
 				String[] cantidadrojas = request.getParameterValues("cantidadrojas");
-				JugadoresPartidosDAO catJugadorPartido = new JugadoresPartidosDAO();
-				EquiposJugadoresDAO catEquipoJugadores = new EquiposJugadoresDAO();
-				Partidos partido = (Partidos) request.getSession().getAttribute("editador");
-				int idPartidos = partido.getIdPartidos();
 				
-				Equipo equipo = (Equipo) request.getSession().getAttribute("jugadorPartido");
-				LinkedList<JugadoresPartido> jugadores = new LinkedList<JugadoresPartido>();
-				LinkedList<JugadoresPartido> jugadoresPartido = catJugadorPartido.buscarIDPartido(idPartidos);
-				LinkedList<Persona> jugadoresEquipo = catEquipoJugadores.listarTodasLosJugadores(equipo);
-	
-				for (JugadoresPartido jugadorPartido : jugadoresPartido) {
-					if (Persona.buscarPersona(jugadoresEquipo,jugadorPartido.getJugadores())) {
-						jugadores.add(jugadorPartido);
-					}
-				}
-	
-				Equipo equipoLocal = partido.getEquipoLocal();
-				Equipo equipoVisitante = partido.getEquipoVisitante();
-	
-				
-	
-				int contarCantidadGoles = 0;
-				if (jugadores != null && jugadores.size() > 0) {
-	
-					for (int i = 0; i < jugadores.size(); i++) {
-	
-						jugadores.get(i).setCatidadGoles(Integer.parseInt(cantidadgoles[i]));
-						jugadores.get(i).setCantidadTarjetasAmarillas(Integer.parseInt(cantidadAmarillas[i]));
-						jugadores.get(i).setCantidadTarjetasRojas(Integer.parseInt(cantidadrojas[i]));
-						catJugadorPartido.editarJugadorPartido(jugadores.get(i));
-						contarCantidadGoles = contarCantidadGoles + Integer.parseInt(cantidadgoles[i]);
-	
-					}
-					PartidoDAO catPartido = new PartidoDAO();
-					TipoEstadoDAO tipoEstado = new TipoEstadoDAO();
-					partido.setEstado(tipoEstado.getTipoEstados(TipoEstado.JUGADO));
-					if (Equipo.ifIgualDosEquipos(equipoLocal, equipo)) {
-						partido.setGolesLocal(contarCantidadGoles);
-						catPartido.editarPartido(partido);
-	
-					} else if (Equipo.ifIgualDosEquipos(equipoVisitante, equipo)) {
-						partido.setGolesVisitante(contarCantidadGoles);
-						
-						catPartido.editarPartido(partido);
-					}
+				if(validarString(request, response, cantidadrojas, cantidadgoles, cantidadAmarillas)){
 					
-					response.sendRedirect(request.getContextPath() + "/admin/verModificarPartido");
-	
-				} else {
-					request.getSession().setAttribute("error",
-							"Ocurrio un error inesperado");
+					JugadoresPartidosDAO catJugadorPartido = new JugadoresPartidosDAO();
+					EquiposJugadoresDAO catEquipoJugadores = new EquiposJugadoresDAO();
+					Partidos partido = (Partidos) request.getSession().getAttribute("editador");
+					int idPartidos = partido.getIdPartidos();
+					
+					Equipo equipo = (Equipo) request.getSession().getAttribute("jugadorPartido");
+					LinkedList<JugadoresPartido> jugadores = new LinkedList<JugadoresPartido>();
+					LinkedList<JugadoresPartido> jugadoresPartido = catJugadorPartido.buscarIDPartido(idPartidos);
+					LinkedList<Persona> jugadoresEquipo = catEquipoJugadores.listarTodasLosJugadores(equipo);
+		
+					for (JugadoresPartido jugadorPartido : jugadoresPartido) {
+						if (Persona.buscarPersona(jugadoresEquipo,jugadorPartido.getJugadores())) {
+							jugadores.add(jugadorPartido);
+						}
+					}
+		
+					Equipo equipoLocal = partido.getEquipoLocal();
+					Equipo equipoVisitante = partido.getEquipoVisitante();
+		
+					
+		
+					int contarCantidadGoles = 0;
+					if (jugadores != null && jugadores.size() > 0) {
+		
+						for (int i = 0; i < jugadores.size(); i++) {
+		
+							jugadores.get(i).setCatidadGoles(Integer.parseInt(cantidadgoles[i]));
+							jugadores.get(i).setCantidadTarjetasAmarillas(Integer.parseInt(cantidadAmarillas[i]));
+							jugadores.get(i).setCantidadTarjetasRojas(Integer.parseInt(cantidadrojas[i]));
+							catJugadorPartido.editarJugadorPartido(jugadores.get(i));
+							contarCantidadGoles = contarCantidadGoles + Integer.parseInt(cantidadgoles[i]);
+		
+						}
+						PartidoDAO catPartido = new PartidoDAO();
+						TipoEstadoDAO tipoEstado = new TipoEstadoDAO();
+						partido.setEstado(tipoEstado.getTipoEstados(TipoEstado.JUGADO));
+						if (Equipo.ifIgualDosEquipos(equipoLocal, equipo)) {
+							partido.setGolesLocal(contarCantidadGoles);
+							catPartido.editarPartido(partido);
+		
+						} else if (Equipo.ifIgualDosEquipos(equipoVisitante, equipo)) {
+							partido.setGolesVisitante(contarCantidadGoles);
+							
+							catPartido.editarPartido(partido);
+						}
+						
+						response.sendRedirect(request.getContextPath() + "/admin/verModificarPartido");
+		
+					} else {
+						request.getSession().setAttribute("error",
+								"Ocurrio un error inesperado");
+						response.sendRedirect(request.getContextPath()
+								+ "/admin/verModificarPartido");
+					}
+				}else{
 					response.sendRedirect(request.getContextPath()
-							+ "/admin/verModificarPartido");
+							+ "/admin/modificarJugadoresPartido");
 				}
+				
 			}else if(request.getParameter("cancelar")!=null){
 				response.sendRedirect(request.getContextPath() + "/admin/verModificarPartido");
 			}else if(request.getParameter("cancelar")==null && request.getParameter("editar")==null){
 				response.sendRedirect(request.getContextPath() + "/admin/modificarJugadoresPartido");
 			}
+			
 
 		} catch (NumberFormatException ex) {
 			// TODO: handle exception
@@ -131,4 +141,49 @@ public class ModificarJugadoresPartido extends HttpServlet {
 	}
 		 
 
+	public boolean validarString(HttpServletRequest request,
+			HttpServletResponse response, String[] cantidadrojas,
+			String[] cantidadgoles, String[] cantidadAmarillas) {
+		boolean respuesta = true;
+
+		for (int i = 0; i < cantidadrojas.length; i++) {
+			if (!Util.isNumeric(cantidadrojas[i])) {
+				respuesta = false;
+				request.getSession().setAttribute(
+						"error",
+						"El valor " + (i + 1)
+								+ " de la fila Tarjetas Roja es invalido");
+				break;
+			}
+		}
+		if (respuesta) {
+			for (int i = 0; i < cantidadgoles.length; i++) {
+				if (!Util.isNumeric(cantidadgoles[i])) {
+					respuesta = false;
+					request.getSession().setAttribute(
+							"error",
+							"El valor " + (i + 1)
+									+ " de la fila Cantidad Goles es invalido");
+					break;
+				}
+			}
+		}
+		if (respuesta) {
+			for (int i = 0; i < cantidadAmarillas.length; i++) {
+				if (!Util.isNumeric(cantidadAmarillas[i])) {
+					respuesta = false;
+					request.getSession()
+							.setAttribute(
+									"error",
+									"El valor "
+											+ (i + 1)
+											+ " de la fila Tarjetas Amarilla es invalido");
+					break;
+				}
+			}
+		}
+		return respuesta;
+	}
+	
+	
 }

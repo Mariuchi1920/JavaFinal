@@ -81,22 +81,22 @@ public class AgregarEquiposTorneos extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			System.out.println(ex.getMessage());
+		
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/agregarPersonasEquipo");
 		}catch (ApplicationException ex) {
-			System.out.println(ex.getMessage());
+		
 			request.getSession().setAttribute("error",ex.getMessage());
 			response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			
 			
 		}catch (Exception ex) {
 			// TODO: handle exception
-			System.out.println(ex.getMessage());
+			
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 		}
-
+		System.out.println(request.getSession().getAttribute("error"));
 	}
 
 }
