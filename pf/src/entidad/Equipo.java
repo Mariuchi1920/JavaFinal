@@ -85,6 +85,7 @@ public class Equipo {
 		boolean respuesta = false;
 		EquiposJugadoresDAO catJugadoresPorEquipo = new EquiposJugadoresDAO();
 		LinkedList<Persona> jugadores = catJugadoresPorEquipo.listarTodasLosJugadores(equipo);
+		if(jugadores!=null){
 		if(jugadores.size()>=7 && jugadores.size()<=25){
 			respuesta = true;
 		}else{
@@ -96,6 +97,10 @@ public class Equipo {
 		}else{
 			respuesta = false;
 			throw new ApplicationException("La categoria del equipo se encuentra deshabilitada");
+		}
+		}else {
+			respuesta = false;
+			throw new ApplicationException("Debe agregar jugadores al Equipo");
 		}
 		
 		
