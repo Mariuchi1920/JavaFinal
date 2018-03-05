@@ -42,13 +42,33 @@ function eliminar(met) {
 	</script>
 
 <body>
+
+
+
 <div class="container-fluid">
 	
 		<div id="contenedor">
 			<jsp:include page="/WEB-INF/cabecera.jsp" />
 		</div>
 		
-		
+		<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
 		
 	<div class="container tablaPersona">
 			

@@ -65,7 +65,7 @@
 	
 	
 	function editar(met) {
-		if(confirm("Estas seguro de editar un nuevo Torneo?")){
+		if(confirm("Estas seguro de editar el Torneo?")){
 			document.myform.registar.value="" ;
 		    document.myform.agregarEquipos.value="";  
 		    document.myForm.action=met;
@@ -115,12 +115,35 @@
 	   
 }
 %>
+
+
+
 	
 <div class="container-fluid">
 	
 		<div id="contenedor">
 			<jsp:include page="/WEB-INF/cabecera.jsp" />
 		</div>
+		
+		
+		<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
 		
 			<div class="container tablaPersona">
 			
@@ -236,7 +259,8 @@
 					<tr>
 					<td colspan="2">
 					
-				<button align="center"
+				<button class="botonGenerarFixture" 
+				align="center"
 				onclick="javascript: agregarEquipos('/admin/modificarTorneo/')"
 				id="agregarEquipos" value="agregarEquipos" name="agregarEquipos">Agregar Equipos</button>
 				</td>
@@ -248,14 +272,16 @@
 
 			</table>
 			<%if(encontrado!=null){ %>
-			<button align="center"
-				onclick="javascript: editar('/admin/modificarTorneo/editar')"
+			<button  class="botonEditar" 
+			    align="center"
+				onclick="javascript: editar('/admin/modificarTorneo/')"
 				id="editar" value="editar" name="editar">Editar</button>
 
 			<% }else{ %>
 
-			<button align="center"
-				onclick="javascript: registrar('/admin/modificarTorneo/agregar')"
+			<button  class="botonEditar"
+			     align="center"
+				onclick="javascript: registrar('/admin/modificarTorneo/')"
 				id="registar" value="registar" name="registar">Agregar</button>
 			<% } %>
 		</form>
@@ -294,7 +320,7 @@
 		},false);
 	})();
 		
-		}
+		
 	</script>
 </body>
 </html>

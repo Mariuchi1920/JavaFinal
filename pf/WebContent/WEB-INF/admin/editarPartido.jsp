@@ -79,6 +79,26 @@
 
 
 	</div>
+	
+	<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
+	
 
 
 	<%
@@ -112,10 +132,13 @@
 %>
 
 
-	<div id="contenido">
+
+
+	<div class="container tablaPersona">
+
 		<form class="form-signin" id="myForm" name="myForm" action=""
 			method="post">
-			<table border="4" align="center">
+			<table class="table table-bordered" align="center">
 				<tr>
 					<td colspan="5">Editar Partido</td>
 				</tr>
@@ -133,12 +156,12 @@
 				</tr>
 
 				<tr>
-					<td>Equipo Local : <%=partido.getEquipoLocal().getInstitucion().getNombre() %>-<%=partido.getEquipoLocal().getCategorias().getAñoCategoria() %><%=partido.getEquipoLocal().getNombreEquipo() %>
+					<td>Equipo Local : <%=partido.getEquipoLocal().getInstitucion().getNombre() %>-<%=partido.getEquipoLocal().getCategorias().getAñoCategoria() %>-<%=partido.getEquipoLocal().getNombreEquipo() %>
 					</td>
 					<td><%=golesLocal %></td>
 					<td>VS</td>
 					<td><%=golesVisitante %></td>
-					<td>Equipo Visitante : <%=partido.getEquipoVisitante().getInstitucion().getNombre() %>-<%=partido.getEquipoVisitante().getCategorias().getAñoCategoria() %><%=partido.getEquipoVisitante().getNombreEquipo() %>
+					<td>Equipo Visitante : <%=partido.getEquipoVisitante().getInstitucion().getNombre() %>-<%=partido.getEquipoVisitante().getCategorias().getAñoCategoria() %>-<%=partido.getEquipoVisitante().getNombreEquipo() %>
 					</td>
 
 				</tr>

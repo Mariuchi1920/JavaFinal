@@ -73,10 +73,31 @@ function verpartido(met) {
 	</div>
 	
 	
-	<div class="container">
+	<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
+	
+	
+	
+	<div class="container tablaPersona">
 		<form id="myForm" name="myForm" action="" method="post">
 		
-		<h3>Torneo : <%=nombre %> </h3>
+		<h3 style="color: black;">Torneo : <%=nombre %> </h3>
 		<%
 		if(fixture!=null){
 			  
@@ -84,7 +105,7 @@ function verpartido(met) {
 		      %>
 		      
 		      
-		    <table class="table" align="center" width="700" border="void" cellpadding="5">
+		    <table class="table table-bordered" align="center">
 			  <thead class="thead-default">
 			
 			

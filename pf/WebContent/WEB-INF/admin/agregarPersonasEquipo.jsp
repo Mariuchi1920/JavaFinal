@@ -95,12 +95,31 @@
 	}
 %>
 
-	<div id="contenido">
+<div class="row">
+			<div class="col-sm-12 mysocial-login">
+				
+				<%
+				
+				if(request.getSession().getAttribute("error")!=null){
+				
+				%>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
+				<%
+				request.getSession(false).setAttribute("error" , null);
+				
+				} %>
+			
+				
+				
+			</div>
+	</div>
+
+	<div class="container tablaPersona">
 
 
 		<form class="form-signin" id="myForm" name="myForm" action=""
 			method="post">
-			<table border="4" align="center">
+			<table class="table table-bordered" align="center">
 				<tr>
 					<%if(encontrado!=null){ %>
 
