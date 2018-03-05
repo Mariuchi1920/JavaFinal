@@ -40,6 +40,7 @@
 		c.focus();
 		return false
 	}else{
+		alert("Bienvenido al sistema Liga Efa!");
 		return true;
 	}
 }
@@ -103,7 +104,7 @@
 				if(request.getSession().getAttribute("error")!=null){
 				
 				%>
-				<h3><%=request.getSession().getAttribute("error").toString()%></h3>
+				<h3 style="color: red;"><%=request.getSession().getAttribute("error").toString()%></h3>
 				<%
 				request.getSession(false).setAttribute("error" , null);
 				

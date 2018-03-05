@@ -19,6 +19,8 @@
 <title>Listar Instituciones</title>
 
 <script type="text/javascript">
+
+
 	
 function editar(met) {
 	document.myform.eliminar.value=""     
@@ -64,6 +66,8 @@ function eliminar(met) {
 				</tr>
 		</thead>
 		<tbody>
+		
+		
 		<% InstitucionesDAO institucionDAO= new InstitucionesDAO();
 						   LinkedList <Institucion> listadoI = institucionDAO.listarTodasLasInstituciones();
 						   

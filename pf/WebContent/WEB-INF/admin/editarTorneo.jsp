@@ -35,6 +35,34 @@
 	<title>Editar Torneo</title>
 	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 	<script type="text/javascript">
+	function validarDatos(){
+		var nombreTorneo=document.getElementById('nombreTorneo');
+		var fechaI=document.getElementById('fechaI');
+		var fechaF=document.getElementById('fechaF');
+		
+		  var expresionRegular1=/^([0-9]+){9}$/;//<--- con esto vamos a validar el numero
+		  var expresionRegular2=/\s/;//<--- con esto vamos a validar que no tenga espacios en blanco
+		  var expRegNom=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+			var expRegMail=/^[\w-\.]+@([\w-]\.)+[\w-]{2,4}$/;
+		  
+		  if(!nombreTorneo.value) {
+			  alert('El campo nombre de institucion no debe estar vacio.');
+			  nombreI.focus();
+		    return false;
+		  }else if (!fechaI.value) {
+			  alert('El campo nombre Localia no debe estar vacio.');
+			  nomLocal.focus();
+			    return false;
+		  }else if (!fechaF.value) {
+					  alert('El campo direccion localia no debe estar vacio.');
+		  				dirLocal.focus();
+					    return false; 
+		}else{
+		    alert("Se ha registrado Un nuevo torneo!");
+			return true;
+		}
+	}
+	
 	
 	function editar(met) {
 		if(confirm("Estas seguro de editar un nuevo Torneo?")){
@@ -98,12 +126,12 @@
 			
 			<h1>Edicion de Torneos</h1>
 			<form id="needs-validation" name="myForm" action="" method="post"
-				onsubmit="return validacion()">
+				onsubmit="return validarDatos()">
 				<table class="table table-bordered" align="center">
 					<thead>
 			<tr>
 				<td>Nombre Torneo:</td>
-				<td><input type="text" name="nombreTorneo" id="nombreTorneo" value="<%= nombre%> " class="form-control" placeholder="nombre del torneo..." required="" /></td>
+				<td><input type="text" name="nombreTorneo" id="nombreTorneo" value="<%= nombre%> " class="form-control" placeholder="nombre del torneo..."  /></td>
 			</tr>
 			
 			<% 
@@ -126,7 +154,7 @@
 			<tr>
 					<td>Fecha de Inicio:</td>
 					<td><input type="date" name="fechaI" id="fechaI"
-						value="<%= fechaI %>" class="form-control" placeholder="Fecha de inicio del TOrneo..." required=""/></td>
+						value="<%= fechaI %>" class="form-control" placeholder="Fecha de inicio del TOrneo..." /></td>
 				</tr>	
 			<tr>
 					<td>Fecha de Fin:</td>

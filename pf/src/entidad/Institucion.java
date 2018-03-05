@@ -125,6 +125,15 @@ public class Institucion {
 			throw new ApplicationException("Nombre Localia no valido");
 		}
 		
+		if(direccionLocalia.equals(null) || direccionLocalia.equals("null")){
+			respuesta=false;
+			throw new ApplicationException("direccion Localia institucion vacio");
+			
+		}else if(!Util.validateNombreApellido(direccionLocalia)){
+			respuesta=false;
+			throw new ApplicationException("direccion Localia no valido");
+		}
+		
 		if(nombreDelegado.equals(null) || nombreDelegado.equals("null")){
 			respuesta=false;
 			throw new ApplicationException("Nombre Delegado institucion vacio");

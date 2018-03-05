@@ -20,10 +20,19 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>Agregar Personas en un Equipo</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+
+<title>Agregar Jugadores en un equipo!</title>
+
+
+</head>
 <script type="text/javascript">
 
 	function agregarEntrenador(met) {

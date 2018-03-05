@@ -9,11 +9,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/CSS/style.css">
 <head>
-<meta charset="UTF-8">
-<title>Listar Equipos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+
+<title>Listado de equipos</title>
+
+
 </head>
 
 <script type="text/javascript">
@@ -34,20 +42,20 @@ function eliminar(met) {
 	</script>
 
 <body>
-	<div id="contenedor">
-
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
-	</div>
-
-
-	<div id="contenido">
-		<form id="myForm" name="myForm" action="" method="post">
-
-			<table align="center" width="800" border="void" cellpadding="5">
-				<tr>
-					<td colspan="10" align="center">Administrador de Equipo</td>
-				</tr>
+<div class="container-fluid">
+	
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		
+		
+		
+	<div class="container tablaPersona">
+			
+				 <h1>Administrador de Equipos</h1> 
+				 <form id="myForm" name="myForm" action="" method="post">
+				 <table class="table table-bordered" align="center">
+				<thead>
 				<tr>
 					
 					<td>Nombre Institución</td>
@@ -57,12 +65,13 @@ function eliminar(met) {
 					<td colspan="2">Accion</td>
 
 				</tr>
+				</thead>			
 				<% EquiposDAO equipoDAO= new EquiposDAO();
-						   LinkedList <Equipo> listadoEquipo = equipoDAO.listarTodasLosEquipos();
-						
-						 for(Equipo equipo: listadoEquipo){ %>
-				<tr>
-					
+					LinkedList <Equipo> listadoEquipo=equipoDAO.listarTodasLosEquipos();
+					if(listadoEquipo!=null){
+						for(Equipo equipo: listadoEquipo){  %>
+								
+					<tr>
 					<td><%=equipo.getInstitucion().getNombre() %></td>
 					<td><%=equipo.getCategorias().getAñoCategoria() %></td>
 					<td><%=equipo.getNombreEquipo() %></td>
@@ -77,18 +86,36 @@ function eliminar(met) {
                      </td>
 				</tr>
 
+				<%}} else {%>
+				<tr>
+				<th colspan="8" style="color: red">
+				No hay equipos Inscriptos todavia!</th>
+				</tr>
 				<% } %>
+				<tr>
+				<th colspan="6">
+				<a type="button"  href="${pageContext.request.contextPath}/admin/modificarEquipo">Nuevo Equipo</a>
+				</th>
+				</tr>
+				
 			</table>
 
 		</form>
 
-		<a type="button"  href="${pageContext.request.contextPath}/admin/modificarEquipo">Nuevo Equipo</a>
+		
 
 	</div>
 	</div>
 
-	<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
-	</div>
+		<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
+
+
+			</div>
+		</div>
+	
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
