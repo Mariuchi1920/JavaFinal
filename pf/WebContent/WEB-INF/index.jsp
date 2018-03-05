@@ -40,7 +40,7 @@
 		c.focus();
 		return false
 	}else{
-		alert("Bienvenido al sistema Liga Efa!");
+		
 		return true;
 	}
 }

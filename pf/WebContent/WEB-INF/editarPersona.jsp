@@ -35,7 +35,7 @@ function carga(){
 
 function validarDatos() {
 	
-	var verificar=true;
+	
 	var expRegNom=/^[a-zA-Z—Ò¡·…ÈÕÌ”Û⁄˙‹¸\s]+$/;
 	var expRegMail=/^[\w-\.]+@([\w-]\.)+[\w-]{2,4}$/;
 	var expRegDni=/(^([0-9]{8,8})$/;
@@ -53,21 +53,21 @@ function validarDatos() {
 	if (!nom.value) {
 		alert("El campo nombre esta vacÌo");
 		nombre.focus();
-		verificar=false;
+		return false;
 		
 	}else if (!expRegNom.exec(nom.value)){
 		alert("El campo nombre solo puede terner letras y espacios en blanco");
 		nombre.focus();
-		verificar=false;
+		return false;
 		
 	}else if(!ape.value) {
 		alert("El campo apellido esta vacÌo");
-		nombre.focus();
-		verificar=false;
+		ape.focus();
+		return false;
 		
 	} else if(!expRegNom.exec(ape.value)){
 		alert("El campo apellido solo puede terner letras y espacios en blanco");
-		apellido.focus();
+		ape.focus();
 		verificar=false;
 		
 	}else if(!expRegDni.exec(dni.value)){
@@ -94,7 +94,7 @@ function validarDatos() {
 
 	function editar(met) {
 		if (confirm("Estas seguro que desea hacer cambios?")) {
-			document.myform.registar.value = ""
+			document.myform.registar.value = "";
 			document.myForm.action = met;
 		}
 		;
@@ -102,7 +102,7 @@ function validarDatos() {
 
 	function registar(met) {
 		if (confirm("Estas seguro que desea registrarse?")) {
-			document.myform.editar.value = ""
+			document.myform.editar.value = "";
 			document.myForm.action = met;
 		}
 		;

@@ -114,9 +114,7 @@
 						href="${pageContext.request.contextPath}/listarTorneo">Listar
 							Torneos</a></li>
 					</li>
-					<li><a class="nav-link"
-						href="${pageContext.request.contextPath}/mostrarFixture">Ver Fixture</a>
-					</li>
+					
 					</ul>
 				
 			<li class="nav-item "><a class="nav-link" href="#">Mis Partidos</a>
@@ -128,8 +126,7 @@
 					
 				</ul>
 				</li>
-				<li class="nav-item "><a class="nav-link" href="${pageContext.request.contextPath}/listarTablasPosiciones">Tabla de posiciones</a></li>
-				<li class="nav-item "><a class="nav-link" href="#">Ranking</a></li>
+				
 				<li class="nav-item "><a class="nav-link" href="${pageContext.request.contextPath}/reguistarPersonas">Mi perfil</a></li>
 				
 				
