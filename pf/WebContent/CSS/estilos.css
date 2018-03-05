@@ -210,44 +210,60 @@ button.mybtn:focus{
 
 .botonEditar{
     text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
-    font-size: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
     color: #FFFFFF;/* color de la letra  */
-    background-color: #00FF00; /* color de fondo del boton */
+    background-color: #239B56; /* color de fondo del boton */
     border-radius: 6px;
     border: none;
   }
   .botonEliminar{
     text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
-    font-size: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
     color: #FFFFFF;/* color de la letra  */
-    background-color:#FF0000; /* color de fondo del boton */
+    background-color:#E74C3C; /* color de fondo del boton */
     border-radius: 6px;
     border: none;
   }
   
   
   .botonGenerarFixture{
-     text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
-    font-size: 12px;
+    text-decoration: none;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
     color: #FFFFFF;/* color de la letra  */
-    background-color:#0000a0; /* color de fondo del boton */
+    background-color: #F1C40F; /* color de fondo del boton */
     border-radius: 6px;
     border: none;
   
   }
   .verFixture{
     text-decoration: none;
-    padding: 10px;
-    font-weight: 600;
-    font-size: 12px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: normal;
+    font-size: 15px;
+    text-align: center;
     color: #FFFFFF;/* color de la letra  */
-    background-color:#fd860f; /* color de fondo del boton */
+    background-color:#566573; /* color de fondo del boton */
     border-radius: 6px;
     border: none;
   }

@@ -60,10 +60,10 @@ function verpartido(met) {
 	</div>
 	
 	
-	<div class="container">
+	<div class="container tablaPersona">
 		<form id="myForm" name="myForm" action="" method="post">
 		
-		<h3>Proximos Partidos de : <%=encontrado.getApellido() %>,<%=encontrado.getNombre() %></h3>
+		<h1>Proximos Partidos de : <%=encontrado.getApellido() %>,<%=encontrado.getNombre() %></h1>
 		<%
 		if(verMisPartidos!=null){
 			  
@@ -72,7 +72,7 @@ function verpartido(met) {
 		      %>
 		      
 		      
-		    <table class="table" align="center" width="700" border="void" cellpadding="5">
+		    <table class="table table-bordered" align="center">
 			  <thead class="thead-default">
 			
 			    <tr>

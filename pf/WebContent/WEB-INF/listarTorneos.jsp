@@ -85,7 +85,7 @@
   <tbody>
   <tr>
 
-					<th><%=t.getNombre()%></th>
+					<td><%=t.getNombre()%></td>
 					<td><%=t.getFechaInicio()%></td>
 					<td><%=t.getFechaFin()%></td>
 					<td><%=t.getEstado().getDescripcion()%></td>
@@ -108,18 +108,18 @@
 					    LinkedList<Jornadas> listaJornada = catJornada.buscarporTorneos(t.getIdTorneos());
 					    if(listaJornada!=null && listaJornada.size()>0){
 					%>
-					 <th>
-					   <td><button class="botonFixture"
+					
+					   <td><button class="verFixture"
 							onclick="javascript: verfixture('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button></td>
-						<td><button class="botonFixture"
+						<td><button class="botonGenerarFixture"
 							onclick="javascript: tablaPosiciones('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="tablaPosiciones" name="tablaPosiciones">Tabla Posiciones</button></td>
-						<td><button class="botonFixture"
+						<td><button class="botonEditar"
 							onclick="javascript: ranking('/admin/listarTorneo/')"
 							value="<%=t.getIdTorneos()%>" id="ranking" name="ranking">Ranking Goleadores</button></td>
 
-					</th>
+					
 					
 				
 					
