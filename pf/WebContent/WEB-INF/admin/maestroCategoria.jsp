@@ -22,9 +22,10 @@
 
 
 </head>
-<script type="text/javascript">
+<script type="text/javascript" language="JavaScript"> 
 	
 function editar(met) {
+	 alert("Hola Mundo!");
 	document.myform.eliminar.value=""     
 	document.myForm.action = met;
 }
@@ -69,9 +70,7 @@ function eliminar(met) {
 					<th><%=c.getDescripcion()%></th>
 					<th><%=c.getEstado().getDescripcion()%></th>
 					<th>
-					<button class="botonEditar"
-							onclick="javascript: editar('admin/listarCategoria/editar')"
-							value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
+					<button class="botonEditar" onclick="javascript: editar('admin/listarCategoria/editar')" value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
 					</th>
 					<th>
 						<button

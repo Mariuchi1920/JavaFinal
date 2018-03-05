@@ -38,8 +38,7 @@ public class ListarInstituciones extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getSession(false).setAttribute("editador",null);
-		request.getRequestDispatcher("/WEB-INF/admin/maestroInstituciones.jsp")
-				.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/admin/maestroInstituciones.jsp").forward(request, response);
 	}
 
 	/**

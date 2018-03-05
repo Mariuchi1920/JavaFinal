@@ -20,9 +20,19 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>Editar Equipo </title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+
+<title>editar equipos</title>
+
+
+</head>
 <script type="text/javascript">
 	
 	function editarEntrenador(met) {
@@ -64,13 +74,9 @@
 
 	
 	</script>
-</head>
+
 <body>
-	<div id="contenedor">
-
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
-	</div>
+	
 <%
 Equipo encontrado = null;
 Categoria categoria =null;
@@ -89,16 +95,18 @@ if(request.getSession().getAttribute("editador")!=null){
 	   jugadores = catEQJU.listarTodasLosJugadores(encontrado);
 }
 %>
-
-	<div id="contenido">
-
-
-		<form class="form-signin" id="myForm" name="myForm" action=""
-			method="post">
-			<table align="center"  border="4" >
-				<tr>
-					<td colspan="2">Equipo</td>
-				</tr>
+<div class="container-fluid">
+	
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+	
+		<!-- slider -->
+		<div class="container tablaPersona">
+			
+				 <h1>Administrador de Equipos</h1> 
+				 <form id="myForm" name="myForm" action="" method="post">
+				 <table class="table table-bordered" align="center">
 				
 				<tr>
 				<% if(encontrado!=null){ %>
@@ -223,11 +231,18 @@ if(request.getSession().getAttribute("editador")!=null){
 			  
 		</form>
 
-	</div>
+	</div></div>
 
-	<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
 
-	</div>
+		<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
+
+
+			</div>
+		</div>
+	
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

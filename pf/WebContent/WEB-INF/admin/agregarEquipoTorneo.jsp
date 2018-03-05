@@ -11,10 +11,20 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Editar los Equipos Torneo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >	
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/font-awesome/css/fontawesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,500" rel="stylesheet">
+	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
+
+<title>Agregar Equipos AL torneo</title>
+
+
 </head>
 
 <script type="text/javascript">
@@ -64,11 +74,15 @@
 }
 %>
 
-<div id="contenedor">
-
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-
-	</div>
+<<div class="container-fluid">
+	
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		
+		
+		
+	
 	  <%    
 				
 				if(request.getSession().getAttribute("error")!=null){
@@ -83,26 +97,26 @@
 				} %>
 	
 	
-	<div id="contenido">
+	
 
-
-		<form class="form-signin" id="myForm" name="myForm" action=""
-			method="post">
-			<table border="4" align="center">
+<div class="container tablaPersona">
+			
+				 <h1>Administrador de equipos para un torneo</h1> 
+				 <form id="myForm" name="myForm" action="" method="post">
+				 <table class="table table-bordered" align="center">
+				 <thead>
+			
 			<%
 					   if(listarEqTorneo!=null && listarEqTorneo.size()>0){%>
 				<tr>
-				  
-				  
-					<td > Equipos dentro del Torneo </td>
-					
-					
-					<td >Accion </td>
+				  <td > Equipos dentro del Torneo </td>
+				  <td >Accion </td>
 					
 					
 					
 				</tr>
-				
+				</thead>
+				<tbody>
 				<tr>
 				  
 				  
@@ -110,12 +124,13 @@
 					   for(EquiposTorneos equipo : listarEqTorneo){%>
 						<tr>   
 						  <td > <%= equipo.getEquipos().getInstitucion().getNombre() %>-<%= equipo.getEquipos().getCategorias().getAñoCategoria() %>-<%= equipo.getEquipos().getNombreEquipo() %></td>
-						   <td ><button onclick="javascript: eliminar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
+						  </tr>
+						  <tr>
+						   <td colspan="1"><button onclick="javascript: eliminar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
 				               id="eliminar" value=" <%= equipo.getEquipos().getInstitucion().getIdInstituciones() %>/<%= equipo.getEquipos().getCategorias().getIdCategorias() %>/<%= equipo.getEquipos().getNombreEquipo() %>" name="eliminar">Eliminar
 						   </button> </td>
 						</tr>
-						   <%  }
-					    %>
+						   <%  }  %>
 
 
                        
@@ -125,7 +140,7 @@
 					
 					
 					
-				</tr>
+				</tbody>
 				   <%  }
 					    %>
 			
@@ -157,7 +172,7 @@
 					
                         <td>
 
-					</select>
+				
 					
 					   <select name="listaEquipos" id="listaEquipos">
 							<%
@@ -180,10 +195,12 @@
 
 
 					</td>
+					</tr>
+					<tr>
 					<td>
 				  <button 
 				 onclick="javascript: agregar('${pageContext.request.contextPath}/admin/agregarEquiposTorneos/')"
-				   id="editar" value="editar" name="editar">Agregar</button>
+				   id="editar" value="editar" name="editar" style="border: navy;">Agregar</button>
 				</td>
 				</tr>
 				<% }} %>
@@ -198,11 +215,15 @@
 	
 	
 	
-		<div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
+		<div class= "container Pie">
+			<div id="Pie">
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
-	</div>
 
-
+			</div>
+		</div>
+	
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

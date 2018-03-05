@@ -30,12 +30,66 @@ function carga(){
 	 
 	 
 }
+
+function validarDatos(){
+	var nombreI=document.getElementById('nombreI');
+	var nomLocal=document.getElementById('nomLocal');
+	var dirLocal=document.getElementById('dirLocal');
+	var nombreDelegado=document.getElementById('nombreDelegado');
+	var apellidoDelegado=document.getElementById('apellidoDelegado');
+	
+	var numeroTelefono=document.getElementById('telefonoDelegado');
+	var mail=document.getElementById('mail');
+	  var expresionRegular1=/^([0-9]+){9}$/;//<--- con esto vamos a validar el numero
+	  var expresionRegular2=/\s/;//<--- con esto vamos a validar que no tenga espacios en blanco
+	  var expRegNom=/^[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+		var expRegMail=/^[\w-\.]+@([\w-]\.)+[\w-]{2,4}$/;
+	  
+	  if(!nombreI.value) {
+		  alert('El campo nombre de institucion no debe estar vacio.');
+		  nombreI.focus();
+	    return false;
+	  }else if (!nomLocal.value) {
+		  alert('El campo nombre Localia no debe estar vacio.');
+		  nomLocal.focus();
+		    return false;
+	  }else if (!dirLocal.value) {
+				  alert('El campo direccion localia no debe estar vacio.');
+	  				dirLocal.focus();
+				    return false; 
+	}else if(!nombreDelegado.value){ 
+	  alert('El campo nombre delegado no debe estar vacio.');
+	nombreDelegado.focus();
+	return false; 
+	}else if(!apellidoDelegado.value) {
+	  alert('El campo apellido delegado no debe estar vacio.');
+	apellidoDelegado.focus();
+	return false; 
+	
+}else if(numeroTelefono.value==''){
+	     alert('El campo telefono es obligatorio');
+	 	
+}else if(expresionRegular2.test(numeroTelefono.value)){
+	    alert('error existen espacios en blanco');
+}else if(expresionRegular1.test(numeroTelefono.value)){
+	    alert('Numero de telefono incorrecto');
+	}else if(!mail.value){
+	    alert('el campo mail no puede estar vacio');
+	    return false;
+	    }else if(expRegMail.test(expRegMail.value)){
+	    alert('nombre solo puede tener letras');
+	    return false;
+	    }else{
+	    alert("Se ha registrado una nueva institucion!");
+		return true;
+	}
+}
 		
 	function editar(met) {
 		if(confirm("Estas seguro de editar esta Institución?")){
 			document.myform.registar.value=""  
 		    document.myForm.action=met;
-		};
+		}; 
     }
 	
 	function registar(met) {
@@ -90,25 +144,25 @@ if(request.getSession().getAttribute("editador")!=null){
 			<form id="needs-validation" name="myForm" action="" method="post" onsubmit="return validarDatos()" >
 				<table class="table table-bordered" align="center">
 				
-				<tr><td>Institucion:</td> <td><input type="text" value="<%= nombre %>" name="institucion" id="nombreI" class="form-control" placeholder="Nombre de Institucion..." required=""/></td> </tr>
-				<tr><td>Nombre Localia:</td><td><input type="text" value="<%= nombreLocalia %>" name="nombreLocalia"id="nomLocal"class="form-control" placeholder="Localía donde estan las canchas..." required=""/></td></tr>
-				<tr><td>Direccion:</td><td><input type="text" value="<%= direccionLocalia %>" name="direccionLocalia"id="direccionlocalia"class="form-control" placeholder="Direccion donde estan las canchas..." required=""/></td></tr>
-				<tr><td>Nombre delegado:</td><td><input type="text" value="<%= nombreDelegado %>" name="nombreDelegado"id="nombreDelegado"class="form-control" placeholder="Nombre delegado..." required=""/></td></tr>
-				<tr><td>Apellido delegado:</td><td><input type="text" value="<%= apellidoDelegado %>" name="apellidoDelegado"id="apellidoDelegado"class="form-control" placeholder="Apellido delegado.." required=""/></td></tr>
-				<tr><td>Telefono Delegado:</td><td><input type="text" value="<%= telefono %>" name="telefonoDelegado"id="telefonoDelegado"class="form-control" placeholder="Teléfono delegado..." required=""/></td></tr>
-				<tr><td>Mail delegado:</td><td><input type="text" value="<%= mail %>" name="mail"id="mail"class="form-control" placeholder="Mail delegado..." required=""/></td></tr>
+				<tr><td>Institucion:</td> <td><input type="text" value="<%= nombre %>" name="institucion" id="nombreI" class="form-control" placeholder="Nombre de Institucion..." /></td> </tr>
+				<tr><td>Nombre Localia:</td><td><input type="text" value="<%= nombreLocalia %>" name="nombreLocalia"id="nomLocal"class="form-control" placeholder="Localía donde estan las canchas..." /></td></tr>
+				<tr><td>Direccion:</td><td><input type="text" value="<%= direccionLocalia %>" name="direccionLocalia"id="direLocal"class="form-control" placeholder="Direccion donde estan las canchas..." /></td></tr>
+				<tr><td>Nombre delegado:</td><td><input type="text" value="<%= nombreDelegado %>" name="nombreDelegado"id="nombreDelegado"class="form-control" placeholder="Nombre delegado..." /></td></tr>
+				<tr><td>Apellido delegado:</td><td><input type="text" value="<%= apellidoDelegado %>" name="apellidoDelegado"id="apellidoDelegado"class="form-control" placeholder="Apellido delegado.." /></td></tr>
+				<tr><td>Telefono Delegado:</td><td><input type="text" value="<%= telefono %>" name="telefonoDelegado"id="telefonoDelegado"class="form-control" placeholder="Teléfono delegado..." /></td></tr>
+				<tr><td>Mail delegado:</td><td><input type="text" value="<%= mail %>" name="mail"id="mail"class="form-control" placeholder="Mail delegado..." /></td></tr>
 				
 			</table>
 			
 			<%if(encontrado!=null){ %>
 			<button align="center"
-				onclick="javascript: editar('/admin/modificarInstitucion/editar')"
+				onclick="javascript: editar('${pageContext.request.contextPath}/admin/modificarInstitucion/editar')"
 				id="editar" value="editar" name="editar">Editar</button>
 
 			<% }else{%>
 
 			<button align="center"
-				onclick="javascript: registrar('/admin/modificarInstitucion/agregar')"
+				onclick="javascript: registrar('${pageContext.request.contextPath}/admin/modificarInstitucion/agregar')"
 				id="registar" value="registar" name="registar">Agregar</button>
 			<% } %>
 			</form>
