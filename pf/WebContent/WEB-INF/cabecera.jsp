@@ -97,22 +97,28 @@
 	<%}else{%>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light container">
+
+
 	<img src="${pageContext.request.contextPath}/imagen/logo_header.png">
-	<a class="navbar-brand" href="${pageContext.request.contextPath}/user">Liga
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/admin">Liga
 		Efa</a>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
 		<ul class="nav mr-auto">
-			
-			<li class="nav-item"><a class="nav-link" href="#">Torneos</a>
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/MostrarHistoria">Historia</a></li>
+			<li class="nav-item"><a class="nav-link" href="#">Tus torneos</a>
 				<ul>
 					<li><a class="nav-link"
 						href="${pageContext.request.contextPath}/listarTorneo">Listar
 							Torneos</a></li>
-					
-
-
-				</ul></li>
+					</li>
+					<li><a class="nav-link"
+						href="${pageContext.request.contextPath}/mostrarFixture">Ver Fixture</a>
+					</li>
+					</ul>
+				
 			<li class="nav-item "><a class="nav-link" href="#">Mis Partidos</a>
 				<ul>
 					<li>
@@ -120,20 +126,28 @@
 						href="${pageContext.request.contextPath}/verMisPartidos">Lista Mis Partidos</a>
 					</li>
 					
-
-
-				</ul></li>
-				<div class="usuario">
-		Usuario:s
-		<%=persona.getNombre()%>
-		<hr>
-		<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar
-			Sesion</a>
-			<hr>
-			<a href="${pageContext.request.contextPath}/reguistarPersonas">Mi perfil</a>	
-
-
-	</div>
+				</ul>
+				</li>
+				<li class="nav-item "><a class="nav-link" href="${pageContext.request.contextPath}/listarTablasPosiciones">Tabla de posiciones</a></li>
+				<li class="nav-item "><a class="nav-link" href="#">Ranking</a></li>
+				<li class="nav-item "><a class="nav-link" href="${pageContext.request.contextPath}/reguistarPersonas">Mi perfil</a></li>
+				
+				
+				<div class="usuario" align="right">
+				<table >
+				<tr>
+				<th>Usuario:</th>
+				<th><%=persona.getNombre()%></th>
+				</tr>
+				<tr>
+				<th colspan="2">
+				<a href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a>
+				</th>
+				</tr>
+					
+					</table>
+				</div>
+				</div>
 	</nav>
 	<%}}else { %>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light container">
@@ -145,8 +159,7 @@
 		
 
 	<%}%>
-
-
+</nav>
 	<!--  nav bar-->
 
 

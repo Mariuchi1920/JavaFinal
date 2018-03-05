@@ -1,10 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html lang="en">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css">
-<head>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -16,43 +10,48 @@
 	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
 
-<title>Menu Usuario</title>
+<title>Listar Torneos</title>
+
 <style type="text/css">
 	.fondo{
-	background: url('${pageContext.request.contextPath}/imagen/bannerLigaEfa.jpg');
+	
 	background-position: center;
 	background-size: cover; 
-	height: 50vh;
-	
+	height: 700px;
+	width: 700px;
+	background-color: white;
 }
 	</style>
-
 </head>
-<div class="container">
+<body>
+<div class="container-fluid">
 	
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
-	
-	
-	<!-- slider -->
-	<div class="container fondo">
-		<div class="container">
-			<!-- <h1>Bienvenidos a la Gestion de la Liga Efa</h1> -->
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
 		</div>
-	</div>
-	<!-- slider -->
-
+		
+		<div class="fondo">
+		<img src="${pageContext.request.contextPath}/imagen/historiaLigaEfa.jpg">
+		</div>
+		
+		<hr>
+		
+		</div>
+		
+		
+		
+		
 	
-<div class= "container Pie">
+
+		<div class= "container Pie">
 			<div id="Pie">
-	 <div id="Pie">
-		<jsp:include page="/WEB-INF/pie.jsp" />
+				<jsp:include page="/WEB-INF/pie.jsp" />
 
-	 
-	</div>
+
+			</div>
 		</div>
 	
-		</div>
-		<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
