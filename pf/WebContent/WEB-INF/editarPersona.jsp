@@ -50,12 +50,22 @@ function validarDatos() {
 	var usu= document.getElementById("usuario");
 	var con= document.getElementById("contraseña");
 	
-	if(!expRegNom.exec(nom.value)){
+	if (!nom.value) {
+		alert("El campo nombre esta vacío");
+		nombre.focus();
+		verificar=false;
+		
+	}else if (!expRegNom.exec(nom.value)){
 		alert("El campo nombre solo puede terner letras y espacios en blanco");
 		nombre.focus();
 		verificar=false;
 		
-	}else if(!expRegNom.exec(ape.value)){
+	}else if(!ape.value) {
+		alert("El campo apellido esta vacío");
+		nombre.focus();
+		verificar=false;
+		
+	} else if(!expRegNom.exec(ape.value)){
 		alert("El campo apellido solo puede terner letras y espacios en blanco");
 		apellido.focus();
 		verificar=false;
@@ -201,7 +211,7 @@ function validarDatos() {
 
 						<tr>
 							<td>Nombre</td>
-							<td><input align="center" type="text" name="nombre"	id="nombre" value="<%=nombre%>" class="form-control" placeholder="nombre..." required="" /></td>
+							<td><input align="center" type="text" name="nombre"	id="nombre" value="<%=nombre%>" class="form-control" placeholder="nombre..."  /></td>
 							<div class="invalid-feedback">
 								debe ingresar un nombre
 							</div>
@@ -209,7 +219,7 @@ function validarDatos() {
 
 						<tr>
 							<td>Apellido:</td>
-							<td><input align="center" type="text" name="apellido" id="apellido" value="<%=apellido%>" class="form-control" placeholder="apellido..." required="" /></td>
+							<td><input align="center" type="text" name="apellido" id="apellido" value="<%=apellido%>" class="form-control" placeholder="apellido..."  /></td>
 						
 						</tr>
 
@@ -217,23 +227,23 @@ function validarDatos() {
 						<tr>
 							<td>Numero Documento:</td>
 							<td><input align="center" type="text" name="numeroDocumento"
-								id="dni" value="<%=numeroDocumento%>" class="form-control" placeholder="dni..." required=""/></td>
+								id="dni" value="<%=numeroDocumento%>" class="form-control" placeholder="dni..." /></td>
 						</tr>
 						<tr>
 							<td>Telefono:</td>
 							<td><input align="center" type="text" name="telefono"
-								id="telefono" value="<%=telefono%>" class="form-control" placeholder="telefono..." required=""  /></td>
+								id="telefono" value="<%=telefono%>" class="form-control" placeholder="telefono..."  /></td>
 						</tr>
 
 						<tr>
 							<td>Fecha Nacimiento:</td>
 							<td><input align="center" type="date" name="fechaNacimiento"
-								id="fechaNacimiento" value="<%=fechaNacimiento%>" class="form-control" placeholder="Fecha nacimiento..." required="" /></td>
+								id="fechaNacimiento" value="<%=fechaNacimiento%>" class="form-control" placeholder="Fecha nacimiento..."  /></td>
 						</tr>
 
 						<tr>
 							<td>Mail:</td>
-							<td><input align="center" type="text" name="mail" id="mail"	value="<%=mail%>" class="form-control" placeholder="mail..." required="" />
+							<td><input align="center" type="text" name="mail" id="mail"	value="<%=mail%>" class="form-control" placeholder="mail..."  />
 							<span id="emailOK"></span>
 							
 							</td>
