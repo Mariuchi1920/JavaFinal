@@ -99,7 +99,8 @@ public class ModificarTorneo extends HttpServlet {
 				}
 
 			} else if (request.getParameter("registar") != null) {
-
+				torneo.setFechaInicio(Util.convertirStringDate(request.getParameter("fechaI")));
+				torneo.setFechaFin(Util.convertirStringDate(request.getParameter("fechaF")));
 				if(Torneo.validarTorneo(torneo)){
 					catTorneo.nuevoTorneo(torneo);
 					response.sendRedirect(request.getContextPath()+ "/admin/listarTorneo");
@@ -117,15 +118,15 @@ public class ModificarTorneo extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarTorneo");
 
 		}catch (ApplicationException e) {
-			request.setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarTorneo");
 		}catch (Exception e) {
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarTorneo");
 		}

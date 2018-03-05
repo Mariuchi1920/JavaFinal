@@ -144,9 +144,9 @@ public class Institucion {
 		}
 		
 		if(Util.isNumeric(telefonoDelegado)){
-			if(telefonoDelegado.length()>9){
+			if(telefonoDelegado.length()<6 || telefonoDelegado.length()>15){
 				respuesta=false;
-				throw new ApplicationException("Telefono Delegado mayor a 9 ");
+				throw new ApplicationException("Telefono Delegado no es de logitud valida (mayor a 6 y menos a 15) ");
 			}
 			
 		}else{

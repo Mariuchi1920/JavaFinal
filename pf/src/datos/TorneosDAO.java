@@ -21,7 +21,7 @@ import entidad.Torneo;
 import modelo.Conexion;
 
 public class TorneosDAO {
-	private String INSERT = "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado,idCategoriaCampeon, idIntitucionCampeon, nombreEquipoCampeon) VALUES (?,?,?,?,?,?,?);";
+	private String INSERT = "INSERT INTO torneos (nombre, fechaInicio, fechaFin, idTipoEstado) VALUES (?,?,?,?);";
 	private String DELETE = "delete from torneos where idTorneos=?;";
 	private String EDITAR = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=? ,idCategoriaCampeon=?, idIntitucionCampeon=?,nombreEquipoCampeon=? where idTorneos=?";
 	private String EDITARSINEQUIPO = "update torneos set nombre= ?,fechaInicio=?, fechaFin=? , idTipoEstado=?  where idTorneos=?";
@@ -52,17 +52,13 @@ public class TorneosDAO {
 
 	public void nuevoTorneo(Torneo torneo) throws SQLException {
 		try {
-			System.out.println("Entre aca en  nuevo torneo");
+			
 			PreparedStatement ps = con.prepareStatement(INSERT);
 			ps.setString(1, torneo.getNombre());
 			ps.setDate(2, torneo.getFechaInicio());
 			ps.setDate(3, torneo.getFechaFin());
 			ps.setInt(4, torneo.getEstado().getIdTipoEstado());
-			ps.setInt(5, torneo.getEquipoGanador().getCategorias()
-					.getIdCategorias());
-			ps.setInt(6, torneo.getEquipoGanador().getInstitucion()
-					.getIdInstituciones());
-			ps.setString(7, torneo.getEquipoGanador().getNombreEquipo());
+			
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {

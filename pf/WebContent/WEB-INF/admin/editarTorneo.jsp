@@ -109,8 +109,8 @@
 			<% 
 
 			
-			
-			if(encontrado.getEstado().getIdTipoEstado()== TipoEstado.INICIADO){ %>	
+	       
+			if(encontrado!=null && encontrado.getEstado().getIdTipoEstado()== TipoEstado.INICIADO){ %>	
 			
 			
 			<tr>
@@ -200,7 +200,7 @@
 					
 				
 			<%
-			   if(fechaI!=null && !Util.compararFechaConHoy(fechaI)){
+			   if(encontrado!=null && fechaI!=null && !Util.compararFechaConHoy(fechaI)){
 			    
 			   
 			%>

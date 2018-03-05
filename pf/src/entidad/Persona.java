@@ -216,9 +216,9 @@ public class Persona {
 		}else if(!Util.isNumeric(telefono)){
 			respuesta= false;
 			throw new ApplicationException("Telefono contiene caracteres especiales");
-		}else if(telefono.length()>9){
+		}else if(telefono.length()<6 || telefono.length()>15){
 			respuesta= false;
-			throw new ApplicationException("Telefono es de longitud incorrecta");
+			throw new ApplicationException("Telefono no es de logitud valida (mayor a 6 y menos a 15)");
 		}
 		
 		
