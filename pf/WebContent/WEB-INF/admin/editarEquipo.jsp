@@ -233,7 +233,7 @@ if(request.getSession().getAttribute("editador")!=null){
 
 				
 				<tr>
-				
+				<% if(encontrado!=null){ %>
 				<td colspan="2">
 						<button class="verFixture"
 						align="center" onclick="javascript: agregarJugador('/admin/modificarEquipo')" name="agregarJugador" id="agregarJugador" value="agregarJugador" />
@@ -241,17 +241,14 @@ if(request.getSession().getAttribute("editador")!=null){
 						</td>
 
                 </tr>
-
-
+                <%}%>
 			</table>
 			<% if(encontrado==null){ %>
-			<button class="botonEditar" 
-			align="center" onclick="javascript: agregarEquipo('/admin/modificarEquipo')" name="agregarEquipo" id="agregarEquipo" value="agregarEquipo" />
-			  Agregar Equipo</button>
-			   <%
-							   }
-						%>
+				<button class="botonEditar" 
+				align="center" onclick="javascript: agregarEquipo('/admin/modificarEquipo')" name="agregarEquipo" id="agregarEquipo" value="agregarEquipo" />
+				  Agregar Equipo</button>
 			  
+			   <%}%>
 		</form>
 
 	</div></div>
