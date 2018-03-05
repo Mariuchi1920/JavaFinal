@@ -129,10 +129,10 @@
 %>
 
 
-	<div id="contenido">
+	<div class="container tablaPersona">
 		<form class="form-signin" id="myForm" name="myForm" action=""
 			method="post">
-			<table border="4" align="center">
+			<table class="table table-bordered" align="center">
 				<tr>
 					<td colspan="4">Jugadores Equipo :  <%= equipo.getInstitucion().getNombre() %> - <%= equipo.getCategorias().getAñoCategoria()%> - <%= equipo.getNombreEquipo() %></td>
 				</tr>
@@ -161,7 +161,7 @@
 				
              <tr>
 				<td colspan="4">
-					<a type="button"align="center"
+					<a type="button" align="center"
 				        href="${pageContext.request.contextPath}/verPartido">Volve al partido </a>
 					</td>
 				</tr>

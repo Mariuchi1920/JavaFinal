@@ -112,10 +112,10 @@
 %>
 
 
-	<div id="contenido">
+	 <div class="container tablaPersona">
 		<form class="form-signin" id="myForm" name="myForm" action=""
 			method="post">
-			<table border="4" align="center">
+			  <table class="table table-bordered" align="center">
 				<tr>
 					<td colspan="5"> Partido</td>
 				</tr>
@@ -145,12 +145,12 @@
 				
 				<tr>
 					<td colspan="2">
-					<button align="center"
+					<button  align="center" class="verFixture"
 				onclick="javascript: local('/admin/verModificarPartido/')"
 				id="local" value="local" name="local">Jugadores Local</button></td>
 					<td colspan="1"></td>
 					<td colspan="2">
-					<button align="center"
+					<button align="center" class="verFixture"
 				onclick="javascript: visitante('/admin/verModificarPartido/')"
 				id="visitante" value="visitante" name="visitante"> Jugadores Visitante </button></td>
 
@@ -184,8 +184,8 @@
 
 
 			</table>
-
-			<button align="center"
+ 
+			<button align="center" class="botonGenerarFixture" 
 				onclick="javascript: editar('/verPartido/')"
 				id="editar" value="editar" name="editar">Volver al fixture</button>
 
