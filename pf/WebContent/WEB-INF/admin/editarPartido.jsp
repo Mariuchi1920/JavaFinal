@@ -168,12 +168,12 @@
 				
 				<tr>
 					<td colspan="2">
-					<button align="center"
+					<button align="center" class="verFixture"
 				onclick="javascript: local('/admin/verModificarPartido/')"
 				id="local" value="local" name="local">Jugadores Local</button></td>
 					<td colspan="1"></td>
 					<td colspan="2">
-					<button align="center"
+					<button align="center" class="verFixture"
 				onclick="javascript: visitante('/admin/verModificarPartido/')"
 				id="visitante" value="visitante" name="visitante"> Jugadores Visitante </button></td>
 
@@ -199,16 +199,16 @@
 						<% TipoEstadoDAO catalogo = new TipoEstadoDAO();
 				            TipoEstado tpEstado= new TipoEstado();
 			                 LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados(); %> 
-						<select name="listaTipoEStado" id="tipoEstado">
+						<select name="listaTipoEStado" id="tipoEstado" class="form-control" placeholder="Selecciona Opcion" required="">
 							<% for(TipoEstado te :listaEstado){  
                                			if(partido!=null){
                                			     if(estado.getIdTipoEstado()== te.getIdTipoEstado()){%>
 							<option selected="selected"
 								value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
 
-							<%}else{%>
+							<%}else  if(te.getIdTipoEstado()==TipoEstado.JUGADO || te.getIdTipoEstado()==TipoEstado.PENDIENTE || te.getIdTipoEstado()==TipoEstado.SUSPENDIDO){%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
-							<%  			     }}else {%>
+							<%  			     }}else  if(te.getIdTipoEstado()==TipoEstado.JUGADO || te.getIdTipoEstado()==TipoEstado.PENDIENTE || te.getIdTipoEstado()==TipoEstado.SUSPENDIDO){%>
 							<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
 
 							<% }} %>
@@ -231,7 +231,7 @@
 
 			</table>
 
-			<button align="center"
+			<button  class="botonEditar" align="center"
 				onclick="javascript: editar('/admin/verModificarPartido/')"
 				id="editar" value="editar" name="editar">Editar</button>
 

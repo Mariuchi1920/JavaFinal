@@ -150,7 +150,9 @@ if(request.getSession().getAttribute("editador")!=null){
 								<option selected="selected"
 									value="<%= estado.getIdTipoEstado() %>"><%=estado.getDescripcion() %></option>
 
-								<%}}else {%>
+								<%}else if(te.getIdTipoEstado()== TipoEstado.HABILITADA ||te.getIdTipoEstado()== TipoEstado.DESHABILITADA  ){%>
+										<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
+								<%}}else if(te.getIdTipoEstado()== TipoEstado.HABILITADA ||te.getIdTipoEstado()== TipoEstado.DESHABILITADA  ){%>
 								<option value="<%= te.getIdTipoEstado() %>"><%=te.getDescripcion() %></option>
 
 								<% }} %>
@@ -165,13 +167,13 @@ if(request.getSession().getAttribute("editador")!=null){
 			<tr>
 			<th colspan="2">
 			<%if(encontrado!=null){ %>
-			<button align="center"
+			<button class="botonEditar" align="center"
 				onclick="javascript: editar('/admin/modificarCategoria/editar')"
 				id="editar" value="editar" name="editar">Editar</button>
 
 			<% }else{%>
 
-			<button align="center"
+			<button class="botonEditar" align="center"
 				onclick="javascript: registrar('/admin/modificarCategoria/agregar')"
 				id="registar" value="registar" name="registar">Agregar</button>
 			<% } %>

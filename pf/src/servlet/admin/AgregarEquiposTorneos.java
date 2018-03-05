@@ -64,9 +64,11 @@ public class AgregarEquiposTorneos extends HttpServlet {
 				Integer.parseInt(aux[0]), aux[2]);
 				eqTor.setEquipos(equipo);
 				if(Equipo.validarEquipoParaTorneo(equipo)){
-				 equipoE.nuevoEquipoTorneo(eqTor);
-				}else{
-					request.getSession().setAttribute("error", "El equipo no contiene la cantidad de jugadores para un torneo");
+					if(Equipo.validarEntrenador(eqTor)){
+						if(Equipo.validarPersonasEquipo(eqTor)){
+							equipoE.nuevoEquipoTorneo(eqTor);
+						}
+					}
 				}
 				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			} else if (request.getParameter("eliminar") != null) {

@@ -199,7 +199,8 @@ if(request.getSession().getAttribute("editador")!=null){
 				<% if(encontrado!=null){ %>
 					<td colspan="1">Entrenador :  <%=entrenador.getApellido() %>, <%=entrenador.getNombre() %></td>		
 					<td colspan="1">
-					<button align="center" onclick="javascript: editarEntrenador('/admin/modificarEquipo/agregarJugador')" name="editarEntrenador" id="editarEntrenador" value="editarEntrenador" />
+					<button class="botonEditar"
+					align="center" onclick="javascript: editarEntrenador('/admin/modificarEquipo/agregarJugador')" name="editarEntrenador" id="editarEntrenador" value="editarEntrenador" />
 					Editar Entrenador</button>
 					
 					</td>
@@ -234,7 +235,8 @@ if(request.getSession().getAttribute("editador")!=null){
 				<tr>
 				
 				<td colspan="2">
-						<button align="center" onclick="javascript: agregarJugador('/admin/modificarEquipo')" name="agregarJugador" id="agregarJugador" value="agregarJugador" />
+						<button class="verFixture"
+						align="center" onclick="javascript: agregarJugador('/admin/modificarEquipo')" name="agregarJugador" id="agregarJugador" value="agregarJugador" />
 						Agregar Jugadores</button>
 						</td>
 
@@ -243,7 +245,8 @@ if(request.getSession().getAttribute("editador")!=null){
 
 			</table>
 			<% if(encontrado==null){ %>
-			<button align="center" onclick="javascript: agregarEquipo('/admin/modificarEquipo')" name="agregarEquipo" id="agregarEquipo" value="agregarEquipo" />
+			<button class="botonEditar" 
+			align="center" onclick="javascript: agregarEquipo('/admin/modificarEquipo')" name="agregarEquipo" id="agregarEquipo" value="agregarEquipo" />
 			  Agregar Equipo</button>
 			   <%
 							   }

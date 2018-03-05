@@ -181,7 +181,7 @@
 
 				
 					
-					   <select name="listaEquipos" id="listaEquipos">
+					   <select name="listaEquipos" id="listaEquipos" class="form-control" placeholder="Selecciona Opcion" required="">
 							<%
 							  
 							if(listarEqTorneo!=null){

@@ -146,7 +146,7 @@
 					<td><%=jugadores.get(i).getApellido() %>, <%=jugadores.get(i).getNombre() %>
 					</td>
 					<td>
-						<button align="center"
+						<button class="botonEliminar" align="center"
 							onclick="javascript: elimiarJugador('/admin/modificarEquipo')"
 							id="elimiarJugador" value="<%=jugadores.get(i).getIdPersona() %>"
 							name="elimiarJugador">Eliminar</button>
@@ -160,7 +160,7 @@
 					<%if(encontrado!=null){ %>
 					<td> 
 					<select name="listaEntrenadores"
-					id="listaEntrenadores">
+					id="listaEntrenadores" class="form-control" placeholder="Selecciona Opcion" required="">
 						<%
 							  PersonasDAO catPersonas = new PersonasDAO();
 							  LinkedList<Persona> entrenadores = new LinkedList<Persona>();
@@ -182,7 +182,7 @@
 				</td>
 
 				<td>
-					<button
+					<button class="botonEditar"
 						onclick="javascript: agregarEntrenador('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
 						id="agregarEntrenador" value="agregarEntrenador" name="agregarEntrenador">Agregar</button>
 				</td>
@@ -200,7 +200,7 @@
 							         
 							  if(jugadorTotal!=null && jugadorTotal.size()>0){ %>
 				              <td>
-				              <select name="listaJugadores" id="listaJugadores">
+				              <select name="listaJugadores" id="listaJugadores"  class="form-control" placeholder="Selecciona Opcion" required="">
 						<%   for(Persona te :jugadorTotal){ %>
 
 						      <option value="<%= te.getIdPersona() %>"> <%=te.getApellido() %>,
@@ -214,7 +214,7 @@
 				</select></td>
 
 				<td>
-					<button
+					<button class="botonEditar"
 						onclick="javascript: agregarJugador('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
 						id="agregarJugador" value="agregarJugador" name="agregarJugador">Agregar</button>
 				</td>

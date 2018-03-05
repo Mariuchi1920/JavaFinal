@@ -181,12 +181,12 @@
 				
              <tr>
 				<td colspan="2">
-					<button align="center"
+					<button  class="botonEditar" align="center"
 				        onclick="javascript: editar('/admin/modificarJugadoresPartido/')"
 				        id="editar" value="editar" name="editar">Editar</button>
 					</td>
 					<td colspan="2">
-					<button align="center"
+					<button class="botonEliminar" align="center"
 				        onclick="javascript: cancelar('/admin/modificarJugadoresPartido/')"
 				        id="cancelar" value="cancelar" name="cancelar">Cancelar</button>
 					</td>

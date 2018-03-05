@@ -267,7 +267,7 @@ function validarDatos() {
 									TipoPersona persona = new TipoPersona();
 									LinkedList<TipoPersona> listaPersona = catPersona.getTipoPersonas();
 								%> <select align="center" name="listaTipoPersona"
-								id="listaTipoPersona">
+								id="listaTipoPersona" class="form-control" placeholder="Selecciona Opcion" required="">
 
 									<%
 										if (request.getSession().getAttribute("usuario") != null
@@ -338,14 +338,14 @@ function validarDatos() {
 							<%
 								if (encontrado != null) {
 							%>
-							<button align="center"
+							<button align="center"  class="botonEditar"
 								onclick="javascript: editar('/admin/modificarCategoria/editar')"
 								id="editar" value="editar" name="editar" class="editar">Editar</button>
 							<%
 								} else {
 							%>
 
-							<button align="center"
+							<button align="center"  class="botonEditar"
 								onclick="javascript: registrar('/admin/modificarCategoria/agregar')"
 								id="registar" value="registar" name="registar" class="agregar">Agregar</button>
 							<%
