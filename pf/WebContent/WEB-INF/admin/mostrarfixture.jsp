@@ -126,11 +126,11 @@ function verpartido(met) {
 					%>
 					
 			     <tr>
-					<td colspan="1" align="center"><%=partido.getEquipoLocal().getInstitucion().getNombre() %>-<%=partido.getEquipoLocal().getCategorias().getAñoCategoria() %><%=partido.getEquipoLocal().getNombreEquipo() %>  </td> 
+					<td colspan="1" align="center"><%=partido.getEquipoLocal().getInstitucion().getNombre() %>-<%=partido.getEquipoLocal().getCategorias().getAñoCategoria() %>-<%=partido.getEquipoLocal().getNombreEquipo() %>  </td> 
 					 <td colspan="1" align="center"><%=partido.getGolesLocal() %>
 					 </td> <td align="center">VS</td> 
 					 <td colspan="1" align="center"><%=partido.getGolesVisitante() %></td>
-					 <td colspan="1" align="center"><%=partido.getEquipoVisitante().getInstitucion().getNombre() %>-<%=partido.getEquipoVisitante().getCategorias().getAñoCategoria() %><%=partido.getEquipoVisitante().getNombreEquipo() %> </td> 
+					 <td colspan="1" align="center"><%=partido.getEquipoVisitante().getInstitucion().getNombre() %>-<%=partido.getEquipoVisitante().getCategorias().getAñoCategoria() %>-<%=partido.getEquipoVisitante().getNombreEquipo() %> </td> 
 					 <td align="center">
 					      <button class="botonEditar"
 							onclick="javascript: verpartido('/admin/mostrarFixture/')"

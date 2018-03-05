@@ -8,7 +8,7 @@ public class Conexion {
 
 	public String userDb="root";
 
-	public String passDb= "1234";
+	public String passDb= "";
 	///public String passDb= "BSAvat15793";
 	public String host= "localhost";
 	public String port= "3306";
