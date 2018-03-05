@@ -71,10 +71,16 @@ public int getIdTorneos() {
 	public static boolean validarTorneo(Torneo torneo) throws ApplicationException {
 		// TODO Auto-generated method stub
 		boolean respuesta= true;
+		String nombreTorne = torneo.getNombre().trim();
 		Date fechaInicio = torneo.getFechaInicio();
 		Date fechaFin = torneo.getFechaFin();
 		TipoEstado estadoTorneo= torneo.getEstado();
 		Equipo equipoCampeo = torneo.getEquipoGanador();
+		
+		if(nombreTorne.equals(null)|| nombreTorne.equals("null") || nombreTorne.equals("")){
+			respuesta = false;
+			throw new ApplicationException("El nombre torneo debe esta completo");
+		}
 		
 		if(fechaInicio!=null && fechaFin!=null){
 			
@@ -111,7 +117,7 @@ public int getIdTorneos() {
 			if (Util.compararFechaConHoy(fechaFin)){
 				if(equipoCampeo==null){
 					respuesta = false;
-					throw new ApplicationException("Fecha fin menor a la fecha hoy, debe elegir un equipo campeon");
+					throw new ApplicationException("Fecha fin menor a la fecha hoy, debe elegir un equipo campeón");
 					
 				}else if(estadoTorneo.getIdTipoEstado() != TipoEstado.FINALIZADO){
 					respuesta = false;

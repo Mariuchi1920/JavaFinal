@@ -152,7 +152,7 @@ function validarDatos() {
 		String usuario = "";
 		String contraseña = "";
 		///Date fechaNacimiento = Util.recuperarHoraActualStringDate();
-		String fechaNacimiento = "";
+		Date fechaNacimiento = Util.recuperarHoraActualStringDate();
 		String mail = "";
 
 		CategoriasDAO catdao = new CategoriasDAO();
@@ -168,7 +168,7 @@ function validarDatos() {
 			usuario = encontrado.getUsuario();
 			contraseña = encontrado.getContraseña();
 			///fechaNacimiento = encontrado.getFechaNacimiento();
-			fechaNacimiento = String.valueOf(encontrado.getFechaNacimiento());
+			fechaNacimiento =encontrado.getFechaNacimiento();
 			mail = encontrado.getMail();
 		} else if (request.getSession().getAttribute("usuario") != null) {
 			if (!((Persona) request.getSession().getAttribute("usuario"))
@@ -183,7 +183,7 @@ function validarDatos() {
 				usuario = encontrado.getUsuario();
 				contraseña = encontrado.getContraseña();
 			////	fechaNacimiento =encontrado.getFechaNacimiento();
-			fechaNacimiento = String.valueOf(encontrado.getFechaNacimiento());
+			fechaNacimiento = encontrado.getFechaNacimiento();
 				mail = encontrado.getMail();
 			}
 		}
@@ -238,7 +238,7 @@ function validarDatos() {
 						<tr>
 							<td>Fecha Nacimiento:</td>
 							<td><input align="center" type="date" name="fechaNacimiento"
-								id="fechaNacimiento" value="<%=fechaNacimiento%>" class="form-control" placeholder="Fecha nacimiento..."  /></td>
+								id="fechaNacimiento" value="<%=fechaNacimiento.toString()%>" class="form-control" placeholder="Fecha nacimiento..."  /></td>
 						</tr>
 
 						<tr>
@@ -277,7 +277,7 @@ function validarDatos() {
 									TipoPersona persona = new TipoPersona();
 									LinkedList<TipoPersona> listaPersona = catPersona.getTipoPersonas();
 								%> <select align="center" name="listaTipoPersona"
-								id="listaTipoPersona" class="form-control" placeholder="Selecciona Opcion" required="">
+								id="listaTipoPersona" class="form-control" placeholder="Selecciona Opcion" >
 
 									<%
 										if (request.getSession().getAttribute("usuario") != null

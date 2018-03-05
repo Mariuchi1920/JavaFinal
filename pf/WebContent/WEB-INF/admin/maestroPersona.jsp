@@ -82,14 +82,14 @@ function eliminar(met) {
 				 <table class="table table-bordered" align="center">
   <thead>
     <tr>
-    	<th align="center">Nombre</th>
-					<th align="center">Apellido</th>
-					<th align="center">Telefono</th>
-					<th align="center">Fecha Nacimiento</th>
-					<th align="center">Numero Documento</th>
-					<th align="center">Mail</th>
-					<th align="center">Tipo Persona</th>
-					<th align="center" colspan="2">Acción</th>
+    	<td align="center">Nombre</th>
+					<td align="center">Apellido</td>
+					<td align="center">Telefono</td>
+					<td align="center">Fecha Nacimiento</td>
+					<td align="center">Numero Documento</td>
+					<td align="center">Mail</td>
+					<td align="center">Tipo Persona</td>
+					<td align="center" colspan="2">Acción</td>
           </tr>
   </thead>
   
@@ -100,23 +100,23 @@ function eliminar(met) {
 				%>
   <tbody>
     <tr>
-      <th scope="row"><%=c.getNombre()%></th>
-      				<th><%=c.getApellido()%></th>
-					<th><%=c.getTelefono()%></th>
-					<th><%=c.getFechaNacimiento().toString()%></th>
-					<th><%=c.getNumeroDocumento()%></th>
-					<th><%=c.getMail()%></th>
-					<th><%=c.getTipoPersona().getDescripcion()%></th>
-					<th>
+      <td scope="row"><%=c.getNombre()%></td>
+      				<td><%=c.getApellido()%></td>
+					<td><%=c.getTelefono()%></td>
+					<td><%=c.getFechaNacimiento().toString()%></td>
+					<td><%=c.getNumeroDocumento()%></td>
+					<td><%=c.getMail()%></td>
+					<td><%=c.getTipoPersona().getDescripcion()%></td>
+					<td>
 					<button	class="botonEditar"
 							onclick="javascript: editar('/admin/listarPersonas/')"
 							value="<%= c.getIdPersona()%>" id="editar" name="editar">Editar</button> 
-					</th>
-					<th>	
+					</td>
+					<td>	
 					<button class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarPersonas/')"
 							value="<%= c.getIdPersona()%>" id="eliminar" name="eliminar">Eliminar</button>
-					</th>
+					</td>
 
 				<%
 					}

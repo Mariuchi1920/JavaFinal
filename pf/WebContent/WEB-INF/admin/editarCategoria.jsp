@@ -121,7 +121,7 @@ if(request.getSession().getAttribute("editador")!=null){
 					<tr>
 						<td>Año Categoria</td>
 						<td><input type="text" name="añoCategoria" id="añoCategoria"
-							value="<%= añoCategoria %>" class="form-control" placeholder="nombre..." required="" /></td>
+							value="<%= añoCategoria %>" class="form-control" placeholder="nombre..." /></td>
 
 					</tr>
 
@@ -131,7 +131,7 @@ if(request.getSession().getAttribute("editador")!=null){
 					<tr>
 						<td>Descripcion:</td>
 						<td><input type="text" name="descripcion" id="descripcion"
-							value="<%= descripcion %>"class="form-control" placeholder="nombre..." required="" /></td>
+							value="<%= descripcion %>"class="form-control" placeholder="nombre..."  /></td>
 					</tr>
 					<tr>
 						<td>Estado:</td>
@@ -142,8 +142,8 @@ if(request.getSession().getAttribute("editador")!=null){
 			
                                			 LinkedList <TipoEstado> listaEstado= catalogo.getTipoEstados();
                                			 %> <!--NO OLVIDAR LO QUE VA AL SERLVET ES EL NAME  -->
-							<select name="listaTipoEStado" id="tipoEstado" class="form-control" placeholder="Selecciones tipo de estado" required="" >
-								<option value="" selected="selected">- selecciona tipo de estado-</option>
+							<select name="listaTipoEStado" id="tipoEstado" class="form-control" placeholder="Selecciones tipo de estado"  >
+								<!-- <option value="-1" selected="selected">- selecciona tipo de estado-</option> -->
 								<% for(TipoEstado te :listaEstado){  
                                			if(encontrado!=null){
                                			     if(estado.getIdTipoEstado()== te.getIdTipoEstado()){%>

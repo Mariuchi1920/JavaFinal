@@ -58,7 +58,7 @@
 		  				dirLocal.focus();
 					    return false; 
 		}else{
-		    alert("Se ha registrado Un nuevo torneo!");
+		  
 			return true;
 		}
 	}
@@ -97,7 +97,7 @@
 	int idTorneo=0;
 	String nombre="";
 	Date fechaI=Util.recuperarHoraActualStringDate();
-	Date fechaF=Util.recuperarHoraActualStringDate();
+	Date fechaF=fechaI;
 	TipoEstado estado = new TipoEstado();
 	Equipo equipoCampeon=null;
 	
@@ -303,24 +303,6 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 	
 	
-	<script type="text/javascript">
-	(function(){
-		'use strict';
-		
-		window.addEventListenner('load',function(){
-			var form= document.getElementById('needs-validation');
-			form.addEventListenner('submit',function(event){
-				if(from.checkValidty()==false){
-					event.preventDefault();
-					event.stopPropagation();
-					
-				}
-			form.classList.add('was-validated');
-			},false);
-		},false);
-	})();
-		
-		
-	</script>
+
 </body>
 </html>

@@ -89,18 +89,18 @@ function eliminar(met) {
 					
 					for (Categoria c : categorias) {%>
 		 <tr>
-					<th><%=c.getAñoCategoria()%></th>
-					<th><%=c.getDescripcion()%></th>
-					<th><%=c.getEstado().getDescripcion()%></th>
-					<th>
+					<td><%=c.getAñoCategoria()%></td>
+					<td><%=c.getDescripcion()%></td>
+					<td><%=c.getEstado().getDescripcion()%></td>
+					<td>
 					<button class="botonEditar" onclick="javascript: editar('admin/listarCategoria/editar')" value="<%= c.getIdCategorias()%>" id="editar" name="editar">Editar</button> 
-					</th>
-					<th>
+					</td>
+					<td>
 						<button
 							class="botonEliminar"
 							onclick="javascript: eliminar('admin/listarCategoria/eliminar')"
 							value="<%= c.getIdCategorias()%>" id="eliminar" name="eliminar">Eliminar</button>
-					</th>
+					</td>
 
 
 

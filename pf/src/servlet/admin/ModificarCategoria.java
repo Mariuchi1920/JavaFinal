@@ -93,15 +93,15 @@ public class ModificarCategoria extends HttpServlet {
 			}
 		} catch (SQLException | IOException | NumberFormatException ex) {
 			// TODO: handle exception
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
 
 		}catch (ApplicationException e) {
-			request.setAttribute("error", e.getMessage());
+			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarCategoria");
 		}catch (Exception e) {
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "error inseperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarCategoria");
 		}

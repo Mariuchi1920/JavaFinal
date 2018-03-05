@@ -70,8 +70,8 @@ public class ReguistarPersonas extends HttpServlet {
 				int estado = Integer.parseInt(request.getParameter("listaTipoPersona"));
 				TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
 				persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
-				
-				if(Persona.validarPersonaUsuarioContraseña(persona)){
+				Persona personaEditada = ((Persona) request.getSession().getAttribute("editador"));
+				if(Persona.validarPersonaUsuarioContraseña(persona,personaEditada)){
 					
 					
 					if(validarIngresarTipoPersona(request, response,persona )){
@@ -206,8 +206,11 @@ public class ReguistarPersonas extends HttpServlet {
 		    
 			 
 		}else {
-			
+			if(ok){
 			response.sendRedirect(request.getContextPath() + "/login");
+			}else {
+				response.sendRedirect(request.getContextPath() + "/reguistarPersonas");
+			}
 		}
 		
 	}
