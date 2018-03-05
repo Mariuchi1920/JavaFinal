@@ -142,12 +142,15 @@ public class Persona {
  		
  	}
      
-    public static boolean  validarPersonaUsuarioContraseña(Persona persona) throws ApplicationException, SQLException{
+    public static boolean  validarPersonaUsuarioContraseña(Persona persona, Persona personaIngresada) throws ApplicationException, SQLException{
     	boolean respuesta = true;
     	String usuario = persona.getUsuario().trim();
 		String contraseña = persona.getContraseña().trim();
-    	if(  !usuario.equals("") && usuario.equals(null) && usuario.equals("null") ){
-    		if( !contraseña.equals("") && contraseña.equals(null) && contraseña.equals("null")){
+		if(personaIngresada!=null && personaIngresada.getUsuario().equals(usuario)){
+			
+			respuesta = true;
+		}else if(  !usuario.equals("") && !usuario.equals(null) && !usuario.equals("null") ){
+    		if( !contraseña.equals("") && !contraseña.equals(null) && !contraseña.equals("null")){
     			PersonasDAO catPersona = new PersonasDAO();
     			Persona personaBuscada = catPersona.validarUsuarioPersona(usuario);
     			if(personaBuscada!=null){
@@ -161,7 +164,7 @@ public class Persona {
     			throw new ApplicationException("Debe ingresar una contraseña");
     		}
     		
-    	}else if( !contraseña.equals("") && contraseña.equals(null) && contraseña.equals("null")){
+    	}else if( !contraseña.equals("") && !contraseña.equals(null) && !contraseña.equals("null")){
     		respuesta=false;
     		throw new ApplicationException("Debe ingresar un usuario");
     	}else if(persona.getTipoPersona().getIdTipoPersona()== TipoPersona.ADMINISTADOR){

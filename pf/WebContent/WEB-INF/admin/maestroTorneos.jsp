@@ -120,7 +120,7 @@
   <tbody>
   <tr>
 
-					<th><%=t.getNombre()%></th>
+					<td><%=t.getNombre()%></td>
 					<td><%=t.getFechaInicio()%></td>
 					<td><%=t.getFechaFin()%></td>
 					<td><%=t.getEstado().getDescripcion()%></td>
@@ -141,7 +141,7 @@
 					<th><button 
 					  class="botonEditar"
 							onclick="javascript: editar('/admin/listarTorneo/')"
-							value="<%=t.getIdTorneos()%>" id="editar" name="editar">EDITAR</button>
+							value="<%=t.getIdTorneos()%>" id="editar" name="editar">Editar</button>
 							
 					</th>
 					<%
@@ -150,7 +150,7 @@
 					<%if(t.getEstado().getIdTipoEstado()!=TipoEstado.INICIADO){ %>
 					<th><button class="botonEliminar"
 							onclick="javascript: eliminar('/admin/listarTorne/')"
-							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">ELIMINAR</button>
+							value="<%=t.getIdTorneos()%>" id="eliminar" name="eliminar">Eliminar</button>
 					</th>
                   <%
 					  }
@@ -163,7 +163,7 @@
 					%>
 					 <th><button class="verFixture"
 							onclick="javascript: verfixture('/admin/listarTorneo/')"
-							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">VER FIXTURE</button>
+							value="<%=t.getIdTorneos()%>" id="verfixture" name="verfixture">Ver Fixture</button>
 
 					</th>
 					
@@ -172,7 +172,7 @@
 				%>
 				    <th><button class="botonGenerarFixture"
 							onclick="javascript: fixture('/admin/listarTorneo/')"
-							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">GENERAR FIXTURE</button>
+							value="<%=t.getIdTorneos()%>" id="fixture" name="fixture">Generar Fixture</button>
 					</th>
 				<%
 					}
@@ -187,7 +187,7 @@
 				<% } %>
 				<tr>
 				<th colspan="10">
-			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarTorneo">NUEVO TORNEO</a></th>
+			<a type="button"  href="${pageContext.request.contextPath}/admin/modificarTorneo">Nuevo Torneo</a></th>
 				</tr>	
 		</tbody>
 			</table>

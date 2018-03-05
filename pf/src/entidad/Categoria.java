@@ -56,7 +56,7 @@ public class Categoria {
 		if(cat.equals("")){
 			
 			respuesta= false;
-			throw new ApplicationException("La descripcion esta vacia");
+			throw new ApplicationException("La descripción esta vacia");
 		}
 		
 		if(Util.isNumeric(añoCategoria)){
