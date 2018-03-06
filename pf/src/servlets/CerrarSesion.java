@@ -33,6 +33,16 @@ public class CerrarSesion extends HttpServlet {
 		if (request.getSession(false).getAttribute("editador") != null) {
 			request.getSession(false).removeAttribute("editador");
 		}
+		if (request.getSession(false).getAttribute("jugadorPartido") != null) {
+			request.getSession(false).removeAttribute("jugadorPartido");
+		}
+		if (request.getSession(false).getAttribute("agregarJugador") != null) {
+			request.getSession(false).removeAttribute("agregarJugador");
+		}
+		if (request.getSession(false).getAttribute("editarEntrenador") != null) {
+			request.getSession(false).removeAttribute("editarEntrenador");
+		}
+	
 		request.getSession(false).removeAttribute("usuario");
 		request.getSession(false).invalidate();
 		request.getRequestDispatcher("/WEB-INF/cerrarSesion.jsp").forward(

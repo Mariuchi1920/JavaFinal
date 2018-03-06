@@ -47,7 +47,7 @@ public class ListarTorneo extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		request.getSession(false).setAttribute("editador", null);
+		request.getSession(false).removeAttribute("editador");
 		request.getRequestDispatcher("/WEB-INF/admin/maestroTorneos.jsp")
 				.forward(request, response);
 

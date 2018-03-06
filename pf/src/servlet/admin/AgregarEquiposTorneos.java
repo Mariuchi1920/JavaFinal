@@ -78,7 +78,11 @@ public class AgregarEquiposTorneos extends HttpServlet {
 				eqTor.setEquipos(equipo1);
 				equipoE.eliminarEquipoTorneo(eqTor);
 				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
-			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
+			} else if (request.getParameter("volver") != null ){
+				
+				response.sendRedirect(request.getContextPath()+ "/admin/modificarTorneo");
+				
+			}else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
 				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {

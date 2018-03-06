@@ -42,7 +42,7 @@ public class ReguistarPersonas extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		if(request.getSession().getAttribute("usuario")!=null && !((Persona) request.getSession().getAttribute("usuario")).isAdmin()){
-			request.getSession(false).setAttribute("editador", null);
+			request.getSession(false).removeAttribute("editador");
 		}
 		request.getRequestDispatcher("/WEB-INF/editarPersona.jsp").forward(request, response);
 	}

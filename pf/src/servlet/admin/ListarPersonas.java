@@ -39,7 +39,7 @@ public class ListarPersonas extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getSession(false).setAttribute("editador",null);
+		request.getSession(false).removeAttribute("editador");
 		request.getRequestDispatcher("/WEB-INF/admin/maestroPersona.jsp").forward(request, response);
 	}
 

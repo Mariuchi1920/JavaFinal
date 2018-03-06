@@ -37,7 +37,8 @@ public class VerModificarPartido extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getSession(false).setAttribute("jugadorPartido",null);
+		request.getSession(false).removeAttribute("jugadorPartido");
+		
 		request.getRequestDispatcher("/WEB-INF/admin/editarPartido.jsp").forward(request, response);
 	}
 

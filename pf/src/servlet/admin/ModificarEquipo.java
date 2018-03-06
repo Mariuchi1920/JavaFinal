@@ -43,8 +43,9 @@ public class ModificarEquipo extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getSession(false).setAttribute("editarEntrenador", null);
-		request.getSession(false).setAttribute("agregarJugador", null);
+		request.getSession(false).removeAttribute("editarEntrenador");
+		request.getSession(false).removeAttribute("agregarJugador");
+		
 		request.getRequestDispatcher("/WEB-INF/admin/editarEquipo.jsp")
 				.forward(request, response);
 	}
