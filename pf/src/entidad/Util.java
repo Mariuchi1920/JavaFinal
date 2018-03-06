@@ -144,6 +144,8 @@ public class Util {
 		
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR,8);
+        cal.set(Calendar.MINUTE,0);
+        cal.set(Calendar.SECOND,0);
         cal.add(Calendar.HOUR, horas); //minus number would decrement the days
         return new Time(cal.getTimeInMillis());
     }
