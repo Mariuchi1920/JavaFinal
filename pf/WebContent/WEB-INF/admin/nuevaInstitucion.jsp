@@ -177,7 +177,7 @@ if(request.getSession().getAttribute("editador")!=null){
 			<%if(encontrado!=null){ %>
 			<button align="center"  class="botonEditar"
 				onclick="javascript: editar('${pageContext.request.contextPath}/admin/modificarInstitucion/editar')"
-				id="editar" value="editar" name="editar">Editar</button>
+				id="editar" value="editar" name="editar">Guardar cambios</button>
 
 			<% }else{%>
 

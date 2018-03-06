@@ -56,9 +56,7 @@ public class ListarEquipo extends HttpServlet {
 
 			if (request.getParameter("editar") != null) {
 				String[] editador = request.getParameter("editar").split("/");
-				equipo = catEquipo.buscarporIdsEquipo(
-						Integer.parseInt(editador[1]),
-						Integer.parseInt(editador[0]), editador[2]);
+				equipo = catEquipo.buscarporIdsEquipo(Integer.parseInt(editador[1]),Integer.parseInt(editador[0]), editador[2]);
 
 				request.getSession().setAttribute("editador", equipo);
 				// ////
