@@ -7,8 +7,7 @@ import com.mysql.jdbc.Driver;
 public class Conexion {
 
 	public String userDb="root";
-
-	public String passDb= "";
+	public String passDb= "SRSssm73845";
 	///public String passDb= "BSAvat15793";
 	public String host= "localhost";
 	public String port= "3306";
@@ -23,10 +22,11 @@ public class Conexion {
 	
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
-		///con=DriverManager.getConnection("jdbc:mysql://node14879-proyectojava.jelastic.saveincloud.net:3306/baseligaefe",userDb, passDb);
-		
-		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/baseligaefe",userDb, passDb);
+		///con=DriverManager.getConnection("node14934-ligaefatpjava.jelastic.saveincloud.net/baseligaefe",userDb, passDb);
+//		"jdbc:mysql://localhost:3306/baseligaefe",userDb, passDb base maria orlando
+		con=DriverManager.getConnection("jdbc:mysql://node14934-ligaefatpjava.jelastic.saveincloud.net/baseligaefe",userDb, passDb);
 	//	System.out.println("Se ha conectado a la base:"+ dataBases);
+
 		
 	} catch (ClassNotFoundException e) {
 		

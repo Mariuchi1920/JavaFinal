@@ -62,13 +62,11 @@ public class ModificarInstitucion extends HttpServlet {
 			if(Institucion.validarInstitucion(i)){
 
 				if (request.getParameter("editar") != null) {
-					int id = ((Institucion) request.getSession().getAttribute(
-							"editador")).getIdInstituciones();
+					int id = ((Institucion) request.getSession().getAttribute("editador")).getIdInstituciones();
 					i.setIdInstituciones(id);
 	
 					instidao.modificarIstitucion(i);
-					response.sendRedirect(request.getContextPath()
-							+ "/admin/listarInstituciones");
+					response.sendRedirect(request.getContextPath()+ "/admin/listarInstituciones");
 	
 				} else if (request.getParameter("registar") != null) {
 	
