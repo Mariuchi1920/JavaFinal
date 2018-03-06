@@ -37,6 +37,7 @@
 
 	function agregarEntrenador(met) {
 		if(confirm("Estas seguro que desea agregarlo al Equipo")){
+			document.myform.volver.value="";
 			document.myform.elimiarJugador.value="";
 			document.myform.agregarJugador.value="";
 		    document.myForm.action=met;
@@ -45,6 +46,7 @@
 	
 	function agregarJugador(met) {
 		if(confirm("Estas seguro que desea agregarlo el Jugador al equipo")){
+			document.myform.volver.value="";
 			document.myform.elimiarJugador.value="";
 			document.myform.agregarEntrenador.value="";
 		    document.myForm.action=met;
@@ -52,11 +54,22 @@
     }
 	function elimiarJugador(met) {
 		if(confirm("Estas seguro que desea Eliminar este Jugador?")){
+			  document.myform.volver.value="";
 			document.myform.agregarEntrenador.value="";
 			document.myform.agregarJugador.value="";
 			document.myForm.action=met;
 		};
     }
+	
+	function volver(met) {
+		    document.myform.elimiarJugador.value="";
+			document.myform.agregarEntrenador.value="";
+			document.myform.agregarJugador.value="";
+			document.myForm.action=met;
+		
+    }
+	
+	
 	
 	</script>
 </head>
@@ -160,7 +173,7 @@
 					<%if(encontrado!=null){ %>
 					<td> 
 					<select name="listaEntrenadores"
-					id="listaEntrenadores" class="form-control" placeholder="Selecciona Opcion" required="">
+					id="listaEntrenadores" class="form-control" placeholder="Selecciona Opcion" >
 						<%
 							  PersonasDAO catPersonas = new PersonasDAO();
 							  LinkedList<Persona> entrenadores = new LinkedList<Persona>();
@@ -226,6 +239,10 @@
 
 
 			</table>
+			
+			<button class="verFixture"
+						onclick="javascript: volver('${pageContext.request.contextPath}/admin/agregarPersonasEquipo')"
+						id="volver" value="volver" name="volver">Volver al Equipo</button>
 
 
 		</form>

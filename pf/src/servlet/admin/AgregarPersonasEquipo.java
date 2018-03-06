@@ -53,7 +53,13 @@ public class AgregarPersonasEquipo extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			if (request.getParameter("agregarEntrenador") != null) {
+			if (request.getParameter("volver") != null) {
+				
+				
+				
+				response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
+
+			} else if (request.getParameter("agregarEntrenador") != null) {
 				int idPersona = Integer.parseInt(request
 						.getParameter("listaEntrenadores"));
 				PersonasDAO catPersona = new PersonasDAO();

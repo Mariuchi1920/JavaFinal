@@ -158,8 +158,7 @@ function validarDatos() {
 		CategoriasDAO catdao = new CategoriasDAO();
 
 		if (request.getSession().getAttribute("editador") != null) {
-			encontrado = (Persona) request.getSession().getAttribute(
-					"editador");
+			encontrado = (Persona) request.getSession().getAttribute("editador");
 			nombre = String.valueOf(encontrado.getNombre());
 			apellido = encontrado.getApellido();
 			tipoDocumento = encontrado.getTipoDocumento();
@@ -203,7 +202,7 @@ function validarDatos() {
 							<%
 								} else {
 							%>
-
+							<td colspan="2">Registrar</td>
 							<%
 								}
 							%>

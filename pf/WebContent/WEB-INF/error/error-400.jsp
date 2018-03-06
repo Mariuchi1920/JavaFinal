@@ -4,16 +4,20 @@
 <html>
 	<head>		
 		<title>Error 400 - Bad Request</title>
-		<jsp:include page="/WEB-INF/cabecera.jsp" />
+	
 	</head>
 	<body>
 		
-		<div class="container">
-			<h2>La solicitud no es válida.</h2>
-   			<a href="${pageContext.request.contextPath}/login" class="btn btn-info btn-lg">
-   				<span class="glyphicon glyphicon-home"></span> Ir al inicio 
-   			</a>
-    		<hr>
+		<div id="contenedor">
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
+	    </div>
+		<div class="col-sm-12 mysocial-login">
+			<h3 style="color: red;">Ocurrio un error inesperado, vuelva a intentarlo</h3>
+   			<a href="${pageContext.request.contextPath}/admin" class="btn btn-info btn-lg">
+   				<span class="glyphicon glyphicon-home"></span> Volver al menu</a>
+    		
+    		
+    	<div>	
 	    		<jsp:include page="/WEB-INF/pie.jsp" />
     	</div>
 		

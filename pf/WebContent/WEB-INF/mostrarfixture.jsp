@@ -76,7 +76,7 @@ function verpartido(met) {
 		<div class="container tablaPersona">
 		<form id="myForm" name="myForm" action="" method="post">
 		
-		<h3>Torneo : <%=nombre %> </h3>
+		<h3 style="color: black;">Torneo : <%=nombre %> </h3>
 		<%
 		if(fixture!=null){
 			  
