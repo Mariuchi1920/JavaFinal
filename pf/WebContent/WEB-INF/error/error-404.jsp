@@ -7,15 +7,17 @@
         <jsp:include page="/WEB-INF/cabecera.jsp" />
     </head>
     <body>
-    	
-    	<div class="container">
-    	<h1>Error 404</h1>
-    		<h2>LA PÁGINA SOLICITADA NO SE PUDO ENCONTRAR.</h2>
-   			<a href="${pageContext.request.contextPath}/login" class="btn btn-info btn-lg">
-   				<span class="glyphicon glyphicon-home"></span> volver al inicio 
-   			</a>
-    		<hr>
-	   <jsp:include page="/WEB-INF/pie.jsp" />
+    	<div id="contenedor">
+		<jsp:include page="/WEB-INF/cabecera.jsp" />
+	    </div>
+		<div class="col-sm-12 mysocial-login">
+			<h3 style="color: red;">Ocurrio un error inesperado, vuelva a intentarlo</h3>
+   			<a href="${pageContext.request.contextPath}/admin" class="btn btn-info btn-lg">
+   				<span class="glyphicon glyphicon-home"></span> Volver al menu</a>
+    		
+    		
+    	<div>	
+	    		<jsp:include page="/WEB-INF/pie.jsp" />
     	</div>
     	
     	

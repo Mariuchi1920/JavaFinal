@@ -110,7 +110,7 @@ function verpartido(met) {
 		<% }}}else{ %>
 		
 		
-		<h3>No se han encontrados partidos pendientes</h3>
+		<h3 style="color: black;">No se han encontrados partidos pendientes</h3>
 			
 			<%} %>
 		

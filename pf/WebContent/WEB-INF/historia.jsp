@@ -10,7 +10,7 @@
 	<link rel="stylesheet"type="text/css" href="${pageContext.request.contextPath}/CSS/estilos.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/style.css"> 
 
-<title>Listar Torneos</title>
+<title>Historia Liga Efa</title>
 
 <style type="text/css">
 	.fondo{
@@ -24,17 +24,17 @@
 	</style>
 </head>
 <body>
-<div class="container-fluid">
+<div  align="center" class="container-fluid">
 	
 		<div id="contenedor">
 			<jsp:include page="/WEB-INF/cabecera.jsp" />
 		</div>
 		
-		<div class="fondo">
-		<img src="${pageContext.request.contextPath}/imagen/historiaLigaEfa.jpg">
+		<div align="center" class="fondo">
+		<img   src="${pageContext.request.contextPath}/imagen/historiaLigaEfa.jpg">
 		</div>
 		
-		<hr>
+		
 		
 		</div>
 		

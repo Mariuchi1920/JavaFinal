@@ -41,9 +41,10 @@ public class ReguistarPersonas extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		request.getRequestDispatcher("/WEB-INF/editarPersona.jsp").forward(
-				request, response);
+		if(request.getSession().getAttribute("usuario")!=null && !((Persona) request.getSession().getAttribute("usuario")).isAdmin()){
+			request.getSession(false).setAttribute("editador", null);
+		}
+		request.getRequestDispatcher("/WEB-INF/editarPersona.jsp").forward(request, response);
 	}
 
 	/**
@@ -70,14 +71,21 @@ public class ReguistarPersonas extends HttpServlet {
 				int estado = Integer.parseInt(request.getParameter("listaTipoPersona"));
 				TipoPersonaDAO catTipoPersona = new TipoPersonaDAO();
 				persona.setTipoPersona(catTipoPersona.getTipoPersona(estado));
-				Persona personaEditada = ((Persona) request.getSession().getAttribute("editador"));
+				Persona personaEditada= null;
+				if(request.getSession().getAttribute("usuario")!=null && !((Persona) request.getSession().getAttribute("usuario")).isAdmin()){
+					personaEditada = (Persona) request.getSession().getAttribute("usuario");
+				}else{
+					 personaEditada = ((Persona) request.getSession().getAttribute("editador"));
+				}
+				
+				
 				if(Persona.validarPersonaUsuarioContraseña(persona,personaEditada)){
 					
 					
-					if(validarIngresarTipoPersona(request, response,persona )){
+					if(validarIngresarTipoPersona(request, response,persona)){
 					
 						if (request.getParameter("editar") != null) {
-							editarPersona(request, response, persona);
+							editarPersona(request, response, persona , personaEditada);
 							
 						}else if (request.getParameter("registar") != null) {
 							
@@ -152,12 +160,10 @@ public class ReguistarPersonas extends HttpServlet {
 		return respuesta;
 	}
 	
-	public void editarPersona(HttpServletRequest request,HttpServletResponse response, Persona persona) throws SQLException,IOException {
+	public void editarPersona(HttpServletRequest request,HttpServletResponse response, Persona persona, Persona personaEditada) throws SQLException,IOException {
 		PersonasDAO catPersona = new PersonasDAO();
-		Persona personaEditada = ((Persona) request.getSession().getAttribute(
-				"editador"));
-		if (!persona.getNumeroDocumento().equals(
-				personaEditada.getNumeroDocumento())) {
+		
+		if (!persona.getNumeroDocumento().equals(personaEditada.getNumeroDocumento())) {
 			if (catPersona.buscarPersonaDNI(persona.getNumeroDocumento()) == null) {
 				// ///DNI NO EXISTE
 				persona.setIdPersona(personaEditada.getIdPersona());
@@ -193,13 +199,14 @@ public class ReguistarPersonas extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/reguistarPersonas");
 				}
 			} else {
-				if(boton.equals("editar")){
-			 
+				if(ok){
+			
 				response.sendRedirect(request.getContextPath()
 						+ "/user");
+				
 				}else{
 					response.sendRedirect(request.getContextPath()
-							+ "/login");
+							+ "/reguistarPersonas");
 				}
 			}
 			
