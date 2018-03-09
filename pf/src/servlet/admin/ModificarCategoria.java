@@ -93,7 +93,7 @@ public class ModificarCategoria extends HttpServlet {
 			}
 		} catch (SQLException | IOException | NumberFormatException ex) {
 			// TODO: handle exception
-			request.getSession().setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarCategoria");
 
 		}catch (ApplicationException e) {
@@ -101,11 +101,11 @@ public class ModificarCategoria extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarCategoria");
 		}catch (Exception e) {
-			request.getSession().setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarCategoria");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+		
 	}
 
 }

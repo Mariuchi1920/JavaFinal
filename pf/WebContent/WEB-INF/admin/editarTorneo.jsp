@@ -65,11 +65,11 @@
 	
 	
 	function editar(met) {
-		if(confirm("Estas seguro de editar el Torneo?")){
+		
 			document.myform.registar.value="" ;
 		    document.myform.agregarEquipos.value="";  
 		    document.myForm.action=met;
-		};
+		
     }
 	
 	function agregarEquipos(met) {
@@ -81,11 +81,12 @@
     }
 	
 	function registar(met) {
-		if(confirm("Estas seguro de registrar un nuevo Torneo?")){
+		
 			document.myform.editar.value=""  ;
-				 document.myform.agregarEquipos.value=""; 
+			document.myform.agregarEquipos.value=""; 
 		    document.myForm.action=met;
-		};
+		
+
     }
 
 	

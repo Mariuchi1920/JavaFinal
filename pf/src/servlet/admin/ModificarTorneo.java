@@ -118,7 +118,7 @@ public class ModificarTorneo extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			request.getSession().setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarTorneo");
 
 		}catch (ApplicationException e) {
@@ -126,7 +126,7 @@ public class ModificarTorneo extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarTorneo");
 		}catch (Exception e) {
-			request.getSession().setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarTorneo");
 		}

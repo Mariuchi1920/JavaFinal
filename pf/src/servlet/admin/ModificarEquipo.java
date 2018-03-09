@@ -60,13 +60,6 @@ public class ModificarEquipo extends HttpServlet {
 		try {
 
 			if (request.getParameter("editarEntrenador") != null) {
-				/*
-				 * int idcat=
-				 * Integer.parseInt(request.getParameter("editarEntrenador"));
-				 * PersonasDAO catpersona = new PersonasDAO();
-				 * catpersona.buscarPersonaId(idcat);
-				 */
-
 				request.getSession()
 						.setAttribute(
 								"editarEntrenador",
@@ -75,19 +68,7 @@ public class ModificarEquipo extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/agregarPersonasEquipo");
 
-			} else if (request.getParameter("elimiarJugador") != null) {
-				int idcat = Integer.parseInt(request
-						.getParameter("elimiarJugador"));
-				PersonasDAO catpersona = new PersonasDAO();
-				EquiposJugadores equipo = new EquiposJugadores();
-				equipo.setEquipo(((Equipo) request.getSession().getAttribute(
-						"editador")));
-				EquiposJugadoresDAO catEJ = new EquiposJugadoresDAO();
-				catEJ.eliminarJugadorEquipo(equipo, catpersona.buscarPersonaId(idcat));
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/modificarEquipo");
-
-			} else if (request.getParameter("agregarJugador") != null) {
+			}  else if (request.getParameter("agregarJugador") != null) {
 
 				EquiposJugadoresDAO buscadore = new EquiposJugadoresDAO();
 				EquiposJugadores equipo = new EquiposJugadores();
@@ -113,12 +94,14 @@ public class ModificarEquipo extends HttpServlet {
 				equipo.setEntrenador(catPersona.buscarPersonaId(Integer
 						.parseInt(request.getParameter("listaEntrenadores"))));
 				equipo.setNombreEquipo(request.getParameter("nombreEquipo"));
-				catEquipo.nuevoEquipo(equipo);
-				response.sendRedirect(request.getContextPath()
-						+ "/admin/listarEquipo");
+				if(Equipo.validateEquipo(equipo)){
+					catEquipo.nuevoEquipo(equipo);
+					response.sendRedirect(request.getContextPath()
+							+ "/admin/listarEquipo");
+				}
 
 			} else if (request.getParameter("agregarEquipo") == null && request.getParameter("agregarJugador") == null 
-					&& request.getParameter("elimiarJugador") == null && request.getParameter("editarEntrenador") == null ) {
+					 && request.getParameter("editarEntrenador") == null ) {
 
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarEquipo");
@@ -128,18 +111,18 @@ public class ModificarEquipo extends HttpServlet {
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()+ "/admin/modificarEquipo");
 
-		} catch (ApplicationException e) {
+		}catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath() + "/admin/modificarEquipo");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+		
 
 	}
 

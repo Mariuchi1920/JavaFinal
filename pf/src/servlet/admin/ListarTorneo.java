@@ -120,7 +120,7 @@ public class ListarTorneo extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/admin/listarTorneo");
 		}
 		
-		System.out.println(request.getSession().getAttribute("error"));
+		
 
 	}
 

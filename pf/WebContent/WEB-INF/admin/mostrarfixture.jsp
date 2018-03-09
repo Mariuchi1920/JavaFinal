@@ -22,8 +22,7 @@
 </head>
 <script type="text/javascript">
 	
-function verpartido(met) {
-// 	document.myform.eliminar.value=""     
+function verpartido(met) {   
 	document.myForm.action = met;
 }
 

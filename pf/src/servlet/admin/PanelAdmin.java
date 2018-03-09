@@ -84,15 +84,15 @@ public class PanelAdmin extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}catch (Exception e) {
-			request.setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarInstituciones");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+		
 	}
 
 }

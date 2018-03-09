@@ -82,7 +82,7 @@ public class AgregarEquiposTorneos extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath()+ "/admin/modificarTorneo");
 				
-			}else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null){
+			}else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null && request.getParameter("volver") != null ){
 				response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
@@ -102,7 +102,7 @@ public class AgregarEquiposTorneos extends HttpServlet {
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()+ "/admin/agregarEquiposTorneos");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+		
 	}
 
 }

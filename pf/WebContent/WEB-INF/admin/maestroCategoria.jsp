@@ -25,17 +25,17 @@
 <script type="text/javascript" language="JavaScript"> 
 	
 function editar(met) {
-	 alert("Hola Mundo!");
-	document.myform.eliminar.value=""     
+	
+	document.myform.eliminar.value="";     
 	document.myForm.action = met;
 }
 function eliminar(met) {
-	if (confirm("Estas seguro de eliminar Categoría?")) {
+	
 		
-		document.myform.editar.value=""  
+		document.myform.editar.value="";
 		document.myForm.action = met;
 	
-	};
+	
 	}
 	
 	</script>

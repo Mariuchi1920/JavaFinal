@@ -55,9 +55,6 @@ public class MostrarFixture extends HttpServlet {
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/verModificarPartido");
 				
-				
-				
-				
 			}else{
 				////request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 				response.sendRedirect(request.getContextPath()
@@ -78,7 +75,7 @@ public class MostrarFixture extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/mostrarFixture");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+		
 	}
 
 }

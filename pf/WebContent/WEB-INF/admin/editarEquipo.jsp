@@ -37,37 +37,26 @@
 	
 	function editarEntrenador(met) {
 		
-			document.myform.elimiarJugador.value="";
-			document.myform.agregarJugador.value="";
-			document.myform.agregarEquipo.value="";
-		    document.myForm.action=met;
+		document.myform.elimiarJugador.value="";
+		document.myform.agregarJugador.value="";
+		document.myform.agregarEquipo.value="";
+	    document.myForm.action=met;
 		
     }
 	
-	function elimiarJugador(met) {
-		if(confirm("Estas seguro que desea Eliminar este Jugador?")){
-			document.myform.editarEntrenador.value="";
-			document.myform.agregarJugador.value="";
-			document.myform.agregarEquipo.value="";
-		    document.myForm.action=met;
-		};
-    }
+	
 	
 	function agregarJugador(met) {
-	      	document.myform.elimiarJugador.value="";
-		    document.myform.editarEntrenador.value="";
+	      	document.myform.editarEntrenador.value="";
 		    document.myform.agregarEquipo.value="";
 		    document.myForm.action=met;
 		
     }
 	function agregarEquipo(met){
 		
-		if(confirm("Estas seguro que desea agreagr este Equipo?")){
-			document.myform.elimiarJugador.value="";
-			document.myform.editarEntrenador.value="";
+	        document.myform.editarEntrenador.value="";
 			document.myform.agregarJugador.value="";
 		    document.myForm.action=met;
-		};
 		
 	}
 	
@@ -96,7 +85,15 @@ if(request.getSession().getAttribute("editador")!=null){
 }
 %>
 
-<div class="row">
+
+
+<div class="container-fluid">
+	
+		<div id="contenedor">
+			<jsp:include page="/WEB-INF/cabecera.jsp" />
+		</div>
+		
+		<div class="row">
 			<div class="col-sm-12 mysocial-login">
 				
 				<%
@@ -114,12 +111,6 @@ if(request.getSession().getAttribute("editador")!=null){
 				
 			</div>
 	</div>
-
-<div class="container-fluid">
-	
-		<div id="contenedor">
-			<jsp:include page="/WEB-INF/cabecera.jsp" />
-		</div>
 	
 		<!-- slider -->
 		<div class="container tablaPersona">

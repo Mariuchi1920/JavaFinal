@@ -45,11 +45,11 @@
 <script type="text/javascript">
 	
 	function editar(met) {
-		if(confirm("Estas seguro de editar el Partido?")){
+	
 			document.myform.visitante.value="" ;
 		    document.myform.local.value="";  
 		    document.myForm.action=met;
-		};
+	
     }
 	
 	function visitante(met) {
@@ -61,11 +61,11 @@
     }
 	
 	function local(met) {
-		if(confirm("Estas seguro de registrar un nuevo Torneo?")){
+		
 			document.myform.editar.value=""  ;
 		    document.myform.visitante.value=""; 
 		    document.myForm.action=met;
-		};
+		
     }
 
 	

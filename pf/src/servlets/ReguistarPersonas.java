@@ -90,7 +90,7 @@ public class ReguistarPersonas extends HttpServlet {
 						}else if (request.getParameter("registar") != null) {
 							
 							reguistarPersona (request, response, persona);
-						}else{
+						}else if (request.getParameter("editar") == null && request.getParameter("registar") == null ){
 					         /// No clickeo Opcion
 					        definirRedireccion (request,response, false,"registar");
 				        }
@@ -120,7 +120,7 @@ public class ReguistarPersonas extends HttpServlet {
 			request.getSession().setAttribute("error","Error inesperado");
 			definirRedireccion (request,response,false,"registar");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+		
 	}
 	
 	

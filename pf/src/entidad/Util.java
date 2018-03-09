@@ -155,6 +155,8 @@ public class Util {
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	private static final String PATTERN_NOMBRE_APELLIDO = "([a-z]|[A-Z]|\\s)+";
 	private static final String PATTERN_NUMEROS = "/[^0-9]/";
+	private static final String PATTERN_ALFANUMERICO = "/[A-Za-z0-9_]/";
+	
  
    
     public static boolean validateEmail(String email) {
@@ -164,6 +166,18 @@ public class Util {
  
         // Match the given input against this pattern
         Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+ 
+    }
+    
+
+    public static boolean validateAlfanumerico(String nombre) {
+ 
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_ALFANUMERICO);
+ 
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(nombre);
         return matcher.matches();
  
     }

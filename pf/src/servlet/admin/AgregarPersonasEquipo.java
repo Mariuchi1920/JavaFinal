@@ -78,11 +78,7 @@ public class AgregarPersonasEquipo extends HttpServlet {
 				PersonasDAO catPersona = new PersonasDAO();
 				EquiposJugadoresDAO catEJ = new EquiposJugadoresDAO();
 				EquiposJugadores equipo = ((EquiposJugadores) request.getSession().getAttribute("agregarJugador"));
-				
-				
-
 				catEJ.nuevoJugadorEquipo(equipo,catPersona.buscarPersonaId(idPersona));
-				
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/agregarPersonasEquipo");
 			} else if (request.getParameter("elimiarJugador") != null) {
@@ -100,24 +96,25 @@ public class AgregarPersonasEquipo extends HttpServlet {
 
 			}else if (request.getParameter("elimiarJugador") == null &&
 					request.getParameter("agregarJugador")  == null && 
-					request.getParameter("agregarEntrenador") == null){
+					request.getParameter("agregarEntrenador") == null &&
+					request.getParameter("volver") != null){
 				  response.sendRedirect(request.getContextPath() + "/admin/agregarPersonasEquipo");
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			System.out.println(ex.getMessage());
+			
 			request.getSession().setAttribute("error","ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/agregarPersonasEquipo");
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			
 			request.getSession().setAttribute("error", e.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/agregarPersonasEquipo");
 			
 		}catch(Exception e){
-			System.out.println(e.getMessage());
+			
 			request.getSession().setAttribute("error","ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/agregarPersonasEquipo");

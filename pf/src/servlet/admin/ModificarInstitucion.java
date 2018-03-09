@@ -85,7 +85,7 @@ public class ModificarInstitucion extends HttpServlet {
 
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			request.getSession().setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarInstitucion");
 		}catch (ApplicationException e) {
@@ -93,11 +93,11 @@ public class ModificarInstitucion extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarInstitucion");
 		}catch (Exception e) {
-			request.getSession().setAttribute("error", "error inseperado");
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/modificarInstitucion");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+	
 
 	}
 

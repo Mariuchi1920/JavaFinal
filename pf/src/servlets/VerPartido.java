@@ -47,12 +47,7 @@ public class VerPartido extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
         try {
-        	if(request.getParameter("editar")!=null){
-        		Partidos partido = (Partidos)request.getSession().getAttribute("editador");
-        		request.getSession().setAttribute("editador", partido.getJornada().getTorneos());
-	            response.sendRedirect(request.getContextPath() + "/mostrarFixture");
-        		
-        	}else if(request.getParameter("local")!=null){
+        	if(request.getParameter("local")!=null){
 				Partidos partido = (Partidos)request.getSession().getAttribute("editador");
 				
 				 request.getSession().setAttribute("jugadorPartido", partido.getEquipoLocal());

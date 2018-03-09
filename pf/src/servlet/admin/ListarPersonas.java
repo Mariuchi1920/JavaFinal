@@ -78,18 +78,12 @@ public class ListarPersonas extends HttpServlet {
 								+ "/admin/listarPersonas");
 					}
 			    	
-			    	
 			    }else {
 			    	perDao.eliminarPersona(persona);
 					response.sendRedirect(request.getContextPath()
 							+ "/admin/listarPersonas");
 			    }
 				
-
-				
-				
-				
-
 			} else if (request.getParameter("eliminar") == null && request.getParameter("editar") == null  ){
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/listarPersonas");
@@ -114,7 +108,7 @@ public class ListarPersonas extends HttpServlet {
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarPersonas");
 		}
-		System.out.println(request.getSession().getAttribute("error"));
+	
 	}
 
 }

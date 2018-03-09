@@ -30,25 +30,24 @@
 <script type="text/javascript">
 	
 	function agregar(met) {
-		if(confirm("Estas seguro que desea agregar al Equipo del Torneo? ")){
+	
 			document.myForm.volver.value="";
 			document.myForm.eliminar.value="";
 		    document.myForm.action=met;
-		};
-    }
+	}
 	function eliminar(met) {
-		if(confirm("Estas seguro que desea eliminar al Equipo del Torneo? ")){
+		
 			document.myForm.volver.value="";
 			document.myForm.editar.value="";
 		    document.myForm.action=met;
-		};
+		
     }
 	function volver(met) {
-		if(confirm("Estas seguro que desea eliminar al Equipo del Torneo? ")){
-			document.myForm.eliminar.value="";
-			document.myForm.editar.value="";
-		    document.myForm.action=met;
-		};
+		
+		document.myForm.eliminar.value="";
+		document.myForm.editar.value="";
+	    document.myForm.action=met;
+		
     }
 	
 	

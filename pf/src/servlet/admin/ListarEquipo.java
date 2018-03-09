@@ -59,7 +59,7 @@ public class ListarEquipo extends HttpServlet {
 				equipo = catEquipo.buscarporIdsEquipo(Integer.parseInt(editador[1]),Integer.parseInt(editador[0]), editador[2]);
 
 				request.getSession().setAttribute("editador", equipo);
-				// ////
+				
 				response.sendRedirect(request.getContextPath()
 						+ "/admin/modificarEquipo");
 			} else if (request.getParameter("eliminar") != null) {
@@ -77,18 +77,18 @@ public class ListarEquipo extends HttpServlet {
 			}
 		} catch (IOException | NumberFormatException | SQLException ex) {
 			// TODO: handle exception
-			System.out.println(ex.getMessage());
+			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarEquipo");
 		}catch (ApplicationException ex) {
 			// TODO: handle exception
-			System.out.println(ex.getMessage());
+		
 			request.getSession().setAttribute("error", ex.getMessage());
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarEquipo");
 		}catch (Exception ex) {
 			// TODO: handle exception
-			System.out.println(ex.getMessage());
+			
 			request.getSession().setAttribute("error", "Ocurrio un error inesperado");
 			response.sendRedirect(request.getContextPath()
 					+ "/admin/listarEquipo");

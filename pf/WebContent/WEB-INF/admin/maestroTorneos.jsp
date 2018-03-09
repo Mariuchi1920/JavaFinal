@@ -34,22 +34,19 @@
     }
 	
 	function eliminar(met) {
-		if(confirm("Estas seguro de eliminar el Torneo?")){
-			document.myform.verfixture.value="";
-			document.myform.fixture.value="";
-			document.myform.editar.value=""  ;
-		    document.myForm.action=met;
-		};
+		document.myform.verfixture.value="";
+		document.myform.fixture.value="";
+		document.myform.editar.value=""  ;
+		document.myForm.action=met;
+		
     }
 	
 	function fixture(met) {
-		if(confirm("Estas seguro de realizar el Fixture?")){
 			document.myform.verfixture.value="";
 			document.myform.editar.value="" ;
 		    document.myform.eliminar.value="";  
 		    document.myForm.action=met;
-		};
-    }
+	}
 	
 	function verfixture(met) {
 	     	document.myform.fixture.value="";

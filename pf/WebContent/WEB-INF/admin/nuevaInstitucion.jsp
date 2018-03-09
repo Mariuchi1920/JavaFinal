@@ -86,17 +86,16 @@ function validarDatos(){
 }
 		
 	function editar(met) {
-		if(confirm("Estas seguro de editar esta Institución?")){
-			document.myform.registar.value=""  
-		    document.myForm.action=met;
-		}; 
+		
+		document.myform.registar.value=""; 
+	    document.myForm.action=met;
+		
     }
 	
 	function registar(met) {
-		if(confirm("Estas seguro de registrar una nueva Institución?")){
-			document.myform.editar.value=""  
+			document.myform.editar.value="";  
 		    document.myForm.action=met;
-		};
+		
     }
 
 	 </script>

@@ -93,19 +93,17 @@ function validarDatos() {
 }
 
 	function editar(met) {
-		if (confirm("Estas seguro que desea hacer cambios?")) {
-			document.myform.registar.value = "";
-			document.myForm.action = met;
-		}
-		;
+	
+		document.myform.registar.value = "";
+		document.myForm.action = met;
+	
 	}
 
 	function registar(met) {
-		if (confirm("Estas seguro que desea registrarse?")) {
-			document.myform.editar.value = "";
-			document.myForm.action = met;
-		}
-		;
+		
+		document.myform.editar.value = "";
+		document.myForm.action = met;
+		
 	}
 	
 	

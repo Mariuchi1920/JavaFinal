@@ -36,29 +36,29 @@
 <script type="text/javascript">
 
 	function agregarEntrenador(met) {
-		if(confirm("Estas seguro que desea agregarlo al Equipo")){
+		
 			document.myform.volver.value="";
 			document.myform.elimiarJugador.value="";
 			document.myform.agregarJugador.value="";
 		    document.myForm.action=met;
-		};
+		
     }
 	
 	function agregarJugador(met) {
-		if(confirm("Estas seguro que desea agregarlo el Jugador al equipo")){
+		
 			document.myform.volver.value="";
 			document.myform.elimiarJugador.value="";
 			document.myform.agregarEntrenador.value="";
 		    document.myForm.action=met;
-		};
+		
     }
 	function elimiarJugador(met) {
-		if(confirm("Estas seguro que desea Eliminar este Jugador?")){
-			  document.myform.volver.value="";
+		
+			document.myform.volver.value="";
 			document.myform.agregarEntrenador.value="";
 			document.myform.agregarJugador.value="";
 			document.myForm.action=met;
-		};
+		
     }
 	
 	function volver(met) {

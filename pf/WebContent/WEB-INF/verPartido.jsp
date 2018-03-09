@@ -44,28 +44,21 @@
 <link rel="stylesheet" type="text/css" href="CSS/style.css">
 <script type="text/javascript">
 	
-	function editar(met) {
-		if(confirm("Estas seguro de editar el Partido?")){
-			document.myform.visitante.value="" ;
-		    document.myform.local.value="";  
-		    document.myForm.action=met;
-		};
-    }
+	
 	
 	function visitante(met) {
 		
-			document.myform.local.value="";
-			document.myform.editar.value=""  ;
-		    document.myForm.action=met;
+		document.myform.local.value="";
+	    document.myForm.action=met;
 		
     }
 	
 	function local(met) {
-		if(confirm("Estas seguro de registrar un nuevo Torneo?")){
-			document.myform.editar.value=""  ;
-		    document.myform.visitante.value=""; 
-		    document.myForm.action=met;
-		};
+		
+			
+	    document.myform.visitante.value=""; 
+	    document.myForm.action=met;
+		
     }
 
 	

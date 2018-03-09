@@ -48,17 +48,17 @@ function carga(){
 }
 	
 	function editar(met) {
-		if(confirm("Estas seguro de editar una nueva categoria?")){
-			document.myform.registar.value=""  
+		
+			document.myform.registar.value=""  ;
 		    document.myForm.action=met;
-		};
+		
     }
 	
 	function registar(met) {
-		if(confirm("Estas seguro de registrar una nueva categoria?")){
-			document.myform.editar.value=""  
+		
+			document.myform.editar.value=""  ;
 		    document.myForm.action=met;
-		};
+		
     }
 
 	

@@ -65,6 +65,23 @@ public class Equipo {
 	
 	
 	
+	public static boolean validateEquipo (Equipo equipo ) throws ApplicationException{
+		boolean  repuesta = true;
+		String nombre= equipo.getNombreEquipo();
+		
+		if(nombre.equals(null) ||nombre.equals("null") ||nombre.equals("") ){
+			repuesta = false;
+			throw new ApplicationException("El nombre del equipo es vacio, debe completarlo");
+		}else if(!Util.validateAlfanumerico(nombre)){
+			repuesta = false;
+			throw new ApplicationException("El nombre del equipo tiene caracteres especiales");
+		}
+		
+		return repuesta;
+		
+	}
+	
+	
 	public static LinkedList<Equipo> removeEquipoLista (LinkedList<Equipo> listaequipos,Equipo equipo2 ){
 		LinkedList<Equipo> lista = listaequipos;
 		

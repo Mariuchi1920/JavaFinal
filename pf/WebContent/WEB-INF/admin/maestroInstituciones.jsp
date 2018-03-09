@@ -23,16 +23,14 @@
 
 	
 function editar(met) {
-	document.myform.eliminar.value=""     
+	document.myform.eliminar.value="";    
 	document.myForm.action = met;
 }
 function eliminar(met) {
-	if (confirm("Estas seguro de eliminar Institución?")) {
-		
-		document.myform.editar.value=""  
-		document.myForm.action = met;
+	document.myform.editar.value="";  
+	document.myForm.action = met;
 	
-	};
+	
 	}
 	
 	</script>

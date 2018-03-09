@@ -48,27 +48,22 @@
 <script type="text/javascript">
 	
 	function editar(met) {
-		if(confirm("Si edita, el partido cambia estado Jugado?")){
+		
 			document.myform.cancelar.value=""  ;
 		    document.myForm.action=met;
-		};
+		
     }
 	
 	function cancelar(met) {
 		
+			document.myform.editar.value="";
 			
-			document.myform.editar.value=""  ;
 		    document.myForm.action=met;
 		
     }
 	
-	function registar(met) {
-		if(confirm("Estas seguro de registrar un nuevo Torneo?")){
-			document.myform.editar.value=""  ;
-				 document.myform.agregarEquipos.value=""; 
-		    document.myForm.action=met;
-		};
-    }
+
+
 
 	
 	</script>
